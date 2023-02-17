@@ -1,11 +1,16 @@
-const withNextra = require("nextra")({
-  theme: "nextra-theme-docs",
-  themeConfig: "./theme.config.tsx",
-  images: {
-    "loader": "akamai",
-    "path": "",
-  },
-  trailingSlash: true,
-});
+const withNextra = require("./nextra.config");
 
-module.exports = withNextra();
+const nextConfig = async () => {
+  const nextraConfig = await withNextra;
+
+  return {
+    ...nextraConfig,
+    images: {
+      loader: "akamai",
+      path: "",
+    },
+    trailingSlash: true,
+  };
+};
+
+module.exports = nextConfig();
