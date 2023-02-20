@@ -1,5 +1,5 @@
 import Link from "next/link";
-import styles from "./counters.module.css";
+import styles from "./quick.module.css";
 
 function Card() {
   return (

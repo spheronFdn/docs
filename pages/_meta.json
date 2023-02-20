@@ -2,13 +2,7 @@
   "index": "Quick Start",
   "billing": "Billing",
   "organization": "Organization",
-  "--": {
-    "type": "separator",
-    "title": "Static App"
-  },
-  "deployment": "Deployment",
-  "projects": "Projects",
-  "edge": "Edge Network",
+  "static": "Static App",
   "about": {
     "title": "About",
     "type": "page"
