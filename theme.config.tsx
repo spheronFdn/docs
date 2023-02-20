@@ -19,6 +19,7 @@ const config: DocsThemeConfig = {
     text: null,
     component: null,
   },
+  navigation: false,
 };
 
 export default config;

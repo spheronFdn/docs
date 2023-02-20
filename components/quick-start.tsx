@@ -5,33 +5,33 @@ function Card() {
   return (
     <main>
       <section className={styles.section}>
-        <div className={styles.card}>
-          <Link href="/billing">
+        <Link href="/billing" className={styles.card}>
+          <div>
             <div className={styles.emoji}>💸</div>
             <h3 className={styles.heading}>Billing</h3>
             <p className={styles.paragraph}>
               Upgrade to Pro to enjoy additional benefits!
             </p>
-          </Link>
-        </div>
-        <div className={styles.card}>
-          <div className={styles.emoji}>🗂️</div>
-          <Link href="/organization">
+          </div>
+        </Link>
+        <Link href="/organization" className={styles.card}>
+          <div>
+            <div className={styles.emoji}>🗂️</div>
             <h3 className={styles.heading}>Organization</h3>
             <p className={styles.paragraph}>
               Learn how to create multiple organizations.
             </p>
-          </Link>
-        </div>
-        <div className={styles.card}>
-          <div className={styles.emoji}>⚡</div>
-          <Link href="/deployment/logs">
+          </div>
+        </Link>
+        <Link href="/static/deployment/logs" className={styles.card}>
+          <div>
+            <div className={styles.emoji}>⚡</div>
             <h3 className={styles.heading}>Static App</h3>
             <p className={styles.paragraph}>
               Deploy static apps from Github, Gitlab, or Bitbucket.
             </p>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </section>
     </main>
   );
