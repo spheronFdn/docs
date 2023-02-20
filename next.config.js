@@ -8,4 +8,5 @@ module.exports = withNextra({
     loader: "akamai",
     path: "",
   },
+  trailingSlash: true,
 });
