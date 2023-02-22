@@ -2,14 +2,14 @@ import { FC } from "react";
 import Link from "next/link";
 import styles from "./quick.module.css";
 
-interface Card {
+export interface IQuickStartCard {
   path: string;
   emoji: string;
   title: string;
   body: string;
 }
 
-const Card: FC<Card> = ({ path, emoji, title, body }) => {
+const QuickStartCard: FC<IQuickStartCard> = ({ path, emoji, title, body }) => {
   return (
     <Link href={`${path}`} className={styles.card}>
       <div>
@@ -21,4 +21,4 @@ const Card: FC<Card> = ({ path, emoji, title, body }) => {
   );
 };
 
-export default Card;
+export default QuickStartCard;

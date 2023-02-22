@@ -1,3 +1,5 @@
+import { Callout } from "nextra-theme-docs";
+
 # Environment variables
 Spheron allows you to add environment variables in the Advanced Build Settings section while configuring your deployment for the first time. If your project already exists, you can go to the Environment variables section in the sidebar of your project's settings. 
 
@@ -6,6 +8,10 @@ Spheron lets you assign different environment variables to different environment
 2. Select Environment variables from the sidebar.
 3. Add variable name and variable value, and select your preferred deployment environments. Then Click Add.
 4. You can also add multiple environment variables by uploading them in a prescribed JSON file format.
+
+<Callout type="info">
+  **NOTE:** After adding the environment variables, you need to redeploy the project to apply it.
+</Callout>
 
 ## Prescribed JSON format
 ```json
