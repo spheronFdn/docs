@@ -3,10 +3,6 @@
   "billing": "Billing",
   "organization": "Organization",
   "static": "Static App",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
   "signup": {
     "title": "Signup ↗",
     "type": "page",
