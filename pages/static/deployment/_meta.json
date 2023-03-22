@@ -1,6 +1,6 @@
 {
   "logs": "Git Provider & Logs",
-  "deployments": "Manage Deployments",
   "automation": "Git Automation",
+  "deployments": "Manage Deployments",
   "preview": "Preview, Pinning & Deal creation"
 }
