@@ -13,8 +13,10 @@ const QuickStartCard: FC<IQuickStartCard> = ({ path, emoji, title, body }) => {
   return (
     <Link href={`${path}`} className={styles.card}>
       <div>
-        <div className={styles.emoji}>{emoji}</div>
-        <h3 className={styles.heading}>{title}</h3>
+        <h3 className={styles.heading}>
+          <span className={styles.emoji}>{emoji}</span>
+          {title}
+        </h3>
         <p className={styles.paragraph}>{body}</p>
       </div>
     </Link>

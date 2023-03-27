@@ -4,9 +4,9 @@
   "organization": "Organization",
   "static": "Static App",
   "signup": {
-    "title": "Signup ↗",
+    "title": "Sign Up",
     "type": "page",
-    "href": "https://app.spheron.network/",
+    "href": "https://app.spheron.network/#/signup",
     "newWindow": true
   }
 }
