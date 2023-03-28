@@ -17,7 +17,7 @@ export const Pages = [
   ["ENS Domains", "/static/projects/ens"],
   ["HTTPS", "/static/projects/https"],
   ["Environments", "/static/projects/environments"],
-  ["ENV Variables", "/static/projects/variables"],
+  ["Env Variables", "/static/projects/variables"],
   ["Password Protected Domains", "/static/projects/private"],
   ["CDN", "/static/edge/cdn"],
   ["Caching", "/static/edge/caching"],

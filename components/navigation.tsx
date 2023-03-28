@@ -17,7 +17,7 @@ const Navigation: FC<INavigation> = ({ name }) => {
       {prev ? (
         <Link
           href={`${prev[1]}`}
-          className="nx-flex nx-max-w-[50%] nx-items-center nx-gap-1 nx-py-4 nx-text-base nx-font-medium nx-text-gray-600 nx-transition-colors [word-break:break-word] hover:nx-text-primary-600 dark:nx-text-gray-300 md:nx-text-lg ltr:nx-pr-4 rtl:nx-pl-4"
+          className="nx-flex nx-max-w-[50%] nx-items-center nx-gap-1 nx-py-4 nx-text-base nx-font-medium nx-transition-colors [word-break:break-word] hover:nx-text-primary-600 md:nx-text-lg ltr:nx-pr-4 rtl:nx-pl-4"
         >
           {PrevArrow} {prev[0]}
         </Link>
@@ -27,7 +27,7 @@ const Navigation: FC<INavigation> = ({ name }) => {
       {next && (
         <Link
           href={`${next[1]}`}
-          className="nx-flex nx-max-w-[50%] nx-items-center nx-gap-1 nx-py-4 nx-text-base nx-font-medium nx-text-gray-600 nx-transition-colors [word-break:break-word] hover:nx-text-primary-600 dark:nx-text-gray-300 md:nx-text-lg ltr:nx-pr-4 rtl:nx-pl-4"
+          className="nx-flex nx-max-w-[50%] nx-items-center nx-gap-1 nx-py-4 nx-text-base nx-font-medium nx-transition-colors [word-break:break-word] hover:nx-text-primary-600 md:nx-text-lg ltr:nx-pr-4 rtl:nx-pl-4"
         >
           {next[0]} {NextArrow}
         </Link>
