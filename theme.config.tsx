@@ -1,6 +1,8 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
-import { DiscordLogo, GithubLogo, SpheronLogo } from "./assets";
+import { SpheronLogo } from "./assets/spheron";
+import { GithubLogo } from "./assets/github";
+import { DiscordLogo } from "./assets/discord";
 
 const config: DocsThemeConfig = {
   logo: <>{SpheronLogo}</>,

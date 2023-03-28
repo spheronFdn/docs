@@ -1,17 +1,6 @@
-import { useEffect } from "react";
 import Head from "next/head";
 
 export default function App({ Component, pageProps }) {
-  useEffect(() => {
-    const element = document.getElementsByClassName("nx-text-sm")[0];
-    element.classList.add("nx-text-gray-100");
-    element.classList.add("dark:nx-text-gray-100");
-    element.classList.add("nx-rounded-lg");
-    element.classList.add("nx-px-4");
-    element.classList.add("nx-mx-2");
-    element.setAttribute("style", "background-color: #0057FF;");
-  }, []);
-
   return (
     <>
       <Head>
