@@ -3,6 +3,7 @@
   "billing": "Billing",
   "organization": "Organization",
   "static": "Static App",
+  "framework-guide": "Framework Guide",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
