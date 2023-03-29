@@ -1,4 +1,5 @@
 import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
 
 # ENS Domains
 
@@ -12,9 +13,21 @@ Follow these steps to configure your ENS domain:
 2. Select ENS Domains from the sidebar and Go to the 'Configure your ENS Domains/Subdomains' section under the Domains tab.
 3. Enter your ENS Domain name.
 4. Select a deployment that you want your domain to point to and Click Add. You will see the selected configuration on the screen.
+5. With Spheron, you can update your ENS content hash directly from the app. Make the required changes and Click Update and confirm the transaction on Metamask to update the content hash. You can verify it in your ENS Domain Manager.
+6. To manually update the content hash of your ENS domain, Go to your ENS dashboard and Update your content hash with the CONTENT provided by Spheron.
+7. Click Verify to verify the update, and we will verify the records for you.
+
+## Edit an ENS Domain
+
+Follow these steps to edit your ENS domain:
+
+1. Select your project.
+2. Select ENS Domains from the sidebar and Go to the 'Configure your ENS Domains/Subdomains' section under the Domains tab.
+3. Click Edit on the ENS Domain that you wish to edit.
+4. Make the required changes and Click Save. You will see the selected configuration on the screen.
 5. With Spheron, you can update your ENS content hash directly from the app. Click Update and confirm the transaction on Metamask to update the content hash. You can verify it in your ENS Domain Manager.
-6. To manually update the content hash of your ENS domain, Go to your [ENS dashboard](https://app.ens.domains/) and Update your content hash with the CONTENT provided by Spheron.
-7. Click Verify to verify the changes, and we will verify the records for you.
+6. To manually update the content hash of your ENS domain, Go to your ENS dashboard and Update your content hash with the CONTENT provided by Spheron.
+7. Click Verify to verify the update, and we will verify the records for you.
 
 <Callout type="info">
   **NOTE:** \
@@ -22,7 +35,13 @@ Follow these steps to configure your ENS domain:
   the record, as it changes the content hash.
 </Callout>
 
-## Access your ENS domains with Supported Resolvers.
+## How does the update action work?
+With Spheron, you can make the necessary changes to your ENS content hash directly from the app. 
+Once you make the desired changes, Click the Update button to initiate the update process. 
+Spheron will then prompt you to confirm the transaction on Metamask. 
+Once the transaction is confirmed, you can verify that the update was successful by checking your ENS Domain Manager.
+
+## Access your ENS domains with Supported Resolvers
 
 If you are using an ENS-compatible browser, like Brave, or if you have the MetaMask extension installed, you can type: 'address.eth/' (remember the '/') in the search bar to resolve your address.
 
@@ -39,3 +58,5 @@ Cloudflare's 'eth.link' is centralized and can experience downtimes. An alternat
   ENS domains. Contact the concerned providers if you face any issues after
   configuring your ENS record properly.
 </Callout>
+
+<Navigation name="ENS Domains" />
