@@ -18,7 +18,7 @@ export const Pages = [
   ["Members & Roles", "/organization/roles"],
   ["Settings", "/organization/settings"],
   ["Git Provider & Logs", "/static/deployment/logs"],
-  ["GIT Automations", "/static/deployment/automation"],
+  ["Git Automations", "/static/deployment/automation"],
   ["Manage Deployments", "/static/deployment/deployments"],
   ["Preview, Pinning & Deal creation", "/static/deployment/preview"],
   ["Domains", "/static/projects/domain"],

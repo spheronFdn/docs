@@ -6,9 +6,9 @@ export const PrevArrow = (
     className="nx-inline nx-h-5 nx-shrink-0 ltr:nx-rotate-180"
   >
     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M9 5l7 7-7 7"
     ></path>
   </svg>
@@ -22,9 +22,9 @@ export const NextArrow = (
     className="nx-inline nx-h-5 nx-shrink-0 rtl:nx-rotate-180"
   >
     <path
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
       d="M9 5l7 7-7 7"
     ></path>
   </svg>
