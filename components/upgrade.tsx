@@ -6,7 +6,7 @@ import GnosisIcon from "../assets/gnosis.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import AvalancheIcon from "../assets/avalanche.svg";
 import SolanaIcon from "../assets/solana.svg";
-import styles from "./upgrade.module.css";
+import styles from "../styles/upgrade.module.css";
 
 const UPGRADE_LIST = [
   {

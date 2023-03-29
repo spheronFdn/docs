@@ -1,5 +1,5 @@
 import QuickStartCard, { IQuickStartCard } from "./quick-start-card";
-import styles from "./quick.module.css";
+import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST = [
   {

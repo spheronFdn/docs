@@ -3,17 +3,18 @@ import { DocsThemeConfig } from "nextra-theme-docs";
 import { SpheronLogo } from "./assets/spheron";
 import { GithubLogo } from "./assets/github";
 import { DiscordLogo } from "./assets/discord";
+import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
   logo: <>{SpheronLogo}</>,
   logoLink: "https://spheron.network/",
   project: {
     link: "https://github.com/spheronFdn/docs",
-    icon: <>{GithubLogo}</>,
+    icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
   },
   chat: {
     link: "https://discord.com/invite/ahxuCtm",
-    icon: <>{DiscordLogo}</>,
+    icon: <div className={styles.linkIcon}>{DiscordLogo}</div>,
   },
   editLink: {
     text: null,

@@ -10,9 +10,14 @@
   height: 8em;
   min-height: 10em;
   min-height: fit-content;
-  border: 1px solid #999;
+  background: rgba(130, 130, 130, 0.1);
+  border: 1px solid transparent;
   border-radius: 5px;
   padding: 1em 1em;
+}
+
+.card:hover {
+  border: 1px solid rgba(150, 150, 150, 0.5);
 }
 
 .logo {

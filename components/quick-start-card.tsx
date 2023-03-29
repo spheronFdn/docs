@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
-import styles from "./quick.module.css";
+import styles from "../styles/quick.module.css";
 
 export interface IQuickStartCard {
   path: string;

@@ -1,7 +1,7 @@
 import { FC, ReactElement } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./upgrade.module.css";
+import styles from "../styles/upgrade.module.css";
 
 export interface IUpgradeCard {
   path: string;

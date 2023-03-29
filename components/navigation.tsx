@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Link from "next/link";
-import { Pages } from "../pages";
-import { PrevArrow, NextArrow } from "./arrows";
+import { Pages } from "../pages.config";
+import { PrevArrow, NextArrow } from "../assets/arrows";
 
 interface INavigation {
   name: string;
