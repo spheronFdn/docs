@@ -1,4 +1,4 @@
-import { FC, ReactElement } from "react";
+import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "../styles/upgrade.module.css";
