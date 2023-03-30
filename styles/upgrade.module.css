@@ -8,7 +8,7 @@
 .card {
   width: 30%;
   height: 8em;
-  min-height: 10em;
+  min-height: 5em;
   min-height: fit-content;
   background: rgba(130, 130, 130, 0.1);
   border: 1px solid transparent;
