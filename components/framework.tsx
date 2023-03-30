@@ -126,8 +126,9 @@ const Framework = () => {
   return (
     <main>
       <section className={styles.section}>
-        {FRAMEWORK_LIST.map((item: IFrameworkCard) => (
+        {FRAMEWORK_LIST.map((item: IFrameworkCard, i) => (
           <FrameworkCard
+            key={i}
             path={item.path}
             logo={item.logo}
             alt={item.alt}

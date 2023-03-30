@@ -16,6 +16,12 @@
   padding: 1em 1em;
 }
 
+@media (max-width: 1200px) {
+  .card {
+    width: 100%;
+  }
+}
+
 .card:hover {
   border: 1px solid rgba(150, 150, 150, 0.5);
 }
