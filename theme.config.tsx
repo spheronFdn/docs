@@ -34,7 +34,8 @@ const config: DocsThemeConfig = {
   useNextSeoProps() {
     return {
       titleTemplate: "%s – Spheron",
-      description: "Best decentralized cloud storage in 3 clicks",
+      description:
+        "Power your dapp with Spheron's next-generation infrastructure",
     };
   },
 };
