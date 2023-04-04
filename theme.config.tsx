@@ -31,6 +31,12 @@ const config: DocsThemeConfig = {
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: "%s – Spheron",
+      description: "Best decentralized cloud storage in 3 clicks",
+    };
+  },
 };
 
 export default config;
