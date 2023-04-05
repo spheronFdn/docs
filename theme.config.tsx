@@ -31,6 +31,13 @@ const config: DocsThemeConfig = {
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: "%s – Spheron",
+      description:
+        "Power your dapp with Spheron's next-generation infrastructure",
+    };
+  },
 };
 
 export default config;
