@@ -10,7 +10,7 @@
   height: 8em;
   min-height: 5em;
   min-height: fit-content;
-  background: rgba(130, 130, 130, 0.1);
+  background: rgba(130, 130, 130, 0.05);
   border: 1px solid transparent;
   border-radius: 5px;
   padding: 1em 1em;
