@@ -7,7 +7,6 @@ import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
   logo: <>{SpheronLogo}</>,
-  logoLink: "https://spheron.network/",
   project: {
     link: "https://github.com/spheronFdn/docs",
     icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
