@@ -27,7 +27,7 @@ const config: DocsThemeConfig = {
     component: null,
   },
   navigation: false,
-  primaryHue: 220,
+  primaryHue: 200,
   sidebar: {
     defaultMenuCollapseLevel: 1,
   },
