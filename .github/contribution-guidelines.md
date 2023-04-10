@@ -22,4 +22,4 @@ Please follow the Spheron SDK coding standards below. It is recommended to use p
 When you are ready to make changes, please create a pull request on GitHub. Provide a detailed description of what you have done and why. Maintainers will review your changes and provide you with feedback.
 
 ### Keeping Up-to-Date
-After submitting your changes, please keep your fork up to date with the latest changes made to the [SDK repository](https://github.com/spheronFdn/docs). This will ensure that your contributions are compatible with the project's latest version.
+After submitting your changes, please keep your fork up to date with the latest changes made to the [Documentation repository](https://github.com/spheronFdn/docs). This will ensure that your contributions are compatible with the project's latest version.
