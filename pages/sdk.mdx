@@ -101,6 +101,23 @@ Used to get the bucket information for the specified `bucketId`.
 async getBucket(bucketId: string): Promise<Bucket>
 ```
 
+**Interface**
+
+```js
+enum  BucketStateEnum {
+  MAINTAINED = "MAINTAINED",
+  ARCHIVED = "ARCHIVED",
+}
+
+interface Bucket {
+  id: string;
+  name: string;
+  organizationId: string;
+  state: BucketStateEnum;
+  domains: Domain[];
+}
+```
+
 ### Get Bucket Domains
 
 Used to get the domains that are attached to the specified `bucketId`.
@@ -109,12 +126,54 @@ Used to get the domains that are attached to the specified `bucketId`.
 async getBucketDomains(bucketId: string): Promise<Domain[]>
 ```
 
+**Interface**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
 ### Get Bucket Domain
 
 Used to get the information about the specific domain. The `domainIdentifier` can ether be the id of the domain, or the name of the domain.
 
 ```js
 async getBucketDomain(bucketId: string, domainIdentifier: string): Promise<Domain>
+```
+
+**Interface**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
 ```
 
 ### Add Bucket Domain
@@ -133,6 +192,27 @@ async addBucketDomain(bucketId: string, { link:  string; type: DomainTypeEnum; n
 
 After you have setup the record on your DNS provider, then you should call the `verifyBucketDomain` method to verify your domain on Spheron. After the domain is verified, the data behind the link will be cached on the Spheron CDN.
 
+**Interface**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
 ### Update Bucket Domain
 
 Used to update an existing domain of the Bucket.
@@ -141,12 +221,54 @@ Used to update an existing domain of the Bucket.
 async updateBucketDomain(bucketId: string, domainIdentifier: string, options: { link: string; name: string; }): Promise<Domain>
 ```
 
+**Interface**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
 ### Verify Bucket Domain
 
 Used to verify the domain, after which the content behind the domain will be cached on CDN.
 
 ```js
 async verifyBucketDomain(bucketId: string, domainIdentifier: string): Promise<Domain>
+```
+
+**Interface**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
 ```
 
 ### Delete Bucket Domain
@@ -178,7 +300,7 @@ async unarchiveBucket(bucketId: string): Promise<void>
 Used to get the number of uploads for the specified bucket.
 
 ```js
-async getBucketUploadCount(bucketId: string): Promise<{total: number; successful: number; failed: number; pending: number; }>
+async getBucketUploadCount(bucketId: string): Promise<{ total: number; successful: number; failed: number; pending: number; }>
 ```
 
 ### Get Bucket Uploads
@@ -189,12 +311,56 @@ Used to get the uploads of the bucket. The default value for `skip` is 0. The de
 async getBucketUploads(bucketId: string, options: { skip: number; limit: number; }): Promise<Upload[]>
 ```
 
+**Interface**
+
+```js
+enum UploadStatusEnum {
+  PENDING = "Pending",
+  CANCELED = "Canceled",
+  DEPLOYED = "Deployed",
+  FAILED = "Failed",
+  TIMED_OUT = "TimedOut",
+}
+
+interface Upload {
+  id: string;
+  protocolLink: string;
+  buildDirectory: string[];
+  status: UploadStatusEnum;
+  memoryUsed: number;
+  bucketId: string;
+  protocol: string;
+}
+```
+
 ### Get Upload
 
 Used to get the upload by its id.
 
 ```js
 async getUpload(uploadId: string): Promise<Upload>
+```
+
+**Interface**
+
+```js
+enum UploadStatusEnum {
+  PENDING = "Pending",
+  CANCELED = "Canceled",
+  DEPLOYED = "Deployed",
+  FAILED = "Failed",
+  TIMED_OUT = "TimedOut",
+}
+
+interface Upload {
+  id: string;
+  protocolLink: string;
+  buildDirectory: string[];
+  status: UploadStatusEnum;
+  memoryUsed: number;
+  bucketId: string;
+  protocol: string;
+}
 ```
 
 ### Get Organization Usage
@@ -213,12 +379,44 @@ Used to get the scope of the token.
 async getTokenScope(): Promise<TokenScope>
 ```
 
+**Interface**
+
+```js
+interface TokenScope {
+  user: {
+    id: string,
+    username: string,
+    name: string,
+    email: string,
+  };
+  organizations: {
+    id: string,
+    name: string,
+    username: string,
+  }[];
+}
+```
+
 ### Publish IPNS
 
 Used to publish IPFS Deployment to IPNS.
 
 ```js
 async publishIPNS(uploadId: string): Promise<IPNSName>
+```
+
+**Interface**
+
+```js
+interface IPNSName {
+  id: string;
+  publishedUploadId: string;
+  organizationId: string;
+  createdAt: string;
+  updatedAt: string;
+  ipnsHash: string;
+  ipnsLink: string;
+}
 ```
 
 ### Update IPNS Name
@@ -229,12 +427,40 @@ Used to update IPNS name to new deployment.
 async updateIPNSName(ipnsNameId: string, uploadId: string): Promise<IPNSName>
 ```
 
+**Interface**
+
+```js
+interface IPNSName {
+  id: string;
+  publishedUploadId: string;
+  organizationId: string;
+  createdAt: string;
+  updatedAt: string;
+  ipnsHash: string;
+  ipnsLink: string;
+}
+```
+
 ### Get IPNS Name
 
 Get IPNS name data by id.
 
 ```js
 async getIPNSName(ipnsNameId: string): Promise<IPNSName>
+```
+
+**Interface**
+
+```js
+interface IPNSName {
+  id: string;
+  publishedUploadId: string;
+  organizationId: string;
+  createdAt: string;
+  updatedAt: string;
+  ipnsHash: string;
+  ipnsLink: string;
+}
 ```
 
 ### Get IPNS Names For Deployment
@@ -245,6 +471,20 @@ Get all IPNS names for a deployment.
 async getIPNSNamesForDeployment(deploymentId: string): Promise<IPNSName[]>
 ```
 
+**Interface**
+
+```js
+interface IPNSName {
+  id: string;
+  publishedUploadId: string;
+  organizationId: string;
+  createdAt: string;
+  updatedAt: string;
+  ipnsHash: string;
+  ipnsLink: string;
+}
+```
+
 ### Get IPNS Names
 
 Get all IPNS names for an organization.
@@ -253,71 +493,9 @@ Get all IPNS names for an organization.
 async getIPNSNamesForOrganization(organizationId: string): Promise<IPNSName[]>
 ```
 
-## Interfaces
+**Interface**
 
 ```js
-enum DomainTypeEnum {
-  DOMAIN = "domain",
-  SUBDOMAIN = "subdomain",
-  HANDSHAKE_DOMAIN = "handshake-domain",
-  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
-  ENS_DOMAIN = "ens-domain",
-}
-
-interface  Domain {
-  id: string;
-  name: string;
-  link: string;
-  verified: boolean;
-  bucketId: string;
-  type: DomainTypeEnum;
-}
-
-enum  BucketStateEnum {
-  MAINTAINED = "MAINTAINED",
-  ARCHIVED = "ARCHIVED",
-}
-
-interface  Bucket {
-  id: string;
-  name: string;
-  organizationId: string;
-  state: BucketStateEnum;
-  domains: Domain[];
-}
-
-enum UploadStatusEnum {
-  PENDING = "Pending",
-  CANCELED = "Canceled",
-  DEPLOYED = "Deployed",
-  FAILED = "Failed",
-  TIMED_OUT = "TimedOut",
-}
-
-interface  Upload {
-  id: string;
-  protocolLink: string;
-  buildDirectory: string[];
-  status: UploadStatusEnum;
-  memoryUsed: number;
-  bucketId: string;
-  protocol: string;
-}
-
-interface TokenScope {
-  user: {
-    id: string;
-    username: string;
-    name: string;
-    email: string;
-  };
-  organizations: {
-    id: string;
-    name: string;
-    username: string;
-  }[];
-}
-
 interface IPNSName {
   id: string;
   publishedUploadId: string;
