@@ -5,6 +5,7 @@
   "static": "Static App",
   "framework-guide": "Framework Guide",
   "rest-api": "Spheron API",
+  "cli": "Spheron CLI",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
