@@ -42,22 +42,6 @@ Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#cre
   the dashboard.
 </Callout>
 
-## Transforming CID from V0 to V1
-
-The package also provides a couple of methods for transforming CID from V0 to V1 and vice verse.
-
-```js
-import { ipfs } from "@spheron/storage";
-
-const cid = <CID_VALUE>;
-
-const v1 = ipfs.utils.toV1(cid);
-console.log("CID V1", v1);
-
-const v0 = ipfs.utils.toV0(cid);
-console.log("CID V0", v0);
-```
-
 ## Available Methods
 
 The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
@@ -702,6 +686,22 @@ interface IPNSName {
   ipnsHash: string;
   ipnsLink: string;
 }
+```
+
+## Transforming CID from V0 to V1
+
+The package also provides a couple of methods for transforming CID from V0 to V1 and vice verse.
+
+```js
+import { ipfs } from "@spheron/storage";
+
+const cid = <CID_VALUE>;
+
+const v1 = ipfs.utils.toV1(cid);
+console.log("CID V1", v1);
+
+const v0 = ipfs.utils.toV0(cid);
+console.log("CID V0", v0);
 ```
 
 <Navigation name="Spheron SDK" />
