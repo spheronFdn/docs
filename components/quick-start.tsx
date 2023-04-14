@@ -32,6 +32,12 @@ const QUICK_START_LIST = [
     title: "Spheron API",
     body: "Take a look at how the Spheron API works.",
   },
+  {
+    path: "/sdk",
+    emoji: "🧰",
+    title: "Spheron SDK",
+    body: "Unlock multi-chain storage capabilities.",
+  },
 ];
 
 const QuickStart = () => {
