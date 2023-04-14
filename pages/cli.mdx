@@ -1,3 +1,4 @@
+import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
 # Spheron CLI
@@ -12,35 +13,84 @@ To install the Spheron CLI, run the following command:
 sudo npm install -g @spheron/cli
 ```
 
-## Available Commands
+## Authentication
 
-### Authentication
+### spheron login
 
-#### spheron login
+The `spheron login` command allows you to connect to your Spheron account. It is necessary to execute this command before running upload or publish commands.
 
-**Usage**
+#### Usage
 
-```
+```sh
 spheron login
 ```
 
+#### Extended Usage
+
+**GitHub**
+
+The `--github` option can be used to initiate GitHub OAuth login.
+
+```sh
+spheron login --github
+```
+
+**GitLab**
+
+The `--gitlab` option can be used to initiate GitLab OAuth login.
+
+```sh
+spheron login --gitlab
+```
+
+**Bitbucket**
+
+The `--bitbucket` option can be used to initiate Bitbucket OAuth login.
+
+```sh
+spheron login --bitbucket
+```
+
 ---
 
-### Upload
+## Upload
 
-#### spheron upload
+The `spheron upload` command allows you to directly upload your file/directory to the specific protocol without having to set up a project. You must be logged in to use this command. If you are not, you can use the `spheron login` command first to login.
 
-**Usage**
+### spheron upload
 
-```
+#### Usage
+
+```sh
 spheron upload
 ```
 
+#### Extended Usage
+
+**Direct Upload**
+
+You can use the following command if you want to directly upload the file without prompter:
+
+```sh
+spheron upload --path {file_path} --protocol {protocol} [--project {project_name}] [--organization {organizationId}]
+```
+
+**Options**
+
+- `--path` : The location of dir/file that you want to upload. The default path is `./`.
+- `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
+- `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
+- `--organization` (Optional) : The `organizationId` to override the existing one. By default, it will take the one received after running `spheron login`.
+
+<Callout type="info">
+  **NOTE:** The prompter will be opened if all the required params are not sent.
+</Callout>
+
 ---
 
-### Site
+## Site
 
-#### spheron init
+### spheron init
 
 **Usage**
 
@@ -48,7 +98,7 @@ spheron upload
 spheron init
 ```
 
-#### spheron publish
+### spheron publish
 
 **Usage**
 
@@ -58,9 +108,9 @@ spheron publish
 
 ---
 
-### Template
+## Template
 
-#### spheron create-dapp
+### spheron create-dapp
 
 **Usage**
 
@@ -70,9 +120,9 @@ spheron create-dapp
 
 ---
 
-### Organization
+## Organization
 
-#### spheron create-organization
+### spheron create-organization
 
 **Usage**
 
