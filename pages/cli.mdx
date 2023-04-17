@@ -51,8 +51,6 @@ The `--bitbucket` option can be used to initiate Bitbucket OAuth login.
 spheron login --bitbucket
 ```
 
----
-
 ## Upload
 
 ### spheron upload
@@ -86,48 +84,159 @@ spheron upload --path {file_path} --protocol {protocol} [--project {project_name
   **NOTE:** The prompter will be opened if all the required params are not sent.
 </Callout>
 
----
-
 ## Site
 
 ### spheron init
 
-**Usage**
+The `spheron init` command allows you to initialize a new Spheron project. A `spheron.json` file is created in your current path that describes your project. It will be utilized by the `spheron publish` command.
 
-```
+#### Usage
+
+```sh
 spheron init
 ```
 
-### spheron publish
+#### Extended Usage
 
-**Usage**
+**Direct Initialization**
 
+You can use the following command if you want to directly initialize a new Spheron project without prompter:
+
+```sh
+spheron init --protocol {protocol} [--project {project_name}] [--path {path}] [--framework {framework}]
 ```
-spheron publish
-```
+
+**Options**
+
+- `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
+- `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
+- `--path` (Optional) : The location of dir/file that you want to upload. The default path is `./`.
+- `--framework` (Optional) : Choose from the following frameworks:
+
+  - static
+  - react
+  - vue
+  - angular
+  - next
+  - preact
+  - nuxt2
+  - docusaurus
+  - hugo
+  - eleventy
+  - svelte
+  - gatsby
+  - sanity
+  - ionicreact
+  - vite
+  - scully
+  - stencil
+  - brunch
+  - ionicangular
+
+<Callout type="info">
+  **NOTE:** The prompter will be opened if all the required params are not sent.
+</Callout>
 
 ---
+
+### spheron publish
+
+The `spheron publish` command allows you to upload your project using the configuration that is described in the `spheron.json` file of your project.
+
+#### Usage
+
+```sh
+spheron publish
+```
 
 ## Template
 
 ### spheron create-dapp
 
-**Usage**
+The `spheron create-dapp` allows you to create a template project that can be easily deployed on Spheron.
 
-```
+#### Usage
+
+```sh
 spheron create-dapp
 ```
 
----
+#### Extended Usage
+
+**Direct Project Creation**
+
+You can use the following command if you want to directly create a template project without prompter:
+
+```sh
+spheron create-dapp --protocol {protocol} [--project {project_name}] [--path {path}] [--framework {framework}]
+```
+
+**Options**
+
+- `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
+- `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
+- `--path` (Optional) : The location of dir/file that you want to upload. The default path is `./`.
+- `--framework` (Optional) : Choose from the following frameworks:
+
+  - static
+  - react
+  - vue
+  - angular
+  - next
+  - preact
+  - nuxt2
+  - docusaurus
+  - hugo
+  - eleventy
+  - svelte
+  - gatsby
+  - sanity
+  - ionicreact
+  - vite
+  - scully
+  - stencil
+  - brunch
+  - ionicangular
+
+<Callout type="info">
+  **NOTE:** The prompter will be opened if all the required params are not sent.
+</Callout>
 
 ## Organization
 
 ### spheron create-organization
 
-**Usage**
+The `spheron create-organization` command allows you to create a new organization. It will be set as the default organization and will be used by the `upload/publish` commands by default.
 
-```
+<Callout type="info">
+  **NOTE:** \
+  When you run the `spheron login` command for the first time, a new
+  organization will be created if you don't already have one set up.
+</Callout>
+
+#### Usage
+
+```sh
 spheron create-organization
 ```
+
+#### Extended Usage
+
+**Direct Organization Creation**
+
+You can use the following command if you want to directly create a new organization without prompter:
+
+```sh
+spheron create-organization --name {organization_name} --username {organization_username}
+```
+
+**Options**
+
+- `--name` : The name of the organization.
+- `--username` : The username for the organization.
+
+<Callout type="info">
+  **NOTE:** The prompter will be opened if all the required params are not sent.
+</Callout>
 
 <Navigation name="Spheron CLI" />
