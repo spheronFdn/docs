@@ -38,6 +38,12 @@ const QUICK_START_LIST = [
     title: "Spheron SDK",
     body: "Unlock multi-chain storage capabilities.",
   },
+  {
+    path: "/cli",
+    emoji: "💬",
+    title: "Spheron CLI",
+    body: "Create & deploy dapps right from your terminal.",
+  },
 ];
 
 const QuickStart = () => {
