@@ -25,7 +25,18 @@ The `spheron login` command allows you to connect to your Spheron account. It is
 spheron login
 ```
 
+Upon running this command, a prompter will appear that will allow you to select the provider that you want to use for login. Here is how it will look:
+
+```sh
+? Select your provider: (Use arrow keys)
+❯ Github
+  Gitlab
+  Bitbucket
+```
+
 #### Extended Usage
+
+You can use the following command if you want to connect to your Spheron account without prompter:
 
 **GitHub**
 
@@ -63,6 +74,16 @@ The `spheron upload` command allows you to directly upload your file/directory t
 spheron upload
 ```
 
+Upon running this command, a prompter will appear that will allow you to add path, select protocol, add project name, and add organization id. Here is how it will look:
+
+```sh
+? Path to file: (./)
+? Upload protocol: (Use arrow keys)
+❯ Arweave
+  Filecoin
+  IPFS
+```
+
 #### Extended Usage
 
 **Direct Upload**
@@ -95,6 +116,16 @@ The `spheron init` command allows you to initialize a new Spheron project. A `sp
 
 ```sh
 spheron init
+```
+
+Upon running this command, a prompter will appear that will allow you to select protocol, add project name, add path, and select framework. Here is how it will look:
+
+```sh
+? Project name: (Code)
+? Upload protocol: (Use arrow keys)
+❯ Arweave
+  Filecoin
+  IPFS
 ```
 
 #### Extended Usage
@@ -163,6 +194,14 @@ The `spheron create-dapp` allows you to create a template project that can be ea
 spheron create-dapp
 ```
 
+Upon running this command, a prompter will appear that will allow you to select protocol, add project name, add path, and select framework. Here is how it will look:
+
+```sh
+? What type of dapp do you want to create? (Use arrow keys)
+❯ Default dapp
+  Template
+```
+
 #### Extended Usage
 
 **Direct Project Creation**
@@ -221,6 +260,13 @@ The `spheron create-organization` command allows you to create a new organizatio
 
 ```sh
 spheron create-organization
+```
+
+Upon running this command, a prompter will appear that will allow you to add organization name, and add organization username. Here is how it will look:
+
+```sh
+? Name of the organization: (org-593)
+? Username of the organization: (org-593)
 ```
 
 #### Extended Usage
