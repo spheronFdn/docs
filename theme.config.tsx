@@ -35,16 +35,6 @@ const config: DocsThemeConfig = {
       titleTemplate: "%s – Spheron",
       description:
         "Power your dapp with Spheron's next-generation infrastructure",
-      openGraph: {
-        title: "Documentation – Spheron",
-        description:
-          "Power your dapp with Spheron's next-generation infrastructure",
-        images: [
-          {
-            url: "https://raw.githubusercontent.com/spheronFdn/docs/ffe28bbea91d3ed6b001e4e1cb89ede1130f5292/.github/spheron-logo.svg",
-          },
-        ],
-      },
     };
   },
 };
