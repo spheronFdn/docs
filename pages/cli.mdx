@@ -543,4 +543,59 @@ Upon running this command, the details of all your deployment environments will 
 
 - `--projectId` : The `projectId` whose deployment environment details you want to get.
 
+## Help
+
+The `--help` argument allows you to get more details about Spheron CLI commands.
+
+#### Usage
+
+```sh
+spheron --help
+```
+
+Here is an example of how the result will look:
+
+```sh
+Spheron CLI 1.0.7
+
+spheron [command]
+
+Commands:
+  spheron login                Logs into yout Spheron account
+  spheron logout               Logs out of your account
+  spheron upload               Upload
+  spheron publish              Upload your project setup in spheron.json
+  spheron create-organization  Create organization
+  spheron get <resource>       Get resource/s <<resource>>
+  spheron init                 Spheron file initialization in project
+  spheron configure            Change spheron default configuration
+  spheron create-dapp          Create a dapp which can run on Spheron out of the
+                               box
+
+Options:
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+```
+
+**With Commands**
+
+```sh
+spheron [command] --help
+# example
+spheron login --help
+```
+Here is how the result of the above example will look:
+
+```sh
+Spheron CLI 1.0.7
+
+Usage: spheron login [--github|--gitlab|--bitbucket]
+
+Options:
+  --github     Login using Github credentials
+  --gitlab     Login using Gitlab credentials
+  --bitbucket  Login using Bitbucket credentials
+  --help       Show help                                               [boolean]
+```
+
 <Navigation name="Spheron CLI" />
