@@ -6,6 +6,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Head>
         <link rel="shortcut icon" href={SpheronLogo.src} />
+        <meta property="og:image" content={SpheronLogo.src} />
       </Head>
       <Component {...pageProps} />
     </>
