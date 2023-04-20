@@ -182,6 +182,28 @@ The `spheron publish` command allows you to upload your project using the config
 spheron publish
 ```
 
+<Callout type="warning">
+  Make sure that you create a production build before running the `spheron
+  publish` command.
+</Callout>
+
+Here is an example of how the result will look:
+
+```sh
+Spheron CLI 1.0.7
+
+Publishing your dapp to IPFS 🚀
+Uploading directory build
+Upload started, ID of deployment: 643fce207c3c7a0012df33a7
+⠙ Uploading to IPFS
+✓ Success! Upload finished !
+Here are upload details:
+Upload ID: 643fce207c3c7a0012df33a7
+Bucket ID: 643fce207c3c7a0012df33a5
+Protocol Link: https://bafybeicrjwhn6nifl7tcuhkcitquvpumj426qa7r7ppcya5skmqly5n2la.ipfs.sphn.link
+Dynamic Links: https://testapp-edab50.spheron.app
+```
+
 ## Template
 
 ### spheron create-dapp
@@ -251,8 +273,7 @@ spheron create-dapp --protocol {protocol} [--project {project_name}] [--path {pa
 The `spheron create-organization` command allows you to create a new organization. It will be set as the default organization and will be used by the `upload/publish` commands by default.
 
 <Callout type="info">
-  **NOTE:** \
-  When you run the `spheron login` command for the first time, a new
+  **NOTE:** \ When you run the `spheron login` command for the first time, a new
   organization will be created if you don't already have one set up.
 </Callout>
 
@@ -288,5 +309,229 @@ spheron create-organization --name {organization_name} --username {organization_
   **NOTE:** The prompter will be opened if all the required params are not
   entered.
 </Callout>
+
+---
+
+### spheron configure
+
+The `spheron configure` command allows you to switch your default organization.
+
+#### Usage
+
+```sh
+spheron configure
+```
+
+Upon running this command, a prompter will appear that will allow you to add organization id. Here is how it will look:
+
+```sh
+? Default organization ID:
+```
+
+#### Extended Usage
+
+**Directly Switch Organization**
+
+You can use the following command if you want to directly switch your default organization without prompter:
+
+```sh
+spheron configure --organization {organizationId}
+```
+
+**Options**
+
+- `--organization` : The `organizationId` that you want to switch to.
+
+<Callout type="info">
+  **NOTE:** The prompter will be opened if the required param is not entered.
+</Callout>
+
+## Get Data from Spheron
+
+### spheron get organization
+
+The `spheron get organization` command allows you to get the details of an organization.
+
+#### Usage
+
+```sh
+spheron get organization [--id {organizationId}]
+```
+
+**Options**
+
+- `--organization` (Optional) : The `organizationId` whose details you want to get.
+
+<Callout type="info">
+  **NOTE:** The details of the default organization will be returned if the
+  `organization` param is not entered.
+</Callout>
+
+---
+
+### spheron get organizations
+
+The `spheron get organizations` command allows you to get the details of all your organizations.
+
+#### Usage
+
+```sh
+spheron get organizations
+```
+
+Upon running this command, the details of all your organizations will be returned as an `array of objects`.
+
+---
+
+### spheron get deployment
+
+The `spheron get deployment` command allows you to get the details of a deployment.
+
+#### Usage
+
+```sh
+spheron get deployment --id {deploymentId}
+```
+
+**Options**
+
+- `--id` : The `deploymentId` whose details you want to get.
+
+---
+
+### spheron get deployments
+
+The `spheron get deployments` command allows you to get the details of all your deployments.
+
+#### Usage
+
+```sh
+spheron get deployments --projectId {projectId}
+```
+
+Upon running this command, the details of all your deployments will be returned as an `array of objects`.
+
+**Options**
+
+- `--projectId` : The `projectId` whose deployment details you want to get.
+
+#### Extended Usage
+
+**Limit Results**
+
+You can use the following command if you want to limit the results:
+
+```sh
+spheron get deployments --projectId {projectId} [--skip {skip}] [--limit {limit}] [--status {status}]
+```
+
+**Options**
+
+- `--projectId` : The `projectId` whose deployment details you want to get.
+- `--skip` : The number of items to skip in the query.
+- `--limit` : The number of items to return.
+- `--status` : Choose from the following statuses:
+
+  - PreQueue
+  - Queued
+  - Pending
+  - Canceled
+  - Deployed
+  - Failed
+  - AuthorizationNeeded
+  - Killing
+  - TimedOut
+
+---
+
+### spheron get project
+
+The `spheron get project` command allows you to get the details of a project.
+
+#### Usage
+
+```sh
+spheron get project --id {projectId}
+```
+
+**Options**
+
+- `--id` : The `projectId` whose details you want to get.
+
+---
+
+### spheron get projects
+
+The `spheron get projects` command allows you to get the details of all your projects.
+
+#### Usage
+
+```sh
+spheron get projects [--organizationId {organizationId}]
+```
+
+Upon running this command, the details of all your projects will be returned as an `array of objects`.
+
+**Options**
+
+- `--organizationId` (Optional) : The `organizationId` whose project details you want to get.
+
+<Callout type="info">
+  **NOTE:** The projects of the default organization will be returned if the
+  `organizationId` param is not entered.
+</Callout>
+
+#### Extended Usage
+
+**Limit Results**
+
+You can use the following command if you want to limit the results:
+
+```sh
+spheron get projects [--organizationId {organizationId}] [--skip {skip}] [--limit {limit}] [--state {state}]
+```
+
+**Options**
+
+- `--organizationId` (Optional) : The `organizationId` whose project details you want to get.
+- `--skip` (Optional) : The number of items to skip in the query.
+- `--limit` (Optional) : The number of items to return.
+- `--state` (Optional) : Choose from `MAINTAINED` or `ARCHIVED`.
+
+---
+
+### spheron get domains
+
+The `spheron get domains` command allows you to get the details of all your domains.
+
+#### Usage
+
+```sh
+spheron get domains --projectId {projectId}
+```
+
+Upon running this command, the details of all your domains will be returned as an `array of objects`.
+
+**Options**
+
+- `--projectId` : The `projectId` whose domain details you want to get.
+
+---
+
+### spheron get deployment-environments
+
+The `spheron get deployment-environments` command allows you to get the details of all your deployment environments.
+
+#### Usage
+
+```sh
+spheron get deployment-environments --projectId {projectId}
+```
+
+Upon running this command, the details of all your deployment environments will be returned as an `array of objects`.
+
+**Options**
+
+- `--projectId` : The `projectId` whose deployment environment details you want to get.
 
 <Navigation name="Spheron CLI" />
