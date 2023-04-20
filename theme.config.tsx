@@ -36,7 +36,7 @@ const config: DocsThemeConfig = {
       description:
         "Power your dapp with Spheron's next-generation infrastructure",
       openGraph: {
-        title: "%s – Spheron",
+        title: "Documentation - Spheron",
         description: "Power your dapp with Spheron's next-generation infrastructure",
         images: [
           {
@@ -44,7 +44,7 @@ const config: DocsThemeConfig = {
             width: 800,
             height: 600,
             alt: "Spheron",
-            type: "image/svg",
+            type: "image/svg+xml",
           },
         ],
       },
