@@ -40,7 +40,7 @@ You can use the following command if you want to connect to your Spheron account
 
 **GitHub**
 
-The `--github` option can be used to initiate GitHub OAuth login.
+The `--github` argument can be used to initiate GitHub OAuth login.
 
 ```sh
 spheron login --github
@@ -48,7 +48,7 @@ spheron login --github
 
 **GitLab**
 
-The `--gitlab` option can be used to initiate GitLab OAuth login.
+The `--gitlab` argument can be used to initiate GitLab OAuth login.
 
 ```sh
 spheron login --gitlab
@@ -56,7 +56,7 @@ spheron login --gitlab
 
 **Bitbucket**
 
-The `--bitbucket` option can be used to initiate Bitbucket OAuth login.
+The `--bitbucket` argument can be used to initiate Bitbucket OAuth login.
 
 ```sh
 spheron login --bitbucket
@@ -94,7 +94,7 @@ You can use the following command if you want to directly upload the file withou
 spheron upload --path {file_path} --protocol {protocol} [--project {project_name}] [--organization {organizationId}]
 ```
 
-**Options**
+**Arguments**
 
 - `--path` : The location of dir/file that you want to upload. The default path is `./`.
 - `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
@@ -102,7 +102,7 @@ spheron upload --path {file_path} --protocol {protocol} [--project {project_name
 - `--organization` (Optional) : The `organizationId` to override the existing one. By default, it will take the one received after running `spheron login`.
 
 <Callout type="info">
-  **NOTE:** The prompter will be opened if all the required params are not
+  **NOTE:** The prompter will be opened if all the required arguments are not
   entered.
 </Callout>
 
@@ -138,7 +138,7 @@ You can use the following command if you want to directly initialize a new Spher
 spheron init --protocol {protocol} [--project {project_name}] [--path {path}] [--framework {framework}]
 ```
 
-**Options**
+**Arguments**
 
 - `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
 - `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
@@ -166,7 +166,7 @@ spheron init --protocol {protocol} [--project {project_name}] [--path {path}] [-
   - ionicangular
 
 <Callout type="info">
-  **NOTE:** The prompter will be opened if all the required params are not
+  **NOTE:** The prompter will be opened if all the required arguments are not
   entered.
 </Callout>
 
@@ -234,7 +234,7 @@ You can use the following command if you want to directly create a template proj
 spheron create-dapp --protocol {protocol} [--project {project_name}] [--path {path}] [--framework {framework}]
 ```
 
-**Options**
+**Arguments**
 
 - `--protocol` : Choose from `arweave`, `filecoin`, or `ipfs`.
 - `--project` (Optional) : The name of the project. If not provided, the last segment of the path will be taken.
@@ -262,7 +262,7 @@ spheron create-dapp --protocol {protocol} [--project {project_name}] [--path {pa
   - ionicangular
 
 <Callout type="info">
-  **NOTE:** The prompter will be opened if all the required params are not
+  **NOTE:** The prompter will be opened if all the required arguments are not
   entered.
 </Callout>
 
@@ -273,7 +273,8 @@ spheron create-dapp --protocol {protocol} [--project {project_name}] [--path {pa
 The `spheron create-organization` command allows you to create a new organization. It will be set as the default organization and will be used by the `upload/publish` commands by default.
 
 <Callout type="info">
-  **NOTE:** \ When you run the `spheron login` command for the first time, a new
+  **NOTE:** \
+  When you run the `spheron login` command for the first time, a new
   organization will be created if you don't already have one set up.
 </Callout>
 
@@ -300,13 +301,13 @@ You can use the following command if you want to directly create a new organizat
 spheron create-organization --name {organization_name} --username {organization_username}
 ```
 
-**Options**
+**Arguments**
 
 - `--name` : The name of the organization.
 - `--username` : The username for the organization.
 
 <Callout type="info">
-  **NOTE:** The prompter will be opened if all the required params are not
+  **NOTE:** The prompter will be opened if all the required arguments are not
   entered.
 </Callout>
 
@@ -338,12 +339,12 @@ You can use the following command if you want to directly switch your default or
 spheron configure --organization {organizationId}
 ```
 
-**Options**
+**Arguments**
 
-- `--organization` : The `organizationId` that you want to switch to.
+- `--organization` : The `organizationId` of the organization that you want to switch to.
 
 <Callout type="info">
-  **NOTE:** The prompter will be opened if the required param is not entered.
+  **NOTE:** The prompter will be opened if the required argument is not entered.
 </Callout>
 
 ## Get Data from Spheron
@@ -358,13 +359,13 @@ The `spheron get organization` command allows you to get the details of an organ
 spheron get organization [--id {organizationId}]
 ```
 
-**Options**
+**Arguments**
 
-- `--organization` (Optional) : The `organizationId` whose details you want to get.
+- `--organization` (Optional) : The `organizationId` of the organization whose details you want to get.
 
 <Callout type="info">
   **NOTE:** The details of the default organization will be returned if the
-  `organization` param is not entered.
+  `organization` argument is not entered.
 </Callout>
 
 ---
@@ -393,9 +394,9 @@ The `spheron get deployment` command allows you to get the details of a deployme
 spheron get deployment --id {deploymentId}
 ```
 
-**Options**
+**Arguments**
 
-- `--id` : The `deploymentId` whose details you want to get.
+- `--id` : The `deploymentId` of the deployment whose details you want to get.
 
 ---
 
@@ -411,9 +412,14 @@ spheron get deployments --projectId {projectId}
 
 Upon running this command, the details of all your deployments will be returned as an `array of objects`.
 
-**Options**
+**Arguments**
 
-- `--projectId` : The `projectId` whose deployment details you want to get.
+- `--projectId` : The `projectId` of the project whose deployment details you want to get.
+
+<Callout type="info">
+  **NOTE:** The last 10 deployments will be returned if the limit arguments are
+  not entered.
+</Callout>
 
 #### Extended Usage
 
@@ -425,12 +431,12 @@ You can use the following command if you want to limit the results:
 spheron get deployments --projectId {projectId} [--skip {skip}] [--limit {limit}] [--status {status}]
 ```
 
-**Options**
+**Arguments**
 
 - `--projectId` : The `projectId` whose deployment details you want to get.
-- `--skip` : The number of items to skip in the query.
-- `--limit` : The number of items to return.
-- `--status` : Choose from the following statuses:
+- `--skip` (Optional) : The number of items to skip in the query.
+- `--limit` (Optional) : The number of items to return.
+- `--status` (Optional) : Choose from the following statuses:
 
   - PreQueue
   - Queued
@@ -454,7 +460,7 @@ The `spheron get project` command allows you to get the details of a project.
 spheron get project --id {projectId}
 ```
 
-**Options**
+**Arguments**
 
 - `--id` : The `projectId` whose details you want to get.
 
@@ -472,13 +478,16 @@ spheron get projects [--organizationId {organizationId}]
 
 Upon running this command, the details of all your projects will be returned as an `array of objects`.
 
-**Options**
+**Arguments**
 
 - `--organizationId` (Optional) : The `organizationId` whose project details you want to get.
 
 <Callout type="info">
-  **NOTE:** The projects of the default organization will be returned if the
-  `organizationId` param is not entered.
+  **NOTE:** \
+  1\. The projects of the default organization will be returned if the
+  `organizationId` argument is not entered. \
+  2\. The last 10 projects will be returned if the limit arguments are not
+  entered.
 </Callout>
 
 #### Extended Usage
@@ -491,7 +500,7 @@ You can use the following command if you want to limit the results:
 spheron get projects [--organizationId {organizationId}] [--skip {skip}] [--limit {limit}] [--state {state}]
 ```
 
-**Options**
+**Arguments**
 
 - `--organizationId` (Optional) : The `organizationId` whose project details you want to get.
 - `--skip` (Optional) : The number of items to skip in the query.
@@ -512,7 +521,7 @@ spheron get domains --projectId {projectId}
 
 Upon running this command, the details of all your domains will be returned as an `array of objects`.
 
-**Options**
+**Arguments**
 
 - `--projectId` : The `projectId` whose domain details you want to get.
 
@@ -530,7 +539,7 @@ spheron get deployment-environments --projectId {projectId}
 
 Upon running this command, the details of all your deployment environments will be returned as an `array of objects`.
 
-**Options**
+**Arguments**
 
 - `--projectId` : The `projectId` whose deployment environment details you want to get.
 
