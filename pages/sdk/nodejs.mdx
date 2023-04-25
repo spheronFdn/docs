@@ -1,7 +1,7 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Spheron Storage SDK (Nodejs)
+# Storage Nodejs SDK
 
 The Spheron Storage SDK is equipped with multi-chain storage capabilities powered by Spheron.
 
@@ -51,6 +51,8 @@ The `SpheronClient` instance provides several methods for working with buckets. 
 Used to upload a file/directory to the specified protocol.
 
 ```js
+let currentlyUploaded = 0;
+
 const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.upload(
   filePath,
   {
