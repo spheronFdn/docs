@@ -76,11 +76,11 @@ Function `upload` takes two parameters:
   1.  `configuration.name`
       - Represents the name of the bucket on which you are uploading the data.
   2.  `configuration.protocol`
-      - a protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+      - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
   3.  `configuration.onUploadInitiated` **(Optional)**
-      - callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+      - Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
   4.  `configuration.onChunkUploaded` **(Optional)**
-      - callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+      - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 

@@ -28,12 +28,13 @@ yarn add @spheron/browser-upload
 The Browser SDK allows you to upload files directly from your browser to `IPFS`, `Filecoin` or `Arweave`. \
 To use the Browser SDK, you have to set up the following:
 
-1. An express server that will be used by the frontend to get the `uploadToken` for uploading the data.
+1. A web server that will be used by the frontend to get the `uploadToken` for uploading the data.
 2. A web app that uses `@spheron/browser-upload` to upload files directly from browser.
 
 ### Server
 
-You have to set up an express server with the `/initiate-upload` endpoint.
+You have to set up a web server with an endpoint that will be used by the frontend to fetch the token for upload.
+In the example, we have created a `/initiate-upload` endpoint.
 Make use of the `createSingleUploadToken` method from `@spheron/storage` package to generate the `uploadToken`.
 
 <Callout type="info">
@@ -76,10 +77,24 @@ You need to [Create an Access Token](/rest-api/#creating-an-access-token) to cre
   Access Token.
 </Callout>
 
+Function `createSingleUploadToken` takes two parameters:
+
+- **name** - (string) - Represents the name of the bucket on which you are uploading the data.
+- **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+
+**Response**
+
+```js
+interface TokenRes {
+  uploadToken: string;
+}
+```
+
 ### Client
 
-You have to get the `uploadToken` from the server by making a request to the `/initiate-upload` endpoint.
-Then, make use of the `upload` method from `@spheron/browser-upload` to upload your files.
+You have to send a request to your server to create the `uploadToken` that will be used to upload files from the browser.
+In the example, we are sending a request to the `/initiate-upload` endpoint.
+Make use of the `upload` method from `@spheron/browser-upload` to upload your files.
 
 <Callout type="info">
   **NOTE:** The `uploadToken` can only be used for a single upload and has an
@@ -94,21 +109,7 @@ import { upload } from "@spheron/browser-upload";
 const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the access token from server
 const resJson = await response.json();
 const token =  resJson.uploadToken;
-const uploadResult = await upload(<FILES_YOU_WANT_TO_UPLOAD>, { token });
 
-...
-```
-
-This flow allows you to control who can use your `uploadToken` to upload files.
-> You can checkout the working example [here](https://github.com/spheronFdn/sdk/tree/main/examples/browser-upload).
-
-## Available Methods
-
-### Upload
-
-Used to upload files to the specified protocol.
-
-```js
 let currentlyUploaded = 0;
 
 const { uploadId, bucketId, protocolLink, dynamicLinks } = await upload(files, {
@@ -118,14 +119,17 @@ const { uploadId, bucketId, protocolLink, dynamicLinks } = await upload(files, {
     console.log(`Uploaded ${currentlyUploaded} of ${totalSize} Bytes.`);
   },
 });
+
+...
 ```
 
+This flow allows you to control who can use your `uploadToken` to upload files. \
 Function `upload` takes two parameters:
 
 - **files** - ( File[] ) - An array of files to be uploaded.
 - **configuration:** An object with the following parameters:
   1.  `configuration.token`
-      - The upload token for the upload.
+      - The upload token that was fetched from server.
   2.  `configuration.onChunkUploaded` **(Optional)**
       - callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
@@ -139,5 +143,7 @@ interface UploadRes {
   dynamicLinks: Domain[];
 }
 ```
+
+> You can checkout the working example [here](https://github.com/spheronFdn/sdk/tree/main/examples/browser-upload).
 
 <Navigation name="Browser SDK" />
