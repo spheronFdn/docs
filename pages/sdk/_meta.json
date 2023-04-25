@@ -1,4 +1,4 @@
 {
-  "nodejs": "Nodejs SDK",
-  "browser": "Browser SDK"
+  "storage": "Storage SDK",
+  "browser": "Browser Upload SDK"
 }

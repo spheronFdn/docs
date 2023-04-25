@@ -3,9 +3,9 @@ import styles from "../styles/quick.module.css";
 
 const SDK_LIST = [
   {
-    path: "/sdk/nodejs",
+    path: "/sdk/storage",
     emoji: "⛓️",
-    title: "Nodejs SDK",
+    title: "Storage SDK",
     body: "For Node.js based environments",
   },
   {
