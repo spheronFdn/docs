@@ -241,6 +241,367 @@ interface UsageWithLimits {
 
 ## Projects
 
-#### get
+### get
+
+Used to get the project based on the passed Id.
+
+```js
+const project: Project = await spheron.projects.get(projectId);
+```
+
+---
+
+### archive
+
+Used to archive a project.
+
+```js
+await spheron.projects.archive(projectId);
+```
+
+---
+
+### unarchive
+
+Used to unarchive a project.
+
+```js
+await spheron.projects.unarchive(projectId);
+```
+
+---
+
+### updateConfiguration
+
+Used to update the configuration of a project.
+
+```js
+const configuration: Configuration = await spheron.projects.updateConfiguration(
+  projectId,
+  {
+    framework: FrameworkEnum.REACT,
+    workspace: "",
+    installCommand: "yarn install",
+    buildCommand: "yarn build",
+    publishDir: "build",
+    nodeVersion: NodeVersionEnum.V_16,
+  }
+);
+```
+
+---
+
+### getEnvironmentVariables
+
+Used to get the environment variables of a project
+
+```js
+const variables: EnvironmentVariable[] =
+  await spheron.projects.getEnvironmentVariables(projectId);
+```
+
+---
+
+### addEnvironmentVariable
+
+Used to add environment variables to a project.
+
+```js
+const added = await spheron.projects.addEnvironmentVariable(projectId, [
+  {
+    name: "variable1",
+    value: "value1",
+    environments: ["Production"],
+  },
+  {
+    name: "variable2",
+    value: "value2",
+    environments: ["Development", "Production"],
+  },
+]);
+```
+
+---
+
+### updateEnvironmentVariable
+
+Used to update an environment variable.
+
+```js
+const updated = await spheron.projects.updateEnvironmentVariable(
+  projectId,
+  environmentVariableId,
+  {
+    name: "test2_updated",
+    value: "test2_updated",
+    environments: ["Development", "Production"],
+  }
+);
+```
+
+---
+
+### deleteEnvironmentVariable
+
+Used to delete an environment variable.
+
+```js
+await spheron.projects.deleteEnvironmentVariable(
+  projectId,
+  environmentVariableId
+);
+```
+
+---
+
+### getDeploymentEnvironments
+
+Used to get deployment environments
+
+```js
+const deploymentEnvironments: DeploymentEnvironment[] =
+  await spheron.getDeploymentEnvironments(projectId);
+```
+
+---
+
+### createDeploymentEnvironment
+
+Used to create a deployment environment.
+
+```js
+const created: DeploymentEnvironment =
+  await spheron.projects.createDeploymentEnvironment(projectId, {
+    name: "Test",
+    branches: ["branch_name"],
+    protocol: ProtocolEnum.IPFS,
+  });
+```
+
+---
+
+### updateDeploymentEnvironment
+
+Used to update a deployment environment.
+
+```js
+await spheron.projects.updateDeploymentEnvironment(
+  projectId,
+  deploymentEnvironmentId,
+  {
+    name: "Test",
+    branches: ["test-1"],
+    protocol: ProtocolEnum.IPFS,
+  }
+);
+```
+
+---
+
+### deleteDeploymentEnvironment
+
+Used to delete a deployment environment.
+
+```js
+await spheron.projects.deleteDeploymentEnvironment(
+  projectId,
+  deploymentEnvironmentId
+);
+```
+
+---
+
+### activateDeploymentEnvironment
+
+Used to delete a deployment environment.
+
+```js
+await spheron.projects.activateDeploymentEnvironment(
+  projectId,
+  deploymentEnvironmentId
+);
+```
+
+---
+
+### deactivateDeploymentEnvironment
+
+Used to delete a deployment environment.
+
+```js
+await spheron.projects.deactivateDeploymentEnvironment(
+  projectId,
+  deploymentEnvironmentId
+);
+```
+
+---
+
+### getDomains
+
+Used to get the domains of a project.
+
+```js
+const domains = await spheron.projects.getDomains(projectId);
+```
+
+---
+
+### getDomain
+
+Used to get the domain of a project.
+
+```js
+const domain = await spheron.projects.getDomain(projectId, "test.com");
+```
+
+---
+
+### addDomain
+
+Used to add a new domain to a project.
+
+```js
+const domain: Domain = await spheron.projects.addDomain(projectId, {
+  name: "test.com",
+  type: DomainTypeEnum.DOMAIN,
+  deploymentEnvironments: ["Production"],
+});
+```
+
+---
+
+### updateDomain
+
+Used to update a domain of a project.
+
+```js
+const domain: Domain = await spheron.projects.updateDomain(
+  projectId,
+  domainId,
+  {
+    name: "test.com",
+    deploymentEnvironments: ["Production"],
+  }
+);
+```
+
+---
+
+### verifyDomain
+
+Used to verify a domain of a project.
+
+```js
+const domain: Domain = await spheron.projects.verifyDomain(projectId, domainId);
+```
+
+---
+
+### deleteDomain
+
+Used to delete a domain of a project.
+
+```js
+const domain: Domain = await spheron.projects.deleteDomain(projectId, domainId);
+```
+
+---
+
+### getDeployments
+
+Used to get the deployments of a projects. Methods supports pagination.
+
+```js
+const deployments: Deployment[] = await spheron.projects.getDeployments(
+  projectId,
+  {
+    skip: 0,
+    limit: 5,
+  }
+);
+```
+
+---
+
+### getDeploymentCount
+
+Used to get the deployment count of the project.
+
+```js
+await spheron.projects.getDeploymentCount(projectId);
+```
+
+## Deployments
+
+### get
+
+```js
+const deployment: Deployment = await spheron.deployments.get(deploymentId);
+```
+
+---
+
+### getLogs
+
+```js
+const logs = await spheron.deployments.getLogs(deploymentId);
+```
+
+---
+
+### getBuildDirectory
+
+```js
+const buildDirectory = await spheron.deployments.getBuildDirectory(
+  deploymentId
+);
+```
+
+---
+
+### deploy
+
+```js
+await spheron.deployments.deploy({
+  gitUrl: "https://github.com/mp-org-test123/the-wheel",
+  repoName: "THE-WHEEL-2",
+  organizationId: "628e4305191f6900124d2a3d",
+  env: {
+    REACT_APP_API_URL: "test_values",
+    REACT_APP_API_URL2: "test_values2",
+  },
+  provider: ProviderEnum.GITHUB,
+  branch: "main",
+  protocol: ProtocolEnum.IPFS,
+  createDefaultWebhook: true,
+  configuration: {
+    framework: FrameworkEnum.REACT,
+    workspace: "",
+    installCommand: "yarn install",
+    buildCommand: "yarn build",
+    publishDir: "build",
+    nodeVersion: NodeVersionEnum.V_16,
+  },
+});
+```
+
+---
+
+### cancel
+
+---
+
+### authorize
+
+---
+
+### redeploy
+
+---
+
+### suggestFramework
+
+---
 
 <Navigation name="Spheron Web-App SDK" />
