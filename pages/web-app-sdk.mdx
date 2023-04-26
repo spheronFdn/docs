@@ -1,0 +1,246 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Spheron Web-App SDK
+
+The Spheron Web-App SDK is a npm package, that provides support for working with Spheron Web-App organizations.
+
+<Callout type="info">
+  **NOTE:** The package is only meant for Node.js environments and will not work
+  in a browser or frontend apps.
+</Callout>
+
+## Installation
+
+**Using NPM**
+
+```
+npm i @spheron/web-app
+```
+
+**Using Yarn**
+
+```
+yarn add @spheron/web-app
+```
+
+## Usage
+
+To use the Spheron Web-App SDK, you have to create an instance of `SpheronClient`.
+
+```js
+import { SpheronClient, ProtocolEnum } from "@spheron/storage";
+
+const client = new SpheronClient({ token });
+```
+
+The `SpheronClient` constructor takes an object that has one property `token`.
+Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
+
+<Callout type="info">
+  **NOTE:** When you are creating the tokens, please choose **web app** type in
+  the dashboard.
+</Callout>
+
+## Organizations
+
+The methods for working with organizations are available on the `organizations` property of the `SpheronClient` object.
+
+### get
+
+Used to get the organization based on the passed id.
+
+```js
+const organization: Organization = await spheron.organizations.get(
+  organizationId
+);
+```
+
+Params:
+
+- `organizationId`: Id of the organization.
+
+Returns an Organization object.
+
+```js
+interface Organization {
+  id: string;
+  profile: {
+    name: string,
+    username: string,
+    image: string,
+  };
+}
+```
+
+<Callout type="info">
+  **NOTE:** At the moment, Spheron Tokens are scoped to a single organization.
+  So you can only use them to get the information about the organization for
+  which you have created the token.
+</Callout>
+
+---
+
+### getProjects
+
+Used to get the projects of the organization. The methods support pagination.
+
+```js
+const projects: Project[] = await spheron.organizations.getProjects(
+  organizationId,
+  {
+    skip: 0,
+    limit: 10,
+    state: ProjectStateEnum.MAINTAINED,
+  }
+);
+```
+
+Params:
+
+- `organizationId`: Id of the organization.
+- `options`:
+  - `skip`: number of projects to skip.
+  - `limit`: number of projects to take.
+  - `state` ( optional ): project state filter.
+
+Return an array of projects.
+
+```js
+interface Project {
+  id: string;
+  name: string;
+  state: ProjectStateEnum;
+  url: string;
+  organizationId: string;
+  provider: ProviderEnum;
+  configuration: Configuration;
+}
+
+interface Configuration {
+  buildCommand: string;
+  installCommand: string;
+  workspace: string;
+  publishDir: string;
+  framework: FrameworkEnum;
+  nodeVersion: NodeVersionEnum;
+}
+
+enum ProjectStateEnum {
+    MAINTAINED = "MAINTAINED",
+    ARCHIVED = "ARCHIVED"
+}
+
+enum ProviderEnum {
+    GITHUB = "GITHUB",
+    GITLAB = "GITLAB",
+    BITBUCKET = "GITLAB"
+}
+
+enum NodeVersionEnum {
+    V_12 = "V_12",
+    V_14 = "V_14",
+    V_16 = "V_16"
+}
+
+enum FrameworkEnum {
+    SIMPLE_JAVASCRIPT_APP = "static",
+    VUE = "vue",
+    REACT = "react",
+    NEXT = "next",
+    ANGULAR = "angular",
+    PREACT = "preact",
+    NUXT = "nuxt2",
+    SVELTE = "svelte",
+    GATSBY = "gatsby",
+    ELEVENTY = "eleventy",
+    DOCUSAURUS = "docusaurus",
+    SANITY = "sanity",
+    HUGO = "hugo",
+    IONIC_REACT = "ionicreact",
+    VITE = "vite",
+    SCULLY = "scully",
+    STENCIL = "stencil",
+    BRUNCH = "brunch",
+    IONIC_ANGULAR = "ionicangular"
+}
+```
+
+### getProjectCount
+
+Used to get the number of projects int the organization.
+
+```js
+const count: number = await spheron.organizations.getProjectCount(
+  organizationId,
+  {
+    state: ProjectStateEnum.MAINTAINED,
+  }
+);
+```
+
+Params:
+
+- `organizationId`: Id of the organization.
+- `options`:
+  - `state` ( optional ): project state filter.
+
+Return the number of projects.
+
+### getUsage
+
+Used to get the current subscription usage of the organization.
+
+```js
+const usage: UsageWithLimits = await spheron.organizations.getUsage(
+  organizationId
+);
+```
+
+Params:
+
+- `organizationId`: Id of the organization.
+
+Returns the UsageWithLimits object.
+
+```js
+interface UsageWithLimits {
+  usedBandwidth?: number; // Bytes
+  usedBuildExecution?: number; // Seconds
+  usedConcurrentBuild?: number;
+  usedStorageArweave?: number; // Bytes
+  usedStorageFileCoin?: number; // Seconds
+  usedStorageIPFS?: number; // Bytes
+  usedDeploymentsPerDay?: number;
+  lastDeploymentDate?: Date;
+  usedDomains?: number;
+  usedHnsDomains?: number;
+  usedEnsDomains?: number;
+  usedEnvironments?: number;
+  usedClusterAkt?: number;
+  usedClusterBuildExecution?: number;
+  usedNumberOfRequests?: number;
+  usedPasswordProtections?: number;
+  membersLimit?: number;
+  bandwidthLimit?: number; // Bytes
+  buildExecutionLimit?: number; // Seconds
+  concurrentBuildLimit?: number;
+  storageArweaveLimit?: number; // Bytes
+  storageFileCoinLimit?: number; // Bytes
+  storageIPFSLimit?: number;
+  deploymentsPerDayLimit?: number;
+  domainsLimit?: number;
+  hnsDomainsLimit?: number;
+  ensDomainsLimit?: number;
+  environmentsLimit?: number;
+  clusterAktLimit?: number;
+  clusterBuildExecutionLimit?: number;
+  passwordProtectionLimit?: number;
+}
+```
+
+## Projects
+
+#### get
+
+<Navigation name="Spheron Web-App SDK" />
