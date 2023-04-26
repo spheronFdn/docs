@@ -3,6 +3,7 @@
   "billing": "Billing",
   "organization": "Organization",
   "static": "Static App",
+  "compute": "Compute",
   "framework-guide": "Framework Guide",
   "rest-api": "Spheron API",
   "sdk": "Spheron SDK",

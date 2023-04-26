@@ -1,0 +1,51 @@
+import { Callout } from "nextra-theme-docs";
+
+# Cluster
+
+## Create a cluster
+
+### Import from Docker Hub
+
+Spheron allows you to create a new cluster with a custom docker image.
+To create a cluster:
+
+1. Click New Cluster on the top right corner.
+2. Select 'Import from Docker Hub'.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click Next.
+5. Select the instance plan that suits your needs and Click Select Plan.
+6. Click Deploy to initiate deployment without additional configuration.
+
+**Additional Configuration**
+
+7. Port Mapping
+
+- Click New Port Mapping under `Additional Configuration` to create a new port policy mapping.
+- Add the container port, and Select the exposed port you want to map it to.
+
+8. Environment Variable
+
+- Click New Variable to add new environment variable.
+- Add key and value. Use the Secret Key toggle if the value is a secret key.
+
+9. Region
+
+- Select the region of your choice.
+
+10. Advanced Configuration
+
+- Click Advanced Configuration if you want add advanced configuration.
+- Click New Command to add a new command.
+- Click New Argument to add a new argument.
+
+11. Health Checkup
+
+- Click Health Checkup if you want to configure Health Checkup.
+- Add the desired health check path and health check port.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+### Start from Marketplace App
