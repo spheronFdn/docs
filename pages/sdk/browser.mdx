@@ -108,7 +108,7 @@ import { upload } from "@spheron/browser-upload";
 
 ...
 
-const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the access token from server
+const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the temporary access token from server
 const resJson = await response.json();
 const token =  resJson.uploadToken;
 
@@ -142,7 +142,7 @@ interface UploadRes {
   uploadId: string;
   bucketId: string;
   protocolLink: string;
-  dynamicLinks: Domain[];
+  dynamicLinks: string[];
 }
 ```
 
