@@ -1,0 +1,149 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Browser Upload SDK
+
+The Browser Upload SDK is equipped with multi-chain storage capabilities powered by Spheron.
+
+<Callout type="warning">
+  The package is only meant for Browser environments.
+</Callout>
+
+## Installation
+
+**Using NPM**
+
+```
+npm i @spheron/browser-upload
+```
+
+**Using Yarn**
+
+```
+yarn add @spheron/browser-upload
+```
+
+## Usage
+
+The Browser SDK allows you to upload files directly from your browser to `IPFS`, `Filecoin` or `Arweave`. \
+To use the Browser SDK, you have to set up the following:
+
+1. A web server that will be used by the frontend to get the `uploadToken` for uploading the data.
+2. A web app that uses `@spheron/browser-upload` to upload files directly from browser.
+
+> You can checkout the working example [here](https://github.com/spheronFdn/sdk/tree/main/examples/browser-upload).
+
+### Server
+
+You have to set up a web server with an endpoint that will be used by the frontend to fetch the token for upload.
+In the example, we have created a `/initiate-upload` endpoint.
+Make use of the `createSingleUploadToken` method from `@spheron/storage` package to generate the `uploadToken`.
+
+<Callout type="info">
+  **NOTE:** The `uploadToken` can only be used for a single upload and has an
+  expiration of 10 minutes.
+</Callout>
+
+```js
+import { SpheronClient, ProtocolEnum } from "@spheron/storage";
+
+...
+
+app.get("/initiate-upload", async (req, res, next) => {
+  try {
+    const bucketName = "example-browser-upload"; // use your preferred name
+    const protocol = ProtocolEnum.IPFS; // use your preferred protocol
+    const token = process.env.SPHERON_TOKEN; // add your access token in .env or paste it here
+
+    const client = new SpheronClient({ token });
+
+    const { uploadToken } = await client.createSingleUploadToken({
+      name: bucketName,
+      protocol,
+    });
+
+    res.status(200).json({
+      uploadToken,
+    });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+```
+
+You need to [Create an Access Token](/rest-api/#creating-an-access-token) to create the client.
+
+<Callout type="info">
+  **NOTE:** Please choose `web app` type in the dashboard while generating the
+  Access Token.
+</Callout>
+
+Function `createSingleUploadToken` takes two parameters:
+
+- **name** - (string) - Represents the name of the bucket on which you are uploading the data.
+- **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+
+**Response**
+
+```js
+interface TokenRes {
+  uploadToken: string;
+}
+```
+
+### Client
+
+You have to send a request to your server to create the `uploadToken` that will be used to upload files from the browser.
+In the example, we are sending a request to the `/initiate-upload` endpoint.
+Make use of the `upload` method from `@spheron/browser-upload` to upload your files.
+
+<Callout type="info">
+  **NOTE:** The `uploadToken` can only be used for a single upload and has an
+  expiration of 10 minutes.
+</Callout>
+
+```js
+import { upload } from "@spheron/browser-upload";
+
+...
+
+const response = await fetch(`<BACKEND_URL>/initiate-upload`); // get the temporary access token from server
+const resJson = await response.json();
+const token =  resJson.uploadToken;
+
+let currentlyUploaded = 0;
+
+const { uploadId, bucketId, protocolLink, dynamicLinks } = await upload(files, {
+  token,
+  onChunkUploaded: (uploadedSize, totalSize) => {
+    currentlyUploaded += uploadedSize;
+    console.log(`Uploaded ${currentlyUploaded} of ${totalSize} Bytes.`);
+  },
+});
+
+...
+```
+
+This flow allows you to control who can use your `uploadToken` to upload files. \
+Function `upload` takes two parameters:
+
+- **files** - ( File[] ) - An array of files to be uploaded.
+- **configuration:** An object with the following parameters:
+  1.  `configuration.token`
+      - The upload token that was fetched from server.
+  2.  `configuration.onChunkUploaded` **(Optional)**
+      - callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+
+**Response**
+
+```js
+interface UploadRes {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: string[];
+}
+```
+
+<Navigation name="Browser Upload SDK" />
