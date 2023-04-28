@@ -590,18 +590,49 @@ Method returns the deactivated deployment environment.
 Used to get the domains of a project.
 
 ```js
-const domains = await spheron.projects.getDomains(projectId);
+const domains: Domain[] = await spheron.projects.getDomains(projectId);
 ```
 
----
+Params:
+
+- Id of the project.
+
+Returns an array of deployment domains.
+
+```js
+interface Domain {
+  id: string;
+  name: string;
+  verified: boolean;
+  link: string;
+  type: DomainTypeEnum;
+  projectId: string;
+  deploymentEnvironmentIds: string[];
+}
+
+enum DomainTypeEnum {
+    DOMAIN = "domain",
+    SUBDOMAIN = "subdomain",
+    HANDSHAKE_DOMAIN = "handshake-domain",
+    HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+    ENS_DOMAIN = "ens-domain"
+}
+```
 
 ### getDomain
 
 Used to get the domain of a project.
 
 ```js
-const domain = await spheron.projects.getDomain(projectId, "test.com");
+const domain: Domain = await spheron.projects.getDomain(projectId, "test.com");
 ```
+
+Params:
+
+- Id of the project.
+- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+
+Returns the domain.
 
 ---
 
@@ -611,11 +642,27 @@ Used to add a new domain to a project.
 
 ```js
 const domain: Domain = await spheron.projects.addDomain(projectId, {
-  name: "test.com",
+  name: "domain.com",
   type: DomainTypeEnum.DOMAIN,
   deploymentEnvironments: ["Production"],
 });
 ```
+
+Params:
+
+- Id of the project.
+- `options`:
+  - `name`: the domain name.
+  - `type`: the domain type.
+  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment executed, the domain will be updated to point to the newly deployed data.
+  - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
+
+<Callout type="info">
+  **NOTE:** Ether `deploymentEnvironments` or `link` is required in the request
+  body.
+</Callout>
+
+Returns the newly created domain. After a domain is created you need to call the [verifyDomain](/sdk/site/#verifydomain) function for it to work.
 
 ---
 
@@ -634,15 +681,33 @@ const domain: Domain = await spheron.projects.updateDomain(
 );
 ```
 
+Params:
+
+- Id of the project.
+- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+- `options`:
+  - `name`: the domain name.
+  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment executed, the domain will be updated to point to the newly deployed data.
+  - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
+
+Returns the updated domain. If the domain name is updated you need to call the [verifyDomain](/sdk/site/#verifydomain) function again.
+
 ---
 
 ### verifyDomain
 
-Used to verify a domain of a project.
+Used to verify the domain, after which the content behind the domain will be cached on CDN.
 
 ```js
 const domain: Domain = await spheron.projects.verifyDomain(projectId, domainId);
 ```
+
+Params:
+
+- Id of the project.
+- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+
+Returns the verified domain.
 
 ---
 
@@ -651,8 +716,15 @@ const domain: Domain = await spheron.projects.verifyDomain(projectId, domainId);
 Used to delete a domain of a project.
 
 ```js
-const domain: Domain = await spheron.projects.deleteDomain(projectId, domainId);
+await spheron.projects.deleteDomain(projectId, domainId);
 ```
+
+Params:
+
+- Id of the project.
+- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+
+Method return type is void.
 
 ---
 
@@ -666,9 +738,20 @@ const deployments: Deployment[] = await spheron.projects.getDeployments(
   {
     skip: 0,
     limit: 5,
+    status: DeploymentStatusEnum.QUEUED,
   }
 );
 ```
+
+Params:
+
+- Id of the project.
+- `options`:
+  - `skip`: number of deployments to skip.
+  - `limit`: number of deployments to take.
+  - `status` ( optional ): status of the deployments.
+
+Return the array of deployments. Check the [get deployment](/sdk/site/#get-2) function, for the interface details.
 
 ---
 
@@ -678,6 +761,21 @@ Used to get the deployment count of the project.
 
 ```js
 await spheron.projects.getDeploymentCount(projectId);
+```
+
+Params:
+
+- Id of the project.
+
+Returns the number of deployments.
+
+```js
+interface DeploymentCountResponse {
+  total: number;
+  successful: number;
+  failed: number;
+  pending: number;
+}
 ```
 
 ## Deployments
