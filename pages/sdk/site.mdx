@@ -109,67 +109,7 @@ Params:
   - `limit`: number of projects to take.
   - `state` ( optional ): project state filter.
 
-Return an array of projects.
-
-```js
-interface Project {
-  id: string;
-  name: string;
-  state: ProjectStateEnum;
-  url: string; // the url to the git repository
-  organizationId: string;
-  provider: ProviderEnum;
-  configuration: Configuration;
-}
-
-interface Configuration {
-  installCommand: string; // command that will be used to install the dependencies of the repository
-  buildCommand: string; // command that will be executed to build the repository
-  workspace: string; // the path to the app inside repository
-  publishDir: string; // the path to the build directory
-  framework: FrameworkEnum;
-  nodeVersion: NodeVersionEnum;
-}
-
-enum ProjectStateEnum {
-    MAINTAINED = "MAINTAINED",
-    ARCHIVED = "ARCHIVED"
-}
-
-enum ProviderEnum {
-    GITHUB = "GITHUB",
-    GITLAB = "GITLAB",
-    BITBUCKET = "GITLAB"
-}
-
-enum NodeVersionEnum {
-    V_12 = "V_12",
-    V_14 = "V_14",
-    V_16 = "V_16"
-}
-
-enum FrameworkEnum {
-    SIMPLE_JAVASCRIPT_APP = "static",
-    VUE = "vue",
-    REACT = "react",
-    NEXT = "next",
-    ANGULAR = "angular",
-    PREACT = "preact",
-    NUXT = "nuxt2",
-    SVELTE = "svelte",
-    GATSBY = "gatsby",
-    ELEVENTY = "eleventy",
-    DOCUSAURUS = "docusaurus",
-    SANITY = "sanity",
-    HUGO = "hugo",
-    IONIC_REACT = "ionicreact",
-    VITE = "vite",
-    SCULLY = "scully",
-    STENCIL = "stencil",
-    BRUNCH = "brunch",
-    IONIC_ANGULAR = "ionicangular"
-}
-```
+Return an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
 
 ### getProjectCount
 
@@ -254,6 +194,72 @@ Used to get the project based on the passed Id.
 const project: Project = await spheron.projects.get(projectId);
 ```
 
+Params:
+
+- Id of the project.
+
+Returns an object of type `Project`.
+
+```js
+interface Project {
+  id: string;
+  name: string;
+  state: ProjectStateEnum;
+  url: string; // the url to the git repository
+  organizationId: string;
+  provider: ProviderEnum;
+  configuration: Configuration;
+}
+
+interface Configuration {
+  installCommand: string; // command that will be used to install the dependencies of the repository
+  buildCommand: string; // command that will be executed to build the repository
+  workspace: string; // the path to the app inside repository
+  publishDir: string; // the path to the build directory
+  framework: FrameworkEnum;
+  nodeVersion: NodeVersionEnum;
+}
+
+enum ProjectStateEnum {
+    MAINTAINED = "MAINTAINED",
+    ARCHIVED = "ARCHIVED"
+}
+
+enum ProviderEnum {
+    GITHUB = "GITHUB",
+    GITLAB = "GITLAB",
+    BITBUCKET = "GITLAB"
+}
+
+enum NodeVersionEnum {
+    V_12 = "V_12",
+    V_14 = "V_14",
+    V_16 = "V_16"
+}
+
+enum FrameworkEnum {
+    SIMPLE_JAVASCRIPT_APP = "static",
+    VUE = "vue",
+    REACT = "react",
+    NEXT = "next",
+    ANGULAR = "angular",
+    PREACT = "preact",
+    NUXT = "nuxt2",
+    SVELTE = "svelte",
+    GATSBY = "gatsby",
+    ELEVENTY = "eleventy",
+    DOCUSAURUS = "docusaurus",
+    SANITY = "sanity",
+    HUGO = "hugo",
+    IONIC_REACT = "ionicreact",
+    VITE = "vite",
+    SCULLY = "scully",
+    STENCIL = "stencil",
+    BRUNCH = "brunch",
+    IONIC_ANGULAR = "ionicangular"
+}
+```
+
 ---
 
 ### archive
@@ -264,6 +270,8 @@ Used to archive a project.
 await spheron.projects.archive(projectId);
 ```
 
+Method return type is void. If there is an issue while archiving, an error will be thrown.
+
 ---
 
 ### unarchive
@@ -273,6 +281,8 @@ Used to unarchive a project.
 ```js
 await spheron.projects.unarchive(projectId);
 ```
+
+Method return type is void. If there is an issue while archiving, an error will be thrown.
 
 ---
 
@@ -294,6 +304,31 @@ const configuration: Configuration = await spheron.projects.updateConfiguration(
 );
 ```
 
+Params:
+
+- Id of the project.
+- `configuration`:
+
+  - `framework`: the framework of the repository
+  - `workspace`: the path to the app inside repository
+  - `installCommand`: command that will be used to install the dependencies of the repository
+  - `buildCommand`: command that will be executed to build the repository
+  - `publishDir`: the path to the build directory
+  - `nodeVersion`: the node version of your repository
+
+Returns the updated configuration.
+
+```js
+interface Configuration {
+  installCommand: string;
+  buildCommand: string;
+  workspace: string;
+  publishDir: string;
+  framework: FrameworkEnum;
+  nodeVersion: NodeVersionEnum;
+}
+```
+
 ---
 
 ### getEnvironmentVariables
@@ -305,6 +340,21 @@ const variables: EnvironmentVariable[] =
   await spheron.projects.getEnvironmentVariables(projectId);
 ```
 
+Params:
+
+- Id of the project.
+
+Returns an array of environment variables.
+
+```js
+interface EnvironmentVariable {
+  id: string;
+  name: string; // variable name
+  value: string; // variable value
+  environments: string[]; // the deployment environments for which the variable will be used
+}
+```
+
 ---
 
 ### addEnvironmentVariable
@@ -312,19 +362,30 @@ const variables: EnvironmentVariable[] =
 Used to add environment variables to a project.
 
 ```js
-const added = await spheron.projects.addEnvironmentVariable(projectId, [
-  {
-    name: "variable1",
-    value: "value1",
-    environments: ["Production"],
-  },
-  {
-    name: "variable2",
-    value: "value2",
-    environments: ["Development", "Production"],
-  },
-]);
+const added: EnvironmentVariable[] =
+  await spheron.projects.addEnvironmentVariable(projectId, [
+    {
+      name: "variable1",
+      value: "value1",
+      environments: ["Production"],
+    },
+    {
+      name: "variable2",
+      value: "value2",
+      environments: ["Development", "Production"],
+    },
+  ]);
 ```
+
+Params:
+
+- Id of the project.
+- Array of variables that should be added. Each object of the array should have the following properties:
+  - `name`: the name of the variable.
+  - `value`: the value of the variable.
+  - `environments`: the deployment environments for which the variable will be used
+
+Returns an array of added variables.
 
 ---
 
@@ -337,12 +398,23 @@ const updated = await spheron.projects.updateEnvironmentVariable(
   projectId,
   environmentVariableId,
   {
-    name: "test2_updated",
-    value: "test2_updated",
+    name: "updated_name",
+    value: "updated_value",
     environments: ["Development", "Production"],
   }
 );
 ```
+
+Params:
+
+- Id of the project.
+- Id of the environment variable.
+- `options`:
+  - `name`: the name of the variable.
+  - `value`: the value of the variable.
+  - `environments`: the deployment environments for which the variable will be used
+
+Returns the updated variable.
 
 ---
 
@@ -357,49 +429,99 @@ await spheron.projects.deleteEnvironmentVariable(
 );
 ```
 
+Params:
+
+- Id of the project.
+- Id of the environment variable.
+
+Method return type is void. If there is an issue while deleting, an error will be thrown.
+
 ---
 
 ### getDeploymentEnvironments
 
-Used to get deployment environments
+Used to get the deployment environments of the project.
 
 ```js
 const deploymentEnvironments: DeploymentEnvironment[] =
   await spheron.getDeploymentEnvironments(projectId);
 ```
 
+Params:
+
+- Id of the project.
+
+Returns an array of deployment environments.
+
+```js
+interface DeploymentEnvironment {
+  id: string;
+  name: string;
+  protocol: ProtocolEnum;
+  branches: string[];
+}
+
+enum ProtocolEnum {
+    ARWEAVE = "arweave",
+    FILECOIN = "ipfs-filecoin",
+    IPFS = "ipfs"
+}
+```
+
 ---
 
 ### createDeploymentEnvironment
 
-Used to create a deployment environment.
+Used to create a deployment environment of a project..
 
 ```js
 const created: DeploymentEnvironment =
   await spheron.projects.createDeploymentEnvironment(projectId, {
-    name: "Test",
-    branches: ["branch_name"],
+    name: "Deployment Environment Name",
+    branches: ["branch1", "branch2"],
     protocol: ProtocolEnum.IPFS,
   });
 ```
+
+Params:
+
+- Id of the project.
+- `options`:
+  - `name`: the name of the deployment environment.
+  - `branches`: an array of strings, that represent the branches of the deployment environment.
+  - `protocol`: the protocol of the deployment environment.
+
+Returns the created deployment environment.
 
 ---
 
 ### updateDeploymentEnvironment
 
-Used to update a deployment environment.
+Used to update a deployment environment of the project.
 
 ```js
-await spheron.projects.updateDeploymentEnvironment(
-  projectId,
-  deploymentEnvironmentId,
-  {
-    name: "Test",
-    branches: ["test-1"],
-    protocol: ProtocolEnum.IPFS,
-  }
-);
+const updated: DeploymentEnvironment =
+  await spheron.projects.updateDeploymentEnvironment(
+    projectId,
+    deploymentEnvironmentId,
+    {
+      name: "Deployment Environment Name Updated",
+      branches: ["branch1", "branch2", "branch3"],
+      protocol: ProtocolEnum.FILECOIN,
+    }
+  );
 ```
+
+Params:
+
+- Id of the project.
+- Id of the deployment environment.
+- `options`:
+  - `name`: the name of the deployment environment.
+  - `branches`: an array of strings, that represent the branches of the deployment environment.
+  - `protocol`: the protocol of the deployment environment.
+
+Returns the updated deployment environment.
 
 ---
 
@@ -414,31 +536,52 @@ await spheron.projects.deleteDeploymentEnvironment(
 );
 ```
 
+Params:
+
+- Id of the project.
+- Id of the deployment environment.
+
+Method return type is void
+
 ---
 
 ### activateDeploymentEnvironment
 
-Used to delete a deployment environment.
+Used to activate a deployment environment.
 
 ```js
-await spheron.projects.activateDeploymentEnvironment(
-  projectId,
-  deploymentEnvironmentId
-);
+const deploymentEnvironment: DeploymentEnvironment =
+  await spheron.projects.activateDeploymentEnvironment(
+    projectId,
+    deploymentEnvironmentId
+  );
 ```
 
----
+Params:
+
+- Id of the project.
+- Id of the deployment environment.
+
+Method returns the activated deployment environment.
 
 ### deactivateDeploymentEnvironment
 
-Used to delete a deployment environment.
+Used to deactivate a deployment environment.
 
 ```js
-await spheron.projects.deactivateDeploymentEnvironment(
-  projectId,
-  deploymentEnvironmentId
-);
+const deploymentEnvironment: DeploymentEnvironment =
+  await spheron.projects.deactivateDeploymentEnvironment(
+    projectId,
+    deploymentEnvironmentId
+  );
 ```
+
+Params:
+
+- Id of the project.
+- Id of the deployment environment.
+
+Method returns the deactivated deployment environment.
 
 ---
 
