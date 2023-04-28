@@ -782,45 +782,102 @@ interface DeploymentCountResponse {
 
 ### get
 
+Used to get the deployment.
+
 ```js
 const deployment: Deployment = await spheron.deployments.get(deploymentId);
+```
+
+Params:
+
+- Id of the deployment.
+
+Returns an object of type `Deployment`.
+
+```js
+interface Deployment {
+  id: string;
+  status: DeploymentStatusEnum;
+  configuration: Configuration; // the specific configuration that was used for the deployment
+  buildTime: number;
+  memoryUsed: number;
+  deploymentEnvironmentName: string;
+  commitId: string;
+  branch: string;
+  protocol: ProtocolEnum;
+  sitePreview: string;
+}
+
+enum DeploymentStatusEnum {
+    PRE_QUEUE = "PreQueue",
+    QUEUED = "Queued",
+    PENDING = "Pending",
+    CANCELED = "Canceled",
+    DEPLOYED = "Deployed",
+    FAILED = "Failed",
+    AUTHORIZATION_NEEDED = "AuthorizationNeeded",
+    KILLING = "Killing",
+    TIMED_OUT = "TimedOut"
+}
+
 ```
 
 ---
 
 ### getLogs
 
+Used to get the logs of the deployment.
+
 ```js
-const logs = await spheron.deployments.getLogs(deploymentId);
+const logs: DeploymentLog[] = await spheron.deployments.getLogs(deploymentId);
+```
+
+Params:
+
+- Id of the deployment.
+
+Returns an array of objects that represent the deployment logs.
+
+```js
+interface DeploymentLog {
+  log: string;
+  time: string;
+}
 ```
 
 ---
 
 ### getBuildDirectory
 
+Used to get the build directory structure of the deployment.
+
 ```js
-const buildDirectory = await spheron.deployments.getBuildDirectory(
+const buildDirectory: string[] = await spheron.deployments.getBuildDirectory(
   deploymentId
 );
 ```
 
----
+Params:
+
+- Id of the deployment.
+
+Returns the build directory structure.
 
 ### deploy
 
+Used to start a new deployment.
+
 ```js
 await spheron.deployments.deploy({
-  gitUrl: "https://github.com/mp-org-test123/the-wheel",
-  repoName: "THE-WHEEL-2",
-  organizationId: "628e4305191f6900124d2a3d",
+  gitUrl, // the url of the repository
+  projectName, // if the project for the repository does not exists, a new project will be created with this name
+  organizationId, // organization id
   env: {
-    REACT_APP_API_URL: "test_values",
-    REACT_APP_API_URL2: "test_values2",
+    KEY_1: "value1",
   },
-  provider: ProviderEnum.GITHUB,
-  branch: "main",
-  protocol: ProtocolEnum.IPFS,
-  createDefaultWebhook: true,
+  provider: ProviderEnum.GITHUB, // the provider of the git url
+  branch: "main", // the branch name that should be deployed
+  protocol: ProtocolEnum.IPFS, // the protocol on which the deployment should be uploaded
   configuration: {
     framework: FrameworkEnum.REACT,
     workspace: "",
@@ -832,22 +889,107 @@ await spheron.deployments.deploy({
 });
 ```
 
+Params:
+
+- `gitUrl`: the url of the repository.
+  <Callout type="info">
+    **NOTE:** Only repositories for which you have authorized the Spheron Git
+    App can be deployed.
+  </Callout>
+- `projectName`: if the project for the `gitUrl` does not exists, a new project will be created and `projectName` will be used for the name of the project.
+- `organizationId`: the id of the organization.
+- `env`: an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
+- `provider`: the provider of the repository.
+- `branch`: the branch of the deployment.
+- `protocol`: the protocol on which the deployment should be uploaded.
+- `configuration`: the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#get-1) for more details.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean;
+  message: string;
+  deploymentId: string;
+  projectId: string;
+  deployment: Deployment;
+}
+```
+
 ---
 
 ### cancel
+
+Used to cancel a deployment that is in progress. The deployment is in progress if it is in PRE_QUEUE, QUEUED or PENDING state.
+
+```js
+await spheron.deployments.cancel(deploymentId);
+```
+
+Params:
+
+- Id of the deployment.
+
+Returns:
+
+```js
+interface CancelDeploymentResponse {
+  message: string; // information about the cancellation
+  canceled: true; // true if deployment was canceled
+  killing: true; // true if deployment is in the cancellation process.
+}
+```
 
 ---
 
 ### authorize
 
+Used to authorize a deployment that is in AUTHORIZATION_NEEDED state.
+
+```js
+await spheron.deployments.authorize(deploymentId);
+```
+
+Params:
+
+- Id of the deployment.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean;
+  message: string;
+  deploymentId: string;
+  projectId: string;
+  deployment: Deployment;
+}
+```
+
 ---
 
 ### redeploy
 
----
+Used to start a new deployment with the same configuration as the one for which the `deploymentId` is passed.
 
-### suggestFramework
+```js
+await spheron.deployments.redeploy(deploymentId);
+```
 
----
+Params:
+
+- Id of the deployment.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean;
+  message: string;
+  deploymentId: string;
+  projectId: string;
+  deployment: Deployment;
+}
+```
 
 <Navigation name="Spheron Site SDK" />
