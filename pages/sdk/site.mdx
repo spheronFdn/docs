@@ -15,13 +15,13 @@ The Spheron Site SDK is a npm package, that provides support for working with Sp
 **Using NPM**
 
 ```
-npm i @spheron/web-app
+npm i @spheron/site
 ```
 
 **Using Yarn**
 
 ```
-yarn add @spheron/web-app
+yarn add @spheron/site
 ```
 
 ## Usage
@@ -29,13 +29,18 @@ yarn add @spheron/web-app
 To use the Spheron Site SDK, you have to create an instance of `SpheronClient`.
 
 ```js
-import { SpheronClient, ProtocolEnum } from "@spheron/storage";
+import { SpheronClient, ProtocolEnum } from "@spheron/site";
 
 const client = new SpheronClient({ token });
 ```
 
 The `SpheronClient` constructor takes an object that has one property `token`.
 Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
+The `SpheronClient` has three properties:
+
+- `organizations` provides methods for working with organizations.
+- `projects` provides methods for working with projects.
+- `deployments` provides methods for working with deployments.
 
 <Callout type="info">
   **NOTE:** When you are creating the tokens, please choose **web app** type in
@@ -111,17 +116,17 @@ interface Project {
   id: string;
   name: string;
   state: ProjectStateEnum;
-  url: string;
+  url: string; // the url to the git repository
   organizationId: string;
   provider: ProviderEnum;
   configuration: Configuration;
 }
 
 interface Configuration {
-  buildCommand: string;
-  installCommand: string;
-  workspace: string;
-  publishDir: string;
+  installCommand: string; // command that will be used to install the dependencies of the repository
+  buildCommand: string; // command that will be executed to build the repository
+  workspace: string; // the path to the app inside repository
+  publishDir: string; // the path to the build directory
   framework: FrameworkEnum;
   nodeVersion: NodeVersionEnum;
 }
@@ -201,41 +206,41 @@ Params:
 
 - `organizationId`: Id of the organization.
 
-Returns the UsageWithLimits object.
+Returns the `UsageWithLimits` object.
 
 ```js
 interface UsageWithLimits {
-  usedBandwidth?: number; // Bytes
-  usedBuildExecution?: number; // Seconds
-  usedConcurrentBuild?: number;
-  usedStorageArweave?: number; // Bytes
-  usedStorageFileCoin?: number; // Seconds
-  usedStorageIPFS?: number; // Bytes
-  usedDeploymentsPerDay?: number;
-  lastDeploymentDate?: Date;
-  usedDomains?: number;
-  usedHnsDomains?: number;
-  usedEnsDomains?: number;
-  usedEnvironments?: number;
-  usedClusterAkt?: number;
-  usedClusterBuildExecution?: number;
-  usedNumberOfRequests?: number;
-  usedPasswordProtections?: number;
-  membersLimit?: number;
-  bandwidthLimit?: number; // Bytes
-  buildExecutionLimit?: number; // Seconds
-  concurrentBuildLimit?: number;
-  storageArweaveLimit?: number; // Bytes
-  storageFileCoinLimit?: number; // Bytes
-  storageIPFSLimit?: number;
-  deploymentsPerDayLimit?: number;
-  domainsLimit?: number;
-  hnsDomainsLimit?: number;
-  ensDomainsLimit?: number;
-  environmentsLimit?: number;
-  clusterAktLimit?: number;
-  clusterBuildExecutionLimit?: number;
-  passwordProtectionLimit?: number;
+  usedBandwidth: number; // Bytes
+  usedBuildExecution: number; // Seconds
+  usedConcurrentBuild: number;
+  usedStorageArweave: number; // Bytes
+  usedStorageFileCoin: number; // Seconds
+  usedStorageIPFS: number; // Bytes
+  usedDeploymentsPerDay: number;
+  lastDeploymentDate: Date;
+  usedDomains: number;
+  usedHnsDomains: number;
+  usedEnsDomains: number;
+  usedEnvironments: number;
+  usedClusterAkt: number;
+  usedClusterBuildExecution: number;
+  usedNumberOfRequests: number;
+  usedPasswordProtections: number;
+  membersLimit: number;
+  bandwidthLimit: number; // Bytes
+  buildExecutionLimit: number; // Seconds
+  concurrentBuildLimit: number;
+  storageArweaveLimit: number; // Bytes
+  storageFileCoinLimit: number; // Bytes
+  storageIPFSLimit: number;
+  deploymentsPerDayLimit: number;
+  domainsLimit: number;
+  hnsDomainsLimit: number;
+  ensDomainsLimit: number;
+  environmentsLimit: number;
+  clusterAktLimit: number;
+  clusterBuildExecutionLimit: number;
+  passwordProtectionLimit: number;
 }
 ```
 
