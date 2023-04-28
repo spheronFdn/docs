@@ -1,3 +1,5 @@
+import { Callout } from "nextra-theme-docs";
+
 # Instance
 
 ## Logs
@@ -26,18 +28,56 @@ the deployment, and verifying that the deployment was successful.
 
 ## Activity
 
-Activity provides updates on the status of recent actions and changes that have been made to an instance. 
-This includes updates on the status of a deployment, such as whether it was successful, failed, or is currently in progress. 
+Activity provides updates on the status of recent actions and changes that have been made to an instance.
+This includes updates on the status of a deployment, such as whether it was successful, failed, or is currently in progress.
 Additionally, it displays information on the number of times it has been deployed, as well as the date and time when it was created and last updated.
 
 ## Settings
 
+### Port Policy
+
+Port Policy provides details about the `Internal Port`, `External Port`, and `Connection URL` for the deployed instance.
+
 ### Instance Plan
+
+Instance plan shows details about allocation of CPU, memory, and SSD storage available in your selected plan.
+It also provides details about the category of the plan and its pricing.
+
+<Callout type="info">
+  **NOTE:** Once you have selected an instance plan, it cannot be changed.
+</Callout>
 
 ### Additional Configuration
 
+Additional configuration section allows users to further customize their settings.
+It provides options for configuring Environment Variables, Commands, Arguments and Health Check.
+
 #### Configure Settings
+
+Configure Settings allows you to configure Environment Variables, Commands, or Arguments.
+
+**Environment Variables**
+
+1. Click New Variable to add new environment variable.
+2. Add key and value. Use the Secret Key toggle if the value is a secret key.
+
+**Commands**
+
+1. Click New Command to add a new command.
+
+**Arguments**
+
+1. Click New Argument to add a new argument.
+
+<Callout type="info">
+  **NOTE:** You can Update Instance after configuring any of the settings to
+  initiate deployment.
+</Callout>
 
 #### Health Check
 
-## Port Policy
+You can configure Health Check by clicking on `Health Check` under Additional Configuration.
+
+1. Use the toggle button to to enable or disable the health check.
+2. Add the desired health check path and health check port.
+3. Click Save.
