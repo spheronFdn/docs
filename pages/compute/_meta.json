@@ -1,3 +1,5 @@
 {
-  "cluster": "Cluster"
+  "cluster": "Cluster",
+  "instance": "Instance",
+  "plans": "Plans"
 }
