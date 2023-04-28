@@ -39,9 +39,9 @@ const QUICK_START_LIST = [
     body: "Unlock multi-chain storage capabilities.",
   },
   {
-    path: "/web-app-sdk",
+    path: "/site-sdk",
     emoji: "🌐",
-    title: "Spheron Web-App SDK",
+    title: "Spheron Site SDK",
     body: "Create flows for your web-app organizations.",
   },
   {
