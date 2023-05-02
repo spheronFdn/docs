@@ -6,7 +6,7 @@ const QUICK_START_LIST = [
     path: "/billing",
     emoji: "💸",
     title: "Billing",
-    body: "Upgrade to Pro to enjoy additional benefits!",
+    body: "Upgrade to Pro to enjoy additional benefits.",
   },
   {
     path: "/organization",
@@ -19,6 +19,12 @@ const QUICK_START_LIST = [
     emoji: "🚀",
     title: "Static App",
     body: "Deploy static apps from your Git provider.",
+  },
+  {
+    path: "/compute/cluster",
+    emoji: "✈️",
+    title: "Compute",
+    body: "Deploy compute instances with one click.",
   },
   {
     path: "/framework-guide",
