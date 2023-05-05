@@ -3,11 +3,10 @@ import Navigation from "components/navigation";
 
 # Cluster
 
-## Create a cluster
-
-### Import from Docker Hub
+## Deploy from Docker Hub
 
 Spheron allows you to create a new cluster with a custom docker image.
+To learn how to upload your docker image to docker hub, [click here](https://docs.docker.com/get-started/04_sharing_app/). \
 To create a cluster:
 
 1. Click **New Cluster** on the top right corner.
@@ -23,67 +22,97 @@ To create a cluster:
 </Callout>
 
 <Callout type="info">
-  **NOTE:** You can Click Deploy after completing any of the steps under
-  Additional Configuration to initiate deployment.
+  **NOTE:** Spheron supports only public docker images at the moment.
 </Callout>
 
-#### Additional Configuration (Optional)
+### Additional Configuration
 
-**Port Mapping**
+#### Port Mapping
 
-1. Click **New Port Mapping** under `Additional Configuration` to create a new port policy mapping.
+Port Mapping is used to direct incoming traffic from the outside world to a specific container port, which is then exposed as an external port.
+For example, suppose you have a container running a web server that is listening on port 8080, but you want to expose it to the public internet on port 80.
+By mapping port 80 to the container port 8080, incoming traffic on port 80 is automatically directed to the web server running inside the container on port 8080.
+This way, users can access the web server by using its public IP address and the exposed port number.
+
+Port Mapping is required for deployment. To create a new port mapping:
+
+1. Click **New Port Mapping** under `Additional Configuration`.
 2. Add the container port, and Select the exposed port you want to map it to.
 
-**Environment Variable**
+#### Environment Variables
+
+Spheron allows you to add environment variables while configuring your deployment.
+They contain information such as directory paths, or credentials.
+To configure these variables:
 
 1. Click **New Variable** under `Additional Configuration` to add new environment variable.
 2. Add key and value. Use the **Secret Key** toggle if the value is a secret key.
 
-**Region**
+#### Region
 
-1. Select the region of your choice in the **Region** section under `Additional Configuration`.
+Region refers to specific geographic locations where where a cloud service provider (CSP) has its data centers and computing resources.
+By choosing a region closer to your users, you can improve performance and reduce latency.
+Spheron offers the following regions for you to choose from:
 
-**Advanced Configuration**
+- us-east
+- us-west
+- us-central
+- eu-west
+
+To choose a region, navigate to the `Region` section under **Additional Configuration** and select your preferred region.
+
+#### Advanced Configuration
+
+Advanced Configurations gives you more flexibility and control over how your Docker container is launched and can help you customize its behavior to meet the specific needs of your application.
+**Commands** and **Arguments** fields in the advanced configuration allows you to specify any additional commands or arguments that should be passed to the Docker container when it is launched. \
+To add Commands and Arguments:
 
 1. Click **Advanced Configuration** under `Additional Configuration` if you want add advanced configuration.
 2. Click **New Command** to add a new command.
 3. Click **New Argument** to add a new argument.
 
-**Health Checkup**
+#### Health Checkup
 
-1. Click **Health Checkup** under `Additional Configuration` if you want to configure Health Checkup.
+Health Checkup is critical to monitor the reliability and performance of your instance.
+It helps minimize downtime and provides a better user experience.
+To configure Health Checkup:
+
+1. Click **Health Checkup** under `Additional Configuration`.
 2. Add the desired health check path and health check port.
 
-### Start from Marketplace App
+## Deploy from Marketplace App
 
 Spheron allows you to deploy a compute instance pre-installed with various applications, all set up and ready to use on the Akash Network.
 To deploy a marketplace app:
 
 1. Click **New Cluster** on the top right corner.
-2. Select **Select marketplace ap**.
+2. Select **Select marketplace app**.
 3. Pick your desired template from the marketplace.
-4. Select the instance plan that suits your needs and Click **Select Plan**.
-5. Click **Deploy** to initiate deployment without additional configuration.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Click **Deploy** to initiate deployment without additional configuration.
 
-<Callout>
-  **Troubleshoot:** You can change your plan by clicking Change Plan above the
-  selected plan.
-</Callout>
+### Additional Configuration
 
-<Callout type="info">
-  **NOTE:** You can Click Deploy after completing any of the steps under
-  Additional Configuration to initiate deployment.
-</Callout>
+#### Region
 
-#### Additional Configuration (Optional)
+Region refers to specific geographic locations where where a cloud service provider (CSP) has its data centers and computing resources.
+By choosing a region closer to your users, you can improve performance and reduce latency.
+Spheron offers the following regions for you to choose from:
 
-**Region**
+- us-east
+- us-west
+- us-central
+- eu-west
 
-1. Select the region of your choice in the **Region** section under `Additional Configuration`.
+To choose a region, navigate to the `Region` section under "Additional Configuration" and select your preferred region.
 
-**Root Info**
+#### App Configuration
 
-1. Add root username and password under their respective sections.
+App Configuration is applicable to certain apps only, and not to all.
+For these specific apps, it is essential to fill in all the necessary configurations.
+That includes adding the **root username** and **root password** under their respective sections.
 
 ## Verify Installation
 
@@ -94,8 +123,8 @@ Most Marketplace Apps can be verified for successful installation using the inst
 - **Attempt to access the app** \
   A Marketplace App has an estimated deployment time of about 1-2 minutes.
   If you can successfully access it, the installation has been completed successfully.
-  You can connect to the app with a **reverse DNS link** provided if the app has an HTTP port.
-  If not, you can connect using the external port of the app, that will also be provided after the instance is provisioned.
+  You can connect to the app with a `reverse DNS link` provided if the app has an HTTP port.
+  If not, you can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
 - **Check instance logs and events** \
   After successfully deploying a Marketplace App, it will produce logs and events, which you can check for any issues or errors.
 

@@ -7,19 +7,28 @@ import Navigation from "components/navigation";
 
 Port Policy provides details about the `Internal Port`, `External Port`, and `Connection URL` for the deployed instance.
 
+- **Internal Port** is the port number used by the application running inside the deployed instance. It is only accessible within the instance
+- **External Port** is the port number that is exposed to the outside world, allowing incoming traffic to reach the deployed instance. It is the port number that users will use to access the application.
+- **Connection URL** is the URL that users can use to access the application running inside the deployed instance. It includes the external IP address or domain name of the instance, along with the external port number.
+
 ## Instance Plan
 
 Instance plan shows details about allocation of CPU, memory, and SSD storage available in your selected plan.
-It also provides details about the category of the plan and its pricing.
+It also provides details about the plan and its pricing.
 
-<Callout type="info">
-  **NOTE:** Once you have selected an instance plan, it cannot be changed.
+<Callout type="warning">
+  Once you have selected an instance plan, it cannot be changed.
 </Callout>
 
 ## Additional Configuration
 
 Additional configuration section allows users to further customize their settings.
 It provides options for configuring Environment Variables, Commands, Arguments and Health Check.
+
+<Callout type="info">
+  **NOTE:** Adding additional configuration triggers an update deployment for
+  the instance.
+</Callout>
 
 ### Configure Settings
 

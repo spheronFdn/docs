@@ -3,25 +3,24 @@ import Navigation from "components/navigation";
 
 # Instance Domains
 
-By default, Spheron provides a subdomain when a cluster is deployed.
-You can attach your domain and point it to an instance.
+Spheron allows you to attach your domain and point it to an instance.
 
 ## Attach a Domain
 
 Follow these steps to configure your domain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
+2. Go to the **Configure Domain** section under the Domains tab.
 3. Enter your Domain name.
 4. Select the instance that you want your domain to point to.
-5. Click Add.
+5. Click **Add**.
 6. Add the records shown in the platform to your DNS provider and wait for the domain records to propagate.
-7. Click Verify after a few minutes. Your domain will connect to the instance.
+7. Click **Verify** after a few minutes. Your domain will connect to the instance.
 
 <Callout type="info">
   **NOTE:** \
   1\. You can visit https://dnschecker.org/ to verify if your DNS is propagated. \
-  2\. You cannot add the same domain to different instances in the same cluster or separate clusters. To change your domain, you must delete it from the previous instance and add it to the new instance.
+  2\. You can attach a domain only to a single instance. If you want to add the same domain to some other instance, you must remove the domain from the existing instance.
 </Callout>
 
 ## Edit a Domain
@@ -29,11 +28,11 @@ Follow these steps to configure your domain:
 Follow these steps to edit your domain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
-3. Click Edit on the Domain that you wish to edit.
-4. Make the required changes and Click Save.
+2. Go to the **Configure Domain** section under the Domains tab.
+3. Click **Edit** on the Domain that you wish to edit.
+4. Make the required changes and Click **Save**.
 5. If you make changes to your domain name, then you need to update the records shown in the platform to your DNS provider and wait for the domain records to propagate.
-6. Click Verify after a few minutes. Your domain will connect to the deployment.
+6. Click **Verify** after a few minutes. Your domain will connect to the deployment.
 
 <Callout type="info">
   **NOTE:** \
@@ -45,8 +44,8 @@ Follow these steps to edit your domain:
 Follow these steps to remove your domain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
-3. Click Remove on the Domain that you wish to remove. Your domain will be removed instantly.
+2. Go to the **Configure Domain** section under the Domains tab.
+3. Click **Remove** on the Domain that you wish to remove. Your domain will be removed instantly.
 
 <Callout type="info">
   **NOTE:** Remember to delete the records associated with the domain from your DNS provider as well.
@@ -57,18 +56,18 @@ Follow these steps to remove your domain:
 Follow these steps to configure your subdomain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
-3. Click on Subdomains.
+2. Go to the **Configure Domain** section under the Domains tab.
+3. Click on **Subdomains**.
 4. Enter your Domain name (with subdomain).
 5. Select the instance that you want your domain to point to.
-6. Click Add.
+6. Click **Add**.
 7. Add the records shown in the platform to your DNS provider and wait for the domain records to propagate.
-8. Click Verify after a few minutes. Your domain will connect to the deployment.
+8. Click **Verify** after a few minutes. Your domain will connect to the deployment.
 
 <Callout type="info">
   **NOTE:** \
   1\. You can visit https://dnschecker.org/ to verify if your DNS is propagated. \
-  2\. You cannot add the same domain to different instances in the same cluster or separate clusters. To change your domain, you must delete it from the previous instance and add it to the new instance.
+  2\. You can attach a subdomain only to a single instance. If you want to add the same subdomain to some other instance, you must remove the subdomain from the existing instance.
 </Callout>
 
 ## Edit a Subdomain
@@ -76,12 +75,12 @@ Follow these steps to configure your subdomain:
 Follow these steps to edit your subdomain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
-3. Click on Subdomains.
-4. Click Edit on the Domain (with subdomain) that you wish to edit.
-5. Make the required changes and Click Save.
+2. Go to the **Configure Domain** section under the Domains tab.
+3. Click on **Subdomains**.
+4. Click **Edit** on the Domain (with subdomain) that you wish to edit.
+5. Make the required changes and Click **Save**.
 6. If you make changes to your domain name, then you need to update the records shown in the platform to your DNS provider and wait for the domain records to propagate.
-7. Click Verify after a few minutes. Your domain will connect to the deployment.
+7. Click **Verify** after a few minutes. Your domain will connect to the deployment.
 
 <Callout type="info">
   **NOTE:** \
@@ -93,9 +92,9 @@ Follow these steps to edit your subdomain:
 Follow these steps to remove your subdomain:
 
 1. Select your instance.
-2. Go to the 'Configure Domain' section under the Domains tab.
-3. Click on Subdomains.
-4. Click Remove on the Domain (with subdomain) that you wish to remove. Your domain will be removed instantly.
+2. Go to the **Configure Domain** section under the Domains tab.
+3. Click on **Subdomains**.
+4. Click **Remove** on the Domain (with subdomain) that you wish to remove. Your domain will be removed instantly.
 
 <Callout type="info">
   **NOTE:** Remember to delete the records associated with the domain from your DNS provider as well.
