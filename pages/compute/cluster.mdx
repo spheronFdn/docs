@@ -6,7 +6,6 @@ import Navigation from "components/navigation";
 ## Deploy from Docker Hub
 
 Spheron allows you to create a new cluster with a custom docker image.
-To learn how to upload your docker image to docker hub, [click here](https://docs.docker.com/get-started/04_sharing_app/). \
 To create a cluster:
 
 1. Click **New Cluster** on the top right corner.
@@ -22,7 +21,9 @@ To create a cluster:
 </Callout>
 
 <Callout type="info">
-  **NOTE:** Spheron supports only public docker images at the moment.
+  **NOTE:** \
+  1\. Spheron supports only public docker images at the moment. \
+  2\. Learn how to upload your docker image to docker hub [here](https://docs.docker.com/get-started/04_sharing_app/).
 </Callout>
 
 ### Additional Configuration
@@ -48,6 +49,10 @@ To configure these variables:
 1. Click **New Variable** under `Additional Configuration` to add new environment variable.
 2. Add key and value. Use the **Secret Key** toggle if the value is a secret key.
 
+<Callout type="info">
+  **NOTE:** When you enable the secret key toggle, it will not be saved in the database.
+</Callout>
+
 #### Region
 
 Region refers to specific geographic locations where where a cloud service provider (CSP) has its data centers and computing resources.
@@ -58,8 +63,13 @@ Spheron offers the following regions for you to choose from:
 - us-west
 - us-central
 - eu-west
+- any
 
 To choose a region, navigate to the `Region` section under **Additional Configuration** and select your preferred region.
+
+<Callout type="info">
+  **NOTE:** Selecting `any` as the region will deploy the container in any region.
+</Callout>
 
 #### Advanced Configuration
 
@@ -97,16 +107,7 @@ To deploy a marketplace app:
 
 #### Region
 
-Region refers to specific geographic locations where where a cloud service provider (CSP) has its data centers and computing resources.
-By choosing a region closer to your users, you can improve performance and reduce latency.
-Spheron offers the following regions for you to choose from:
-
-- us-east
-- us-west
-- us-central
-- eu-west
-
-To choose a region, navigate to the `Region` section under "Additional Configuration" and select your preferred region.
+This section is the same as the [region section](/compute/cluster/#region) mentioned above.
 
 #### App Configuration
 
