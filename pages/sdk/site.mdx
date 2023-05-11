@@ -36,36 +36,31 @@ const client = new SpheronClient({ token });
 
 The `SpheronClient` constructor takes an object that has one property `token`.
 Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
-The `SpheronClient` has three properties:
-
-- `organizations` provides methods for working with organizations.
-- `projects` provides methods for working with projects.
-- `deployments` provides methods for working with deployments.
 
 <Callout type="info">
   **NOTE:** When you are creating the tokens, please choose **web app** type in
   the dashboard.
 </Callout>
 
-## Organizations
+The `SpheronClient` has three properties:
 
-The methods for working with organizations are available on the `organizations` property of the `SpheronClient` object.
+- `organization` provides methods for working with organizations.
+- `projects` provides methods for working with projects.
+- `deployments` provides methods for working with deployments.
+
+## Organization
+
+The methods for working with organizations are available on the `organization` property of the `SpheronClient` object. All the methods work with the organization of the token that is passed in the constructor.
 
 ### get
 
-Used to get the organization based on the passed id.
+Used to get the organization.
 
 ```js
-const organization: Organization = await spheron.organizations.get(
-  organizationId
-);
+const organization: Organization = await spheron.organization.get();
 ```
 
-Params:
-
-- `organizationId`: Id of the organization.
-
-Returns an Organization object.
+Returns an Organization for which the token was created for.
 
 ```js
 interface Organization {
@@ -78,12 +73,6 @@ interface Organization {
 }
 ```
 
-<Callout type="info">
-  **NOTE:** At the moment, Spheron Tokens are scoped to a single organization.
-  So you can only use them to get the information about the organization for
-  which you have created the token.
-</Callout>
-
 ---
 
 ### getProjects
@@ -91,96 +80,79 @@ interface Organization {
 Used to get the projects of the organization. The methods support pagination.
 
 ```js
-const projects: Project[] = await spheron.organizations.getProjects(
-  organizationId,
-  {
-    skip: 0,
-    limit: 10,
-    state: ProjectStateEnum.MAINTAINED,
-  }
-);
+const projects: Project[] = await spheron.organization.getProjects({
+  skip: 0,
+  limit: 10,
+  state: ProjectStateEnum.MAINTAINED,
+});
 ```
 
 Params:
 
-- `organizationId`: Id of the organization.
 - `options`:
   - `skip`: number of projects to skip.
   - `limit`: number of projects to take.
   - `state` ( optional ): project state filter.
 
-Return an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
+Returns an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
+
+---
 
 ### getProjectCount
 
-Used to get the number of projects int the organization.
+Used to get the number of projects in the organization.
 
 ```js
-const count: number = await spheron.organizations.getProjectCount(
-  organizationId,
-  {
-    state: ProjectStateEnum.MAINTAINED,
-  }
-);
+const count: number = await spheron.organization.getProjectCount({
+  state: ProjectStateEnum.MAINTAINED,
+});
 ```
 
 Params:
 
-- `organizationId`: Id of the organization.
-- `options`:
+- `options` ( optional ):
   - `state` ( optional ): project state filter.
 
-Return the number of projects.
+Returns the number of projects.
+
+---
 
 ### getUsage
 
 Used to get the current subscription usage of the organization.
 
 ```js
-const usage: UsageWithLimits = await spheron.organizations.getUsage(
-  organizationId
-);
+const usage: UsageWithLimits = await spheron.organization.getUsage();
 ```
-
-Params:
-
-- `organizationId`: Id of the organization.
 
 Returns the `UsageWithLimits` object.
 
 ```js
 interface UsageWithLimits {
-  usedBandwidth: number; // Bytes
-  usedBuildExecution: number; // Seconds
-  usedConcurrentBuild: number;
-  usedStorageArweave: number; // Bytes
-  usedStorageFileCoin: number; // Seconds
-  usedStorageIPFS: number; // Bytes
-  usedDeploymentsPerDay: number;
-  lastDeploymentDate: Date;
-  usedDomains: number;
-  usedHnsDomains: number;
-  usedEnsDomains: number;
-  usedEnvironments: number;
-  usedClusterAkt: number;
-  usedClusterBuildExecution: number;
-  usedNumberOfRequests: number;
-  usedPasswordProtections: number;
-  membersLimit: number;
-  bandwidthLimit: number; // Bytes
-  buildExecutionLimit: number; // Seconds
-  concurrentBuildLimit: number;
-  storageArweaveLimit: number; // Bytes
-  storageFileCoinLimit: number; // Bytes
-  storageIPFSLimit: number;
-  deploymentsPerDayLimit: number;
-  domainsLimit: number;
-  hnsDomainsLimit: number;
-  ensDomainsLimit: number;
-  environmentsLimit: number;
-  clusterAktLimit: number;
-  clusterBuildExecutionLimit: number;
-  passwordProtectionLimit: number;
+  usedBandwidth?: number; // the number of bytes the current subscription has used
+  bandwidthLimit?: number; // the limit of bytes the current subscription has
+  usedBuildExecution?: number; // the number of seconds the current subscription has used to build projects
+  buildExecutionLimit?: number; // the limit of seconds the current subscription has to build projects
+  usedConcurrentBuild?: number; // the number of concurrent builds the current subscription has used
+  concurrentBuildLimit?: number; // the limit of concurrent builds the current subscription has
+  usedStorageArweave?: number; // Bytes
+  storageArweaveLimit?: number; // Bytes
+  usedStorageIPFS?: number; // Bytes
+  storageIPFSLimit?: number;
+  usedDeploymentsPerDay?: number;
+  deploymentsPerDayLimit?: number;
+  usedDomains?: number;
+  domainsLimit?: number;
+  usedHnsDomains?: number;
+  hnsDomainsLimit?: number;
+  usedEnsDomains?: number;
+  ensDomainsLimit?: number;
+  usedEnvironments?: number;
+  environmentsLimit?: number;
+  usedNumberOfRequests?: number;
+  usedPasswordProtections?: number; // the number of password protections that are currently added to a project
+  passwordProtectionLimit?: number; // the number of password protections that can be added to a project
+  membersLimit?: number; // the number of members that can be added to an organization
 }
 ```
 

@@ -52,8 +52,8 @@ export const Pages = [
   ["Deploy Vite App", "/framework-guide/deploy-vite"],
   ["Spheron API", "/rest-api"],
   ["Spheron SDK", "/sdk"],
-  ["Site SDK", "/sdk/site"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
+  ["Site SDK", "/sdk/site"],
   ["Spheron CLI", "/cli"],
 ];

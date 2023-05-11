@@ -16,7 +16,7 @@ const SDK_LIST = [
   },
   {
     path: "/sdk/site",
-    emoji: "🌐",
+    emoji: "🚧",
     title: "Site SDK",
     body: "Create flows for your web-app organizations.",
   },
