@@ -6,8 +6,7 @@ import Navigation from "components/navigation";
 The Spheron Site SDK is a npm package, that provides support for working with Spheron Web-App organizations.
 
 <Callout type="info">
-  **NOTE:** The package is only meant for Node.js environments and will not work
-  in a browser or frontend apps.
+  **NOTE:** The package is only meant for Node.js environments.
 </Callout>
 
 ## Installation
@@ -149,8 +148,6 @@ interface UsageWithLimits {
   ensDomainsLimit?: number; // the limit on how many ens domains can an organization have
   usedEnvironments?: number; // the number of deployment environments an organization has
   environmentsLimit?: number; // the limit on how many deployment environment can an organization have
-  usedParallelUploads?: number; // the number of uploads are in progress for an organization
-  parallelUploadsLimit?: number; // the number on how many parallel uploads an organization can have
   usedNumberOfRequests?: number; // the number of requests the organization has had till now
   membersLimit?: number; // how many members can an organization have
   usedPasswordProtections?: number; // 1 - if organization has support for password protection, otherwise 0.
