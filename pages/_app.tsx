@@ -5,7 +5,7 @@ const METADATA = {
   title: "Documentation - Spheron",
   description: "Power your dapp with Spheron's next-generation infrastructure.",
   url: "https://docs.spheron.network/",
-  image: "https://spheron.network/metaimage.png",
+  image: "https://spheron.network/metaimage-1.png?version=1",
 };
 
 export default function App({ Component, pageProps }) {
