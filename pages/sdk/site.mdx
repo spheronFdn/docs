@@ -234,7 +234,7 @@ enum FrameworkEnum {
 
 ### archive
 
-Used to archive a project. When a project is archived new deployments cannot be started for it.
+Used to archive a project. When a project is archived new deployments cannot be started for it. If a project is already in Archived state, an error will be thrown.
 
 ```js
 await spheron.projects.archive(projectId);
@@ -246,7 +246,7 @@ Method return type is void. If there is an issue while archiving, an error will 
 
 ### unarchive
 
-Used to unarchive a project.
+Used to update the project state from Archived to Maintained. If a project is already in Maintained state, an error will be thrown.
 
 ```js
 await spheron.projects.unarchive(projectId);
@@ -816,22 +816,6 @@ interface DeploymentLog {
 ```
 
 ---
-
-### getBuildDirectory
-
-Used to get the build directory structure of the deployment.
-
-```js
-const buildDirectory: string[] = await spheron.deployments.getBuildDirectory(
-  deploymentId
-);
-```
-
-Params:
-
-- Id of the deployment.
-
-Returns the build directory structure.
 
 ### deploy
 
