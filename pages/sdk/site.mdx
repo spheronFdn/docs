@@ -63,11 +63,11 @@ Returns an Organization for which the token was created for.
 
 ```js
 interface Organization {
-  id: string;
+  id: string; // the id of a organization
   profile: {
-    name: string,
-    username: string,
-    image: string,
+    name: string, // the name of a organization
+    username: string, // the username of a organization
+    image: string, // the url to the avatar image of a organization
   };
 }
 ```
@@ -168,26 +168,17 @@ Params:
 
 - Id of the project.
 
-Returns an object of type `Project`.
+Returns an object of type `Project`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
 
 ```js
 interface Project {
-  id: string;
-  name: string;
-  state: ProjectStateEnum;
-  url: string; // the url to the git repository
-  organizationId: string;
-  provider: ProviderEnum;
-  configuration: Configuration;
-}
-
-interface Configuration {
-  installCommand: string; // command that will be used to install the dependencies of the repository
-  buildCommand: string; // command that will be executed to build the repository
-  workspace: string; // the path to the app inside repository
-  publishDir: string; // the path to the build directory
-  framework: FrameworkEnum;
-  nodeVersion: NodeVersionEnum;
+  id: string; // the id of a project
+  name: string; // the name of a project
+  state: ProjectStateEnum; // the state of a project
+  url: string; // the url to the git repository of a project
+  organizationId: string; // the organizationId in which a project is
+  provider: ProviderEnum; // the Git provider of a project
+  configuration: Configuration; // the default configuration of a project. This configuration is used for webhook deployments.
 }
 
 enum ProjectStateEnum {
@@ -199,6 +190,75 @@ enum ProviderEnum {
     GITHUB = "GITHUB",
     GITLAB = "GITLAB",
     BITBUCKET = "GITLAB"
+}
+```
+
+---
+
+### archive
+
+Used to archive a project. When a project is archived new deployments cannot be started for it. If a project is already in Archived state, an error will be thrown.
+
+```js
+await spheron.projects.archive(projectId);
+```
+
+Method return type is void. If there is an issue while archiving, an error will be thrown.
+
+---
+
+### unarchive
+
+Used to update the project state from Archived to Maintained. If a project is already in Maintained state, an error will be thrown.
+
+```js
+await spheron.projects.unarchive(projectId);
+```
+
+Method return type is void. If there is an issue while archiving, an error will be thrown.
+
+---
+
+### updateConfiguration
+
+Used to update the default configuration of a project.
+
+```js
+const configuration: Configuration = await spheron.projects.updateConfiguration(
+  projectId,
+  {
+    framework: FrameworkEnum.REACT,
+    workspace: "",
+    installCommand: "yarn install",
+    buildCommand: "yarn build",
+    publishDir: "build",
+    nodeVersion: NodeVersionEnum.V_16,
+  }
+);
+```
+
+Params:
+
+- Id of the project.
+- `configuration`:
+
+  - `framework`: the framework of the repository
+  - `workspace`: the path to the app inside repository
+  - `installCommand`: command that will be used to install the dependencies of the repository
+  - `buildCommand`: command that will be executed to build the repository
+  - `publishDir`: the path to the build directory
+  - `nodeVersion`: the node version of your repository
+
+Returns the updated configuration.
+
+```js
+interface Configuration {
+  installCommand: string; // command that will be used to install the dependencies of the repository
+  buildCommand: string; // command that will be executed to build the repository
+  workspace: string; // the path to the app inside repository
+  publishDir: string; // the path to the build directory
+  framework: FrameworkEnum; // the framework of a project
+  nodeVersion: NodeVersionEnum; // the node version that will be used to build the project
 }
 
 enum NodeVersionEnum {
@@ -232,75 +292,6 @@ enum FrameworkEnum {
 
 ---
 
-### archive
-
-Used to archive a project. When a project is archived new deployments cannot be started for it. If a project is already in Archived state, an error will be thrown.
-
-```js
-await spheron.projects.archive(projectId);
-```
-
-Method return type is void. If there is an issue while archiving, an error will be thrown.
-
----
-
-### unarchive
-
-Used to update the project state from Archived to Maintained. If a project is already in Maintained state, an error will be thrown.
-
-```js
-await spheron.projects.unarchive(projectId);
-```
-
-Method return type is void. If there is an issue while archiving, an error will be thrown.
-
----
-
-### updateConfiguration
-
-Used to update the configuration of a project.
-
-```js
-const configuration: Configuration = await spheron.projects.updateConfiguration(
-  projectId,
-  {
-    framework: FrameworkEnum.REACT,
-    workspace: "",
-    installCommand: "yarn install",
-    buildCommand: "yarn build",
-    publishDir: "build",
-    nodeVersion: NodeVersionEnum.V_16,
-  }
-);
-```
-
-Params:
-
-- Id of the project.
-- `configuration`:
-
-  - `framework`: the framework of the repository
-  - `workspace`: the path to the app inside repository
-  - `installCommand`: command that will be used to install the dependencies of the repository
-  - `buildCommand`: command that will be executed to build the repository
-  - `publishDir`: the path to the build directory
-  - `nodeVersion`: the node version of your repository
-
-Returns the updated configuration.
-
-```js
-interface Configuration {
-  installCommand: string;
-  buildCommand: string;
-  workspace: string;
-  publishDir: string;
-  framework: FrameworkEnum;
-  nodeVersion: NodeVersionEnum;
-}
-```
-
----
-
 ### getEnvironmentVariables
 
 Used to get the environment variables of a project
@@ -318,9 +309,9 @@ Returns an array of environment variables.
 
 ```js
 interface EnvironmentVariable {
-  id: string;
-  name: string; // variable name
-  value: string; // variable value
+  id: string; // the id of a environment variable
+  name: string; // the name of a environment variable
+  value: string; // the value of a environment variable
   environments: string[]; // the deployment environments for which the variable will be used
 }
 ```
@@ -410,11 +401,11 @@ Method return type is void. If there is an issue while deleting, an error will b
 
 ### getDeploymentEnvironments
 
-Used to get the deployment environments of the project.
+Used to get the deployment environments of the project. For more information about deployment environments checkout the [Deployment Environment Docs](/static/projects/environments/)
 
 ```js
 const deploymentEnvironments: DeploymentEnvironment[] =
-  await spheron.getDeploymentEnvironments(projectId);
+  await spheron.projects.getDeploymentEnvironments(projectId);
 ```
 
 Params:
@@ -425,10 +416,10 @@ Returns an array of deployment environments.
 
 ```js
 interface DeploymentEnvironment {
-  id: string;
-  name: string;
-  protocol: ProtocolEnum;
-  branches: string[];
+  id: string; // the id of the deployment environment
+  name: string; // the name of the deployment environment
+  protocol: ProtocolEnum; // the protocol of the deployment environment
+  branches: string[]; // the branches for which the deployment environment
 }
 
 enum ProtocolEnum {
@@ -442,7 +433,7 @@ enum ProtocolEnum {
 
 ### createDeploymentEnvironment
 
-Used to create a deployment environment of a project..
+Used to create a deployment environment for a project.
 
 ```js
 const created: DeploymentEnvironment =
@@ -453,12 +444,20 @@ const created: DeploymentEnvironment =
   });
 ```
 
+<Callout type="info">
+  **NOTE:** To create a deployment environment a pro subscription is needed, and
+  it also costs 5$ per subscription. If your organization does not have a pro
+  subscription or enough funds an error will be thrown.
+</Callout>
+
 Params:
 
 - Id of the project.
 - `options`:
-  - `name`: the name of the deployment environment.
-  - `branches`: an array of strings, that represent the branches of the deployment environment.
+  - `name`: the name of the deployment environment. The name of the deployment environment needs to be unique for the project, else an error will be thrown.
+  - `branches`: an array of strings, that represent the branches of the deployment environment. If a branch already exists in the Production deployment environment,
+    an error will be thrown ( you would first need to remove the branch from the Production environment and add it to the one you want ).
+    If a branch exists to some other deployment environment ( that is not a production one ), it will be removed from it and added the the newly created one.
   - `protocol`: the protocol of the deployment environment.
 
 Returns the created deployment environment.
@@ -487,9 +486,16 @@ Params:
 - Id of the project.
 - Id of the deployment environment.
 - `options`:
+
   - `name`: the name of the deployment environment.
   - `branches`: an array of strings, that represent the branches of the deployment environment.
   - `protocol`: the protocol of the deployment environment.
+
+  <Callout type="info">
+    **NOTE:** The same constraints for name and branches exist both when
+    creating and updating the deployment environment. Also it is not possible to
+    rename the Production and Development environments.
+  </Callout>
 
 Returns the updated deployment environment.
 
@@ -511,7 +517,12 @@ Params:
 - Id of the project.
 - Id of the deployment environment.
 
-Method return type is void
+<Callout type="info">
+  **NOTE:** It is not possible to delete the Production and Development
+  environments.
+</Callout>
+
+Method return type is void.
 
 ---
 
@@ -533,6 +544,8 @@ Params:
 - Id of the deployment environment.
 
 Method returns the activated deployment environment.
+
+---
 
 ### deactivateDeploymentEnvironment
 
