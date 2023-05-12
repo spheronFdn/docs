@@ -787,20 +787,20 @@ Params:
 
 - Id of the deployment.
 
-Returns an object of type `Deployment`.
+Returns an object of type `Deployment`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
 
 ```js
 interface Deployment {
-  id: string;
-  status: DeploymentStatusEnum;
+  id: string; // the id of the deployment
+  status: DeploymentStatusEnum; // the current state of the deployment
   configuration: Configuration; // the specific configuration that was used for the deployment
-  buildTime: number;
-  memoryUsed: number;
-  deploymentEnvironmentName: string;
-  commitId: string;
-  branch: string;
-  protocol: ProtocolEnum;
-  sitePreview: string;
+  buildTime: number; // the time it took for the deployment to finish, represented in seconds
+  fileSize: number; // the total file size of the deployment
+  deploymentEnvironmentName: string; // the environment of the deployment
+  commitId: string; // the commit id of the deployment
+  branch: string; // the branch of the the deployment
+  protocol: ProtocolEnum; // the protocol that was used for the deployment
+  sitePreview: string; // the link to the deployed data
 }
 
 enum DeploymentStatusEnum {
@@ -850,8 +850,7 @@ Used to start a new deployment.
 await spheron.deployments.deploy({
   gitUrl, // the url of the repository
   projectName, // if the project for the repository does not exists, a new project will be created with this name
-  organizationId, // organization id
-  env: {
+  environmentVariables: {
     KEY_1: "value1",
   },
   provider: ProviderEnum.GITHUB, // the provider of the git url
@@ -876,22 +875,30 @@ Params:
     App can be deployed.
   </Callout>
 - `projectName`: if the project for the `gitUrl` does not exists, a new project will be created and `projectName` will be used for the name of the project.
-- `organizationId`: the id of the organization.
-- `env`: an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
+- `environmentVariables`: an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
 - `provider`: the provider of the repository.
 - `branch`: the branch of the deployment.
-- `protocol`: the protocol on which the deployment should be uploaded.
-- `configuration`: the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#get-1) for more details.
+- `protocol`: the protocol on which the deployment should be uploaded. Supported protocols are:
+
+```js
+enum ProtocolEnum {
+    ARWEAVE = "arweave",
+    FILECOIN = "ipfs-filecoin",
+    IPFS = "ipfs"
+}
+```
+
+- `configuration`: the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
 
 Returns the information about the deployment:
 
 ```js
 interface DeploymentResponse {
-  success: boolean;
-  message: string;
-  deploymentId: string;
-  projectId: string;
-  deployment: Deployment;
+  success: boolean; // indicates if the deployment has been started
+  message: string; // holds information about the deployment, and more details if the deployment fails
+  deploymentId: string; // the id of the newly created deployment
+  projectId: string; // the project id of the newly created deployment
+  deployment: Deployment; // the newly created deployment
 }
 ```
 
@@ -914,8 +921,8 @@ Returns:
 ```js
 interface CancelDeploymentResponse {
   message: string; // information about the cancellation
-  canceled: true; // true if deployment was canceled
-  killing: true; // true if deployment is in the cancellation process.
+  canceled: boolean; // true if deployment was canceled
+  killing: boolean; // true if deployment is in the cancellation process.
 }
 ```
 
@@ -949,7 +956,7 @@ interface DeploymentResponse {
 
 ### redeploy
 
-Used to start a new deployment with the same configuration as the one for which the `deploymentId` is passed.
+Used to start a new deployment with the same configuration as the one for which the `deploymentId` is passed. The same configuration and commit id will be deployed, but the latest environment variables will be used.
 
 ```js
 await spheron.deployments.redeploy(deploymentId);
