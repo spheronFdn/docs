@@ -1,9 +1,9 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Spheron Site SDK
+# Site SDK
 
-The Spheron Site SDK is a npm package, that provides support for working with Spheron Web-App organizations.
+The Site SDK is a npm package, that provides support for working with Spheron Web-App organizations.
 
 <Callout type="info">
   **NOTE:** The package is only meant for Node.js environments.
@@ -25,7 +25,7 @@ yarn add @spheron/site
 
 ## Usage
 
-To use the Spheron Site SDK, you have to create an instance of `SpheronClient`.
+To use the Site SDK, you have to create an instance of `SpheronClient`.
 
 ```js
 import { SpheronClient, ProtocolEnum } from "@spheron/site";
@@ -912,6 +912,11 @@ Used to cancel a deployment that is in progress. The deployment is in progress i
 await spheron.deployments.cancel(deploymentId);
 ```
 
+<Callout type="info">
+  **NOTE:** Owners and Admins can cancel any deployment. Members can only cancel
+  deployments which they have started.
+</Callout>
+
 Params:
 
 - Id of the deployment.
@@ -935,6 +940,10 @@ Used to authorize a deployment that is in AUTHORIZATION_NEEDED state.
 ```js
 await spheron.deployments.authorize(deploymentId);
 ```
+
+<Callout type="info">
+  **NOTE:** Only Owners or Admins can authorize a deployment.
+</Callout>
 
 Params:
 
@@ -978,4 +987,4 @@ interface DeploymentResponse {
 }
 ```
 
-<Navigation name="Spheron Site SDK" />
+<Navigation name="Site SDK" />
