@@ -128,29 +128,33 @@ Returns the `UsageWithLimits` object.
 
 ```js
 interface UsageWithLimits {
-  usedBandwidth?: number; // the bytes of bandwidth used for the current subscription
-  bandwidthLimit?: number; // the bandwidth limit for the current subscription
-  usedBuildExecution?: number; // the seconds of build execution done for the current subscription
-  buildExecutionLimit?: number; // the build execution limit for the current subscription
-  usedConcurrentBuild?: number; // the number of concurrent builds in progress
-  concurrentBuildLimit?: number; // how many concurrent builds can the organization have with the current subscription plan
-  usedStorageArweave?: number; // the bytes of used Arweave storage for the current subscription
-  storageArweaveLimit?: number; // the limit in bytes for the Arweave storage for the current subscription
-  usedStorageIPFS?: number; // the bytes of used IPFS storage for the current subscription
-  storageIPFSLimit?: number; // the limit in bytes for the IPFS storage for the current subscription
-  usedDeploymentsPerDay?: number; // number of deployments an organization can have one one day
-  deploymentsPerDayLimit?: number; // the limit of how many deployments can an organization have per day
-  usedDomains?: number; // the number of domains and subdomain an organization has
-  domainsLimit?: number; // the limit on how many domains and subdomains can an organization have
-  usedHnsDomains?: number; // the number of hns domains an organization has
-  hnsDomainsLimit?: number; //  the limit on how many hns domains can an organization have
-  usedEnsDomains?: number; // the number of ens domains an organization has
-  ensDomainsLimit?: number; // the limit on how many ens domains can an organization have
-  usedEnvironments?: number; // the number of deployment environments an organization has
-  environmentsLimit?: number; // the limit on how many deployment environment can an organization have
-  usedNumberOfRequests?: number; // the number of requests the organization has had till now
-  membersLimit?: number; // how many members can an organization have
-  usedPasswordProtections?: number; // 1 - if organization has support for password protection, otherwise 0.
+  used: {
+    bandwidth?: number, // the bytes of bandwidth used for the current subscription
+    buildExecution?: number, // the seconds of build execution done for the current subscription
+    concurrentBuild?: number,// the number of concurrent builds in progress
+    storageArweave?: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS?: number, // the bytes of used IPFS storage for the current subscription
+    deploymentsPerDay?: number, // number of deployments an organization can have one one day
+    domains?: number, // the number of domains and subdomain an organization has
+    hnsDomains?: number,// the number of hns domains an organization has
+    ensDomains?: number,// the number of ens domains an organization has
+    environments?: number,// the number of deployment environments an organization has
+    numberOfRequests?: number,// the number of requests the organization has had till now
+    passwordProtection?: number,; // 1 - if organization has support for password protection, otherwise 0.
+  };
+  limit: {
+    bandwidth?: number, // the bandwidth limit for the current subscription
+    buildExecution?: number,// the build execution limit for the current subscription
+    concurrentBuild?: number, // how many concurrent builds can the organization have with the current subscription plan
+    storageArweave?: number,  // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS?: number, // the limit in bytes for the IPFS storage for the current subscription
+    deploymentsPerDay?: number,// the limit of how many deployments can an organization have per day
+    domains?: number,// the limit on how many domains and subdomains can an organization have
+    hnsDomains?: number, //  the limit on how many hns domains can an organization have
+    ensDomains?: number,// the limit on how many ens domains can an organization have
+    environments?: number, // the limit on how many deployment environment can an organization have
+    membersLimit?: number,// how many members can an organization have
+  };
 }
 ```
 
