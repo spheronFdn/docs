@@ -588,13 +588,13 @@ Returns an array of deployment domains.
 
 ```js
 interface Domain {
-  id: string;
-  name: string;
-  verified: boolean;
-  link: string;
-  type: DomainTypeEnum;
-  projectId: string;
-  deploymentEnvironmentIds: string[];
+  id: string; // the id of the domain
+  name: string; // the domain name
+  verified: boolean; // true means that the domain is verified and that it will start serving the content
+  link: string; // the link to which the domain points to
+  type: DomainTypeEnum; // the type of the domain
+  projectId: string; // the project id of which the domain is
+  deploymentEnvironmentIds: string[]; //  the ids of the deployment environments for the domain. Whenever a deployment for the specified environment is done, the domain will be updated to point to the new link of the deployment.
 }
 
 enum DomainTypeEnum {
@@ -605,6 +605,8 @@ enum DomainTypeEnum {
     ENS_DOMAIN = "ens-domain"
 }
 ```
+
+---
 
 ### getDomain
 
@@ -641,12 +643,12 @@ Params:
 - `options`:
   - `name`: the domain name.
   - `type`: the domain type.
-  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment executed, the domain will be updated to point to the newly deployed data.
+  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
   - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
 
 <Callout type="info">
-  **NOTE:** Ether `deploymentEnvironments` or `link` is required in the request
-  body.
+  **NOTE:** Ether `deploymentEnvironments` or `link` is required. When only a
+  link is passed, the domain will not be updated when new deployments are done.
 </Callout>
 
 Returns the newly created domain. After a domain is created you need to call the [verifyDomain](/sdk/site/#verifydomain) function for it to work.
@@ -674,8 +676,13 @@ Params:
 - Domain identifier. The domain identifier can be the domain id, or the domain name itself.
 - `options`:
   - `name`: the domain name.
-  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment executed, the domain will be updated to point to the newly deployed data.
+  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
   - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
+
+<Callout type="info">
+  **NOTE:** Same rules for `deploymentEnvironments` and `link` are applied here
+  as for when creating a domain.
+</Callout>
 
 Returns the updated domain. If the domain name is updated you need to call the [verifyDomain](/sdk/site/#verifydomain) function again.
 
@@ -746,8 +753,9 @@ Return the array of deployments. Check the [get deployment](/sdk/site/#get-2) fu
 
 Used to get the deployment count of the project.
 
-```js
-await spheron.projects.getDeploymentCount(projectId);
+````js
+  const deploymentCount: DeploymentCount =
+    await spheron.projects.getDeploymentCount(projectId);
 ```
 
 Params:
@@ -757,13 +765,13 @@ Params:
 Returns the number of deployments.
 
 ```js
-interface DeploymentCountResponse {
-  total: number;
-  successful: number;
-  failed: number;
-  pending: number;
+interface DeploymentCount {
+  total: number; // the total number of deployments
+  successful: number; // the number of successful deployments
+  failed: number; // the number of failed deployments
+  pending: number; // the number of deployments in pending state
 }
-```
+````
 
 ## Deployments
 
