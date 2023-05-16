@@ -1,0 +1,251 @@
+import { Callout } from "nextra-theme-docs";
+
+# How to deploy a Django App?
+
+Django is a powerful web framework that allows you to deploy your Python applications or websites. It provides a robust set of tools and features, including a high-level ORM (Object-Relational Mapper) for database interaction, a built-in administrative interface, and support for authentication and authorization.
+
+In this guide, you’ll configure a Django app and deploy it to Spheron Compute using Docker.
+
+### Prerequisites
+
+To successfully follow this guide, you will need the following:
+
+- A DockerHub account.
+- Python3 installed on your local machine.
+- A text editor. You can use Visual Studio Code or your favorite text editor.
+
+## Step 1: Create a Django App
+
+To create a simple django app with a single endpoint:
+
+1. Install Django (if you haven't already) by running the following command:
+   ```sh
+   pip install Django
+   ```
+2. Create a new Django project by running the following command:
+   ```sh
+   django-admin startproject django_server
+   ```
+3. Change into the project directory:
+   ```sh
+   cd django_server
+   ```
+4. Create a new Django app within the project:
+   ```sh
+   python manage.py startapp myapp
+   ```
+5. Open the **django_server/settings.py** file and add `'myapp'` to the **INSTALLED_APPS** list.
+6. Open the **myproject/urls.py** file and replace its contents with the following code:
+
+   ```py
+   from django.urls import path
+   from myapp.views import hello_world
+
+   urlpatterns = [
+    path('hello/', hello_world),
+   ]
+   ```
+
+7. Create a new file **myapp/views.py** and add the following code:
+
+   ```py
+   from django.http import HttpResponse
+
+   def hello_world(request):
+      return HttpResponse("Hello, World!")
+
+   ```
+
+8. Start the development server by running the following command:
+
+   ```sh
+   python manage.py runserver
+   ```
+
+9. Open your web browser and visit http://127.0.0.1:8000/hello/. You should see the message "Hello, World!" displayed.
+
+## Step 2: Create a Dockerfile
+
+Here's what the dockerfile for this django app will look like:
+
+```sh
+# Use an official Python runtime as the base image
+FROM python:3.9
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory in the container
+WORKDIR /code
+
+# Install dependencies
+COPY requirements.txt /code/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Django project code to the container
+COPY . /code/
+
+# Expose the port that Django runs on
+EXPOSE 8000
+
+# Run the Django development server
+CMD python manage.py runserver 0.0.0.0:8000
+```
+
+## Step 3: Set default platform for docker build
+
+Before running the docker build command, run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+## Step 4: Build Docker image
+
+To build the Docker image:
+
+1. Save the above Dockerfile in the root directory of your Django app.
+2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+3. Run the following command to build the Docker image:
+
+```sh
+docker build -t django_server .
+```
+
+4. After the build process completes, you can run a container based on the image using the following command:
+
+```sh
+docker run -p 8000:8000 django_server
+```
+
+## Step 5: Push the app to DockerHub
+
+To push an image, you first need to create a repository on Docker Hub.
+
+### Create a repo
+
+To create a repository on Docker Hub:
+
+1. Sign up or Sign in to Docker Hub.
+2. Select the Create Repository button.
+3. For the repo name, use getting-started. Make sure the Visibility is Public.
+4. Select the Create button.
+
+### Push the image
+
+1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
+2. Use the docker tag command to give the getting-started image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+
+```sh
+docker tag getting-started YOUR-USER-NAME/getting-started
+```
+
+3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
+
+```sh
+docker push YOUR-USER-NAME/getting-started
+```
+
+## Step 6: Run on Spheron Compute
+
+To run your app on Spheron:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click **Next**.
+5. Select the instance plan that suits your needs and Click **Select Plan**.
+6. Click **Deploy** to initiate deployment without additional configuration.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+<Callout type="info">
+  **NOTE:** Spheron supports only public docker images at the moment.
+</Callout>
+
+## Step 7: Additional Configuration
+
+### Port Mapping
+
+Port Mapping is used to direct incoming traffic from the outside world to a specific container port, which is then exposed as an external port.
+For example, suppose you have a container running a web server that is listening on port 8080, but you want to expose it to the public internet on port 80.
+By mapping port 80 to the container port 8080, incoming traffic on port 80 is automatically directed to the web server running inside the container on port 8080.
+This way, users can access the web server by using its public IP address and the exposed port number.
+
+Port Mapping is required for deployment. To create a new port mapping:
+
+1. Click **New Port Mapping** under `Additional Configuration`.
+2. Add the container port, and Select the exposed port you want to map it to.
+
+### Environment Variables
+
+Spheron allows you to add environment variables while configuring your deployment.
+They contain information such as directory paths, or credentials.
+To configure these variables:
+
+1. Click **New Variable** under `Additional Configuration` to add new environment variable.
+2. Add key and value. Use the **Secret Key** toggle if the value is a secret key.
+
+<Callout type="info">
+  **NOTE:** When you enable the secret key toggle, it will not be saved in the
+  database.
+</Callout>
+
+### Region
+
+Region refers to specific geographic locations where where a cloud service provider (CSP) has its data centers and computing resources.
+By choosing a region closer to your users, you can improve performance and reduce latency.
+Spheron offers the following regions for you to choose from:
+
+- us-east
+- us-west
+- us-central
+- eu-west
+- any
+
+To choose a region, navigate to the `Region` section under **Additional Configuration** and select your preferred region.
+
+<Callout type="info">
+  **NOTE:** Selecting `any` as the region will deploy the container in any
+  region.
+</Callout>
+
+### Advanced Configuration
+
+Advanced Configurations gives you more flexibility and control over how your Docker container is launched and can help you customize its behavior to meet the specific needs of your application.
+**Commands** and **Arguments** fields in the advanced configuration allows you to specify any additional commands or arguments that should be passed to the Docker container when it is launched. \
+To add Commands and Arguments:
+
+1. Click **Advanced Configuration** under `Additional Configuration` if you want add advanced configuration.
+2. Click **New Command** to add a new command.
+3. Click **New Argument** to add a new argument.
+
+### Health Checkup
+
+Health Checkup is critical to monitor the reliability and performance of your instance.
+It helps minimize downtime and provides a better user experience.
+To configure Health Checkup:
+
+1. Click **Health Checkup** under `Additional Configuration`.
+2. Add the desired health check path and health check port.
+
+## Verify Installation
+
+The Django App can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+Follow these instructions to verify installation:
+
+- **Attempt to access the app** \
+  An App has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has completed successfully.
+  You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying your Django App, it will produce logs and events, which you can check for any issues or errors.
+
+## Common Errors
