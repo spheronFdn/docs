@@ -55,6 +55,8 @@ export const Pages = [
   ["Deploy Vue App", "/framework-guide/deploy-vue"],
   ["Deploy Ionic Angular App", "/framework-guide/deploy-iangular"],
   ["Deploy Vite App", "/framework-guide/deploy-vite"],
+  ["Server Guide", "/server-guide"],
+  ["Deploy Django App", "/server-guide/django"],
   ["Spheron API", "/rest-api"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
