@@ -1,4 +1,6 @@
 import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import DockerImage from "assets/docker-image.png";
 
 # How to deploy a Django App?
 
@@ -10,9 +12,9 @@ In this guide, you’ll configure a Django app and deploy it to Spheron Compute 
 
 To successfully follow this guide, you will need the following:
 
-- A DockerHub account.
-- Python3 installed on your local machine.
-- A text editor. You can use Visual Studio Code or your favorite text editor.
+- A [DockerHub](https://hub.docker.com/) account.
+- [Python3](https://www.python.org/downloads/) installed on your local machine.
+- A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
 
 ## Step 1: Create a Django App
 
@@ -95,6 +97,7 @@ CMD python manage.py runserver 0.0.0.0:8000
 
 ## Step 3: Set default platform for docker build
 
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
 Before running the docker build command, run this command in your terminal:
 
 ```sh
@@ -127,7 +130,7 @@ To push an image, you first need to create a repository on Docker Hub.
 
 To create a repository on Docker Hub:
 
-1. Sign up or Sign in to Docker Hub.
+1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
 2. Select the Create Repository button.
 3. For the repo name, use getting-started. Make sure the Visibility is Public.
 4. Select the Create button.
@@ -135,17 +138,23 @@ To create a repository on Docker Hub:
 ### Push the image
 
 1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
-2. Use the docker tag command to give the getting-started image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+2. Use the docker tag command to give the django_server image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
 
 ```sh
-docker tag getting-started YOUR-USER-NAME/getting-started
+docker tag django_server YOUR-USER-NAME/django_server
 ```
 
 3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
 
 ```sh
-docker push YOUR-USER-NAME/getting-started
+docker push YOUR-USER-NAME/django_server
 ```
+
+**Here's what a Docker Image will look like on Docker Hub:**
+
+![Docker-Image](assets/docker-image.png)
+
+> Check out this docker image [here.](https://hub.docker.com/r/rekpero/nft-minter-server/tags)
 
 ## Step 6: Run on Spheron Compute
 
@@ -249,3 +258,16 @@ Follow these instructions to verify installation:
   After successfully deploying your Django App, it will produce logs and events, which you can check for any issues or errors.
 
 ## Common Errors
+
+### Docker Fails When Building on Apple Silicon
+
+<Callout type="error">
+  ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
+</Callout>
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, you must run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
