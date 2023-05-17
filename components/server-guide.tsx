@@ -1,5 +1,6 @@
 import FrameworkCard, { IFrameworkCard } from "./framework-card";
 import DjangoIcon from "../assets/django.svg";
+import NextIcon from "../assets/nextjs.svg";
 import styles from "../styles/framework.module.css";
 
 const SERVER_LIST = [
@@ -8,6 +9,12 @@ const SERVER_LIST = [
     logo: DjangoIcon,
     alt: "django",
     title: "Deploy Django App",
+  },
+  {
+    path: "/server-guide/nextjs",
+    logo: NextIcon,
+    alt: "nextjs",
+    title: "Deploy Next App",
   },
 ];
 

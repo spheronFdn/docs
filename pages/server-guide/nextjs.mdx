@@ -3,103 +3,74 @@ import Image from "next/image";
 import DockerImage from "assets/docker-image.png";
 import Navigation from "components/navigation";
 
-# How to deploy a Django App?
+# How to deploy a Next App?
 
-Django is a powerful web framework that allows you to deploy your Python applications or websites. It provides a robust set of tools and features, including a high-level ORM (Object-Relational Mapper) for database interaction, a built-in administrative interface, and support for authentication and authorization.
+Next.js is a powerful web framework that allows you to deploy your JavaScript apps. It provides a robust set of tools and features, including server-side rendering, automatic code splitting, and hot module replacement for efficient development.
 
-In this guide, you’ll configure a Django app and deploy it to Spheron Compute using Docker.
+In this guide, you'll configure a Next.js app and deploy it to Spheron Compute using Docker.
 
 ### Prerequisites
 
 To successfully follow this guide, you will need the following:
 
 - A [DockerHub](https://hub.docker.com/) account.
-- [Python3](https://www.python.org/downloads/) installed on your local machine.
+- [Nodejs](https://nodejs.org/en) installed on your local machine.
 - A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
 
-## Step 1: Create a Django App
+## Step 1: Create a Next App
 
-1. Install Django (if you haven't already) by running the following command:
+1. Create a new Next.js project by running the following command:
    ```sh
-   pip install Django
+   npx create-next-app nextapp
    ```
-2. Create a new Django project by running the following command:
+2. Change into the project directory:
    ```sh
-   django-admin startproject django_server
+   cd nextapp
    ```
-3. Change into the project directory:
-   ```sh
-   cd django_server
+3. Create a new file **pages/api/hello.js** and add the following code:
+   ```js
+   export default function handler(req, res) {
+     res.status(200).json({ message: "Hello, World!" });
+   }
    ```
-4. Create a new Django app within the project:
-   ```sh
-   python manage.py startapp myapp
-   ```
-5. Open the **django_server/settings.py** file. Add `'myapp'` to the **INSTALLED_APPS** list and `'*'` to the **ALLOWED_HOSTS** list.
-6. Open the **myproject/urls.py** file and replace its contents with the following code:
-
-   ```py
-   from django.urls import path
-   from myapp.views import hello_world
-
-   urlpatterns = [
-    path('hello/', hello_world),
-   ]
-   ```
-
-7. Create a new file **myapp/views.py** and add the following code:
-
-   ```py
-   from django.http import HttpResponse
-
-   def hello_world(request):
-      return HttpResponse("Hello, World!")
-
-   ```
-
-8. Create a new file **requirements.txt** and add the following:
+4. Start the development server by running the following command:
 
    ```sh
-   Django==3.2.4
+   npm run dev
    ```
 
-9. Start the development server by running the following command:
+5. Open your web browser and visit http://localhost:3000/api/hello. You should see the JSON response `{"message": "Hello, World!"}` displayed.
 
-   ```sh
-   python manage.py runserver
-   ```
-
-10. Open your web browser and visit http://127.0.0.1:8000/hello/. You should see the message "Hello, World!" displayed.
-
-> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/django_server)
+> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/nextapp)
 
 ## Step 2: Create a Dockerfile
 
-Here's what the dockerfile for this django app will look like:
+Here's what the dockerfile for this next app will look like:
 
 ```sh
-# Use an official Python runtime as the base image
-FROM python:3.9
-
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+# Use an official Node.js runtime as the base image
+FROM node:14-alpine
 
 # Set the working directory in the container
-WORKDIR /code
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
 
 # Install dependencies
-COPY requirements.txt /code/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN npm install
 
-# Copy the Django project code to the container
-COPY . /code/
+# Copy the app's source code to the container
+COPY . .
 
-# Expose the port that Django runs on
-EXPOSE 8000
+# Build the Next.js app
+RUN npm run build
 
-# Run the Django development server
-CMD python manage.py runserver 0.0.0.0:8000
+# Expose the port that Next.js runs on
+EXPOSE 3000
+
+# Run the Next.js app
+CMD ["npm", "start"]
 ```
 
 ## Step 3: Set default platform for docker build
@@ -115,18 +86,18 @@ export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 To build the Docker image:
 
-1. Save the above Dockerfile in the root directory of your Django app.
+1. Save the above Dockerfile in the root directory of your Next app.
 2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
 3. Run the following command to build the Docker image:
 
 ```sh
-docker build -t django_server .
+docker build -t nextapp .
 ```
 
 4. After the build process completes, you can run a container based on the image using the following command:
 
 ```sh
-docker run -p 8000:8000 django_server
+docker run -p 3000:3000 nextapp
 ```
 
 ## Step 5: Push the app to DockerHub
@@ -139,22 +110,22 @@ To create a repository on Docker Hub:
 
 1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
 2. Select the Create Repository button.
-3. For the repo name, use django_server. Make sure the Visibility is Public.
+3. For the repo name, use nextapp. Make sure the Visibility is Public.
 4. Select the Create button.
 
 ### Push the image
 
 1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
-2. Use the docker tag command to give the django_server image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+2. Use the docker tag command to give the nextapp image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
 
 ```sh
-docker tag django_server YOUR-USER-NAME/django_server
+docker tag nextapp YOUR-USER-NAME/nextapp
 ```
 
 3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
 
 ```sh
-docker push YOUR-USER-NAME/django_server
+docker push YOUR-USER-NAME/nextapp
 ```
 
 **Here's what a Docker Image will look like on Docker Hub:**
@@ -190,7 +161,7 @@ To run your app on Spheron:
 
 ## Verify Installation
 
-The Django App can be accessed only after the Compute Instance is provisioned.
+The Next App can be accessed only after the Compute Instance is provisioned.
 Thus, you need to wait for the installation to complete before you can start using the app.
 Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
 
@@ -201,7 +172,7 @@ Follow these instructions to verify installation:
   If you can successfully access it, the installation has completed successfully.
   You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
 - **Check instance logs and events** \
-  After successfully deploying your Django App, it will produce logs and events, which you can check for any issues or errors.
+  After successfully deploying your Next App, it will produce logs and events, which you can check for any issues or errors.
 
 ## Common Errors
 
@@ -218,4 +189,4 @@ Before running the docker build command, you must run this command in your termi
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ```
 
-<Navigation name="Deploy Django App" />
+<Navigation name="Deploy Next App" />

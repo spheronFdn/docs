@@ -57,6 +57,7 @@ export const Pages = [
   ["Deploy Vite App", "/framework-guide/deploy-vite"],
   ["Server Guide", "/server-guide"],
   ["Deploy Django App", "/server-guide/django"],
+  ["Deploy Next App", "/server-guide/nextjs"],
   ["Spheron API", "/rest-api"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
