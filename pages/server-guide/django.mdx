@@ -35,7 +35,7 @@ To successfully follow this guide, you will need the following:
    ```sh
    python manage.py startapp myapp
    ```
-5. Open the **django_server/settings.py** file and add `'myapp'` to the **INSTALLED_APPS** list.
+5. Open the **django_server/settings.py** file. Add `'myapp'` to the **INSTALLED_APPS** list and `'*'` to the **ALLOWED_HOSTS** list.
 6. Open the **myproject/urls.py** file and replace its contents with the following code:
 
    ```py
