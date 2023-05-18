@@ -37,6 +37,7 @@ export const Pages = [
   ["Instance Domains", "/compute/instance/domain"],
   ["Instance Settings", "/compute/instance/settings"],
   ["Compute Usage", "/compute/usage"],
+  ["Gateways", "/gateways"],
   ["Framework Guide", "/framework-guide"],
   ["Deploy Angular App", "/framework-guide/deploy-angular"],
   ["Deploy Brunch App", "/framework-guide/deploy-brunch"],

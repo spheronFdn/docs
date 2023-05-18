@@ -27,16 +27,22 @@ const QUICK_START_LIST = [
     body: "Deploy compute instances with one click.",
   },
   {
+    path: "/gateways",
+    emoji: "⛩️",
+    title: "Gateways",
+    body: "Fast & reliable access to pinned content.",
+  },
+  {
     path: "/framework-guide",
     emoji: "📍",
     title: "Framework Guide",
-    body: "Discover the steps to deploy your framework.",
+    body: "Learn how to deploy your framework.",
   },
   {
     path: "/server-guide",
     emoji: "📌",
     title: "Server Guide",
-    body: "Discover the steps to deploy your server.",
+    body: "Learn how to deploy your server.",
   },
   {
     path: "/rest-api",
