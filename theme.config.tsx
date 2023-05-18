@@ -38,19 +38,6 @@ const config: DocsThemeConfig = {
         "Power your dapp with Spheron's next-generation infrastructure",
     };
   },
-  head: () => {
-    const { frontMatter } = useConfig();
-
-    return (
-      <>
-        <meta property="og:title" content={frontMatter.title || "Nextra"} />
-        <meta
-          property="og:description"
-          content={frontMatter.description || "The next site builder"}
-        />
-      </>
-    );
-  },
 };
 
 export default config;

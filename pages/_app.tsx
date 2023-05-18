@@ -2,16 +2,17 @@ import Head from "next/head";
 import { useConfig } from "nextra-theme-docs";
 import SpheronLogo from "../assets/favicon.ico";
 
-const { frontMatter } = useConfig();
-
 const METADATA = {
-  title: `${frontMatter} - Spheron Documentation`,
+  title: "Spheron Documentation",
   description: "Power your dapp with Spheron's next-generation infrastructure.",
   url: "https://docs.spheron.network/",
   image: "https://spheron.network/metaimage-1.png?version=1",
 };
 
 export default function App({ Component, pageProps }) {
+  const { frontMatter } = useConfig();
+  METADATA.title = `${frontMatter} - ${METADATA.title}`;
+
   return (
     <>
       <Head>
