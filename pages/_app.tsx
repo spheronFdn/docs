@@ -11,7 +11,7 @@ const METADATA = {
 
 export default function App({ Component, pageProps }) {
   const { frontMatter } = useConfig();
-  METADATA.title = `${frontMatter} - ${METADATA.title}`;
+  METADATA.title = `${frontMatter.title} - ${METADATA.title}`;
 
   return (
     <>
