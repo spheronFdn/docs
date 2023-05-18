@@ -1,5 +1,6 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
+import { useConfig } from "nextra-theme-docs";
 import { SpheronLogo } from "./assets/spheron";
 import { GithubLogo } from "./assets/github";
 import { DiscordLogo } from "./assets/discord";
@@ -36,6 +37,19 @@ const config: DocsThemeConfig = {
       description:
         "Power your dapp with Spheron's next-generation infrastructure",
     };
+  },
+  head: () => {
+    const { frontMatter } = useConfig();
+
+    return (
+      <>
+        <meta property="og:title" content={frontMatter.title || "Nextra"} />
+        <meta
+          property="og:description"
+          content={frontMatter.description || "The next site builder"}
+        />
+      </>
+    );
   },
 };
 
