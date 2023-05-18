@@ -4,6 +4,7 @@
   "organization": "Organization",
   "static": "Static App",
   "compute": "Compute",
+  "gateways": "Gateways",
   "framework-guide": "Framework Guide",
   "server-guide": "Server Guide",
   "rest-api": "Spheron API",
