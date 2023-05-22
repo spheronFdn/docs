@@ -1,6 +1,5 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
-import { useConfig } from "nextra-theme-docs";
 import { SpheronLogo } from "./assets/spheron";
 import { GithubLogo } from "./assets/github";
 import { DiscordLogo } from "./assets/discord";
@@ -36,6 +35,20 @@ const config: DocsThemeConfig = {
       titleTemplate: "%s – Spheron",
       description:
         "Power your dapp with Spheron's next-generation infrastructure",
+      openGraph: {
+        title: "%s – Spheron",
+        description:
+          "Power your dapp with Spheron's next-generation infrastructure",
+        url: "https://docs.spheron.network/",
+        images: [
+          {
+            url: "https://spheron.network/metaimage-1.png?version=1",
+            width: 800,
+            height: 600,
+            alt: "Spheron Alt",
+          },
+        ],
+      },
     };
   },
 };

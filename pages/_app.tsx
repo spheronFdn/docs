@@ -1,19 +1,19 @@
 import Head from "next/head";
 import SpheronLogo from "../assets/favicon.ico";
 
-const METADATA = {
-  title: "Spheron Documentation",
-  description: "Power your dapp with Spheron's next-generation infrastructure.",
-  url: "https://docs.spheron.network/",
-  image: "https://spheron.network/metaimage-1.png?version=1",
-};
+// const METADATA = {
+//   title: "Spheron Documentation",
+//   description: "Power your dapp with Spheron's next-generation infrastructure.",
+//   url: "https://docs.spheron.network/",
+//   image: "https://spheron.network/metaimage-1.png?version=1",
+// };
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
         <link rel="shortcut icon" href={SpheronLogo.src} />
-        <meta name="description" content={METADATA.description} />
+        {/* <meta name="description" content={METADATA.description} />
         <link rel="icon" href={SpheronLogo.src} />
 
         <meta itemProp="name" content={METADATA.title} />
@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:image" content={METADATA.image} />
         <link rel="canonical" href={METADATA.url} />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:site_name" content={METADATA.title} />
+        <meta property="og:site_name" content={METADATA.title} /> */}
       </Head>
       <Component {...pageProps} />
     </>
