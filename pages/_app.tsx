@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useConfig } from "nextra-theme-docs";
 import SpheronLogo from "../assets/favicon.ico";
 
 const METADATA = {
@@ -10,9 +9,6 @@ const METADATA = {
 };
 
 export default function App({ Component, pageProps }) {
-  const { frontMatter } = useConfig();
-  METADATA.title = `${frontMatter.title} - ${METADATA.title}`;
-
   return (
     <>
       <Head>
