@@ -31,7 +31,6 @@ export default function App({ Component, pageProps }) {
         <meta name="twitter:image" content={METADATA.image} />
         <link rel="canonical" href={METADATA.url} />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:site_name" content={METADATA.title} />
       </Head>
       <Component {...pageProps} />
     </>
