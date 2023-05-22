@@ -25,12 +25,6 @@ export default function App({ Component, pageProps }) {
         <meta property="og:image" content={METADATA.image} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={METADATA.title} />
-        <meta name="twitter:description" content={METADATA.description} />
-        <meta name="twitter:image" content={METADATA.image} />
-        <link rel="canonical" href={METADATA.url} />
-        <meta property="og:locale" content="en_US" />
       </Head>
       <Component {...pageProps} />
     </>
