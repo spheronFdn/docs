@@ -3,7 +3,7 @@ import Navigation from "components/navigation";
 
 # Site SDK
 
-The Site SDK is a npm package, that provides support for working with Spheron Web-App organizations.
+The Site SDK is a npm package, that provides support for working with Spheron Site organizations.
 
 <Callout type="info">
   **NOTE:** The package is only meant for Node.js environments.
@@ -186,13 +186,13 @@ interface Project {
 }
 
 enum ProjectStateEnum {
-    MAINTAINED = "MAINTAINED",
-    ARCHIVED = "ARCHIVED"
+    MAINTAINED,
+    ARCHIVED
 }
 
 enum ProviderEnum {
-    GITHUB = "GITHUB",
-    GITLAB = "GITLAB",
+    GITHUB,
+    GITLAB,
     BITBUCKET = "GITLAB"
 }
 ```
@@ -266,31 +266,31 @@ interface Configuration {
 }
 
 enum NodeVersionEnum {
-    V_12 = "V_12",
-    V_14 = "V_14",
-    V_16 = "V_16"
+    V_12,
+    V_14,
+    V_16
 }
 
 enum FrameworkEnum {
-    SIMPLE_JAVASCRIPT_APP = "static",
-    VUE = "vue",
-    REACT = "react",
-    NEXT = "next",
-    ANGULAR = "angular",
-    PREACT = "preact",
-    NUXT = "nuxt2",
-    SVELTE = "svelte",
-    GATSBY = "gatsby",
-    ELEVENTY = "eleventy",
-    DOCUSAURUS = "docusaurus",
-    SANITY = "sanity",
-    HUGO = "hugo",
-    IONIC_REACT = "ionicreact",
-    VITE = "vite",
-    SCULLY = "scully",
-    STENCIL = "stencil",
-    BRUNCH = "brunch",
-    IONIC_ANGULAR = "ionicangular"
+    SIMPLE_JAVASCRIPT_APP,
+    VUE,
+    REACT,
+    NEXT,
+    ANGULAR,
+    PREACT,
+    NUXT,
+    SVELTE,
+    GATSBY,
+    ELEVENTY,
+    DOCUSAURUS,
+    SANITY,
+    HUGO,
+    IONIC_REACT,
+    VITE,
+    SCULLY,
+    STENCIL,
+    BRUNCH,
+    IONIC_ANGULAR
 }
 ```
 
@@ -427,9 +427,9 @@ interface DeploymentEnvironment {
 }
 
 enum ProtocolEnum {
-    ARWEAVE = "arweave",
-    FILECOIN = "ipfs-filecoin",
-    IPFS = "ipfs"
+    ARWEAVE,
+    FILECOIN,
+    IPFS
 }
 ```
 
@@ -598,11 +598,11 @@ interface Domain {
 }
 
 enum DomainTypeEnum {
-    DOMAIN = "domain",
-    SUBDOMAIN = "subdomain",
-    HANDSHAKE_DOMAIN = "handshake-domain",
-    HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
-    ENS_DOMAIN = "ens-domain"
+    DOMAIN,
+    SUBDOMAIN,
+    HANDSHAKE_DOMAIN,
+    HANDSHAKE_SUBDOMAIN,
+    ENS_DOMAIN
 }
 ```
 
@@ -753,9 +753,9 @@ Return the array of deployments. Check the [get deployment](/sdk/site/#get-2) fu
 
 Used to get the deployment count of the project.
 
-````js
-  const deploymentCount: DeploymentCount =
-    await spheron.projects.getDeploymentCount(projectId);
+```js
+const deploymentCount: DeploymentCount =
+  await spheron.projects.getDeploymentCount(projectId);
 ```
 
 Params:
@@ -771,7 +771,7 @@ interface DeploymentCount {
   failed: number; // the number of failed deployments
   pending: number; // the number of deployments in pending state
 }
-````
+```
 
 ## Deployments
 
@@ -804,15 +804,15 @@ interface Deployment {
 }
 
 enum DeploymentStatusEnum {
-    PRE_QUEUE = "PreQueue",
-    QUEUED = "Queued",
-    PENDING = "Pending",
-    CANCELED = "Canceled",
-    DEPLOYED = "Deployed",
-    FAILED = "Failed",
-    AUTHORIZATION_NEEDED = "AuthorizationNeeded",
-    KILLING = "Killing",
-    TIMED_OUT = "TimedOut"
+    PRE_QUEUE,
+    QUEUED,
+    PENDING,
+    CANCELED,
+    DEPLOYED,
+    FAILED,
+    AUTHORIZATION_NEEDED,
+    KILLING,
+    TIMED_OUT
 }
 
 ```
@@ -882,9 +882,9 @@ Params:
 
 ```js
 enum ProtocolEnum {
-    ARWEAVE = "arweave",
-    FILECOIN = "ipfs-filecoin",
-    IPFS = "ipfs"
+    ARWEAVE,
+    FILECOIN,
+    IPFS
 }
 ```
 
