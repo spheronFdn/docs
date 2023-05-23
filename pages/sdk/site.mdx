@@ -89,9 +89,9 @@ const projects: Project[] = await spheron.organization.getProjects({
 Params:
 
 - `options`:
-  - `skip`: number of projects to skip.
-  - `limit`: number of projects to take.
-  - `state` ( optional ): project state filter.
+  - `skip: number` - the number of projects to skip.
+  - `limit: number` - the number of projects to take.
+  - `state: ProjectStateEnum ( optional )` - the state of the projects to fetch.
 
 Returns an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
 
@@ -109,8 +109,8 @@ const count: number = await spheron.organization.getProjectCount({
 
 Params:
 
-- `options` ( optional ):
-  - `state` ( optional ): project state filter.
+- `options`
+  - `state: ProjectStateEnum ( optional )` - project state filter.
 
 Returns the number of projects.
 
@@ -129,31 +129,31 @@ Returns the `UsageWithLimits` object.
 ```js
 interface UsageWithLimits {
   used: {
-    bandwidth?: number, // the bytes of bandwidth used for the current subscription
-    buildExecution?: number, // the seconds of build execution done for the current subscription
-    concurrentBuild?: number,// the number of concurrent builds in progress
-    storageArweave?: number, // the bytes of used Arweave storage for the current subscription
-    storageIPFS?: number, // the bytes of used IPFS storage for the current subscription
-    deploymentsPerDay?: number, // number of deployments an organization can have one one day
-    domains?: number, // the number of domains and subdomain an organization has
-    hnsDomains?: number,// the number of hns domains an organization has
-    ensDomains?: number,// the number of ens domains an organization has
-    environments?: number,// the number of deployment environments an organization has
-    numberOfRequests?: number,// the number of requests the organization has had till now
-    passwordProtection?: number,; // 1 - if organization has support for password protection, otherwise 0.
+    bandwidth: number, // the bytes of bandwidth used for the current subscription
+    buildExecution: number, // the seconds of build execution done for the current subscription
+    concurrentBuild: number,// the number of concurrent builds in progress
+    storageArweave: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
+    deploymentsPerDay: number, // number of deployments an organization can have one one day
+    domains: number, // the number of domains and subdomain an organization has
+    hnsDomains: number,// the number of hns domains an organization has
+    ensDomains: number,// the number of ens domains an organization has
+    environments: number,// the number of deployment environments an organization has
+    numberOfRequests: number,// the number of requests the organization has had till now
+    passwordProtection: number,; // 1 - if organization has support for password protection, otherwise 0.
   };
   limit: {
-    bandwidth?: number, // the bandwidth limit for the current subscription
-    buildExecution?: number,// the build execution limit for the current subscription
-    concurrentBuild?: number, // how many concurrent builds can the organization have with the current subscription plan
-    storageArweave?: number,  // the limit in bytes for the Arweave storage for the current subscription
-    storageIPFS?: number, // the limit in bytes for the IPFS storage for the current subscription
-    deploymentsPerDay?: number,// the limit of how many deployments can an organization have per day
-    domains?: number,// the limit on how many domains and subdomains can an organization have
-    hnsDomains?: number, //  the limit on how many hns domains can an organization have
-    ensDomains?: number,// the limit on how many ens domains can an organization have
-    environments?: number, // the limit on how many deployment environment can an organization have
-    membersLimit?: number,// how many members can an organization have
+    bandwidth: number, // the bandwidth limit for the current subscription
+    buildExecution: number,// the build execution limit for the current subscription
+    concurrentBuild: number, // how many concurrent builds can the organization have with the current subscription plan
+    storageArweave: number,  // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
+    deploymentsPerDay: number,// the limit of how many deployments can an organization have per day
+    domains: number,// the limit on how many domains and subdomains can an organization have
+    hnsDomains: number, //  the limit on how many hns domains can an organization have
+    ensDomains: number,// the limit on how many ens domains can an organization have
+    environments: number, // the limit on how many deployment environment can an organization have
+    membersLimit: number,// how many members can an organization have
   };
 }
 ```
@@ -172,7 +172,7 @@ Params:
 
 - Id of the project.
 
-Returns an object of type `Project`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
+Returns an object of type `Project`.
 
 ```js
 interface Project {
@@ -195,6 +195,43 @@ enum ProviderEnum {
     GITLAB,
     BITBUCKET = "GITLAB"
 }
+
+interface Configuration {
+  installCommand: string; // command that will be used to install the dependencies of the repository
+  buildCommand: string; // command that will be executed to build the repository
+  workspace: string; // the path to the app inside repository
+  publishDir: string; // the path to the build directory
+  framework: FrameworkEnum; // the framework of a project
+  nodeVersion: NodeVersionEnum; // the node version that will be used to build the project
+}
+
+enum NodeVersionEnum {
+    V_12,
+    V_14,
+    V_16
+}
+
+enum FrameworkEnum {
+    SIMPLE_JAVASCRIPT_APP,
+    VUE,
+    REACT,
+    NEXT,
+    ANGULAR,
+    PREACT,
+    NUXT,
+    SVELTE,
+    GATSBY,
+    ELEVENTY,
+    DOCUSAURUS,
+    SANITY,
+    HUGO,
+    IONIC_REACT,
+    VITE,
+    SCULLY,
+    STENCIL,
+    BRUNCH,
+    IONIC_ANGULAR
+}
 ```
 
 ---
@@ -207,6 +244,10 @@ Used to archive a project. When a project is archived new deployments cannot be 
 await spheron.projects.archive(projectId);
 ```
 
+Params:
+
+- `projectId: string` - Id of the project.
+
 Method return type is void. If there is an issue while archiving, an error will be thrown.
 
 ---
@@ -218,6 +259,10 @@ Used to update the project state from Archived to Maintained. If a project is al
 ```js
 await spheron.projects.unarchive(projectId);
 ```
+
+Params:
+
+- `projectId: string` - Id of the project.
 
 Method return type is void. If there is an issue while archiving, an error will be thrown.
 
@@ -243,15 +288,15 @@ const configuration: Configuration = await spheron.projects.updateConfiguration(
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 - `configuration`:
 
-  - `framework`: the framework of the repository
-  - `workspace`: the path to the app inside repository
-  - `installCommand`: command that will be used to install the dependencies of the repository
-  - `buildCommand`: command that will be executed to build the repository
-  - `publishDir`: the path to the build directory
-  - `nodeVersion`: the node version of your repository
+  - `framework: FrameworkEnum` - the framework of the repository
+  - `workspace: string` - the path to the app inside repository
+  - `installCommand: string` - command that will be used to install the dependencies of the repository
+  - `buildCommand: string` - command that will be executed to build the repository
+  - `publishDir: string` - the path to the build directory
+  - `nodeVersion: NodeVersionEnum` - the node version of your repository
 
 Returns the updated configuration.
 
@@ -307,7 +352,7 @@ const variables: EnvironmentVariable[] =
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 
 Returns an array of environment variables.
 
@@ -344,11 +389,11 @@ const added: EnvironmentVariable[] =
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 - Array of variables that should be added. Each object of the array should have the following properties:
-  - `name`: the name of the variable.
-  - `value`: the value of the variable.
-  - `environments`: the deployment environments for which the variable will be used
+  - `name: string` - the name of the variable.
+  - `value: string` - the value of the variable.
+  - `environments: string[]` - the deployment environments for which the variable will be used
 
 Returns an array of added variables.
 
@@ -372,12 +417,12 @@ const updated = await spheron.projects.updateEnvironmentVariable(
 
 Params:
 
-- Id of the project.
-- Id of the environment variable.
+- `projectId: string` - Id of the project.
+- `environmentVariableId: string` - Id of the environment variable.
 - `options`:
-  - `name`: the name of the variable.
-  - `value`: the value of the variable.
-  - `environments`: the deployment environments for which the variable will be used
+  - `name: string`: the name of the variable.
+  - `value: string`: the value of the variable.
+  - `environments: string[]`: the deployment environments for which the variable will be used
 
 Returns the updated variable.
 
@@ -396,8 +441,8 @@ await spheron.projects.deleteEnvironmentVariable(
 
 Params:
 
-- Id of the project.
-- Id of the environment variable.
+- `projectId: string` - Id of the project.
+- `environmentVariableId: string` - Id of the environment variable.
 
 Method return type is void. If there is an issue while deleting, an error will be thrown.
 
@@ -414,7 +459,7 @@ const deploymentEnvironments: DeploymentEnvironment[] =
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 
 Returns an array of deployment environments.
 
@@ -456,13 +501,13 @@ const created: DeploymentEnvironment =
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 - `options`:
-  - `name`: the name of the deployment environment. The name of the deployment environment needs to be unique for the project, else an error will be thrown.
-  - `branches`: an array of strings, that represent the branches of the deployment environment. If a branch already exists in the Production deployment environment,
+  - `name: string` - the name of the deployment environment. The name of the deployment environment needs to be unique for the project, else an error will be thrown.
+  - `branches: string[]` - an array of strings, that represent the branches of the deployment environment. If a branch already exists in the Production deployment environment,
     an error will be thrown ( you would first need to remove the branch from the Production environment and add it to the one you want ).
     If a branch exists to some other deployment environment ( that is not a production one ), it will be removed from it and added the the newly created one.
-  - `protocol`: the protocol of the deployment environment.
+  - `protocol: ProtocolEnum` - the protocol of the deployment environment.
 
 Returns the created deployment environment.
 
@@ -487,13 +532,13 @@ const updated: DeploymentEnvironment =
 
 Params:
 
-- Id of the project.
-- Id of the deployment environment.
+- `projectId: string` - Id of the project.
+- `deploymentEnvironmentId: string` - Id of the deployment environment.
 - `options`:
 
-  - `name`: the name of the deployment environment.
-  - `branches`: an array of strings, that represent the branches of the deployment environment.
-  - `protocol`: the protocol of the deployment environment.
+  - `name: string` - the name of the deployment environment.
+  - `branches: string[]` - an array of strings, that represent the branches of the deployment environment.
+  - `protocol: ProtocolEnum` - the protocol of the deployment environment.
 
   <Callout type="info">
     **NOTE:** The same constraints for name and branches exist both when
@@ -518,8 +563,8 @@ await spheron.projects.deleteDeploymentEnvironment(
 
 Params:
 
-- Id of the project.
-- Id of the deployment environment.
+- `projectId: string` - Id of the project.
+- `deploymentEnvironmentId: string` - Id of the deployment environment.
 
 <Callout type="info">
   **NOTE:** It is not possible to delete the Production and Development
@@ -544,8 +589,8 @@ const deploymentEnvironment: DeploymentEnvironment =
 
 Params:
 
-- Id of the project.
-- Id of the deployment environment.
+- `projectId: string` - Id of the project.
+- `deploymentEnvironmentId: string` - Id of the deployment environment.
 
 Method returns the activated deployment environment.
 
@@ -565,8 +610,8 @@ const deploymentEnvironment: DeploymentEnvironment =
 
 Params:
 
-- Id of the project.
-- Id of the deployment environment.
+- `projectId: string` - Id of the project.
+- `deploymentEnvironmentId: string` - Id of the deployment environment.
 
 Method returns the deactivated deployment environment.
 
@@ -582,7 +627,7 @@ const domains: Domain[] = await spheron.projects.getDomains(projectId);
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 
 Returns an array of deployment domains.
 
@@ -618,8 +663,8 @@ const domain: Domain = await spheron.projects.getDomain(projectId, "test.com");
 
 Params:
 
-- Id of the project.
-- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+- `projectId: string` - Id of the project.
+- `domainIdentifier: string` The domain identifier can be the domain id, or the domain name itself.
 
 Returns the domain.
 
@@ -639,12 +684,12 @@ const domain: Domain = await spheron.projects.addDomain(projectId, {
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 - `options`:
-  - `name`: the domain name.
-  - `type`: the domain type.
-  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
-  - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
+  - `name: string` - the domain name.
+  - `type: DomainTypeEnum` - the domain type.
+  - `deploymentEnvironments: string[] ( optional )` - name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
+  - `link: string ( optional )` - The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
 
 <Callout type="info">
   **NOTE:** Ether `deploymentEnvironments` or `link` is required. When only a
@@ -672,12 +717,12 @@ const domain: Domain = await spheron.projects.updateDomain(
 
 Params:
 
-- Id of the project.
-- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+- `projectId: string` - Id of the project.
+- `domainIdentifier: string` The domain identifier can be the domain id, or the domain name itself.
 - `options`:
-  - `name`: the domain name.
-  - `deploymentEnvironments` ( optional ): name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
-  - `link` ( optional ): The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
+  - `name: string` - the domain name.
+  - `deploymentEnvironments: string ( optional )` - name of the deployment environments. Whenever a deployment for the specified deployment environment is successfully executed, the domain will be updated to point to the newly deployed data.
+  - `link: string ( optional )` - The `sitePreview` of a specific deployment of the same project. When this property is set, the domain will point to data of the specified deployment, and will not be updated when a new deployment is done.
 
 <Callout type="info">
   **NOTE:** Same rules for `deploymentEnvironments` and `link` are applied here
@@ -698,8 +743,8 @@ const domain: Domain = await spheron.projects.verifyDomain(projectId, domainId);
 
 Params:
 
-- Id of the project.
-- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+- `projectId: string` - Id of the project.
+- `domainIdentifier: string` The domain identifier can be the domain id, or the domain name itself.
 
 Returns the verified domain.
 
@@ -715,8 +760,8 @@ await spheron.projects.deleteDomain(projectId, domainId);
 
 Params:
 
-- Id of the project.
-- Domain identifier. The domain identifier can be the domain id, or the domain name itself.
+- `projectId: string` - Id of the project.
+- `domainIdentifier: string` The domain identifier can be the domain id, or the domain name itself.
 
 Method return type is void.
 
@@ -739,11 +784,11 @@ const deployments: Deployment[] = await spheron.projects.getDeployments(
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 - `options`:
-  - `skip`: number of deployments to skip.
-  - `limit`: number of deployments to take.
-  - `status` ( optional ): status of the deployments.
+  - `skip: number` - number of deployments to skip.
+  - `limit: number` - number of deployments to take.
+  - `status: DeploymentStatusEnum ( optional )`: status of the deployments.
 
 Return the array of deployments. Check the [get deployment](/sdk/site/#get-2) function, for the interface details.
 
@@ -760,7 +805,7 @@ const deploymentCount: DeploymentCount =
 
 Params:
 
-- Id of the project.
+- `projectId: string` - Id of the project.
 
 Returns the number of deployments.
 
@@ -785,7 +830,7 @@ const deployment: Deployment = await spheron.deployments.get(deploymentId);
 
 Params:
 
-- Id of the deployment.
+- `deploymentId: string` - Id of the deployment.
 
 Returns an object of type `Deployment`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
 
@@ -829,7 +874,7 @@ const logs: DeploymentLog[] = await spheron.deployments.getLogs(deploymentId);
 
 Params:
 
-- Id of the deployment.
+- `deploymentId: string` - Id of the deployment.
 
 Returns an array of objects that represent the deployment logs.
 
@@ -869,16 +914,16 @@ await spheron.deployments.deploy({
 
 Params:
 
-- `gitUrl`: the url of the repository.
+- `gitUrl: string` - the url of the repository.
   <Callout type="info">
     **NOTE:** Only repositories for which you have authorized the Spheron Git
     App can be deployed.
   </Callout>
-- `projectName`: if the project for the `gitUrl` does not exists, a new project will be created and `projectName` will be used for the name of the project.
-- `environmentVariables`: an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
-- `provider`: the provider of the repository.
-- `branch`: the branch of the deployment.
-- `protocol`: the protocol on which the deployment should be uploaded. Supported protocols are:
+- `projectName: string` - if the project for the `gitUrl` does not exists, a new project will be created and `projectName` will be used for the name of the project.
+- `environmentVariables: object` - an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
+- `provider: ProviderEnum` - the provider of the repository.
+- `branch: string` - the branch of the deployment.
+- `protocol: ProtocolEnum` -the protocol on which the deployment should be uploaded. Supported protocols are:
 
 ```js
 enum ProtocolEnum {
@@ -888,7 +933,7 @@ enum ProtocolEnum {
 }
 ```
 
-- `configuration`: the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
+- `configuration: Configuration` - the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
 
 Returns the information about the deployment:
 
@@ -919,7 +964,7 @@ await spheron.deployments.cancel(deploymentId);
 
 Params:
 
-- Id of the deployment.
+- `deploymentId: string` - Id of the deployment.
 
 Returns:
 
@@ -947,7 +992,7 @@ await spheron.deployments.authorize(deploymentId);
 
 Params:
 
-- Id of the deployment.
+- `deploymentId: string` - Id of the deployment.
 
 Returns the information about the deployment:
 
@@ -973,7 +1018,7 @@ await spheron.deployments.redeploy(deploymentId);
 
 Params:
 
-- Id of the deployment.
+- `deploymentId: string` - Id of the deployment.
 
 Returns the information about the deployment:
 
