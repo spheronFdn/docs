@@ -909,6 +909,12 @@ await spheron.deployments.deploy({
     publishDir: "build",
     nodeVersion: NodeVersionEnum.V_16,
   },
+  gitProviderPreferences: {
+    prComments: true;
+    commitComments: false;
+    buildStatus: false;
+    githubDeployment: true;
+  }
 });
 ```
 
@@ -934,6 +940,11 @@ enum ProtocolEnum {
 ```
 
 - `configuration: Configuration` - the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
+- `gitProviderPreferences ( optional )` - If not passed, each property in the object will be set with its default value.
+  - `prComments: boolean ( optional )` - when set to false, a comment will not be left on a PR. Default value is `true`.
+  - `commitComments: boolean ( optional )` - when set to false, comment will not be left on a commit. Default value is `true`.
+  - `buildStatus: boolean ( optional )` - when set to false, build status will not be created for a commit. Default value is `true`.
+  - `githubDeployment: boolean ( optional )` - the option is only valid for Github repositories. When set to false, a [Github Deployment](https://docs.github.com/en/rest/deployments/deployments?apiVersion=2022-11-28) will not be created. Default value is `true`.
 
 Returns the information about the deployment:
 
