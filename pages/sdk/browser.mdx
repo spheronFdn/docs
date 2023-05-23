@@ -128,7 +128,7 @@ const { uploadId, bucketId, protocolLink, dynamicLinks } = await upload(files, {
 This flow allows you to control who can use your `uploadToken` to upload files. \
 Function `upload` takes two parameters:
 
-- **files** - ( File[] ) - An array of files to be uploaded.
+- **files** - ( File[] | FileList ) - An array of files to be uploaded.
 - **configuration:** An object with the following parameters:
   1.  `configuration.token`
       - The upload token that was fetched from server.
