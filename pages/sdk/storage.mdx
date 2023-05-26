@@ -95,6 +95,79 @@ interface UploadRes {
 
 ---
 
+### Pin A CID on IPFS
+Used to pin a CID on Spheron IPFS dedicated node
+```js
+
+const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
+  name,
+  cid
+});
+
+```
+Function `pinCID` takes one parameter:
+
+- **configuration:** An object with the following parameters:
+  1.  `configuration.name`
+      - Represents the name of the bucket on which you are pinning the CID.
+  2.  `configuration.CID` 
+      - The CID of the file you want to be pinned
+
+**Response**
+
+```js
+interface PinCIDResponse {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: Domain[];
+}
+```
+
+--- 
+
+### Get CID Pin Status
+
+Used to get the pinning status for the specified `CID`.
+
+```js
+const pinStatus: RootObject = await client.getCIDStatus(CID);
+```
+
+Function `getCIDStatus` takes just one parameter:
+
+- **CID** - (string) - The CID of the file
+
+**Response**
+
+```js
+interface PeerData {
+    peername: string; // Name of the peer
+    ipfs_peer_id: string; // The peer ID in the IPFS network
+    ipfs_peer_addresses: string[]; // Array of addresses at which the peer can be reached
+    status: string; // Status of the pin, such as "pinned" or "unpinned"
+    timestamp: string; // Timestamp when the status was last updated
+    error: string; // Any errors that have occurred, empty string if no errors
+    attempt_count: number; // Number of attempts made to change the pin status
+    priority_pin: boolean; // Indicates whether this is a priority pin
+}
+
+interface PinStatus {
+    cid: string; // The Content Identifier (CID) of the file
+    name: string; // Name associated with the file, can be empty
+    allocations: string[]; // Array of peers where the file is allocated
+    origins: string[]; // Array of origins from where the file can be fetched
+    created: string; // Timestamp when the file was created
+    metadata: null | any; // Metadata associated with the file, null if none
+    peer_map: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
+}
+
+interface RootObject {
+    pinStatus: PinStatus; // The pin status object
+}
+```
+---
+
 ### Get Bucket
 
 Used to get the bucket information for the specified `bucketId`.
@@ -674,60 +747,6 @@ interface IPNSName {
 }
 ```
 ---
-
-### Pin A CID on IPFS
-Used to pin a CID on Spheron IPFS dedicated node
-```js
-
-const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
-  name,
-  cid
-});
-
-```
-Function `pinCID` takes one parameter:
-
-- **configuration:** An object with the following parameters:
-  1.  `configuration.name`
-      - Represents the name of the bucket on which you are pinning the CID.
-  2.  `configuration.CID` 
-      - The CID of the file you want to be pinned
-
-**Response**
-
-```js
-interface PinCIDResponse {
-  uploadId: string;
-  bucketId: string;
-  protocolLink: string;
-  dynamicLinks: Domain[];
-}
-```
-
---- 
-
-### Get CID Pin Status
-
-Used to get the pinning status for the specified `CID`.
-
-```js
-const pinStatus: pinStatusRes = await client.getCIDStatus(CID);
-```
-
-Function `getCIDStatus` takes just one parameter:
-
-- **CID** - (string) - The CID of the file
-
-**Response**
-
-```js
-
-interface pinStatusResponse {
-  pinStatus: string;
-}
-```
----
-
 
 ## Storage Utility
 
