@@ -6,9 +6,9 @@
   "compute": "Compute",
   "framework-guide": "Framework Guide",
   "server-guide": "Server Guide",
-  "rest-api": "Spheron API",
   "sdk": "Spheron SDK",
   "cli": "Spheron CLI",
+  "rest-api": "Spheron API",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
