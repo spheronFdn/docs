@@ -88,8 +88,9 @@ In the examples we are also using 4 other actions:
     **NOTE:** When making changes to the code, the new tag needs to be different
     than the one that is currently running on the Cluster Instance. entered.
   </Callout>
-- **env( optional )**: The environment variables that should be used. The environment variables need to be provided each time the instance is updated. You will be able to see the value of the environment variables in the settings page of your instance. The value of env is an string that represents an json array where each element in the array is string in format `key=value`. Checkout the [usage](/github-actions/instance-update-action/#usage) for an example.
-- **secret-env( optional )**: The secret environment variables that should be used. The secret environment variables need to be provided each time the instance is updated. You will not be able to see the value of the environment variables in the settings page of your instance. The value of secret env is an string that represents an json array where each element in the array is a string in format `key=value`. Checkout the [usage](/github-actions/instance-update-action/#usage) for an example.
+- **env( optional )**: The environment variables that should be used. The environment variables need to be provided each time the instance is updated. You will be able to see the value of the environment variables in the settings page of your instance. The value of env is an string that represents an json array where each element in the array is string in format `key=value`, for example: `env: '[ "key1=value1", "key2=value2" ]'`
+
+- **secret-env( optional )**: The secret environment variables that should be used. The secret environment variables need to be provided each time the instance is updated. You will not be able to see the value of the environment variables in the settings page of your instance. The value of secret env is an string that represents an json array where each element in the array is a string in format `key=value`, for example `secret-env: '[ "key1=secret-value1", "key2=secret-value2" ]'`
 
 ### Outputs
 
