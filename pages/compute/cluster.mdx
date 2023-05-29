@@ -6,8 +6,8 @@ import Navigation from "components/navigation";
 ## Deploy from Docker Hub
 
 <Callout type="warning">
-  Before running the **docker build** command, run this command in your terminal: \
-  `export DOCKER_DEFAULT_PLATFORM=linux/amd64`.
+  Before running the **docker build** command, run this command in your
+  terminal: \ `export DOCKER_DEFAULT_PLATFORM=linux/amd64`.
 </Callout>
 
 Spheron allows you to create a new cluster with a custom docker image.
@@ -26,9 +26,9 @@ To create a cluster:
 </Callout>
 
 <Callout type="info">
-  **NOTE:** \
-  1\. Spheron supports only public docker images at the moment. \
-  2\. Learn how to dockerize your server and push the docker image to the docker hub [here](https://docs.docker.com/get-started/02_our_app/).
+  **NOTE:** \ 1\. Spheron supports only public docker images at the moment. \
+  2\. Learn how to dockerize your server and push the docker image to the docker
+  hub [here](https://docs.docker.com/get-started/02_our_app/).
 </Callout>
 
 ### Additional Configuration
@@ -55,7 +55,8 @@ To configure these variables:
 2. Add key and value. Use the **Secret Key** toggle if the value is a secret key.
 
 <Callout type="info">
-  **NOTE:** When you enable the secret key toggle, it will not be saved in the database.
+  **NOTE:** When you enable the secret key toggle, it will not be saved in the
+  database.
 </Callout>
 
 #### Region
@@ -73,7 +74,8 @@ Spheron offers the following regions for you to choose from:
 To choose a region, navigate to the `Region` section under **Additional Configuration** and select your preferred region.
 
 <Callout type="info">
-  **NOTE:** Selecting `any` as the region will deploy the container in any region.
+  **NOTE:** Selecting `any` as the region will deploy the container in any
+  region.
 </Callout>
 
 #### Advanced Configuration
@@ -122,16 +124,16 @@ That includes adding the **root username** and **root password** under their res
 
 ## Verify Installation
 
-The Marketplace App can be accessed only after the Compute Instance is provisioned.
+The app can be accessed only after the Compute Instance is provisioned.
 Thus, you need to wait for the installation to complete before you can start using the app.
-Most Marketplace Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+Most apps can be verified for successful installation using the instructions below, while others may require different procedures.
 
 - **Attempt to access the app** \
-  A Marketplace App has an estimated deployment time of about 1-2 minutes.
+  An app has an estimated deployment time of about 1-2 minutes.
   If you can successfully access it, the installation has been completed successfully.
   You can connect to the app with a `reverse DNS link` provided if the app has an HTTP port.
   If not, you can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
 - **Check instance logs and events** \
-  After successfully deploying a Marketplace App, it will produce logs and events, which you can check for any issues or errors.
+  After successfully deploying an app, it will produce logs and events, which you can check for any issues or errors.
 
 <Navigation name="Cluster" />

@@ -1,0 +1,47 @@
+# How to deploy a MongoDB App?
+
+Spheron allows you to deploy a compute instance pre-installed with MongoDB, all set up and ready to use on the Akash Network.
+To deploy a MongoDB app:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **MongoDB** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Add **Root Username** and **Root Password** for the MongoDB instance.
+9. Click **Deploy** to initiate deployment.
+
+## Advanced Configuration
+
+### Region
+
+This section is the same as the [region section](/compute/cluster/#region) mentioned above.
+
+### App Configuration
+
+- **Root Username** - The username used for accessing the MongoDB database.
+- **Root Password** - The password associated with the MongoDB database user.
+
+## Verify Installation
+
+The app can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+
+### How to connect to MongoDB?
+
+You can use the connection string URI to connect to MongoDB.
+The standard URI connection scheme has the following format:
+
+```
+mongodb://[username:password@]host[:port][/[defaultauthdb][?options]]
+```
+
+- `mongodb://` - A required prefix to identify that this is a string in the standard connection format.
+- `username:password` **(optional)** - Authentication credentials passed in App Configuration. If specified, the client will attempt to authenticate the user to the `authSource`.
+- `host[:port]` - The host and port number where the mongod instance is running. Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 27017**.
+- `/defaultauthdb` **(optional)** - The authentication database to use if the connection string includes `username:password` authentication credentials but the **authSource** option is unspecified. If both **authSource** and **defaultauthdb** are unspecified, the client will attempt to authenticate the specified user to the admin database.
+- `?options` **(optional)** - A query string that specifies connection specific options as `<name>=<value>` pairs. If the connection string does not specify a database/ you must specify a slash `(/)` between the last host and the question mark `(?)` that begins the string of options.
+
+For more information, refer to the [MongoDB docs](https://www.mongodb.com/docs/manual/reference/connection-string/).
