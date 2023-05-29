@@ -63,10 +63,10 @@ const QUICK_START_LIST = [
     body: "Create & deploy dapps right from your terminal.",
   },
   {
-    path: "/github-action",
+    path: "/github-actions",
     emoji: "🌀",
-    title: "Github Action",
-    body: "Update Cluster Instances from github workflows.",
+    title: "Github Actions",
+    body: "Actions for working with Clusters.",
   },
 ];
 

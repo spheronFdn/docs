@@ -10,7 +10,7 @@
   "rest-api": "Spheron API",
   "sdk": "Spheron SDK",
   "cli": "Spheron CLI",
-  "github-action": "Github Action",
+  "github-actions": "Github Actions",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
