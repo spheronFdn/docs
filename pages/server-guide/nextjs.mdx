@@ -1,0 +1,197 @@
+import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import DockerImage from "assets/docker-image.png";
+import Navigation from "components/navigation";
+
+# How to deploy a Next App?
+
+<Callout type="warning">
+  For Next.js apps without APIs, deploy your app on Spheron Site by following
+  [this guide.](/framework-guide/deploy-next/)
+</Callout>
+
+Next.js is a powerful web framework that allows you to deploy your JavaScript apps. It provides a robust set of tools and features, including server-side rendering, automatic code splitting, and hot module replacement for efficient development.
+
+In this guide, you'll configure a Next.js app and deploy it to Spheron Compute using Docker.
+
+### Prerequisites
+
+To successfully follow this guide, you will need the following:
+
+- A [DockerHub](https://hub.docker.com/) account.
+- [Nodejs](https://nodejs.org/en) installed on your local machine.
+- A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
+
+## Step 1: Create a Next App
+
+1. Create a new Next.js project by running the following command:
+   ```sh
+   npx create-next-app nextapp
+   ```
+2. Change into the project directory:
+   ```sh
+   cd nextapp
+   ```
+3. Create a new file **pages/api/hello.js** and add the following code:
+   ```js
+   export default function handler(req, res) {
+     res.status(200).json({ message: "Hello, World!" });
+   }
+   ```
+4. Start the development server by running the following command:
+
+   ```sh
+   npm run dev
+   ```
+
+5. Open your web browser and visit http://localhost:3000/api/hello. You should see the JSON response `{"message": "Hello, World!"}` displayed.
+
+> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/nextapp)
+
+## Step 2: Create a Dockerfile
+
+Here's what the dockerfile for this next app will look like:
+
+```sh
+# Use an official Node.js runtime as the base image
+FROM node:14-alpine
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the app's source code to the container
+COPY . .
+
+# Build the Next.js app
+RUN npm run build
+
+# Expose the port that Next.js runs on
+EXPOSE 3000
+
+# Run the Next.js app
+CMD ["npm", "start"]
+```
+
+## Step 3: Set default platform for docker build
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+## Step 4: Build Docker image
+
+To build the Docker image:
+
+1. Save the above Dockerfile in the root directory of your Next app.
+2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+3. Run the following command to build the Docker image:
+
+```sh
+docker build -t nextapp .
+```
+
+4. After the build process completes, you can run a container based on the image using the following command:
+
+```sh
+docker run -p 3000:3000 nextapp
+```
+
+## Step 5: Push the app to DockerHub
+
+To push an image, you first need to create a repository on Docker Hub.
+
+### Create a repo
+
+To create a repository on Docker Hub:
+
+1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
+2. Select the Create Repository button.
+3. For the repo name, use nextapp. Make sure the Visibility is Public.
+4. Select the Create button.
+
+### Push the image
+
+1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
+2. Use the docker tag command to give the nextapp image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+
+```sh
+docker tag nextapp YOUR-USER-NAME/nextapp
+```
+
+3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
+
+```sh
+docker push YOUR-USER-NAME/nextapp
+```
+
+**Here's what a Docker Image will look like on Docker Hub:**
+
+![Docker-Image](assets/docker-image.png)
+
+> Check out this docker image [here.](https://hub.docker.com/r/rekpero/nft-minter-server/tags)
+
+## Step 6: Run on Spheron Compute
+
+To run your app on Spheron:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click **Next**.
+5. Select the instance plan that suits your needs and Click **Select Plan**.
+6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
+7. Add **Environment Variables** if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
+   database. [Click here](/compute/cluster/#environment-variables) to know more.
+8. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+10. Click **Deploy** to initiate deployment without additional configuration.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+<Callout type="info">
+  **NOTE:** Spheron supports only public docker images at the moment.
+</Callout>
+
+## Verify Installation
+
+The Next App can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+Follow these instructions to verify installation:
+
+- **Attempt to access the app** \
+  An App has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has completed successfully.
+  You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying your Next App, it will produce logs and events, which you can check for any issues or errors.
+
+## Common Errors
+
+### Docker Fails When Building on Apple Silicon
+
+<Callout type="error">
+  ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
+</Callout>
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, you must run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+<Navigation name="Deploy Next App" />

@@ -483,37 +483,21 @@ Function `getOrganizationUsage` takes just one parameter:
 
 ```js
 interface UsageWithLimits {
-  usedBandwidth?: number; // Bytes
-  usedBuildExecution?: number; // Seconds
-  usedConcurrentBuild?: number;
-  usedStorageArweave?: number; // Bytes
-  usedStorageFileCoin?: number; // Seconds
-  usedStorageIPFS?: number; // Bytes
-  usedDeploymentsPerDay?: number;
-  lastDeploymentDate?: Date;
-  usedDomains?: number;
-  usedHnsDomains?: number;
-  usedEnsDomains?: number;
-  usedEnvironments?: number;
-  usedClusterAkt?: number;
-  usedClusterBuildExecution?: number;
-  usedNumberOfRequests?: number;
-  usedPasswordProtections?: number;
-  membersLimit?: number;
-  bandwidthLimit?: number; // Bytes
-  buildExecutionLimit?: number; // Seconds
-  concurrentBuildLimit?: number;
-  storageArweaveLimit?: number; // Bytes
-  storageFileCoinLimit?: number; // Bytes
-  storageIPFSLimit?: number;
-  deploymentsPerDayLimit?: number;
-  domainsLimit?: number;
-  hnsDomainsLimit?: number;
-  ensDomainsLimit?: number;
-  environmentsLimit?: number;
-  clusterAktLimit?: number;
-  clusterBuildExecutionLimit?: number;
-  passwordProtectionLimit?: number;
+  used: {
+    bandwidth: number, // the bytes of bandwidth used for the current subscription
+    storageArweave: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
+    domains: number, // the number of domains and subdomain an organization has
+    numberOfRequests: number, // the number of requests the organization has had till now
+    parallelUploads: number, // the number of uploads are in progress for an organization
+  };
+  limit: {
+    bandwidth: number, // the bandwidth limit for the current subscription
+    storageArweave: number, // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
+    domains: number, // the limit on how many domains and subdomains can an organization have
+    parallelUploads: number, // the number on how many parallel uploads an organization can have
+  };
 }
 ```
 

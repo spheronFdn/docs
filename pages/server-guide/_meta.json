@@ -1,0 +1,4 @@
+{
+  "django": "Deploy Django App",
+  "nextjs": "Deploy Next App"
+}

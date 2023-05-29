@@ -6,7 +6,7 @@ const QUICK_START_LIST = [
     path: "/billing",
     emoji: "💸",
     title: "Billing",
-    body: "Upgrade to Pro to enjoy additional benefits!",
+    body: "Upgrade to Pro to enjoy additional benefits.",
   },
   {
     path: "/organization",
@@ -21,10 +21,28 @@ const QUICK_START_LIST = [
     body: "Deploy static apps from your Git provider.",
   },
   {
+    path: "/compute/cluster",
+    emoji: "✈️",
+    title: "Compute",
+    body: "Deploy compute instances with one click.",
+  },
+  {
+    path: "/gateways",
+    emoji: "⛩️",
+    title: "Gateways",
+    body: "Fast & reliable access to pinned content.",
+  },
+  {
     path: "/framework-guide",
     emoji: "📍",
     title: "Framework Guide",
-    body: "Discover the steps to deploy your framework.",
+    body: "Learn how to deploy your framework.",
+  },
+  {
+    path: "/server-guide",
+    emoji: "📌",
+    title: "Server Guide",
+    body: "Learn how to deploy your server.",
   },
   {
     path: "/rest-api",

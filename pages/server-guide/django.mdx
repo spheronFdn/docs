@@ -1,0 +1,221 @@
+import { Callout } from "nextra-theme-docs";
+import Image from "next/image";
+import DockerImage from "assets/docker-image.png";
+import Navigation from "components/navigation";
+
+# How to deploy a Django App?
+
+Django is a powerful web framework that allows you to deploy your Python applications or websites. It provides a robust set of tools and features, including a high-level ORM (Object-Relational Mapper) for database interaction, a built-in administrative interface, and support for authentication and authorization.
+
+In this guide, you’ll configure a Django app and deploy it to Spheron Compute using Docker.
+
+### Prerequisites
+
+To successfully follow this guide, you will need the following:
+
+- A [DockerHub](https://hub.docker.com/) account.
+- [Python3](https://www.python.org/downloads/) installed on your local machine.
+- A text editor. You can use [Visual Studio Code](https://code.visualstudio.com/) or your favorite text editor.
+
+## Step 1: Create a Django App
+
+1. Install Django (if you haven't already) by running the following command:
+   ```sh
+   pip install Django
+   ```
+2. Create a new Django project by running the following command:
+   ```sh
+   django-admin startproject django_server
+   ```
+3. Change into the project directory:
+   ```sh
+   cd django_server
+   ```
+4. Create a new Django app within the project:
+   ```sh
+   python manage.py startapp myapp
+   ```
+5. Open the **django_server/settings.py** file. Add `'myapp'` to the **INSTALLED_APPS** list and `'*'` to the **ALLOWED_HOSTS** list.
+6. Open the **myproject/urls.py** file and replace its contents with the following code:
+
+   ```py
+   from django.urls import path
+   from myapp.views import hello_world
+
+   urlpatterns = [
+    path('hello/', hello_world),
+   ]
+   ```
+
+7. Create a new file **myapp/views.py** and add the following code:
+
+   ```py
+   from django.http import HttpResponse
+
+   def hello_world(request):
+      return HttpResponse("Hello, World!")
+
+   ```
+
+8. Create a new file **requirements.txt** and add the following:
+
+   ```sh
+   Django==3.2.4
+   ```
+
+9. Start the development server by running the following command:
+
+   ```sh
+   python manage.py runserver
+   ```
+
+10. Open your web browser and visit http://127.0.0.1:8000/hello/. You should see the message "Hello, World!" displayed.
+
+> Check out the example [here.](https://github.com/spheronFdn/docs/tree/main/examples/django_server)
+
+## Step 2: Create a Dockerfile
+
+Here's what the dockerfile for this django app will look like:
+
+```sh
+# Use an official Python runtime as the base image
+FROM python:3.9
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory in the container
+WORKDIR /code
+
+# Install dependencies
+COPY requirements.txt /code/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Django project code to the container
+COPY . /code/
+
+# Expose the port that Django runs on
+EXPOSE 8000
+
+# Run the Django development server
+CMD python manage.py runserver 0.0.0.0:8000
+```
+
+## Step 3: Set default platform for docker build
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+## Step 4: Build Docker image
+
+To build the Docker image:
+
+1. Save the above Dockerfile in the root directory of your Django app.
+2. Open a terminal and navigate to the root directory of your project where the Dockerfile is located.
+3. Run the following command to build the Docker image:
+
+```sh
+docker build -t django_server .
+```
+
+4. After the build process completes, you can run a container based on the image using the following command:
+
+```sh
+docker run -p 8000:8000 django_server
+```
+
+## Step 5: Push the app to DockerHub
+
+To push an image, you first need to create a repository on Docker Hub.
+
+### Create a repo
+
+To create a repository on Docker Hub:
+
+1. [Sign up](https://www.docker.com/pricing?utm_source=docker&utm_medium=webreferral&utm_campaign=docs_driven_upgrade) or Sign in to [Docker Hub](https://hub.docker.com/).
+2. Select the Create Repository button.
+3. For the repo name, use django_server. Make sure the Visibility is Public.
+4. Select the Create button.
+
+### Push the image
+
+1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
+2. Use the docker tag command to give the django_server image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
+
+```sh
+docker tag django_server YOUR-USER-NAME/django_server
+```
+
+3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
+
+```sh
+docker push YOUR-USER-NAME/django_server
+```
+
+**Here's what a Docker Image will look like on Docker Hub:**
+
+![Docker-Image](assets/docker-image.png)
+
+> Check out this docker image [here.](https://hub.docker.com/r/rekpero/nft-minter-server/tags)
+
+## Step 6: Run on Spheron Compute
+
+To run your app on Spheron:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click **Next**.
+5. Select the instance plan that suits your needs and Click **Select Plan**.
+6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
+7. Add **Environment Variables** if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
+   database. [Click here](/compute/cluster/#environment-variables) to know more.
+8. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+10. Click **Deploy** to initiate deployment without additional configuration.
+
+<Callout>
+  **Troubleshoot:** You can change your plan by clicking Change Plan above the
+  selected plan.
+</Callout>
+
+<Callout type="info">
+  **NOTE:** Spheron supports only public docker images at the moment.
+</Callout>
+
+## Verify Installation
+
+The Django App can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Your Apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+Follow these instructions to verify installation:
+
+- **Attempt to access the app** \
+  An App has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has completed successfully.
+  You can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying your Django App, it will produce logs and events, which you can check for any issues or errors.
+
+## Common Errors
+
+### Docker Fails When Building on Apple Silicon
+
+<Callout type="error">
+  ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
+</Callout>
+
+Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows based **AMD64** environment.
+Before running the docker build command, you must run this command in your terminal:
+
+```sh
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
+```
+
+<Navigation name="Deploy Django App" />

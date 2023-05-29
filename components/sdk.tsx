@@ -15,6 +15,12 @@ const SDK_LIST = [
     body: "For Browser based environments",
   },
   {
+    path: "/sdk/compute",
+    emoji: "📼",
+    title: "Compute SDK",
+    body: "Designed to streamline work with your compute organizations",
+  },
+  {
     path: "/sdk/site",
     emoji: "🚧",
     title: "Site SDK",
