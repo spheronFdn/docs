@@ -142,14 +142,14 @@ Function `getCIDStatus` takes just one parameter:
 
 ```js
 interface PeerData {
-    peername: string; // Name of the peer
-    ipfs_peer_id: string; // The peer ID in the IPFS network
-    ipfs_peer_addresses: string[]; // Array of addresses at which the peer can be reached
+    peerName: string; // Name of the peer
+    ipfsPeerId: string; // The peer ID in the IPFS network
+    ipfsPeerAddresses: string[]; // Array of addresses at which the peer can be reached
     status: string; // Status of the pin, such as "pinned" or "unpinned"
-    timestamp: string; // Timestamp when the status was last updated
+    timeStamp: string; // Timestamp when the status was last updated
     error: string; // Any errors that have occurred, empty string if no errors
-    attempt_count: number; // Number of attempts made to change the pin status
-    priority_pin: boolean; // Indicates whether this is a priority pin
+    attemptCount: number; // Number of attempts made to change the pin status
+    priorityPin: boolean; // Indicates whether this is a priority pin
 }
 
 interface PinStatus {
@@ -159,7 +159,7 @@ interface PinStatus {
     origins: string[]; // Array of origins from where the file can be fetched
     created: string; // Timestamp when the file was created
     metadata: null | any; // Metadata associated with the file, null if none
-    peer_map: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
+    peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
 }
 
 interface RootObject {
