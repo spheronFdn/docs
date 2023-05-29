@@ -5,7 +5,7 @@ const ACTION_LIST = [
   {
     path: "/github-actions/instance-update-action",
     emoji: "👾",
-    title: "Instance Update Action",
+    title: "Instance Update",
     body: "Action For Updating Cluster Instances",
   },
 ];

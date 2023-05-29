@@ -79,19 +79,23 @@ In the examples we are also using 4 other actions:
 
 - **spheron-token**: To create the `token`, follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token). When you are creating the tokens, please choose **Compute** type in the dashboard.
 - **instance-id**: The ID of the instance that should be updated.
+  <Callout type="info">
+    **NOTE:** You will need to create the instance in the dashboard first and
+    then pass the id from the instance dashboard.
+  </Callout>
 - **tag( optional )**: The tag that will be used to update the instance. If the tag is not provided, `latest` will be used.
   <Callout type="info">
     **NOTE:** When making changes to the code, the new tag needs to be different
     than the one that is currently running on the Cluster Instance. entered.
   </Callout>
-- **env( optional )**: The environment variables that should be used. The environment variables need to be provided each time the instance is updated. You will be able to see the value of the environment variables in the settings page of your instance. The value of env is an string that represents an json array where each element in the array is string in format `key=value`.
-- **secret-env( optional )**: The secret environment variables that should be used. The secret environment variables need to be provided each time the instance is updated. You will not be able to see the value of the environment variables in the settings page of your instance. The value of secret env is an string that represents an json array where each element in the array is a string in format `key=value`.
+- **env( optional )**: The environment variables that should be used. The environment variables need to be provided each time the instance is updated. You will be able to see the value of the environment variables in the settings page of your instance. The value of env is an string that represents an json array where each element in the array is string in format `key=value`. Checkout the [usage](/github-actions/instance-update-action/#usage) for an example.
+- **secret-env( optional )**: The secret environment variables that should be used. The secret environment variables need to be provided each time the instance is updated. You will not be able to see the value of the environment variables in the settings page of your instance. The value of secret env is an string that represents an json array where each element in the array is a string in format `key=value`. Checkout the [usage](/github-actions/instance-update-action/#usage) for an example.
 
 ### Outputs
 
 - **cluster-id**: The Cluster ID of the updated instance.
 - **instance-id**: The ID of the updated instance.
-- **order-id**: The Order ID of the updated instance.
-- **organization-id**: The Organization Id of the updated instance.
+- **deployment-id**: The Deployment ID of the updated instance.
+- **organization-id**: The Organization ID of the updated instance.
 
 <Navigation name="Instance Update Action" />
