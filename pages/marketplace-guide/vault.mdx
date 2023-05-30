@@ -1,7 +1,9 @@
-# How to deploy a HashiCorp Vault App?
+import Navigation from "components/navigation";
+
+# How to deploy HashiCorp Vault?
 
 Spheron allows you to deploy a compute instance pre-installed with HashiCorp Vault, all set up and ready to use on the Akash Network.
-To deploy a Vault app:
+To deploy a Vault:
 
 1. Click **New Cluster** on the top right corner.
 2. Select **Select marketplace app**.
@@ -26,11 +28,13 @@ Refer the [region section](/compute/cluster/#region) for more information.
 
 ## Verify Installation
 
-The app can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using the app.
+HashiCorp Vault can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
 
 ### How to connect to HashiCorp Vault?
 
 Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8200** to access the Vault dashboard.
 
 For more information, refer to the [Vault docs](https://developer.hashicorp.com/vault/tutorials/getting-started-ui/getting-started-ui).
+
+<Navigation name="Deploy Vault" />

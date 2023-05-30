@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "1.9.0",
+  "version": "1.15.0",
   "description": "Documentation",
   "scripts": {
     "dev": "next dev",

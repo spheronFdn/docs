@@ -1,7 +1,9 @@
-# How to deploy a Redis App?
+import Navigation from "components/navigation";
+
+# How to deploy Redis?
 
 Spheron allows you to deploy a compute instance pre-installed with Redis, all set up and ready to use on the Akash Network.
-To deploy a Redis app:
+To deploy Redis:
 
 1. Click **New Cluster** on the top right corner.
 2. Select **Select marketplace app**.
@@ -25,8 +27,8 @@ Refer the [region section](/compute/cluster/#region) for more information.
 
 ## Verify Installation
 
-The app can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using the app.
+Redis can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
 
 ### How to connect to Redis?
 
@@ -42,9 +44,12 @@ redis://[password@]host[:port]
 - `host[:port]` - The host and port number where the redis instance is running. Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 6379**.
 
 Run the following command in your terminal to test your connection:
+
 ```sh
 $ redis-cli -u redis://[password@]host[:port] PING
 PONG
 ```
 
 For more information, refer to the [Redis docs](https://redis.io/docs/ui/cli/).
+
+<Navigation name="Deploy Redis" />

@@ -1,7 +1,9 @@
-# How to deploy a MongoDB App?
+import Navigation from "components/navigation";
+
+# How to deploy MongoDB?
 
 Spheron allows you to deploy a compute instance pre-installed with MongoDB, all set up and ready to use on the Akash Network.
-To deploy a MongoDB app:
+To deploy MongoDB:
 
 1. Click **New Cluster** on the top right corner.
 2. Select **Select marketplace app**.
@@ -26,8 +28,8 @@ Refer the [region section](/compute/cluster/#region) for more information.
 
 ## Verify Installation
 
-The app can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using the app.
+MongoDB can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
 
 ### How to connect to MongoDB?
 
@@ -45,3 +47,5 @@ mongodb://[username:password@]host[:port][/[defaultauthdb][?options]]
 - `?options` **(optional)** - A query string that specifies connection specific options as `<name>=<value>` pairs. If the connection string does not specify a database/ you must specify a slash `(/)` between the last host and the question mark `(?)` that begins the string of options.
 
 For more information, refer to the [MongoDB docs](https://www.mongodb.com/docs/manual/reference/connection-string/).
+
+<Navigation name="Deploy MongoDB" />

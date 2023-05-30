@@ -1,7 +1,9 @@
-# How to deploy a IPFS App?
+import Navigation from "components/navigation";
+
+# How to deploy an IPFS Node?
 
 Spheron allows you to deploy a compute instance pre-installed with IPFS, all set up and ready to use on the Akash Network.
-To deploy a IPFS app:
+To deploy an IPFS node:
 
 1. Click **New Cluster** on the top right corner.
 2. Select **Select marketplace app**.
@@ -20,8 +22,8 @@ Refer the [region section](/compute/cluster/#region) for more information.
 
 ## Verify Installation
 
-The app can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using the app.
+The IPFS Node can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
 
 ### Upload files to IPFS using IPFS WebUI
 
@@ -32,3 +34,5 @@ Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 5
 Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080** and append `/ipfs/{cid}` to access your file directly from the IPFS network.
 
 For more information, refer to the [IPFS docs](https://docs.ipfs.tech/how-to/desktop-app/#install-ipfs-desktop).
+
+<Navigation name="Deploy IPFS" />

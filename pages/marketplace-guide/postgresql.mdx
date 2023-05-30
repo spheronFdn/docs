@@ -1,9 +1,10 @@
 import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
 
-# How to deploy a PostgreSQL App?
+# How to deploy PostgreSQL?
 
 Spheron allows you to deploy a compute instance pre-installed with PostgreSQL, all set up and ready to use on the Akash Network.
-To deploy a PostgreSQL app:
+To deploy PostgreSQL:
 
 1. Click **New Cluster** on the top right corner.
 2. Select **Select marketplace app**.
@@ -34,8 +35,8 @@ Refer the [region section](/compute/cluster/#region) for more information.
 
 ## Verify Installation
 
-The app can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using the app.
+PostgreSQL can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
 
 ### How to connect to PostgreSQL?
 
@@ -58,3 +59,5 @@ psql postgresql://[username:password@]host[:port][/dbname]
 ```
 
 For more information, refer to the [PostgreSQL docs](https://www.postgresql.org/docs/current/app-psql.html).
+
+<Navigation name="Deploy PostgreSQL" />

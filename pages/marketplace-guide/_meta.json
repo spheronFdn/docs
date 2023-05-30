@@ -1,9 +1,9 @@
 {
-  "mongodb": "Deploy MongoDB App",
-  "redis": "Deploy Redis App",
-  "postgresql": "Deploy PostgreSQL App",
-  "mysql": "Deploy MySQL App",
-  "grafana": "Deploy Grafana App",
-  "vault": "Deploy Vault App",
-  "ipfs": "Deploy IPFS App"
+  "mongodb": "Deploy MongoDB",
+  "redis": "Deploy Redis",
+  "postgresql": "Deploy PostgreSQL",
+  "mysql": "Deploy MySQL",
+  "grafana": "Deploy Grafana",
+  "vault": "Deploy Vault",
+  "ipfs": "Deploy IPFS"
 }
