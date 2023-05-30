@@ -71,6 +71,9 @@ export const Pages = [
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
   ["Compute SDK", "/sdk/compute"],
+  ["Site SDK", "/sdk/site"],
   ["Spheron CLI", "/cli"],
   ["Spheron API", "/rest-api"],
+  ["Github Actions", "/github-actions"],
+  ["Instance Update Action", "/github-actions/instance-update-action"],
 ];

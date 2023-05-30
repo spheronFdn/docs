@@ -68,6 +68,12 @@ const QUICK_START_LIST = [
     title: "Spheron CLI",
     body: "Create & deploy dapps right from your terminal.",
   },
+  {
+    path: "/github-actions",
+    emoji: "🌀",
+    title: "Github Actions",
+    body: "Actions for working with Clusters.",
+  },
 ];
 
 const QuickStart = () => {

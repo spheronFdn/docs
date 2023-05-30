@@ -88,10 +88,14 @@ Function `upload` takes two parameters:
 interface UploadRes {
   uploadId: string;
   bucketId: string;
-  protocolLink: string;
+  protocolLink: string; // eg: https://{cid}.ipfs.sphn.link/
   dynamicLinks: Domain[];
 }
 ```
+
+<Callout type="info">
+  **NOTE:** The `protocolLink` in UploadRes will contain the **IPFS CID** only if the selected protocol is either IPFS or Filecoin.
+</Callout>
 
 ---
 

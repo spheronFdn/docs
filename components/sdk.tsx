@@ -20,6 +20,12 @@ const SDK_LIST = [
     title: "Compute SDK",
     body: "Designed to streamline work with your compute organizations",
   },
+  {
+    path: "/sdk/site",
+    emoji: "🚧",
+    title: "Site SDK",
+    body: "Create flows for your web-app organizations.",
+  },
 ];
 
 const SDK = () => {
