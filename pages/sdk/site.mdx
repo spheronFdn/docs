@@ -43,120 +43,236 @@ Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#cre
 
 The `SpheronClient` has three properties:
 
-- `organization` provides methods for working with organizations.
-- `projects` provides methods for working with projects.
 - `deployments` provides methods for working with deployments.
+- `projects` provides methods for working with projects.
+- `organization` provides methods for working with organizations.
 
-## Organization
+## Deployments
 
-The methods for working with organizations are available on the `organization` property of the `SpheronClient` object. All the methods work with the organization of the token that is passed in the constructor.
+### deploy
+
+Used to start a new deployment.
+
+```js
+await spheron.deployments.deploy({
+  gitUrl, // the url of the repository
+  projectName, // if the project for the repository does not exists, a new project will be created with this name
+  environmentVariables: {
+    KEY_1: "value1",
+  },
+  provider: ProviderEnum.GITHUB, // the provider of the git url
+  branch: "main", // the branch name that should be deployed
+  protocol: ProtocolEnum.IPFS, // the protocol on which the deployment should be uploaded
+  configuration: {
+    framework: FrameworkEnum.REACT,
+    workspace: "",
+    installCommand: "yarn install",
+    buildCommand: "yarn build",
+    publishDir: "build",
+    nodeVersion: NodeVersionEnum.V_16,
+  },
+  gitProviderPreferences: {
+    prComments: true;
+    commitComments: false;
+    buildStatus: false;
+    githubDeployment: true;
+  }
+});
+```
+
+Params:
+
+- `gitUrl`: (string) - the url of the repository.
+  <Callout type="info">
+    **NOTE:** Only repositories for which you have authorized the Spheron Git
+    App can be deployed.
+  </Callout>
+- `projectName`: (string) - if the project for the`gitUrl`does not exists, a new project will be created and`projectName` will be used for the name of the project.
+- `environmentVariables`: (object) - an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
+- `provider`: (ProviderEnum) - the provider of the repository.
+- `branch`: (string) - the branch of the deployment.
+- `protocol`: (ProtocolEnum) - the protocol on which the deployment should be uploaded. Supported protocols are:
+
+```js
+enum ProtocolEnum {
+    ARWEAVE,
+    FILECOIN,
+    IPFS
+}
+```
+
+- `configuration`: Configuration` - the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
+- `gitProviderPreferences` - (optional) If not passed, each property in the object will be set with its default value.
+  - `prComments`: boolean - (optional) when set to false, a comment will not be left on a PR. Default value is `true`.
+  - `commitComments`: boolean - (optional) when set to false, comment will not be left on a commit. Default value is `true`.
+  - `buildStatus`: boolean - (optional) when set to false, build status will not be created for a commit. Default value is `true`.
+  - `githubDeployment`: boolean - (optional) the option is only valid for Github repositories. When set to false, a [Github Deployment](https://docs.github.com/en/rest/deployments/deployments?apiVersion=2022-11-28) will not be created. Default value is `true`.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean; // indicates if the deployment has been started
+  message: string; // holds information about the deployment, and more details if the deployment fails
+  deploymentId: string; // the id of the newly created deployment
+  projectId: string; // the project id of the newly created deployment
+  deployment: Deployment; // the newly created deployment
+}
+```
+
+---
 
 ### get
 
-Used to get the organization.
+Used to get the deployment.
 
 ```js
-const organization: Organization = await spheron.organization.get();
+const deployment: Deployment = await spheron.deployments.get(deploymentId);
 ```
 
-Returns an Organization for which the token was created for.
+Params:
+
+- `deploymentId`: (string) - Id of the deployment.
+
+Returns an object of type `Deployment`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
 
 ```js
-interface Organization {
-  id: string; // the id of a organization
-  profile: {
-    name: string, // the name of a organization
-    username: string, // the username of a organization
-    image: string, // the url to the avatar image of a organization
-  };
+interface Deployment {
+  id: string; // the id of the deployment
+  status: DeploymentStatusEnum; // the current state of the deployment
+  configuration: Configuration; // the specific configuration that was used for the deployment
+  buildTime: number; // the time it took for the deployment to finish, represented in seconds
+  fileSize: number; // the total file size of the deployment
+  deploymentEnvironmentName: string; // the environment of the deployment
+  commitId: string; // the commit id of the deployment
+  branch: string; // the branch of the the deployment
+  protocol: ProtocolEnum; // the protocol that was used for the deployment
+  sitePreview: string; // the link to the deployed data
+}
+
+enum DeploymentStatusEnum {
+    PRE_QUEUE,
+    QUEUED,
+    PENDING,
+    CANCELED,
+    DEPLOYED,
+    FAILED,
+    AUTHORIZATION_NEEDED,
+    KILLING,
+    TIMED_OUT
+}
+
+```
+
+---
+
+### getLogs
+
+Used to get the logs of the deployment.
+
+```js
+const logs: DeploymentLog[] = await spheron.deployments.getLogs(deploymentId);
+```
+
+Params:
+
+- `deploymentId`: (string) - Id of the deployment.
+
+Returns an array of objects that represent the deployment logs.
+
+```js
+interface DeploymentLog {
+  log: string;
+  time: string;
 }
 ```
 
 ---
 
-### getProjects
+### cancel
 
-Used to get the projects of the organization. The methods support pagination.
+Used to cancel a deployment that is in progress. The deployment is in progress if it is in PRE_QUEUE, QUEUED or PENDING state.
 
 ```js
-const projects: Project[] = await spheron.organization.getProjects({
-  skip: 0,
-  limit: 10,
-  state: ProjectStateEnum.MAINTAINED,
-});
+await spheron.deployments.cancel(deploymentId);
 ```
+
+<Callout type="info">
+  **NOTE:** Owners and Admins can cancel any deployment. Members can only cancel
+  deployments which they have started.
+</Callout>
 
 Params:
 
-- `options`:
-  - `skip`: (number) - the number of projects to skip.
-  - `limit`: (number) - the number of projects to take.
-  - `state`: (ProjectStateEnum) - the state of the projects to fetch (optional).
+- `deploymentId`: (string) - Id of the deployment.
 
-Returns an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
-
----
-
-### getProjectCount
-
-Used to get the number of projects in the organization.
+Returns:
 
 ```js
-const count: number = await spheron.organization.getProjectCount({
-  state: ProjectStateEnum.MAINTAINED,
-});
-```
-
-Params:
-
-- `options`
-  - `state`: (ProjectStateEnum) - project state filter (optional).
-
-Returns the number of projects.
-
----
-
-### getUsage
-
-Used to get the current subscription usage of the organization.
-
-```js
-const usage: UsageWithLimits = await spheron.organization.getUsage();
-```
-
-Returns the `UsageWithLimits` object.
-
-```js
-interface UsageWithLimits {
-  used: {
-    bandwidth: number, // the bytes of bandwidth used for the current subscription
-    buildExecution: number, // the seconds of build execution done for the current subscription
-    concurrentBuild: number,// the number of concurrent builds in progress
-    storageArweave: number, // the bytes of used Arweave storage for the current subscription
-    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
-    deploymentsPerDay: number, // number of deployments an organization can have one one day
-    domains: number, // the number of domains and subdomain an organization has
-    hnsDomains: number,// the number of hns domains an organization has
-    ensDomains: number,// the number of ens domains an organization has
-    environments: number,// the number of deployment environments an organization has
-    numberOfRequests: number,// the number of requests the organization has had till now
-    passwordProtection: number,; // 1 - if organization has support for password protection, otherwise 0.
-  };
-  limit: {
-    bandwidth: number, // the bandwidth limit for the current subscription
-    buildExecution: number,// the build execution limit for the current subscription
-    concurrentBuild: number, // how many concurrent builds can the organization have with the current subscription plan
-    storageArweave: number,  // the limit in bytes for the Arweave storage for the current subscription
-    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
-    deploymentsPerDay: number,// the limit of how many deployments can an organization have per day
-    domains: number,// the limit on how many domains and subdomains can an organization have
-    hnsDomains: number, //  the limit on how many hns domains can an organization have
-    ensDomains: number,// the limit on how many ens domains can an organization have
-    environments: number, // the limit on how many deployment environment can an organization have
-    membersLimit: number,// how many members can an organization have
-  };
+interface CancelDeploymentResponse {
+  message: string; // information about the cancellation
+  canceled: boolean; // true if deployment was canceled
+  killing: boolean; // true if deployment is in the cancellation process.
 }
 ```
+
+---
+
+### authorize
+
+Used to authorize a deployment that is in AUTHORIZATION_NEEDED state.
+
+```js
+await spheron.deployments.authorize(deploymentId);
+```
+
+<Callout type="info">
+  **NOTE:** Only Owners or Admins can authorize a deployment.
+</Callout>
+
+Params:
+
+- `deploymentId`: (string) - Id of the deployment.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean;
+  message: string;
+  deploymentId: string;
+  projectId: string;
+  deployment: Deployment;
+}
+```
+
+---
+
+### redeploy
+
+Used to start a new deployment with the same configuration as the one for which the `deploymentId` is passed. The same configuration and commit id will be deployed, but the latest environment variables will be used.
+
+```js
+await spheron.deployments.redeploy(deploymentId);
+```
+
+Params:
+
+- `deploymentId`: (string) - Id of the deployment.
+
+Returns the information about the deployment:
+
+```js
+interface DeploymentResponse {
+  success: boolean;
+  message: string;
+  deploymentId: string;
+  projectId: string;
+  deployment: Deployment;
+}
+```
+
+---
 
 ## Projects
 
@@ -818,228 +934,116 @@ interface DeploymentCount {
 }
 ```
 
-## Deployments
+---
+
+## Organization
+
+The methods for working with organizations are available on the `organization` property of the `SpheronClient` object. All the methods work with the organization of the token that is passed in the constructor.
 
 ### get
 
-Used to get the deployment.
+Used to get the organization.
 
 ```js
-const deployment: Deployment = await spheron.deployments.get(deploymentId);
+const organization: Organization = await spheron.organization.get();
 ```
 
-Params:
-
-- `deploymentId`: (string) - Id of the deployment.
-
-Returns an object of type `Deployment`. Checkout the [update configuration section for more details about the configuration interface](/sdk/site/#updateconfiguration).
+Returns an Organization for which the token was created for.
 
 ```js
-interface Deployment {
-  id: string; // the id of the deployment
-  status: DeploymentStatusEnum; // the current state of the deployment
-  configuration: Configuration; // the specific configuration that was used for the deployment
-  buildTime: number; // the time it took for the deployment to finish, represented in seconds
-  fileSize: number; // the total file size of the deployment
-  deploymentEnvironmentName: string; // the environment of the deployment
-  commitId: string; // the commit id of the deployment
-  branch: string; // the branch of the the deployment
-  protocol: ProtocolEnum; // the protocol that was used for the deployment
-  sitePreview: string; // the link to the deployed data
-}
-
-enum DeploymentStatusEnum {
-    PRE_QUEUE,
-    QUEUED,
-    PENDING,
-    CANCELED,
-    DEPLOYED,
-    FAILED,
-    AUTHORIZATION_NEEDED,
-    KILLING,
-    TIMED_OUT
-}
-
-```
-
----
-
-### getLogs
-
-Used to get the logs of the deployment.
-
-```js
-const logs: DeploymentLog[] = await spheron.deployments.getLogs(deploymentId);
-```
-
-Params:
-
-- `deploymentId`: (string) - Id of the deployment.
-
-Returns an array of objects that represent the deployment logs.
-
-```js
-interface DeploymentLog {
-  log: string;
-  time: string;
+interface Organization {
+  id: string; // the id of a organization
+  profile: {
+    name: string, // the name of a organization
+    username: string, // the username of a organization
+    image: string, // the url to the avatar image of a organization
+  };
 }
 ```
 
 ---
 
-### deploy
+### getProjects
 
-Used to start a new deployment.
+Used to get the projects of the organization. The methods support pagination.
 
 ```js
-await spheron.deployments.deploy({
-  gitUrl, // the url of the repository
-  projectName, // if the project for the repository does not exists, a new project will be created with this name
-  environmentVariables: {
-    KEY_1: "value1",
-  },
-  provider: ProviderEnum.GITHUB, // the provider of the git url
-  branch: "main", // the branch name that should be deployed
-  protocol: ProtocolEnum.IPFS, // the protocol on which the deployment should be uploaded
-  configuration: {
-    framework: FrameworkEnum.REACT,
-    workspace: "",
-    installCommand: "yarn install",
-    buildCommand: "yarn build",
-    publishDir: "build",
-    nodeVersion: NodeVersionEnum.V_16,
-  },
-  gitProviderPreferences: {
-    prComments: true;
-    commitComments: false;
-    buildStatus: false;
-    githubDeployment: true;
-  }
+const projects: Project[] = await spheron.organization.getProjects({
+  skip: 0,
+  limit: 10,
+  state: ProjectStateEnum.MAINTAINED,
 });
 ```
 
 Params:
 
-- `gitUrl`: (string) - the url of the repository.
-  <Callout type="info">
-    **NOTE:** Only repositories for which you have authorized the Spheron Git
-    App can be deployed.
-  </Callout>
-- `projectName`: (string) - if the project for the`gitUrl`does not exists, a new project will be created and`projectName` will be used for the name of the project.
-- `environmentVariables`: (object) - an object that represent environment variables that should be used when deploying. If new variables are passed, they will automatically be added to the project's environment variables. Besides this variables, the variables of the Project will also be added to the deployment process.
-- `provider`: (ProviderEnum) - the provider of the repository.
-- `branch`: (string) - the branch of the deployment.
-- `protocol`: (ProtocolEnum) - the protocol on which the deployment should be uploaded. Supported protocols are:
+- `options`:
+  - `skip`: (number) - the number of projects to skip.
+  - `limit`: (number) - the number of projects to take.
+  - `state`: (ProjectStateEnum) - the state of the projects to fetch (optional).
 
-```js
-enum ProtocolEnum {
-    ARWEAVE,
-    FILECOIN,
-    IPFS
-}
-```
-
-- `configuration`: Configuration` - the configuration that should be used for the deployment. Checkout [configuration interface](/sdk/site/#updateconfiguration) for more details.
-- `gitProviderPreferences` - (optional) If not passed, each property in the object will be set with its default value.
-  - `prComments`: boolean - (optional) when set to false, a comment will not be left on a PR. Default value is `true`.
-  - `commitComments`: boolean - (optional) when set to false, comment will not be left on a commit. Default value is `true`.
-  - `buildStatus`: boolean - (optional) when set to false, build status will not be created for a commit. Default value is `true`.
-  - `githubDeployment`: boolean - (optional) the option is only valid for Github repositories. When set to false, a [Github Deployment](https://docs.github.com/en/rest/deployments/deployments?apiVersion=2022-11-28) will not be created. Default value is `true`.
-
-Returns the information about the deployment:
-
-```js
-interface DeploymentResponse {
-  success: boolean; // indicates if the deployment has been started
-  message: string; // holds information about the deployment, and more details if the deployment fails
-  deploymentId: string; // the id of the newly created deployment
-  projectId: string; // the project id of the newly created deployment
-  deployment: Deployment; // the newly created deployment
-}
-```
+Returns an array of projects. Checkout the [get project section for more details on the project interface properties](/sdk/site/#get-1).
 
 ---
 
-### cancel
+### getProjectCount
 
-Used to cancel a deployment that is in progress. The deployment is in progress if it is in PRE_QUEUE, QUEUED or PENDING state.
-
-```js
-await spheron.deployments.cancel(deploymentId);
-```
-
-<Callout type="info">
-  **NOTE:** Owners and Admins can cancel any deployment. Members can only cancel
-  deployments which they have started.
-</Callout>
-
-Params:
-
-- `deploymentId`: (string) - Id of the deployment.
-
-Returns:
+Used to get the number of projects in the organization.
 
 ```js
-interface CancelDeploymentResponse {
-  message: string; // information about the cancellation
-  canceled: boolean; // true if deployment was canceled
-  killing: boolean; // true if deployment is in the cancellation process.
-}
-```
-
----
-
-### authorize
-
-Used to authorize a deployment that is in AUTHORIZATION_NEEDED state.
-
-```js
-await spheron.deployments.authorize(deploymentId);
-```
-
-<Callout type="info">
-  **NOTE:** Only Owners or Admins can authorize a deployment.
-</Callout>
-
-Params:
-
-- `deploymentId`: (string) - Id of the deployment.
-
-Returns the information about the deployment:
-
-```js
-interface DeploymentResponse {
-  success: boolean;
-  message: string;
-  deploymentId: string;
-  projectId: string;
-  deployment: Deployment;
-}
-```
-
----
-
-### redeploy
-
-Used to start a new deployment with the same configuration as the one for which the `deploymentId` is passed. The same configuration and commit id will be deployed, but the latest environment variables will be used.
-
-```js
-await spheron.deployments.redeploy(deploymentId);
+const count: number = await spheron.organization.getProjectCount({
+  state: ProjectStateEnum.MAINTAINED,
+});
 ```
 
 Params:
 
-- `deploymentId`: (string) - Id of the deployment.
+- `options`
+  - `state`: (ProjectStateEnum) - project state filter (optional).
 
-Returns the information about the deployment:
+Returns the number of projects.
+
+---
+
+### getUsage
+
+Used to get the current subscription usage of the organization.
 
 ```js
-interface DeploymentResponse {
-  success: boolean;
-  message: string;
-  deploymentId: string;
-  projectId: string;
-  deployment: Deployment;
+const usage: UsageWithLimits = await spheron.organization.getUsage();
+```
+
+Returns the `UsageWithLimits` object.
+
+```js
+interface UsageWithLimits {
+  used: {
+    bandwidth: number, // the bytes of bandwidth used for the current subscription
+    buildExecution: number, // the seconds of build execution done for the current subscription
+    concurrentBuild: number,// the number of concurrent builds in progress
+    storageArweave: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
+    deploymentsPerDay: number, // number of deployments an organization can have one one day
+    domains: number, // the number of domains and subdomain an organization has
+    hnsDomains: number,// the number of hns domains an organization has
+    ensDomains: number,// the number of ens domains an organization has
+    environments: number,// the number of deployment environments an organization has
+    numberOfRequests: number,// the number of requests the organization has had till now
+    passwordProtection: number,; // 1 - if organization has support for password protection, otherwise 0.
+  };
+  limit: {
+    bandwidth: number, // the bandwidth limit for the current subscription
+    buildExecution: number,// the build execution limit for the current subscription
+    concurrentBuild: number, // how many concurrent builds can the organization have with the current subscription plan
+    storageArweave: number,  // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
+    deploymentsPerDay: number,// the limit of how many deployments can an organization have per day
+    domains: number,// the limit on how many domains and subdomains can an organization have
+    hnsDomains: number, //  the limit on how many hns domains can an organization have
+    ensDomains: number,// the limit on how many ens domains can an organization have
+    environments: number, // the limit on how many deployment environment can an organization have
+    membersLimit: number,// how many members can an organization have
+  };
 }
 ```
 
