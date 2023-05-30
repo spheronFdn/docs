@@ -2,5 +2,6 @@
   "mongodb": "Deploy MongoDB App",
   "redis": "Deploy Redis App",
   "postgresql": "Deploy PostgreSQL App",
-  "grafana": "Deploy Grafana App"
+  "grafana": "Deploy Grafana App",
+  "vault": "Deploy Vault App"
 }
