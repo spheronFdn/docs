@@ -49,7 +49,7 @@ const MARKETPLACE_APP_LIST = [
     path: "/marketplace-guide/ipfs",
     logo: IPFSIcon,
     alt: "ipfs",
-    title: "Deploy IPFS",
+    title: "Deploy IPFS Node",
   },
 ];
 

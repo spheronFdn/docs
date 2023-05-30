@@ -5,5 +5,5 @@
   "mysql": "Deploy MySQL",
   "grafana": "Deploy Grafana",
   "vault": "Deploy Vault",
-  "ipfs": "Deploy IPFS"
+  "ipfs": "Deploy IPFS Node"
 }
