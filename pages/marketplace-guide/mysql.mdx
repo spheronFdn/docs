@@ -1,0 +1,53 @@
+import { Callout } from "nextra-theme-docs";
+
+# How to deploy a MySQL App?
+
+Spheron allows you to deploy a compute instance pre-installed with MySQL, all set up and ready to use on the Akash Network.
+To deploy a MySQL app:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **MySQL** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Add the **Password** for the MySQL instance.
+9. Click **Deploy** to initiate deployment.
+
+## Advanced Configuration
+
+### Region
+
+Refer the [region section](/compute/cluster/#region) for more information.
+
+### App Configuration
+
+- **Password** - The password associated with the MySQL database.
+
+## Verify Installation
+
+The app can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+
+### How to connect to MySQL?
+
+Run the following command in your terminal to connect to your MySQL server:
+
+```sh
+$ mysql -h [host] -P [port] -u root -p
+> Enter password: # enter your password
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2023, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+```
+
+For more information, refer to the [MySQL docs](https://dev.mysql.com/doc/refman/8.0/en/connecting.html).
