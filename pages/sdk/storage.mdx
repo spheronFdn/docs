@@ -131,7 +131,7 @@ interface PinCIDResponse {
 Used to get the pinning status for the specified `CID`.
 
 ```js
-const pinStatus: RootObject = await client.getCIDStatus(CID);
+const pinStatus: PinStatus = await client.getCIDStatus(CID);
 ```
 
 Function `getCIDStatus` takes just one parameter:
@@ -160,10 +160,6 @@ interface PinStatus {
     created: string; // Timestamp when the file was created
     metadata: null | any; // Metadata associated with the file, null if none
     peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
-}
-
-interface RootObject {
-    pinStatus: PinStatus; // The pin status object
 }
 ```
 ---
