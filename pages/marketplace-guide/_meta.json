@@ -1,4 +1,5 @@
 {
   "mongodb": "Deploy MongoDB App",
-  "redis": "Deploy Redis App"
+  "redis": "Deploy Redis App",
+  "postgresql": "Deploy PostgreSQL App"
 }

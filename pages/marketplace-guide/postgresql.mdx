@@ -1,0 +1,58 @@
+import { Callout } from "nextra-theme-docs";
+
+# How to deploy a PostgreSQL App?
+
+Spheron allows you to deploy a compute instance pre-installed with PostgreSQL, all set up and ready to use on the Akash Network.
+To deploy a PostgreSQL app:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **Postgres** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Add the **User**, **Password** and **Database** for the PostgreSQL instance, if any. The default values are already filled in the input fields.
+9. Click **Deploy** to initiate deployment.
+
+<Callout type="info">
+  **NOTE:** The default values for **User**, **Password** and **Database** is `admin`, `password` and `mydb` respectively.
+</Callout>
+
+## Advanced Configuration
+
+### Region
+
+Refer the [region section](/compute/cluster/#region) for more information.
+
+### App Configuration
+
+- **User** - The user for accessing the PostgreSQL database.
+- **Password** - The password associated with the PostgreSQL database.
+- **Database** - The name for the PostgreSQL database.
+
+## Verify Installation
+
+The app can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+
+### How to connect to PostgreSQL?
+
+You can use the connection string URI to connect to PostgreSQL.
+The standard URI connection scheme has the following format:
+
+```
+postgresql://[username:password@]host[:port][/dbname]
+```
+
+- `postgresql://` - A required prefix to identify that this is a string in the standard connection format.
+- `username:password` - Authentication credentials passed in App Configuration.
+- `host[:port]` - The host and port number where the postgresql instance is running. Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 5432**.
+- `/dbname` - The name of the database passed in App Configuration.
+
+Run the following command in your terminal to test your connection:
+```sh
+psql postgresql://[username:password@]host[:port][/dbname]
+```
+
+For more information, refer to the [PostgreSQL docs](https://www.postgresql.org/docs/current/app-psql.html).
