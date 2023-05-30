@@ -3,5 +3,6 @@
   "redis": "Deploy Redis App",
   "postgresql": "Deploy PostgreSQL App",
   "grafana": "Deploy Grafana App",
-  "vault": "Deploy Vault App"
+  "vault": "Deploy Vault App",
+  "ipfs": "Deploy IPFS App"
 }
