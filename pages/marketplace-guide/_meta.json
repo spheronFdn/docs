@@ -6,5 +6,6 @@
   "grafana": "Deploy Grafana",
   "vault": "Deploy Vault",
   "ipfs": "Deploy IPFS Node",
-  "substrate": "Deploy Substrate Node"
+  "substrate": "Deploy Substrate Node",
+  "stride": "Deploy Stride Node"
 }

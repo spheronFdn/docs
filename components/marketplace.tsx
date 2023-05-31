@@ -7,6 +7,7 @@ import GrafanaIcon from "../assets/grafana.svg";
 import VaultIcon from "../assets/vault.svg";
 import IPFSIcon from "../assets/ipfs.svg";
 import SubstrateIcon from "../assets/substrate.svg";
+import StrideIcon from "../assets/stride.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -57,6 +58,12 @@ const MARKETPLACE_APP_LIST = [
     logo: SubstrateIcon,
     alt: "substrate",
     title: "Deploy Substrate Node",
+  },
+  {
+    path: "/marketplace-guide/stride",
+    logo: StrideIcon,
+    alt: "stride",
+    title: "Deploy Stride Node",
   },
 ];
 

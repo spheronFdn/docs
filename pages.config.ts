@@ -68,6 +68,7 @@ export const Pages = [
   ["Deploy Vault", "/marketplace-guide/vault"],
   ["Deploy IPFS Node", "/marketplace-guide/ipfs"],
   ["Deploy Substrate Node", "/marketplace-guide/substrate"],
+  ["Deploy Stride Node", "/marketplace-guide/stride"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
