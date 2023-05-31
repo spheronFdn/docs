@@ -1,3 +1,4 @@
+import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
 # How to deploy HashiCorp Vault?
@@ -33,7 +34,13 @@ Thus, you need to wait for the installation to complete before you can start usi
 
 ### How to connect to HashiCorp Vault?
 
-Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8200** to access the Vault dashboard.
+- Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8200** to access the Vault dashboard.
+- For login, use the `Root Token` from the instance logs.
+
+<Callout>
+  **Troubleshoot:** If you are unable to see any logs, click the **refresh
+  icon** on the bottom right corner.
+</Callout>
 
 For more information, refer to the [Vault docs](https://developer.hashicorp.com/vault/tutorials/getting-started-ui/getting-started-ui).
 
