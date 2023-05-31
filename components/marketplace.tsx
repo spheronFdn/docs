@@ -6,6 +6,7 @@ import MySQLIcon from "../assets/mysql.svg";
 import GrafanaIcon from "../assets/grafana.svg";
 import VaultIcon from "../assets/vault.svg";
 import IPFSIcon from "../assets/ipfs.svg";
+import SubstrateIcon from "../assets/substrate.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -50,6 +51,12 @@ const MARKETPLACE_APP_LIST = [
     logo: IPFSIcon,
     alt: "ipfs",
     title: "Deploy IPFS Node",
+  },
+  {
+    path: "/marketplace-guide/substrate",
+    logo: SubstrateIcon,
+    alt: "substrate",
+    title: "Deploy Substrate Node",
   },
 ];
 
