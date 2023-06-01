@@ -8,5 +8,6 @@
   "ipfs": "Deploy IPFS Node",
   "substrate": "Deploy Substrate Node",
   "stride": "Deploy Stride Node",
-  "hypersign": "Deploy Hypersign Node"
+  "hypersign": "Deploy Hypersign Node",
+  "kyve": "Deploy Kyve Node"
 }

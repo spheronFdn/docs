@@ -1,0 +1,38 @@
+import Navigation from "components/navigation";
+
+# How to deploy an Kyve Node?
+
+Spheron allows you to deploy a compute instance pre-installed with Kyve, all set up and ready to use on the Akash Network.
+To deploy an Kyve node:
+
+1. Click **New Cluster** on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **Kyve** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click **Change Plan**.
+6. Select the instance plan that suits your needs, and Click **Select Plan**.
+7. Select your preferred **Region** if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Add **Pool**, **Mnemonic**, **Arweave Wallet Link** and **Network** for the Kyve instance. The default value for **Network** is already provided.
+9. Click **Deploy** to initiate deployment.
+
+## Advanced Configuration
+
+### Region
+
+Refer the [region section](/compute/cluster/#region) for more information.
+
+### App Configuration
+
+- **Pool** - The ID of the storage pool.
+- **Mnemonic** - The mnemonic for the wallet of Kyve network.
+- **Arweave Wallet Link** - The link to your Arweave Wallet mnemonic. You have to upload your Arweave wallet mnemonic and paste the link here.
+- **Network** - The network to be used for the Kyve instance.
+
+## Verify Installation
+
+The Kyve Node can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
+
+For more information, refer to the [Kyve docs](https://docs.kyve.network/).
+
+<Navigation name="Deploy Kyve Node" />
