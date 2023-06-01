@@ -75,6 +75,7 @@ export const Pages = [
   ["Deploy Mantle DTL Node", "/marketplace-guide/dtl"],
   ["Deploy Mantle Verifier Node", "/marketplace-guide/verifier"],
   ["Deploy Drupal", "/marketplace-guide/drupal"],
+  ["Deploy Deso Node", "/marketplace-guide/deso"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],

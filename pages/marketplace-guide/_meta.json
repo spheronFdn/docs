@@ -14,5 +14,6 @@
   "sui": "Deploy Sui Node",
   "dtl": "Deploy Mantle DTL Node",
   "verifier": "Deploy Mantle Verifier Node",
-  "drupal": "Deploy Drupal"
+  "drupal": "Deploy Drupal",
+  "deso": "Deploy Deso Node"
 }

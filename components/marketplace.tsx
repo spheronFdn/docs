@@ -14,6 +14,7 @@ import ReefIcon from "../assets/reef.svg";
 import SuiIcon from "../assets/sui.svg";
 import MantleIcon from "../assets/mantle.svg";
 import DrupalIcon from "../assets/drupal.svg";
+import DesoIcon from "../assets/deso.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -112,6 +113,12 @@ const MARKETPLACE_APP_LIST = [
     logo: DrupalIcon,
     alt: "drupal",
     title: "Deploy Drupal",
+  },
+  {
+    path: "/marketplace-guide/deso",
+    logo: DesoIcon,
+    alt: "deso",
+    title: "Deploy Deso node",
   },
 ];
 
