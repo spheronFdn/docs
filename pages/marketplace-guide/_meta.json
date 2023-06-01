@@ -10,5 +10,6 @@
   "stride": "Deploy Stride Node",
   "hypersign": "Deploy Hypersign Node",
   "kyve": "Deploy Kyve Node",
-  "reef": "Deploy Reef Node"
+  "reef": "Deploy Reef Node",
+  "sui": "Deploy Sui Node"
 }
