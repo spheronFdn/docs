@@ -7,5 +7,6 @@
   "vault": "Deploy Vault",
   "ipfs": "Deploy IPFS Node",
   "substrate": "Deploy Substrate Node",
-  "stride": "Deploy Stride Node"
+  "stride": "Deploy Stride Node",
+  "hypersign": "Deploy Hypersign Node"
 }

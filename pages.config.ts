@@ -69,6 +69,7 @@ export const Pages = [
   ["Deploy IPFS Node", "/marketplace-guide/ipfs"],
   ["Deploy Substrate Node", "/marketplace-guide/substrate"],
   ["Deploy Stride Node", "/marketplace-guide/stride"],
+  ["Deploy Hypersign Node", "/marketplace-guide/hypersign"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],

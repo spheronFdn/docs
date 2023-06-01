@@ -8,6 +8,7 @@ import VaultIcon from "../assets/vault.svg";
 import IPFSIcon from "../assets/ipfs.svg";
 import SubstrateIcon from "../assets/substrate.svg";
 import StrideIcon from "../assets/stride.svg";
+import HypersignIcon from "../assets/hypersign.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -64,6 +65,12 @@ const MARKETPLACE_APP_LIST = [
     logo: StrideIcon,
     alt: "stride",
     title: "Deploy Stride Node",
+  },
+  {
+    path: "/marketplace-guide/hypersign",
+    logo: HypersignIcon,
+    alt: "hypersign",
+    title: "Deploy Hypersign Node",
   },
 ];
 
