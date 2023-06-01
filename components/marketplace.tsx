@@ -100,6 +100,12 @@ const MARKETPLACE_APP_LIST = [
     alt: "dtl",
     title: "Deploy Mantle DTL Node",
   },
+  {
+    path: "/marketplace-guide/verifier",
+    logo: MantleIcon,
+    alt: "verifier",
+    title: "Deploy Mantle Verifier Node",
+  },
 ];
 
 const Marketplace = () => {
