@@ -13,6 +13,7 @@ import KyveIcon from "../assets/kyve.svg";
 import ReefIcon from "../assets/reef.svg";
 import SuiIcon from "../assets/sui.svg";
 import MantleIcon from "../assets/mantle.svg";
+import DrupalIcon from "../assets/drupal.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -105,6 +106,12 @@ const MARKETPLACE_APP_LIST = [
     logo: MantleIcon,
     alt: "verifier",
     title: "Deploy Mantle Verifier Node",
+  },
+  {
+    path: "/marketplace-guide/drupal",
+    logo: DrupalIcon,
+    alt: "drupal",
+    title: "Deploy Drupal",
   },
 ];
 

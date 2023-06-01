@@ -74,6 +74,7 @@ export const Pages = [
   ["Deploy Reef Node", "/marketplace-guide/reef"],
   ["Deploy Mantle DTL Node", "/marketplace-guide/dtl"],
   ["Deploy Mantle Verifier Node", "/marketplace-guide/verifier"],
+  ["Deploy Drupal", "/marketplace-guide/drupal"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
