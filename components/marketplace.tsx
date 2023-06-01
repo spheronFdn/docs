@@ -12,6 +12,7 @@ import HypersignIcon from "../assets/hypersign.svg";
 import KyveIcon from "../assets/kyve.svg";
 import ReefIcon from "../assets/reef.svg";
 import SuiIcon from "../assets/sui.svg";
+import MantleIcon from "../assets/mantle.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -92,6 +93,12 @@ const MARKETPLACE_APP_LIST = [
     logo: SuiIcon,
     alt: "sui",
     title: "Deploy Sui Node",
+  },
+  {
+    path: "/marketplace-guide/dtl",
+    logo: MantleIcon,
+    alt: "dtl",
+    title: "Deploy Mantle DTL Node",
   },
 ];
 
