@@ -15,6 +15,7 @@ import SuiIcon from "../assets/sui.svg";
 import MantleIcon from "../assets/mantle.svg";
 import DrupalIcon from "../assets/drupal.svg";
 import DesoIcon from "../assets/deso.svg";
+import ArbitrumIcon from "../assets/arbitrum.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -118,7 +119,13 @@ const MARKETPLACE_APP_LIST = [
     path: "/marketplace-guide/deso",
     logo: DesoIcon,
     alt: "deso",
-    title: "Deploy Deso node",
+    title: "Deploy Deso Node",
+  },
+  {
+    path: "/marketplace-guide/one",
+    logo: ArbitrumIcon,
+    alt: "one",
+    title: "Deploy Arbitrum One Node",
   },
 ];
 

@@ -76,6 +76,7 @@ export const Pages = [
   ["Deploy Mantle Verifier Node", "/marketplace-guide/verifier"],
   ["Deploy Drupal", "/marketplace-guide/drupal"],
   ["Deploy Deso Node", "/marketplace-guide/deso"],
+  ["Deploy Arbitrum One Node", "/marketplace-guide/one"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],

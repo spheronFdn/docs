@@ -15,5 +15,6 @@
   "dtl": "Deploy Mantle DTL Node",
   "verifier": "Deploy Mantle Verifier Node",
   "drupal": "Deploy Drupal",
-  "deso": "Deploy Deso Node"
+  "deso": "Deploy Deso Node",
+  "one": "Deploy Arbitrum One Node"
 }
