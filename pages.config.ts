@@ -77,7 +77,6 @@ export const Pages = [
   ["Deploy Drupal", "/marketplace-guide/drupal"],
   ["Deploy Deso Node", "/marketplace-guide/deso"],
   ["Deploy Arbitrum One Node", "/marketplace-guide/one"],
-  ["Deploy Filecoin Hyperspace Node", "/marketplace-guide/hyperspace"],
   ["Deploy Filecoin Mainnet Node", "/marketplace-guide/filecoin"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],

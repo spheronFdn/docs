@@ -129,12 +129,6 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Arbitrum One Node",
   },
   {
-    path: "/marketplace-guide/hyperspace",
-    logo: FilecoinIcon,
-    alt: "hyperspace",
-    title: "Deploy Filecoin Hyperspace Node",
-  },
-  {
     path: "/marketplace-guide/filecoin",
     logo: FilecoinIcon,
     alt: "filecoin",

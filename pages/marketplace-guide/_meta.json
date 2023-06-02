@@ -17,6 +17,5 @@
   "drupal": "Deploy Drupal",
   "deso": "Deploy Deso Node",
   "one": "Deploy Arbitrum One Node",
-  "hyperspace": "Deploy Filecoin Hyperspace Node",
   "filecoin": "Deploy Filecoin Mainnet Node"
 }
