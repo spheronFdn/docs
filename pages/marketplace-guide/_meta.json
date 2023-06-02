@@ -12,10 +12,11 @@
   "kyve": "Deploy Kyve Node",
   "reef": "Deploy Reef Node",
   "sui": "Deploy Sui Node",
-  "dtl": "Deploy Mantle DTL Node",
-  "verifier": "Deploy Mantle Verifier Node",
+  "mantle-dtl": "Deploy Mantle DTL",
+  "mantle-verifier": "Deploy Mantle Verifier",
   "drupal": "Deploy Drupal",
   "deso": "Deploy Deso Node",
-  "one": "Deploy Arbitrum One Node",
-  "filecoin": "Deploy Filecoin Mainnet Node"
+  "massbit-gateway": "Deploy MassBit Gateway",
+  "arbitrum-one": "Deploy Arbitrum One",
+  "filecoin": "Deploy Filecoin Mainnet"
 }

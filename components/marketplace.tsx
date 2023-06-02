@@ -15,6 +15,7 @@ import SuiIcon from "../assets/sui.svg";
 import MantleIcon from "../assets/mantle.svg";
 import DrupalIcon from "../assets/drupal.svg";
 import DesoIcon from "../assets/deso.svg";
+import MassBitIcon from "../assets/massbit.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import FilecoinIcon from "../assets/filecoin.svg";
 import styles from "../styles/framework.module.css";
@@ -99,16 +100,16 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Sui Node",
   },
   {
-    path: "/marketplace-guide/dtl",
+    path: "/marketplace-guide/mantle-dtl",
     logo: MantleIcon,
-    alt: "dtl",
-    title: "Deploy Mantle DTL Node",
+    alt: "mantle-dtl",
+    title: "Deploy Mantle DTL",
   },
   {
-    path: "/marketplace-guide/verifier",
+    path: "/marketplace-guide/mantle-verifier",
     logo: MantleIcon,
-    alt: "verifier",
-    title: "Deploy Mantle Verifier Node",
+    alt: "mantle-verifier",
+    title: "Deploy Mantle Verifier",
   },
   {
     path: "/marketplace-guide/drupal",
@@ -123,16 +124,22 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Deso Node",
   },
   {
-    path: "/marketplace-guide/one",
+    path: "/marketplace-guide/massbit-gateway",
+    logo: MassBitIcon,
+    alt: "massbit-gateway",
+    title: "Deploy MassBit Gateway",
+  },
+  {
+    path: "/marketplace-guide/arbitrum-one",
     logo: ArbitrumIcon,
-    alt: "one",
-    title: "Deploy Arbitrum One Node",
+    alt: "arbitrum-one",
+    title: "Deploy Arbitrum One",
   },
   {
     path: "/marketplace-guide/filecoin",
     logo: FilecoinIcon,
     alt: "filecoin",
-    title: "Deploy Filecoin Mainnet Node",
+    title: "Deploy Filecoin Mainnet",
   },
 ];
 
