@@ -134,6 +134,12 @@ const MARKETPLACE_APP_LIST = [
     alt: "hyperspace",
     title: "Deploy Filecoin Hyperspace Node",
   },
+  {
+    path: "/marketplace-guide/filecoin",
+    logo: FilecoinIcon,
+    alt: "filecoin",
+    title: "Deploy Filecoin Mainnet Node",
+  },
 ];
 
 const Marketplace = () => {
