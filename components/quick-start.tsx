@@ -48,7 +48,7 @@ const QUICK_START_LIST = [
     path: "/marketplace-guide",
     emoji: "🏪",
     title: "Marketplace Guide",
-    body: "Deploy pre-installed apps and scale fast.",
+    body: "Deploy pre-installed apps and develope fast.",
   },
   {
     path: "/rest-api",

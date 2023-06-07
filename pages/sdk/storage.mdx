@@ -88,15 +88,85 @@ Function `upload` takes two parameters:
 interface UploadRes {
   uploadId: string;
   bucketId: string;
-  protocolLink: string; // eg: https://{cid}.ipfs.sphn.link/
+  protocolLink: string;
   dynamicLinks: Domain[];
+  cid: string;
 }
 ```
 
 <Callout type="info">
-  **NOTE:** The `protocolLink` in UploadRes will contain the **IPFS CID** only if the selected protocol is either IPFS or Filecoin.
+  **NOTE:** The CID property will only have value for IPFS and Filecoin uploads.
 </Callout>
 
+---
+
+### Pin A CID on IPFS
+Used to pin a CID on Spheron IPFS dedicated node
+```js
+
+const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
+  name,
+  cid
+});
+
+```
+Function `pinCID` takes one parameter:
+
+- **configuration:** An object with the following parameters:
+  1.  `configuration.name`
+      - Represents the name of the bucket on which you are pinning the CID.
+  2.  `configuration.CID` 
+      - The CID of the file you want to be pinned
+
+**Response**
+
+```js
+interface PinCIDResponse {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: Domain[];
+}
+```
+
+--- 
+
+### Get CID Pin Status
+
+Used to get the pinning status for the specified `CID`.
+
+```js
+const pinStatus: PinStatus = await client.getCIDStatus(CID);
+```
+
+Function `getCIDStatus` takes just one parameter:
+
+- **CID** - (string) - The CID of the file
+
+**Response**
+
+```js
+interface PeerData {
+    peerName: string; // Name of the peer
+    ipfsPeerId: string; // The peer ID in the IPFS network
+    ipfsPeerAddresses: string[]; // Array of addresses at which the peer can be reached
+    status: string; // Status of the pin, such as "pinned" or "unpinned"
+    timeStamp: string; // Timestamp when the status was last updated
+    error: string; // Any errors that have occurred, empty string if no errors
+    attemptCount: number; // Number of attempts made to change the pin status
+    priorityPin: boolean; // Indicates whether this is a priority pin
+}
+
+interface PinStatus {
+    cid: string; // The Content Identifier (CID) of the file
+    name: string; // Name associated with the file, can be empty
+    allocations: string[]; // Array of peers where the file is allocated
+    origins: string[]; // Array of origins from where the file can be fetched
+    created: string; // Timestamp when the file was created
+    metadata: null | any; // Metadata associated with the file, null if none
+    peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
+}
+```
 ---
 
 ### Get Bucket
@@ -677,6 +747,7 @@ interface IPNSName {
   ipnsLink: string;
 }
 ```
+---
 
 ## Storage Utility
 

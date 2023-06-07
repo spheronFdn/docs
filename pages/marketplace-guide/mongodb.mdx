@@ -42,7 +42,7 @@ mongodb://[username:password@]host[:port][/[defaultauthdb][?options]]
 
 - `mongodb://` - A required prefix to identify that this is a string in the standard connection format.
 - `username:password` **(optional)** - Authentication credentials passed in App Configuration. If specified, the client will attempt to authenticate the user to the `authSource`.
-- `host[:port]` - The host and port number where the mongod instance is running. Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 27017**.
+- `host[:port]` - The host and port number where the mongod instance is running. Use the `Connection URL` provided by Spheron under **Port Policy Info**.
 - `/defaultauthdb` **(optional)** - The authentication database to use if the connection string includes `username:password` authentication credentials but the **authSource** option is unspecified. If both **authSource** and **defaultauthdb** are unspecified, the client will attempt to authenticate the specified user to the admin database.
 - `?options` **(optional)** - A query string that specifies connection specific options as `<name>=<value>` pairs. If the connection string does not specify a database/ you must specify a slash `(/)` between the last host and the question mark `(?)` that begins the string of options.
 

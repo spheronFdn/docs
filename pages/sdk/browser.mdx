@@ -141,13 +141,14 @@ Function `upload` takes two parameters:
 interface UploadRes {
   uploadId: string;
   bucketId: string;
-  protocolLink: string; // eg: https://{cid}.ipfs.sphn.link/
+  protocolLink: string;
   dynamicLinks: string[];
+  cid: string;
 }
 ```
 
 <Callout type="info">
-  **NOTE:** The `protocolLink` in UploadRes will contain the **IPFS CID** only if the selected protocol is either IPFS or Filecoin.
+  **NOTE:** The CID property will only have value for IPFS and Filecoin uploads.
 </Callout>
 
 <Navigation name="Browser Upload SDK" />
