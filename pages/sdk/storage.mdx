@@ -100,22 +100,135 @@ interface UploadRes {
 
 ---
 
-### Pin A CID on IPFS
-Used to pin a CID on Spheron IPFS dedicated node
-```js
+### Encrypt Upload
 
+Used to encrypt a string, or a file and upload it to IPFS.
+
+<Callout type="info">
+  **NOTE:** Both the `encryptUpload` functions, require an instance of
+  LitNodeClient that is already connected. To create an instance checkout the
+  [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
+  package, or our
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
+</Callout>
+
+```js
+const { uploadId, bucketId, protocolLink, dynamicLinks } =
+  await spheron.encryptUpload({
+    authSig,
+    accessControlConditions,
+    chain,
+    filePath,
+    litNodeClient: client,
+    configuration: {
+      name: bucketName,
+    },
+  });
+```
+
+Parameters of `encryptUpload`:
+
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **sessionSigs:** - (optional) the session signatures to use to authorize the user with the nodes.
+- **accessControlConditions** - (optional) The access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
+- **evmContractConditions** - (optional) EVM Smart Contract access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example. This is different than accessControlConditions because accessControlConditions only supports a limited number of contract calls. evmContractConditions supports any contract call.
+- **solRpcConditions** - (optional) Solana RPC call conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
+- **unifiedAccessControlConditions** - (optional) An array of unified access control conditions. You may use `AccessControlCondition`, `EVMContractCondition`, or `SolRpcCondition` objects in this array, but make sure you add a conditionType for each one.
+  <Callout type="info">
+    **NOTE:** The function requires either `accessControlConditions`,
+    `evmContractConditions`, `solRpcConditions` or
+    `unifiedAccessControlConditions`.
+  </Callout>
+- **chain** - The chain name of the chain that this contract is deployed on.
+- **string** - (optional) The string you wish to encrypt.
+- **filePath** - (optional) The path to the file you wish to encrypt.
+
+  <Callout type="info">
+    **NOTE:** The function requires either `string` of `filePath` parameter to
+    be passed.
+  </Callout>
+
+- **litNodeClient** - An instance of LitNodeClient that is already connected.
+- **configuration**:
+  - **name** - Represents the name of the bucket on which you are uploading the data.
+  - **onUploadInitiated** - (optional) Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+  - **onChunkUploaded** - (optional) Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+
+**Response**
+
+```js
+interface UploadRes {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: Domain[];
+  cid: string;
+}
+```
+
+<Callout type="info">
+  **NOTE:** Checkout the
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
+  on how to use `encryptUpload` function.
+</Callout>
+
+---
+
+### Decrypt Upload
+
+Used to decrypt the data of the previously encrypted upload.
+
+<Callout type="info">
+  **NOTE:** Both the `decryptUpload` functions, require an instance of
+  LitNodeClient that is already connected. To create an instance checkout the
+  [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
+  package, or our
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
+</Callout>
+
+```js
+const decryptedData: Uint8Array = spheron.decryptUpload({
+  authSig,
+  ipfsCid,
+  litNodeClient,
+});
+```
+
+Function `decryptUpload` parameters:
+
+- authSig - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- sessionSigs - (optional) the session signatures to use to authorize the user with the nodes.
+- ipfsCid - The IPFS cid, of the upload that was previously encrypted & uploaded.
+- litNodeClient - An instance of LitNodeClient that is already connected
+
+**Response**
+
+- The function returns an `Uint8Array`, which represents the decrypted data.
+  <Callout type="info">
+    **NOTE:** Checkout the
+    [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
+    on how to use `decryptUpload` function.
+  </Callout>
+
+---
+
+### Pin A CID on IPFS
+
+Used to pin a CID on Spheron IPFS dedicated node
+
+```js
 const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
   name,
-  cid
+  cid,
 });
-
 ```
+
 Function `pinCID` takes one parameter:
 
 - **configuration:** An object with the following parameters:
   1.  `configuration.name`
       - Represents the name of the bucket on which you are pinning the CID.
-  2.  `configuration.CID` 
+  2.  `configuration.CID`
       - The CID of the file you want to be pinned
 
 **Response**
@@ -129,7 +242,7 @@ interface PinCIDResponse {
 }
 ```
 
---- 
+---
 
 ### Get CID Pin Status
 
@@ -147,26 +260,27 @@ Function `getCIDStatus` takes just one parameter:
 
 ```js
 interface PeerData {
-    peerName: string; // Name of the peer
-    ipfsPeerId: string; // The peer ID in the IPFS network
-    ipfsPeerAddresses: string[]; // Array of addresses at which the peer can be reached
-    status: string; // Status of the pin, such as "pinned" or "unpinned"
-    timeStamp: string; // Timestamp when the status was last updated
-    error: string; // Any errors that have occurred, empty string if no errors
-    attemptCount: number; // Number of attempts made to change the pin status
-    priorityPin: boolean; // Indicates whether this is a priority pin
+  peerName: string; // Name of the peer
+  ipfsPeerId: string; // The peer ID in the IPFS network
+  ipfsPeerAddresses: string[]; // Array of addresses at which the peer can be reached
+  status: string; // Status of the pin, such as "pinned" or "unpinned"
+  timeStamp: string; // Timestamp when the status was last updated
+  error: string; // Any errors that have occurred, empty string if no errors
+  attemptCount: number; // Number of attempts made to change the pin status
+  priorityPin: boolean; // Indicates whether this is a priority pin
 }
 
 interface PinStatus {
-    cid: string; // The Content Identifier (CID) of the file
-    name: string; // Name associated with the file, can be empty
-    allocations: string[]; // Array of peers where the file is allocated
-    origins: string[]; // Array of origins from where the file can be fetched
-    created: string; // Timestamp when the file was created
-    metadata: null | any; // Metadata associated with the file, null if none
-    peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
+  cid: string; // The Content Identifier (CID) of the file
+  name: string; // Name associated with the file, can be empty
+  allocations: string[]; // Array of peers where the file is allocated
+  origins: string[]; // Array of origins from where the file can be fetched
+  created: string; // Timestamp when the file was created
+  metadata: null | any; // Metadata associated with the file, null if none
+  peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
 }
 ```
+
 ---
 
 ### Get Bucket
@@ -747,6 +861,7 @@ interface IPNSName {
   ipnsLink: string;
 }
 ```
+
 ---
 
 ## Storage Utility
