@@ -38,7 +38,7 @@ export const Pages = [
   ["Instance Settings", "/compute/instance/settings"],
   ["Compute Usage", "/compute/usage"],
   ["Dedicated Gateways", "/gateways/dedicated"],
-  ["Spheron Gateway", "/gateways/spheron-gateway"],
+  ["Public Gateway", "/gateways/public-gateway"],
   ["Framework Guide", "/framework-guide"],
   ["Deploy Angular App", "/framework-guide/deploy-angular"],
   ["Deploy Brunch App", "/framework-guide/deploy-brunch"],

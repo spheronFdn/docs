@@ -27,7 +27,7 @@ const QUICK_START_LIST = [
     body: "Deploy compute instances with one click.",
   },
   {
-    path: "/gateways",
+    path: "/gateways/dedicated",
     emoji: "⛩️",
     title: "Gateways",
     body: "Fast & reliable access to pinned content.",
