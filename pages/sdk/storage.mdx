@@ -196,10 +196,10 @@ const decryptedData: Uint8Array = spheron.decryptUpload({
 
 Function `decryptUpload` parameters:
 
-- authSig - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
-- sessionSigs - (optional) the session signatures to use to authorize the user with the nodes.
-- ipfsCid - The IPFS cid, of the upload that was previously encrypted & uploaded.
-- litNodeClient - An instance of LitNodeClient that is already connected
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it, checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **sessionSigs** - (optional) the session signatures to use to authorize the user with the nodes.
+- **ipfsCid** - The IPFS cid, of the upload that was previously encrypted & uploaded.
+- **litNodeClient** - An instance of LitNodeClient that is already connected
 
 **Response**
 
