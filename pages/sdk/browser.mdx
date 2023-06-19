@@ -202,7 +202,7 @@ Parameters of `encryptUpload`:
 - **litNodeClient** - An instance of LitNodeClient that is already connected.
 - **configuration**:
   - **token** - The upload token that was fetched from server.
-  - \*\*onChunkUploaded - (optional) callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+  - **onChunkUploaded** - (optional) callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first one `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
