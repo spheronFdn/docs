@@ -519,6 +519,23 @@ interface Domain {
 
 ---
 
+### Get CDN DNS Records
+
+Used to get the values that should be set on your DNS provider for your bucket domains.
+
+```js
+const { cdnARecords, cdnCnameRecords } = await client.getCdnDnsRecords();
+```
+
+Function `getCdnDnsRecords` doesn't take any parameters.
+
+**Response**
+
+- **cdnARecords** - (string) - will contain the DNS value that should be used for domains.
+- **cdnCnameRecords** - (string) - will contain the DNS value that should be used for subdomains.
+
+---
+
 ### Delete Bucket Domain
 
 Used to delete the domain of the Bucket.
