@@ -94,4 +94,5 @@ export const Pages = [
   ["Spheron API", "/rest-api"],
   ["Github Actions", "/github-actions"],
   ["Instance Update Action", "/github-actions/instance-update-action"],
+  ["Spheron Terraform", "/terraform"],
 ];

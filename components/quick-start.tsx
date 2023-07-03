@@ -74,6 +74,12 @@ const QUICK_START_LIST = [
     title: "Github Actions",
     body: "Actions for working with Clusters.",
   },
+  {
+    path: "/terraform",
+    emoji: "⚙️",
+    title: "Spheron Terraform",
+    body: "Deploy compute instances with Terraform.",
+  },
 ];
 
 const QuickStart = () => {

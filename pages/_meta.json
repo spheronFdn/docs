@@ -12,6 +12,7 @@
   "cli": "Spheron CLI",
   "rest-api": "Spheron API",
   "github-actions": "Github Actions",
+  "terraform": "Spheron Terraform",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",
