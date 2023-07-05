@@ -449,11 +449,11 @@ await spheron.instance.update(
 ```
 
 Params:
-- `environmentVariables` (EnvironmentVariable[]) - list of environment variables.
-- `secretEnvironmentVariables` (EnvironmentVariable[]) - list of secret environment variables.
-- `commands`  (string[]) - list of executables for docker CMD command. 
-- `args`  (string[]) - list of params for docker CMD command. 
-- `tag`  (string[]) - tag for docker image.
+- `environmentVariables` (EnvironmentVariable[]) - (optional) list of environment variables.
+- `secretEnvironmentVariables` (EnvironmentVariable[]) - (optional) list of secret environment variables.
+- `commands`  (string[]) - (optional) list of executables for docker CMD command. 
+- `args`  (string[]) - (optional) list of params for docker CMD command. 
+- `tag`  (string[]) - (optional) tag for docker image.
 
 Returns `InstanceResponse` object, indicating instance update has started.
 
