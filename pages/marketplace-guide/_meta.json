@@ -18,5 +18,6 @@
   "deso": "Deploy Deso Node",
   "massbit-gateway": "Deploy MassBit Gateway",
   "arbitrum-one": "Deploy Arbitrum One",
-  "filecoin": "Deploy Filecoin Mainnet"
+  "filecoin": "Deploy Filecoin Mainnet",
+  "jupyter": "Deploy Jupyter Notebook"
 }

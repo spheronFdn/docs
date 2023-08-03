@@ -18,6 +18,7 @@ import DesoIcon from "../assets/deso.svg";
 import MassBitIcon from "../assets/massbit.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import FilecoinIcon from "../assets/filecoin.svg";
+import JupyterIcon from "../assets/jupyter.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -140,6 +141,12 @@ const MARKETPLACE_APP_LIST = [
     logo: FilecoinIcon,
     alt: "filecoin",
     title: "Deploy Filecoin Mainnet",
+  },
+  {
+    path: "/marketplace-guide/jupyter",
+    logo: JupyterIcon,
+    alt: "jupyter",
+    title: "Deploy Jupyter Notebook",
   },
 ];
 

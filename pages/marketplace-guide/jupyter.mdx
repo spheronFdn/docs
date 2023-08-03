@@ -1,0 +1,34 @@
+import Navigation from "components/navigation";
+
+# How to deploy a Jupyter Notebook?
+
+Spheron allows you to deploy a compute instance pre-installed with Jupyter Notebook, all set up and ready to use on the Akash Network.
+To deploy a Jupyter Notebook:
+
+1. Click "New Cluster" on the top right corner.
+2. Select **Select marketplace app**.
+3. Pick **Jupyter Notebook** from the marketplace.
+4. Spheron will automatically select the recommended plan for the specific template.
+5. If you want to change the plan, Click "Change Plan".
+6. Select the instance plan that suits your needs, and Click "Select Plan".
+7. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
+8. Click "Deploy" to initiate deployment.
+
+## Advanced Configuration
+
+### Region
+
+Refer to the [region section](/compute/cluster/#region) for more information.
+
+## Verify Installation
+
+The Jupyter Notebook dashboard can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using it.
+
+### How to connect to Jupyter Notebook?
+
+- Use the `Connection URL` provided by Spheron under **Port Policy Info** to access the Jupyter Notebook where there will be `mnist-train.ipynb`.
+
+For more information, refer to the [Jupyter Notebook docs](https://docs.jupyter.org/en/latest/index.html).
+
+<Navigation name="Deploy Jupyter Notebook" />

@@ -85,6 +85,7 @@ export const Pages = [
   ["Deploy MassBit Gateway", "/marketplace-guide/massbit-gateway"],
   ["Deploy Arbitrum One", "/marketplace-guide/arbitrum-one"],
   ["Deploy Filecoin Mainnet", "/marketplace-guide/filecoin"],
+  ["Deploy Jupyter Notebook", "/marketplace-guide/jupyter"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
