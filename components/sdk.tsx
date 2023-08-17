@@ -9,6 +9,12 @@ const SDK_LIST = [
     body: "For Node.js based environments",
   },
   {
+    path: "/sdk/storage-v2",
+    emoji: "⛓️",
+    title: "Storage SDK V2",
+    body: "For Node.js based environments",
+  },
+  {
     path: "/sdk/browser",
     emoji: "🌐",
     title: "Browser SDK",
