@@ -88,6 +88,7 @@ export const Pages = [
   ["Deploy Jupyter Notebook", "/marketplace-guide/jupyter"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
+  ["Storage SDK V2", "/sdk/storage-v2"],
   ["Browser Upload SDK", "/sdk/browser"],
   ["Compute SDK", "/sdk/compute"],
   ["Site SDK", "/sdk/site"],

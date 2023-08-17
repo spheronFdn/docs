@@ -1,0 +1,905 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Storage SDK
+
+## Available Methods
+
+```
+CHANGED FUNCTIONS:
+getBucket, getBucketUploadCount, getBucketUploads, getOrganizationUsage, getUpload
+```
+
+The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
+
+### Upload
+
+#### Upload
+
+Used to upload a file/directory to the specified protocol.
+
+```js
+let currentlyUploaded = 0;
+
+const { uploadId, bucketId, protocolLink, dynamicLinks, cid } =
+  await client.upload(filePath, {
+    protocol: ProtocolEnum.IPFS,
+    name,
+    onUploadInitiated: (uploadId) => {
+      console.log(`Upload with id ${uploadId} started...`);
+    },
+    onChunkUploaded: (uploadedSize, totalSize) => {
+      currentlyUploaded += uploadedSize;
+      console.log(`Uploaded ${currentlyUploaded} of ${totalSize} Bytes.`);
+    },
+  });
+```
+
+Function `upload` takes two parameters:
+
+- **filePath** - (string) - The path to the file/directory that will be uploaded.
+- **configuration:** An object with the following parameters:
+  1.  `configuration.name`
+      - Represents the name of the bucket on which you are uploading the data.
+  2.  `configuration.protocol`
+      - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+  3.  `configuration.onUploadInitiated` **(Optional)**
+      - Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+  4.  `configuration.onChunkUploaded` **(Optional)**
+      - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents, the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+
+**Response**
+
+```js
+interface UploadRes {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: Domain[];
+  cid: string;
+}
+```
+
+<Callout type="info">
+  **NOTE:** The CID property will only have value for IPFS and Filecoin uploads.
+</Callout>
+
+---
+
+#### Encrypt Upload
+
+Used to encrypt a string or a file and upload it to IPFS.
+
+<Callout type="info">
+  **NOTE:** Both the `encryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
+  [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
+  package or our
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
+</Callout>
+
+```js
+const { uploadId, bucketId, protocolLink, dynamicLinks } =
+  await spheron.encryptUpload({
+    authSig,
+    accessControlConditions,
+    chain,
+    filePath,
+    litNodeClient: client,
+    configuration: {
+      name: bucketName,
+    },
+  });
+```
+
+Parameters of `encryptUpload`:
+
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it. Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **sessionSigs:** - (optional) the session signatures to use to authorize the user with the nodes.
+- **accessControlConditions** - (optional) The access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
+- **evmContractConditions** - (optional) EVM Smart Contract access control conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example. This is different than accessControlConditions because accessControlConditions only supports a limited number of contract calls. evmContractConditions supports any contract call.
+- **solRpcConditions** - (optional) Solana RPC call conditions that the user must meet to obtain this signed token. This could be possession of an NFT, for example.
+- **unifiedAccessControlConditions** - (optional) An array of unified access control conditions. You may use `AccessControlCondition`, `EVMContractCondition`, or `SolRpcCondition` objects in this array, but make sure you add a conditionType for each one.
+  <Callout type="info">
+    **NOTE:** The function requires either `accessControlConditions`,
+    `evmContractConditions`, `solRpcConditions` or
+    `unifiedAccessControlConditions`.
+  </Callout>
+- **chain** - The chain name of the chain that this contract is deployed on.
+- **string** - (optional) The string you wish to encrypt.
+- **filePath** - (optional) The path to the file you wish to encrypt.
+
+  <Callout type="info">
+    **NOTE:** The function requires either `string` of `filePath` parameter to
+    be passed.
+  </Callout>
+
+- **litNodeClient** - An instance of LitNodeClient that is already connected.
+- **configuration**:
+  - **name** - Represents the name of the bucket on which you are uploading the data.
+  - **onUploadInitiated** - (optional) Callback function `(uploadId: string) => void`. The function will be called once when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+  - **onChunkUploaded** - (optional) Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. the first `uploadedSize` represents the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+
+**Response**
+
+```js
+interface UploadRes {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: Domain[];
+  cid: string;
+}
+```
+
+<Callout type="info">
+  **NOTE:** Checkout the
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/encrypt.js)
+  on how to use the `encryptUpload` function.
+</Callout>
+
+---
+
+#### Decrypt Upload
+
+Used to decrypt the data of the previously encrypted upload.
+
+<Callout type="info">
+  **NOTE:** Both the `decryptUpload` functions require an instance of
+  LitNodeClient that is already connected. To create an instance, checkout the
+  [@lit-protocol/lit-node-client](https://www.npmjs.com/package/@lit-protocol/lit-node-client)
+  package or our
+  [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
+</Callout>
+
+```js
+const decryptedData: Uint8Array = spheron.decryptUpload({
+  authSig,
+  ipfsCid,
+  litNodeClient,
+});
+```
+
+Function `decryptUpload` parameters:
+
+- **authSig** - (optional) The authSig of the user. You can use [siwe](https://www.npmjs.com/package/siwe) to create it. Checkout the [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/utils.js).
+- **sessionSigs** - (optional) the session signatures to use to authorize the user with the nodes.
+- **ipfsCid** - The IPFS cid of the upload that was previously encrypted & uploaded.
+- **litNodeClient** - An instance of LitNodeClient that is already connected
+
+**Response**
+
+- The function returns an `Uint8Array`, which represents the decrypted data.
+  <Callout type="info">
+    **NOTE:** Checkout the
+    [example](https://github.com/spheronFdn/sdk/blob/main/examples/storage-encryption/src/decrypt.js)
+    on how to use the `decryptUpload` function.
+  </Callout>
+
+---
+
+#### Pin A CID on IPFS
+
+Used to pin a CID on Spheron IPFS dedicated node
+
+```js
+const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
+  name,
+  cid,
+});
+```
+
+Function `pinCID` takes one parameter:
+
+- **configuration:** An object with the following parameters:
+  1.  `configuration.name`
+      - Represents the name of the bucket on which you are pinning the CID.
+  2.  `configuration.CID`
+      - The CID of the file you want to be pinned
+
+**Response**
+
+```js
+interface PinCIDResponse {
+  uploadId: string;
+  bucketId: string;
+  protocolLink: string;
+  dynamicLinks: string[];
+}
+```
+
+---
+
+#### Get CID Pin Status
+
+Used to get the pinning status for the specified `CID`.
+
+```js
+const pinStatus: PinStatus = await client.getCIDStatus(CID);
+```
+
+Function `getCIDStatus` takes just one parameter:
+
+- **CID** - (string) - The CID of the file
+
+**Response**
+
+```js
+interface PeerData {
+  peerName: string; // Name of the peer
+  ipfsPeerId: string; // The peer ID in the IPFS network
+  ipfsPeerAddresses: string[]; // Array of addresses at which the peer can be reached
+  status: string; // Status of the pin, such as "pinned" or "unpinned"
+  timeStamp: string; // Timestamp when the status was last updated
+  error: string; // Any errors that have occurred, empty string if no errors
+  attemptCount: number; // Number of attempts made to change the pin status
+  priorityPin: boolean; // Indicates whether this is a priority pin
+}
+
+interface PinStatus {
+  cid: string; // The Content Identifier (CID) of the file
+  name: string; // Name associated with the file, can be empty
+  allocations: string[]; // Array of peers where the file is allocated
+  origins: string[]; // Array of origins from where the file can be fetched
+  created: string; // Timestamp when the file was created
+  metadata: null | any; // Metadata associated with the file, null if none
+  peerMap: { [key: string]: PeerData }; // Map of peer data, with peer IDs as keys
+}
+```
+
+---
+
+#### Get Upload
+
+Used to get the upload by its id.
+
+```js
+const upload: Upload = await client.getUpload(uploadId);
+```
+
+Function `getUpload` takes just one parameter:
+
+- **uploadId** - (string) - The upload id of the file uploaded using Spheron SDK.
+
+**Response**
+
+```js
+interface UploadedFile {
+  fileName: string;
+  fileSize: number;
+}
+
+interface Upload {
+  id: string;
+  protocolLink: string;
+  uploadDirectory: UploadedFile[];
+  status: UploadStatusEnum;
+  memoryUsed: number;
+  bucketId: string;
+  protocol: string;
+}
+```
+
+> The responses interface changes a bit, the uploadDirectory is an object
+
+---
+
+### Organization
+
+#### Get Organization Usage
+
+Used to get the usage of the current active subscription of the organization.
+
+```js
+const organization: UsageWithLimits = await client.getOrganizationUsage(
+  organizationId
+);
+```
+
+Function `getOrganizationUsage` takes just one parameter:
+
+- **organizationId** - (string) - The id of the organization.
+
+**Response**
+
+```js
+interface UsageWithLimits {
+  used: {
+    bandwidth: number, // the bytes of bandwidth used for the current subscription
+    storageArweave: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
+    storageFilecoin: number, // the bytes of used Filecoin storage for the current subscription
+    domains: number, // the number of domains and subdomain an organization has
+    hnsDomains: number, // the number of hns domains and hns subdomain an organization has
+    ensDomains: number, // the number of ens domains an organization has
+    numberOfRequests: number, // the number of requests the organization has had till now
+    parallelUploads: number, // the number of uploads are in progress for an organization
+    imageOptimization: number, // the number of optimized images organization has had till now
+  };
+  limit: {
+    bandwidth: number, // the bandwidth limit for the current subscription
+    storageArweave: number, // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
+    storageFilecoin: number, // the limit in bytes for the Filecoin storage for the current subscription
+    domains: number, // the limit on how many domains and subdomains can a organization have
+    hnsDomains: number, // the limit on how many hns domains and hns subdomain can a organization have
+    ensDomains: number, // the limit on how many ens domains a organization have
+    parallelUploads: number, // the number on how many parallel uploads an organization can have
+    imageOptimization: number, // the limit on how many optimized images can an organization have
+  };
+}
+```
+
+> Changes, there are a couple of new properties, storageFileoin, hns and ens domains ( not sure why they were missing) and optimized images
+
+---
+
+### Bucket
+
+#### Get Bucket
+
+Used to get the bucket information for the specified `bucketId`.
+
+```js
+const bucket: Bucket = await client.getBucket(bucketId);
+```
+
+Function `getBucket` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+**Response**
+
+```js
+enum  BucketStateEnum {
+  MAINTAINED = "MAINTAINED",
+  ARCHIVED = "ARCHIVED",
+}
+
+interface Bucket {
+  id: string;
+  name: string;
+  organizationId: string;
+  state: BucketStateEnum;
+}
+```
+
+> Difference is no domains here, user can use the method to get domains
+
+---
+
+#### Archive Bucket
+
+Used to archive the Bucket. New uploads cannot be created for an archived bucket.
+
+```js
+await client.archiveBucket(bucketId);
+```
+
+Function `archiveBucket` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+---
+
+#### Unarchive Bucket
+
+Used to unarchive the Bucket.
+
+```js
+await client.unarchiveBucket(bucketId);
+```
+
+Function `unarchiveBucket` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+---
+
+#### Get Bucket Upload Count
+
+Used to get the number of uploads for the specified bucket.
+
+```js
+const { total, successful, failed, pending } =
+  await client.getBucketUploadCount(bucketId);
+```
+
+Function `getBucketUploadCount` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+**Response**
+
+```js
+interface BucketRes {
+  count: number;
+}
+```
+
+> Changes, here we only return the total number
+
+---
+
+#### Get Bucket Uploads
+
+Used to get the uploads of the bucket. The default value for the `skip` is 0. The default value for the `limit` is 6.
+
+```js
+const bucketUploads: Upload[] = await client.getBucketUploads(bucketId, { skip: number; limit: number; });
+```
+
+Function `getBucketUploads` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **options** - An object with the skip and limit of the bucket to be updated.
+
+**Response**
+
+```js
+enum UploadStatusEnum {
+  IN_PROGRESS = "InProgress",
+  CANCELED = "Canceled",
+  UPLOADED = "Uploaded",
+  FAILED = "Failed",
+  TIMED_OUT = "TimedOut",
+  PINNED = "Pinned",
+  UNPINNED = "Unpinned",
+}
+
+interface UploadedFile {
+  fileName: string;
+  fileSize: number;
+}
+
+interface Upload {
+  id: string;
+  protocolLink: string;
+  uploadDirectory: UploadedFile[];
+  status: UploadStatusEnum;
+  memoryUsed: number;
+  bucketId: string;
+  protocol: string;
+}
+```
+
+> The status changed, and the uploadDirectory structure
+
+---
+
+### Bucket Domains
+
+<Callout type="info">
+  **NOTE:** Domains need to be enabled for the organization before you can use
+  them. Contact us at discord to enable them.
+</Callout>
+
+#### Get Bucket Domains
+
+Used to get the domains that are attached to the specified `bucketId`.
+
+```js
+const bucketDomains: Domain[] = await client.getBucketDomains(bucketId);
+```
+
+Function `getBucketDomains` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+**Response**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
+---
+
+#### Get Bucket Domain
+
+Used to get the information about the specific domain.
+
+```js
+const bucketDomain: Domain = await client.getBucketDomain(
+  bucketId,
+  domainIdentifier
+);
+```
+
+Function `getBucketDomain` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
+
+**Response**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
+---
+
+#### Add Bucket Domain
+
+Used to add a new domain to the specified bucket. The `link` property needs to have the `protocolLink` value of an existing bucket id. After adding a new domain, you will need to setup the record on your DNS provider:
+
+- **domain**: you should create a **A** type record with the value `13.248.203.0` and the same name as the domain you have added.
+- **subdomain**: you should create a **CNAME** type record with the value `cname.spheron.io` and the same name as the domain you have added.
+- **handshake-domain**: you should create a **A** type record with the value `ipfs.namebase.io` and `@` for name. Also, you should create a **TXT** type record with the `link` for a value and `_contenthash` for a name.
+- **handshake-subdomain**: you should create a **A** type record with the value `ipfs.namebase.io` and the same name as the domain you have added. Also, you should create a **TXT** type record with the `link` for a value and `_contenthash.<name_of_the_domain>` for a name.
+- **ens-domain**: you should create a **CONTENT** type record with the `link` for a value and the same name as the domain you have added.
+
+```js
+const bucketDomain: Domain = await client.addBucketDomain(bucketId, {
+  link,
+  type,
+  name,
+});
+```
+
+Function `addBucketDomain` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **bucketDetails** - An object with the link, type, and name of the bucket to be added.
+
+After you have setup the record on your DNS provider, then you should call the `verifyBucketDomain` method to verify your domain on Spheron. After the domain is verified, the data behind the link will be cached on the Spheron CDN.
+
+**Response**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
+---
+
+#### Verify Bucket Domain
+
+Used to verify the domain, after which the content behind the domain will be cached on CDN.
+
+```js
+const domainStatus: Domain = await client.verifyBucketDomain(
+  bucketId,
+  domainIdentifier
+);
+```
+
+Function `verifyBucketDomain` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
+
+**Response**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
+---
+
+#### Update Bucket Domain
+
+Used to update an existing domain of the Bucket.
+
+```js
+const bucketDomain: Domain = await client.updateBucketDomain(
+  bucketId,
+  domainIdentifier,
+  {
+    link,
+    name,
+  }
+);
+```
+
+Function `updateBucketDomain` takes three parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
+- **options** - An object with the link and name of the bucket to be updated.
+
+**Response**
+
+```js
+enum DomainTypeEnum {
+  DOMAIN = "domain",
+  SUBDOMAIN = "subdomain",
+  HANDSHAKE_DOMAIN = "handshake-domain",
+  HANDSHAKE_SUBDOMAIN = "handshake-subdomain",
+  ENS_DOMAIN = "ens-domain",
+}
+
+interface Domain {
+  id: string;
+  name: string;
+  link: string;
+  verified: boolean;
+  bucketId: string;
+  type: DomainTypeEnum;
+}
+```
+
+---
+
+#### Delete Bucket Domain
+
+Used to delete the domain of the Bucket.
+
+```js
+await client.deleteBucketDomain(bucketId, domainIdentifier);
+```
+
+Function `deleteBucketDomain` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
+
+---
+
+#### Get CDN DNS Records
+
+Used to get the values that should be set on your DNS provider for your bucket domains.
+
+```js
+const { cdnARecords, cdnCnameRecords } = await client.getCdnDnsRecords();
+```
+
+Function `getCdnDnsRecords` doesn't take any parameters.
+
+**Response**
+
+- **cdnARecords** - (string) - will contain the DNS value that should be used for domains.
+- **cdnCnameRecords** - (string) - will contain the DNS value that should be used for subdomains.
+
+---
+
+### Bucket Ipns Records
+
+#### Get Bucket Ipns records
+
+Used to get the Ipns records that were published for the provided `bucketId`.
+
+```js
+const ipnsRecords: IpnsRecord[] = await client.getBucketIpnsRecords(bucketId);
+```
+
+Function `getBucketIpnsRecords` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  publishedUploadId: string;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Get Bucket Ipns Record
+
+Used to get the information about the specific Ipns record.
+
+```js
+const ipnsRecord: IpnsRecord = await client.getBucketIpnsRecord(
+  bucketId,
+  ipnsRecordId
+);
+```
+
+Function `getBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  publishedUploadId: string;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Add Bucket Ipns record
+
+Used to publish a new Ipns record.
+
+```js
+const ipnsRecord: IpnsRecord = await client.addBucketIpnsRecord(
+  bucketId,
+  uploadId
+);
+```
+
+Function `addBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  publishedUploadId: string;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Update Bucket Ipns Record
+
+Used to update an existing Ipns record of the Bucket.
+
+```js
+const ipnsRecord: IpnsRecord = await client.updateBucketIpnsRecord(
+  bucketId,
+  ipnsRecordId,
+  uploadId
+);
+```
+
+Function `updateBucketIpnsRecord` takes three parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  publishedUploadId: string;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Delete Bucket Ipns Record
+
+Used to delete the Ipns Record of the Bucket.
+
+```js
+await client.deleteBucketIpnsRecord(bucketId, ipnsRecordId);
+```
+
+Function `deleteBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+
+---
+
+### Get Token Scope
+
+Used to get the scope of the token.
+
+```js
+const tokenScope: TokenScope = await client.getTokenScope();
+```
+
+Function `getTokenScope` takes no parameters.
+
+**Response**
+
+```js
+interface TokenScope {
+  user: {
+    id: string,
+    username: string,
+    name: string,
+    email: string,
+  };
+  organizations: {
+    id: string,
+    name: string,
+    username: string,
+  }[];
+}
+```
+
+---
+
+## Storage Utility
+
+### Transforming CID from V0 to V1 and vice versa
+
+The package also provides a couple of methods for transforming CID from V0 to V1 and vice verse.
+
+```js
+import { ipfs } from "@spheron/storage";
+
+const cid = <CID_VALUE>;
+
+const v1 = ipfs.utils.toV1(cid);
+console.log("CID V1", v1);
+
+const v0 = ipfs.utils.toV0(cid);
+console.log("CID V0", v0);
+
+<Navigation name="Storage SDK V2" />
+```
