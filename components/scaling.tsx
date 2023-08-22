@@ -4,19 +4,19 @@ import styles from "../styles/quick.module.css";
 const SCALING_LIST = [
   {
     path: "/compute/scaling",
-    emoji: "🔴",
+    emoji: "😢",
     title: "No Scaling",
     body: "Easily set up instances without complex configurations.",
   },
   {
     path: "/compute/scaling/manual",
-    emoji: "🟡",
+    emoji: "🚀",
     title: "Manual Scaling",
     body: "Adjust allocated resources to align with changing demands.",
   },
   {
     path: "/compute/scaling",
-    emoji: "🟢",
+    emoji: "🤖",
     title: "Auto Scaling",
     body: "Automatically adjust resources based on demand fluctuations.",
   },
