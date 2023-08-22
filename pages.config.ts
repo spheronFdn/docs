@@ -40,6 +40,7 @@ export const Pages = [
   ["Compute Scaling", "/compute/scaling"],
   ["No Scaling", "/compute/scaling/no"],
   ["Manual Scaling", "/compute/scaling/manual"],
+  ["Auto Scaling", "/compute/scaling/auto"],
   ["Dedicated Gateways", "/gateways/dedicated"],
   ["Public Gateway", "/gateways/public-gateway"],
   ["Framework Guide", "/framework-guide"],
