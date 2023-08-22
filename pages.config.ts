@@ -38,7 +38,6 @@ export const Pages = [
   ["Instance Settings", "/compute/instance/settings"],
   ["Compute Usage", "/compute/usage"],
   ["Compute Scaling", "/compute/scaling"],
-  ["Manual Scaling", "/compute/scaling/manual"],
   ["Dedicated Gateways", "/gateways/dedicated"],
   ["Public Gateway", "/gateways/public-gateway"],
   ["Framework Guide", "/framework-guide"],
