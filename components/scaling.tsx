@@ -6,19 +6,19 @@ const SCALING_LIST = [
     path: "/compute/scaling",
     emoji: "😢",
     title: "No Scaling",
-    body: "Easily set up instances without complex configurations.",
+    body: "Easy instance setup.",
   },
   {
     path: "/compute/scaling/manual",
     emoji: "🚀",
     title: "Manual Scaling",
-    body: "Adjust allocated resources to align with changing demands.",
+    body: "Manually allocate resources.",
   },
   {
     path: "/compute/scaling",
     emoji: "🤖",
     title: "Auto Scaling",
-    body: "Automatically adjust resources based on demand fluctuations.",
+    body: "Automatic adjustments based on demand.",
   },
 ];
 
