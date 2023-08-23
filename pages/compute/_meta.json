@@ -1,5 +1,6 @@
 {
   "cluster": "Cluster",
   "instance": "Instance",
-  "usage": "Usage"
+  "usage": "Usage",
+  "scaling": "Scaling"
 }
