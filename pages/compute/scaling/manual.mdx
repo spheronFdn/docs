@@ -8,6 +8,10 @@ to increase or decrease the allocated resources, such as CPU, memory, or storage
 This type of scaling provides users with direct control over resource adjustments, allowing for optimization based
 on specific workload characteristics and immediate operational needs.
 
+## Get Alpha Access
+
+[Please schedule a team call](https://meetings.hubspot.com/prashant-maurya/scaling-demo) to gain early access to Manual Scaling.
+
 ## How to use Manual Scaling?
 
 ### With Docker
@@ -19,7 +23,7 @@ To use manual scaling with a custom Docker image on Spheron:
 3. Enter the names for your cluster and docker image.
 4. Then, Add the tag and Click "Next".
 5. Select "Manual Scaling" under Scaling.
-6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in a region suitable for that instance. [Click here](/compute/cluster/#region) to know more.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in the **eu-east** region. [Click here](/compute/cluster/#region) to know more.
 7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
 9. Create new **Port Policy Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
@@ -37,7 +41,7 @@ To use manual scaling with a marketplace app on Spheron:
 2. Select **Start from marketplace app**.
 3. Pick your desired template from the marketplace.
 4. Select "Manual Scaling" under **Scaling**.
-5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in a region suitable for that instance. [Click here](/compute/cluster/#region) to know more.
+5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in the **eu-east** region. [Click here](/compute/cluster/#region) to know more.
 6. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 7. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
 8. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
@@ -60,9 +64,5 @@ To update the configuration of your instance:
 - **Scalability:** Manual scaling might not be efficient for systems that need to handle varying workloads. It can be challenging to predict the exact resource requirements for different levels of demand, which can result in under-provisioning or over-provisioning of resources.
 - **Downtime and Disruption:** Scaling resources manually can lead to downtime or disruption in service. Adjusting resources may require stopping or restarting parts of the system, leading to potential service interruptions for users.
 - **Complexity:** As the system grows, the complexity of manually managing resources increases. In large and distributed environments, keeping track of resource allocation and utilization becomes more challenging, resulting in poor performance and user dissatisfaction.
-
-## Get Alpha Access
-
-[Please schedule a team call](https://meetings.hubspot.com/prashant-maurya/scaling-demo) to gain early access to Manual Scaling.
 
 <Navigation name="Manual Scaling" />
