@@ -1,3 +1,4 @@
+import Scaling from "components/scaling";
 import Navigation from "components/navigation";
 
 # Compute Scaling
@@ -9,21 +10,18 @@ aiming to optimize performance and resource utilization.
 
 We offer the following three types of scaling:
 
-1. No Scaling
-2. Manual Scaling
-3. Auto Scaling
+<Scaling />
 
 ## No Scaling
 
 ### Pros
 
 - Setting up an instance with no scaling is straightforward and doesn't involve complex configurations.
-- Scaling is supported across multiple geographic regions.
 - Decentralized deployment of resources occurs across a diverse set of Akash providers, and is not just limited to our own providers.
 
 ### Cons
 
-- As demands increase, the instance does not automatically scale allocated resources.
+- Handling unexpected spikes in traffic can be problematic as there is no mechanism to handle the increased load.
 
 ## Manual Scaling
 
