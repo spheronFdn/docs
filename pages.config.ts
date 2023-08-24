@@ -80,6 +80,7 @@ export const Pages = [
   ["Deploy Hypersign Node", "/marketplace-guide/hypersign"],
   ["Deploy Kyve Node", "/marketplace-guide/kyve"],
   ["Deploy Reef Node", "/marketplace-guide/reef"],
+  ["Deploy Sui Node", "/marketplace-guide/sui"],
   ["Deploy Mantle DTL", "/marketplace-guide/mantle-dtl"],
   ["Deploy Mantle Verifier", "/marketplace-guide/mantle-verifier"],
   ["Deploy Drupal", "/marketplace-guide/drupal"],
