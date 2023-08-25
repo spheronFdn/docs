@@ -148,19 +148,18 @@ To run your app on Spheron:
 1. Click "New Cluster" on the top right corner.
 2. Select **Import from Docker Hub**.
 3. Enter the names for your cluster and docker image.
-4. Then, Add the tag and Click "Next".
-5. Select the instance plan that suits your needs and Click "Select Plan".
-6. Create new **Port Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
-7. Add **Environment Variables**, if any. Use the **Secret Key** toggle if the value is a secret key. When you enable the secret key toggle, it will not be saved in the
-   database. [Click here](/compute/cluster/#environment-variables) to know more.
-8. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
-9. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
-10. Click "Deploy" to initiate deployment without additional configuration.
-
-<Callout>
-  **Troubleshoot:** You can change your plan by clicking Change Plan above the
-  selected plan.
-</Callout>
+4. Then, Add the tag and Click "Next."
+5. Choose your desired Scaling option under Scaling.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for no scaling, or in the **eu-east** region for manual scaling. [Click here](/compute/cluster/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, Create new Port Policy Mapping and just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Create new Port Policy Mapping. Add the container port, and Select the exposed port you want to map it to. Click here to know more.
+11. Add **Environment Variable**, if any.
+12. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/#environment-variables) to know more.
+13. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+14. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
+15. Click "Deploy" to initiate deployment.
 
 <Callout type="info">
   **NOTE:** Spheron supports only public docker images at the moment.
