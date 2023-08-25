@@ -3,7 +3,7 @@ import styles from "../styles/quick.module.css";
 
 const SCALING_LIST = [
   {
-    path: "/compute/scaling/no",
+    path: "/compute/scaling/no-scaling",
     emoji: "😢",
     title: "No Scaling",
     body: "Easy instance setup.",
