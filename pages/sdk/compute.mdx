@@ -304,7 +304,8 @@ const instanceResponse: InstanceResponse =
   healthCheckConfig: {
     path: "/",
     port: 8000
-  }
+  },
+  scalable: true
 });
 ```
 
@@ -333,6 +334,7 @@ Params:
   - `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
     - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
     - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
+  - `scalable` (boolean): Manual Scaling state to adjust the computational resources allocated to an instance.
 
 Types:    
 
