@@ -2,5 +2,13 @@
   "cluster": "Cluster",
   "instance": "Instance",
   "usage": "Usage",
-  "scaling": "Scaling"
+  "scaling": "Scaling",
+  "github-actions": {
+    "title": "Github Actions",
+    "href": "/github-actions"
+  },
+  "terraform": {
+    "title": "Spheron Terraform",
+    "href": "/terraform"
+  }
 }
