@@ -307,30 +307,32 @@ interface UsageWithLimits {
   used: {
     bandwidth: number, // the bytes of bandwidth used for the current subscription
     storageArweave: number, // the bytes of used Arweave storage for the current subscription
-    storageIPFS: number, // the bytes of used IPFS storage for the current subscription
-    storageFilecoin: number, // the bytes of used Filecoin storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage
+    storageFilecoin: number, // the bytes of used Filecoin
     domains: number, // the number of domains and subdomain an organization has
     hnsDomains: number, // the number of hns domains and hns subdomain an organization has
     ensDomains: number, // the number of ens domains an organization has
     numberOfRequests: number, // the number of requests the organization has had till now
     parallelUploads: number, // the number of uploads are in progress for an organization
     imageOptimization: number, // the number of optimized images organization has had till now
+    ipfsBandwidth: number, // the bytes of IPFS bandwidth used for the current subscription
+    ipfsNumberOfRequests: // the number of IPFS requests the organization has had till now
   };
   limit: {
     bandwidth: number, // the bandwidth limit for the current subscription
     storageArweave: number, // the limit in bytes for the Arweave storage for the current subscription
-    storageIPFS: number, // the limit in bytes for the IPFS storage for the current subscription
-    storageFilecoin: number, // the limit in bytes for the Filecoin storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS and Filecoin storage for the current subscription
     domains: number, // the limit on how many domains and subdomains can a organization have
     hnsDomains: number, // the limit on how many hns domains and hns subdomain can a organization have
     ensDomains: number, // the limit on how many ens domains a organization have
     parallelUploads: number, // the number on how many parallel uploads an organization can have
     imageOptimization: number, // the limit on how many optimized images can an organization have
+    ipfsBandwidth: number; // the IPFS bandwidth limit for the current subscription
   };
 }
 ```
 
-> Changes, there are a couple of new properties, storageFileoin, hns and ens domains ( not sure why they were missing) and optimized images
+> Changes, there are a couple of new properties, storageFilecoin, hns and ens domains ( not sure why they were missing) and optimized images
 
 ---
 
