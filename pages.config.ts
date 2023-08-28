@@ -95,6 +95,7 @@ export const Pages = [
   ["Browser Upload SDK", "/sdk/browser"],
   ["Compute SDK", "/sdk/compute"],
   ["Site SDK", "/sdk/site"],
+  ["FVM Deal Utils SDK", "/sdk/fvm-deal-utils"],
   ["Spheron CLI", "/cli"],
   ["Spheron API", "/rest-api"],
   ["Github Actions", "/github-actions"],
