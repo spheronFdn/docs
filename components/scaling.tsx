@@ -9,13 +9,13 @@ const SCALING_LIST = [
     body: "Easy instance setup.",
   },
   {
-    path: "/compute/scaling/manual",
+    path: "/compute/scaling/manual-scaling",
     emoji: "🚀",
     title: "Manual Scaling",
     body: "Manually allocate resources.",
   },
   {
-    path: "/compute/scaling/auto",
+    path: "/compute/scaling/auto-scaling",
     emoji: "🤖",
     title: "Auto Scaling",
     body: "Automatic adjustments based on demand.",
