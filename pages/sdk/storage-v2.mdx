@@ -338,6 +338,68 @@ interface UsageWithLimits {
 
 ### Bucket
 
+#### Get Buckets
+
+Used to get the buckets of the organization. The method supports pagination and filtering by name or bucket state.
+
+```js
+const buckets: Bucket[] = await client.getOrganizationBuckets(organizationId, {
+  skip,
+  limit,
+  state,
+  name,
+});
+```
+
+Function `getOrganizationBuckets` parameters:
+
+- **organizationId** - The id of the organization of the token.
+
+- **options**
+  - **skip** - (number)
+  - **limit** - (number)
+  - **state** - (BucketStateEnum) _optional_ - for filtering the buckets by state.
+  - **name** - (string) _optional_ - for filtering the buckets by name. The response will include the buckets which names contain the provided name.
+
+**Response**
+
+```js
+enum  BucketStateEnum {
+  MAINTAINED = "MAINTAINED",
+  ARCHIVED = "ARCHIVED",
+}
+
+interface Bucket {
+  id: string;
+  name: string;
+  organizationId: string;
+  state: BucketStateEnum;
+}
+```
+
+---
+
+#### Get Bucket Count
+
+Used to get the number of buckets an organization has. The method supports filtering by name or bucket state.
+
+```js
+const count: number = await client.getOrganizationBucketCount(organizationId, {
+  name,
+  state,
+});
+```
+
+Function `getOrganizationBucketCount` parameters:
+
+- **organizationId** - The id of the organization of the token.
+
+- **options** - _optional_
+  - **state** - (BucketStateEnum) _optional_ - for filtering the buckets by state.
+  - **name** - (string) _optional_ - for filtering the buckets by name. The response will include the buckets which names contain the provided name.
+
+---
+
 #### Get Bucket
 
 Used to get the bucket information for the specified `bucketId`.
