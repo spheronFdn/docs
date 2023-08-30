@@ -8,6 +8,10 @@ import Navigation from "components/navigation";
 ```
 CHANGED FUNCTIONS:
 getBucket, getBucketUploadCount, getBucketUploads, getOrganizationUsage, getUpload, all the ipns ones
+
+New Methods:
+- getOrganizationBuckets
+- getOrganizationBucketCount
 ```
 
 The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
@@ -465,21 +469,14 @@ Function `unarchiveBucket` takes just one parameter:
 Used to get the number of uploads for the specified bucket.
 
 ```js
-const { total, successful, failed, pending } =
-  await client.getBucketUploadCount(bucketId);
+const count: number = await client.getBucketUploadCount(bucketId);
 ```
 
 Function `getBucketUploadCount` takes just one parameter:
 
 - **bucketId** - (string) - The id of the bucket.
 
-**Response**
-
-```js
-interface BucketRes {
-  count: number;
-}
-```
+````
 
 > Changes, here we only return the total number
 
@@ -491,7 +488,7 @@ Used to get the uploads of the bucket. The default value for the `skip` is 0. Th
 
 ```js
 const bucketUploads: Upload[] = await client.getBucketUploads(bucketId, { skip: number; limit: number; });
-```
+````
 
 Function `getBucketUploads` takes two parameters:
 
@@ -796,7 +793,7 @@ interface IpnsRecord {
   id: string;
   ipnsHash: string;
   ipnsLink: string;
-  publishedUploadId: string;
+  memoryUsed: number;
   bucketId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -828,7 +825,7 @@ interface IpnsRecord {
   id: string;
   ipnsHash: string;
   ipnsLink: string;
-  publishedUploadId: string;
+  memoryUsed: number;
   bucketId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -860,7 +857,7 @@ interface IpnsRecord {
   id: string;
   ipnsHash: string;
   ipnsLink: string;
-  publishedUploadId: string;
+  memoryUsed: number;
   bucketId: string;
   createdAt: Date;
   updatedAt: Date;
@@ -894,7 +891,7 @@ interface IpnsRecord {
   id: string;
   ipnsHash: string;
   ipnsLink: string;
-  publishedUploadId: string;
+  memoryUsed: number;
   bucketId: string;
   createdAt: Date;
   updatedAt: Date;
