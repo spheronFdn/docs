@@ -16,97 +16,6 @@ New Methods:
 
 The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
 
-### Organization
-
-#### Migrate Buckets From Web Organization
-
-Used to migrate the Buckets and their Uploads from Web App organization to Storage organization.
-
-From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage organization. Using this method you can migrate the Buckets and Uploads you have used before.
-Executing the migration will move the following data from webapp to storage organization:
-
-- Buckets
-- Uploads
-- Domains
-- IPNS Records
-
-<Callout type="info">
-  **NOTE:** Important: After you migrate the data it is not possible to revert
-  it.
-</Callout>
-
-```js
-const { numberOfBuckets, numberOfUploads } =
-  await client.migrateWebAppOrgToStorage(
-    storageOrganizationId,
-    webAppOrganizationId
-  );
-```
-
-Function `migrateWebAppOrgToStorage` takes two parameter:
-
-- **storageOrganizationId** - (string) - The id of the storage organization to which the data will be moved. The token for this organization should be used when initializing the SpheronClient.
-- **webAppOrganizationId** - (string) - The id of the webapp organization from the the data will be moved
-
-**Response**
-
-```js
-interface MigrationResponse {
-  numberOfBuckets: number; // the number of buckets that were migrated
-  numberOfUploads: number; // the number of uploads that were migrated
-}
-```
-
-#### Get Organization Usage
-
-Used to get the usage of the current active subscription of the organization.
-
-```js
-const organization: UsageWithLimits = await client.getOrganizationUsage(
-  organizationId
-);
-```
-
-Function `getOrganizationUsage` takes just one parameter:
-
-- **organizationId** - (string) - The id of the organization.
-
-**Response**
-
-```js
-interface UsageWithLimits {
-  used: {
-    bandwidth: number, // the bytes of bandwidth used for the current subscription
-    storageArweave: number, // the bytes of used Arweave storage for the current subscription
-    storageIPFS: number, // the bytes of used IPFS storage
-    storageFilecoin: number, // the bytes of used Filecoin
-    domains: number, // the number of domains and subdomain an organization has
-    hnsDomains: number, // the number of hns domains and hns subdomain an organization has
-    ensDomains: number, // the number of ens domains an organization has
-    numberOfRequests: number, // the number of requests the organization has had till now
-    parallelUploads: number, // the number of uploads are in progress for an organization
-    imageOptimization: number, // the number of optimized images organization has had till now
-    ipfsBandwidth: number, // the bytes of IPFS bandwidth used for the current subscription
-    ipfsNumberOfRequests: // the number of IPFS requests the organization has had till now
-  };
-  limit: {
-    bandwidth: number, // the bandwidth limit for the current subscription
-    storageArweave: number, // the limit in bytes for the Arweave storage for the current subscription
-    storageIPFS: number, // the limit in bytes for the IPFS and Filecoin storage for the current subscription
-    domains: number, // the limit on how many domains and subdomains can a organization have
-    hnsDomains: number, // the limit on how many hns domains and hns subdomain can a organization have
-    ensDomains: number, // the limit on how many ens domains a organization have
-    parallelUploads: number, // the number on how many parallel uploads an organization can have
-    imageOptimization: number, // the limit on how many optimized images can an organization have
-    ipfsBandwidth: number; // the IPFS bandwidth limit for the current subscription
-  };
-}
-```
-
-> Changes, there are a couple of new properties, storageFilecoin, hns and ens domains ( not sure why they were missing) and optimized images
-
----
-
 ### Upload
 
 #### Upload
@@ -379,6 +288,240 @@ interface Upload {
 
 ---
 
+### Organization
+
+#### Migrate Buckets From Static Site Organization
+
+Used to migrate the Buckets and their Uploads from Static Site organization to Storage organization.
+
+From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage organization. Using this method you can migrate the Buckets and Uploads you have used before.
+Executing the migration will move the following data from webapp to storage organization:
+
+- Buckets
+- Uploads
+- Domains
+- IPNS Records
+
+<Callout type="info">
+  **NOTE:** Important: After you migrate the data it is not possible to revert
+  it.
+</Callout>
+
+```js
+const { numberOfBuckets, numberOfUploads } =
+  await client.migrateWebAppOrgToStorage(
+    storageOrganizationId,
+    webAppOrganizationId
+  );
+```
+
+Function `migrateWebAppOrgToStorage` takes two parameter:
+
+- **storageOrganizationId** - (string) - The id of the storage organization to which the data will be moved. The token for this organization should be used when initializing the SpheronClient.
+- **webAppOrganizationId** - (string) - The id of the webapp organization from the the data will be moved
+
+**Response**
+
+```js
+interface MigrationResponse {
+  numberOfBuckets: number; // the number of buckets that were migrated
+  numberOfUploads: number; // the number of uploads that were migrated
+}
+```
+
+#### Get Organization Usage
+
+Used to get the usage of the current active subscription of the organization.
+
+```js
+const organization: UsageWithLimits = await client.getOrganizationUsage(
+  organizationId
+);
+```
+
+Function `getOrganizationUsage` takes just one parameter:
+
+- **organizationId** - (string) - The id of the organization.
+
+**Response**
+
+```js
+interface UsageWithLimits {
+  used: {
+    bandwidth: number, // the bytes of bandwidth used for the current subscription
+    storageArweave: number, // the bytes of used Arweave storage for the current subscription
+    storageIPFS: number, // the bytes of used IPFS storage
+    storageFilecoin: number, // the bytes of used Filecoin
+    domains: number, // the number of domains and subdomain an organization has
+    hnsDomains: number, // the number of hns domains and hns subdomain an organization has
+    ensDomains: number, // the number of ens domains an organization has
+    numberOfRequests: number, // the number of requests the organization has had till now
+    parallelUploads: number, // the number of uploads are in progress for an organization
+    imageOptimization: number, // the number of optimized images organization has had till now
+    ipfsBandwidth: number, // the bytes of IPFS bandwidth used for the current subscription
+    ipfsNumberOfRequests: // the number of IPFS requests the organization has had till now
+  };
+  limit: {
+    bandwidth: number, // the bandwidth limit for the current subscription
+    storageArweave: number, // the limit in bytes for the Arweave storage for the current subscription
+    storageIPFS: number, // the limit in bytes for the IPFS and Filecoin storage for the current subscription
+    domains: number, // the limit on how many domains and subdomains can a organization have
+    hnsDomains: number, // the limit on how many hns domains and hns subdomain can a organization have
+    ensDomains: number, // the limit on how many ens domains a organization have
+    parallelUploads: number, // the number on how many parallel uploads an organization can have
+    imageOptimization: number, // the limit on how many optimized images can an organization have
+    ipfsBandwidth: number; // the IPFS bandwidth limit for the current subscription
+  };
+}
+```
+
+> Changes, there are a couple of new properties, storageFilecoin, hns and ens domains ( not sure why they were missing) and optimized images
+
+---
+
+### Ipns Records
+
+#### Get Ipns records
+
+Used to get the Ipns records that were published for the provided `bucketId`.
+
+```js
+const ipnsRecords: IpnsRecord[] = await client.getBucketIpnsRecords(bucketId);
+```
+
+Function `getBucketIpnsRecords` takes just one parameter:
+
+- **bucketId** - (string) - The id of the bucket.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  memoryUsed: number;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Get Ipns Record
+
+Used to get the information about the specific Ipns record.
+
+```js
+const ipnsRecord: IpnsRecord = await client.getBucketIpnsRecord(
+  bucketId,
+  ipnsRecordId
+);
+```
+
+Function `getBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  memoryUsed: number;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Add Ipns record
+
+Used to publish a new Ipns record.
+
+```js
+const ipnsRecord: IpnsRecord = await client.addBucketIpnsRecord(
+  bucketId,
+  uploadId
+);
+```
+
+Function `addBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  memoryUsed: number;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Update Ipns Record
+
+Used to update an existing Ipns record of the Bucket.
+
+```js
+const ipnsRecord: IpnsRecord = await client.updateBucketIpnsRecord(
+  bucketId,
+  ipnsRecordId,
+  uploadId
+);
+```
+
+Function `updateBucketIpnsRecord` takes three parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+
+**Response**
+
+```js
+interface IpnsRecord {
+  id: string;
+  ipnsHash: string;
+  ipnsLink: string;
+  memoryUsed: number;
+  bucketId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+```
+
+---
+
+#### Delete Ipns Record
+
+Used to delete the Ipns Record of the Bucket.
+
+```js
+await client.deleteBucketIpnsRecord(bucketId, ipnsRecordId);
+```
+
+Function `deleteBucketIpnsRecord` takes two parameters:
+
+- **bucketId** - (string) - The id of the bucket.
+- **ipnsRecordId** - (string) - The id of the ipns record.
+
+---
+
 ### Bucket
 
 #### Get Buckets
@@ -515,8 +658,6 @@ Function `getBucketUploadCount` takes just one parameter:
 
 - **bucketId** - (string) - The id of the bucket.
 
-````
-
 > Changes, here we only return the total number
 
 ---
@@ -527,7 +668,7 @@ Used to get the uploads of the bucket. The default value for the `skip` is 0. Th
 
 ```js
 const bucketUploads: Upload[] = await client.getBucketUploads(bucketId, { skip: number; limit: number; });
-````
+```
 
 Function `getBucketUploads` takes two parameters:
 
@@ -808,149 +949,6 @@ Function `getCdnDnsRecords` doesn't take any parameters.
 
 - **cdnARecords** - (string) - will contain the DNS value that should be used for domains.
 - **cdnCnameRecords** - (string) - will contain the DNS value that should be used for subdomains.
-
----
-
-### Bucket Ipns Records
-
-#### Get Bucket Ipns records
-
-Used to get the Ipns records that were published for the provided `bucketId`.
-
-```js
-const ipnsRecords: IpnsRecord[] = await client.getBucketIpnsRecords(bucketId);
-```
-
-Function `getBucketIpnsRecords` takes just one parameter:
-
-- **bucketId** - (string) - The id of the bucket.
-
-**Response**
-
-```js
-interface IpnsRecord {
-  id: string;
-  ipnsHash: string;
-  ipnsLink: string;
-  memoryUsed: number;
-  bucketId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
----
-
-#### Get Bucket Ipns Record
-
-Used to get the information about the specific Ipns record.
-
-```js
-const ipnsRecord: IpnsRecord = await client.getBucketIpnsRecord(
-  bucketId,
-  ipnsRecordId
-);
-```
-
-Function `getBucketIpnsRecord` takes two parameters:
-
-- **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
-
-**Response**
-
-```js
-interface IpnsRecord {
-  id: string;
-  ipnsHash: string;
-  ipnsLink: string;
-  memoryUsed: number;
-  bucketId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
----
-
-#### Add Bucket Ipns record
-
-Used to publish a new Ipns record.
-
-```js
-const ipnsRecord: IpnsRecord = await client.addBucketIpnsRecord(
-  bucketId,
-  uploadId
-);
-```
-
-Function `addBucketIpnsRecord` takes two parameters:
-
-- **bucketId** - (string) - The id of the bucket.
-- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
-
-**Response**
-
-```js
-interface IpnsRecord {
-  id: string;
-  ipnsHash: string;
-  ipnsLink: string;
-  memoryUsed: number;
-  bucketId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
----
-
-#### Update Bucket Ipns Record
-
-Used to update an existing Ipns record of the Bucket.
-
-```js
-const ipnsRecord: IpnsRecord = await client.updateBucketIpnsRecord(
-  bucketId,
-  ipnsRecordId,
-  uploadId
-);
-```
-
-Function `updateBucketIpnsRecord` takes three parameters:
-
-- **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
-- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
-
-**Response**
-
-```js
-interface IpnsRecord {
-  id: string;
-  ipnsHash: string;
-  ipnsLink: string;
-  memoryUsed: number;
-  bucketId: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-```
-
----
-
-#### Delete Bucket Ipns Record
-
-Used to delete the Ipns Record of the Bucket.
-
-```js
-await client.deleteBucketIpnsRecord(bucketId, ipnsRecordId);
-```
-
-Function `deleteBucketIpnsRecord` takes two parameters:
-
-- **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
 
 ---
 
