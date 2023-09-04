@@ -3,6 +3,19 @@ import Navigation from "components/navigation";
 
 # Storage SDK
 
+<Callout type="info">
+  This is the documentation for `@spheron/storage` SDK versions `>=2.0.0`. 
+  
+  The `@spheron/storage` SDK `>=2.0.0` requires a token for a Storage organization, and all the usages are bound to the provided organization.
+  
+  If you have been using the SDK `<2.0.0` versions with the Static Site organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
+
+- To migrate the buckets of your Static Site organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation.
+
+- By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
+
+</Callout>
+
 ## Available Methods
 
 ```
@@ -12,6 +25,8 @@ getBucket, getBucketUploadCount, getBucketUploads, getOrganizationUsage, getUplo
 New Methods:
 - getOrganizationBuckets
 - getOrganizationBucketCount
+- migrateStaticSiteOrgToStorage
+
 ```
 
 The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
@@ -295,7 +310,7 @@ interface Upload {
 Used to migrate the Buckets and their Uploads from Static Site organization to Storage organization.
 
 From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage organization. Using this method you can migrate the Buckets and Uploads you have used before.
-Executing the migration will move the following data from webapp to storage organization:
+Executing the migration will move the following data from static site to storage organization:
 
 - Buckets
 - Uploads
@@ -309,16 +324,16 @@ Executing the migration will move the following data from webapp to storage orga
 
 ```js
 const { numberOfBuckets, numberOfUploads } =
-  await client.migrateWebAppOrgToStorage(
+  await client.migrateStaticSiteOrgToStorage(
     storageOrganizationId,
-    webAppOrganizationId
+    staticSiteOrganizationId
   );
 ```
 
-Function `migrateWebAppOrgToStorage` takes two parameter:
+Function `migrateStaticSiteOrgToStorage` takes two parameter:
 
 - **storageOrganizationId** - (string) - The id of the storage organization to which the data will be moved. The token for this organization should be used when initializing the SpheronClient.
-- **webAppOrganizationId** - (string) - The id of the webapp organization from the the data will be moved
+- **staticSiteOrganizationId** - (string) - The id of the webapp organization from the the data will be moved
 
 **Response**
 
