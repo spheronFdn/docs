@@ -8,14 +8,19 @@ import Navigation from "components/navigation";
   
   The `@spheron/storage` SDK `<2.0.0` require a token for a Web App organization, and all the usages are bound to the provided organization.
     
-  Web App organizations that are created after the release of version `2.0.0` will not work with the storage SDK versions `<2.0.0`.
+  Web App organizations that are created after the release of version `2.0.0` will not work with any version of the storage SDK.
 
 If you are using a Web App organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
 
-- To migrate the buckets of your Web App organization to your new Storage organization, please refer to the [migrateWebAppOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation.
+- To migrate the buckets of your Web App organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation. By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
 
-- By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
+- In the following [section](/sdk/storage-v2/#changes-between-200-and-200) you can checkout the changes between `<2.0.0` and `>=2.0.0`.
 
+</Callout>
+
+<Callout type="warning">
+  The support to create buckets and uploads using Static Site organization will
+  be deprecated on 1st of December.
 </Callout>
 
 The Spheron Storage SDK is equipped with multi-chain storage capabilities powered by Spheron.

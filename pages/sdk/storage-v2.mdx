@@ -10,24 +10,50 @@ import Navigation from "components/navigation";
   
   If you have been using the SDK `<2.0.0` versions with the Static Site organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
 
-- To migrate the buckets of your Static Site organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation.
+- To migrate the buckets of your Static Site organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation. By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
 
-- By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
+- In the following [section](/sdk/storage-v2/#changes-between-200-and-200) you can checkout the changes between `<2.0.0` and `>=2.0.0`.
 
 </Callout>
 
-## Available Methods
+The Spheron Storage SDK is equipped with multi-chain storage capabilities powered by Spheron.
+
+<Callout type="warning">
+  The package is only meant for Node.js environments and will not work in a
+  browser or frontend apps.
+</Callout>
+
+## Installation
+
+**Using NPM**
 
 ```
-CHANGED FUNCTIONS:
-getBucket, getBucketUploadCount, getBucketUploads, getOrganizationUsage, getUpload, all the ipns ones
+npm i @spheron/storage
+```
 
-New Methods:
-- getOrganizationBuckets
-- getOrganizationBucketCount
-- migrateStaticSiteOrgToStorage
+**Using Yarn**
 
 ```
+yarn add @spheron/storage
+```
+
+## Usage
+
+To use the Spheron Storage SDK, you have to create an instance of `SpheronClient`.
+
+```js
+import { SpheronClient, ProtocolEnum } from "@spheron/storage";
+
+const client = new SpheronClient({ token });
+```
+
+The `SpheronClient` constructor takes an object that has one property `token`.
+Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
+
+<Callout type="info">
+  **NOTE:** When you are creating the tokens, please choose **Storage** type in
+  the dashboard.
+</Callout>
 
 The `SpheronClient` instance provides several methods for working with buckets. Here's the list of all the supported methods.
 
@@ -299,8 +325,6 @@ interface Upload {
 }
 ```
 
-> The responses interface changes a bit, the uploadDirectory is an object
-
 ---
 
 ### Organization
@@ -309,15 +333,23 @@ interface Upload {
 
 Used to migrate the Buckets and their Uploads from Static Site organization to Storage organization.
 
-From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage organization. Using this method you can migrate the Buckets and Uploads you have used before.
-Executing the migration will move the following data from static site to storage organization:
+<Callout type="info">
+  **NOTE:** Important: To execute the migration you need to use the token of the
+  Storage organization, and you need to be the owner of both the Storage and the
+  Static Site organizations. it.
+</Callout>
+
+From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage
+organization. Using this method you can migrate the Buckets and Uploads you have
+used before. Executing the migration will move the following data from static site
+to storage organization:
 
 - Buckets
 - Uploads
 - Domains
 - IPNS Records
 
-<Callout type="info">
+<Callout type="warning">
   **NOTE:** Important: After you migrate the data it is not possible to revert
   it.
 </Callout>
@@ -343,6 +375,8 @@ interface MigrationResponse {
   numberOfUploads: number; // the number of uploads that were migrated
 }
 ```
+
+---
 
 #### Get Organization Usage
 
@@ -389,8 +423,6 @@ interface UsageWithLimits {
   };
 }
 ```
-
-> Changes, there are a couple of new properties, storageFilecoin, hns and ens domains ( not sure why they were missing) and optimized images
 
 ---
 
@@ -629,8 +661,6 @@ interface Bucket {
 }
 ```
 
-> Difference is no domains here, user can use the method to get domains
-
 ---
 
 #### Archive Bucket
@@ -672,8 +702,6 @@ const count: number = await client.getBucketUploadCount(bucketId);
 Function `getBucketUploadCount` takes just one parameter:
 
 - **bucketId** - (string) - The id of the bucket.
-
-> Changes, here we only return the total number
 
 ---
 
@@ -719,16 +747,9 @@ interface Upload {
 }
 ```
 
-> The status changed, and the uploadDirectory structure
-
 ---
 
 ### Bucket Domains
-
-<Callout type="info">
-  **NOTE:** Domains need to be enabled for the organization before you can use
-  them. Contact us at discord to enable them.
-</Callout>
 
 #### Get Bucket Domains
 
@@ -1013,6 +1034,31 @@ console.log("CID V1", v1);
 
 const v0 = ipfs.utils.toV0(cid);
 console.log("CID V0", v0);
+
+```
+
+## Changes between `<2.0.0` and `>=2.0.0`
+
+<Callout type="info">
+  
+  This section describes the changes between between `<2.0.0` and `>=2.0.0` versions of the `@spheron/storage` sdk.
+
+</Callout>
+
+- The versions `<2.0.0` require a token for Static Site organization. Version starting from `2.0.0` require a token for Storage organization.
+- Changes in methods and interfaces:
+  - [getUpload](/sdk/storage-v2/#get-upload) - The `Upload` interface has changed. `buildDirectory` property is renamed to `uploadDirectory`, and now it is an array of with both the name and the size of the uploaded files. The `UploadStatusEnum` has also changed.
+  - [getOrganizationUsage](/sdk/storage-v2/#get-organization-usage) - New properties have been added.
+  - [getBucket](/sdk/storage-v2/#get-bucket) - The `Bucket` interface does not include the domains anymore. To fetch the domains of the bucket you can use the [getBucketDomains](/sdk/storage-v2/#get-bucket-domains) method.
+  - [getBucketUploadCount](/sdk/storage/#get-bucket-upload-count) - The method now only returns the total number of uploads.
+  - [getBucketUploads](/sdk/storage/#get-bucket-upload-count) - The `Upload` interface has changed. `buildDirectory` property is renamed to `uploadDirectory`, and now it is an array of with both the name and the size of the uploaded files. The `UploadStatusEnum` has also changed.
+  - IPNS Records are now grouped on the bucket level. Checkout the [section](/sdk/storage-v2/#ipns-records) for more details.
+
+## Available Methods
+
+```
+
+-
 
 <Navigation name="Storage SDK V2" />
 ```
