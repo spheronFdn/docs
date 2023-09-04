@@ -2,7 +2,7 @@
   "cluster": "Cluster",
   "instance": "Instance",
   "usage": "Usage",
-  "scaling": "Scaling",
+  "type": "Type",
   "github-actions": {
     "title": "Github Actions",
     "href": "/github-actions"

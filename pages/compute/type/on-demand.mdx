@@ -1,15 +1,15 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Manual Scaling
+# On Demand
 
-Spheron offers Manual Scaling to adjust the computational resources allocated to an instance. Users can make decisions
+Spheron offers On Demand compute type to adjust the computational resources allocated to an instance. Users can make decisions
 to increase or decrease the allocated resources, such as CPU, memory, or storage, to meet changing performance requirements.
 This type of scaling provides users with direct control over resource adjustments, allowing for optimization based
 on specific workload characteristics and immediate operational needs.
 
 <Callout type="warning">
-  The Manual Scaling feature is currently in its closed alpha stage. Potential
+  The On Demand type is currently in its closed alpha stage. Potential
   irregularities may lead to brief service downtimes. We recommend utilizing
   this feature exclusively in testing or development environments until its
   official release for optimal stability. If you're interested in obtaining
@@ -20,19 +20,19 @@ on specific workload characteristics and immediate operational needs.
 
 ## Get Alpha Access
 
-[Please schedule a team call](https://meetings.hubspot.com/prashant-maurya/scaling-demo) to gain early access to Manual Scaling.
+[Please schedule a team call](https://meetings.hubspot.com/prashant-maurya/scaling-demo) to gain early access to On Demand Type.
 
-## How to use Manual Scaling?
+## How to use On Demand Type?
 
 ### With Docker
 
-To use manual scaling with a custom Docker image on Spheron:
+To use On Demand type with a custom Docker image on Spheron:
 
 1. Click "New Cluster" on the top right corner.
 2. Select **Import from Docker Hub**.
 3. Enter the names for your cluster and docker image.
 4. Then, Add the tag and Click "Next".
-5. Select "Manual Scaling" under Scaling.
+5. Select "On Demand" under **Compute Type**.
 6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in the **eu-east** region. [Click here](/compute/cluster/#region) to know more.
 7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
@@ -45,12 +45,12 @@ To use manual scaling with a custom Docker image on Spheron:
 
 ### With Marketplace App
 
-To use manual scaling with a marketplace app on Spheron:
+To use On Demand type with a marketplace app on Spheron:
 
 1. Click "New Cluster" on the top right corner.
 2. Select **Start from marketplace app**.
 3. Pick your desired template from the marketplace.
-4. Select "Manual Scaling" under **Scaling**.
+4. Select "On Demand" under **Compute Type**.
 5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in the **eu-east** region. [Click here](/compute/cluster/#region) to know more.
 6. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 7. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
@@ -70,9 +70,9 @@ To update the configuration of your instance:
 
 ## Limitations
 
-- **Human Intervention:** Manual scaling requires human intervention, which can lead to delays in responding to changing workloads.
-- **Scalability:** Manual scaling might not be efficient for systems that need to handle varying workloads. It can be challenging to predict the exact resource requirements for different levels of demand, which can result in under-provisioning or over-provisioning of resources.
-- **Downtime and Disruption:** Scaling resources manually can lead to downtime or disruption in service. Adjusting resources may require stopping or restarting parts of the system, leading to potential service interruptions for users.
+- **Human Intervention:** On Demand requires human intervention, which can lead to delays in responding to changing workloads.
+- **Scalability:** On Demand might not be efficient for systems that need to handle varying workloads. It can be challenging to predict the exact resource requirements for different levels of demand, which can result in under-provisioning or over-provisioning of resources.
+- **Downtime and Disruption:** On Demand resources manually can lead to downtime or disruption in service. Adjusting resources may require stopping or restarting parts of the system, leading to potential service interruptions for users.
 - **Complexity:** As the system grows, the complexity of manually managing resources increases. In large and distributed environments, keeping track of resource allocation and utilization becomes more challenging, resulting in poor performance and user dissatisfaction.
 
-<Navigation name="Manual Scaling" />
+<Navigation name="On Demand" />
