@@ -6,13 +6,13 @@ import Navigation from "components/navigation";
 <Callout type="info">
   This is the documentation for `@spheron/storage` SDK versions `<2.0.0`. 
   
-  The `@spheron/storage` SDK `<2.0.0` require a token for a Web App organization, and all the usages are bound to the provided organization.
+  The `@spheron/storage` SDK `<2.0.0` require a token for a Static Site organization, and all the usages are bound to the provided organization.
     
-  Web App organizations that are created after the release of version `2.0.0` will not work with any version of the storage SDK.
+  Static Site organizations that are created after the release of version `2.0.0` will not work with any version of the storage SDK.
 
-If you are using a Web App organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
+If you are using a Static Site organization and wish to migrate your existing buckets to a new Storage organization to take advantage of the latest features and improvements, we have provided a convenient method for this purpose.
 
-- To migrate the buckets of your Web App organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation. By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
+- To migrate the buckets of your Static Site organization to your new Storage organization, please refer to the [migrateStaticSiteOrgToStorage](/sdk/storage-v2/#migrate-buckets-from-static-site-organization) method in our documentation. By following the migration process, you can seamlessly transition to the latest version of the SDK and leverage the enhanced features it offers while maintaining your existing data.
 
 - In the following [section](/sdk/storage-v2/#changes-between-200-and-200) you can checkout the changes between `<2.0.0` and `>=2.0.0`.
 
@@ -58,8 +58,8 @@ The `SpheronClient` constructor takes an object that has one property `token`.
 Follow the instructions in the [DOCS](https://docs.spheron.network/rest-api/#creating-an-access-token) to generate this token.
 
 <Callout type="info">
-  **NOTE:** When you are creating the tokens, please choose **web app** type in
-  the dashboard.
+  **NOTE:** When you are creating the tokens, please choose **static site** type
+  in the dashboard.
 </Callout>
 
 ## Available Methods
