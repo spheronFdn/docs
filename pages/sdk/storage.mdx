@@ -232,6 +232,32 @@ Function `decryptUpload` parameters:
 
 ---
 
+### Create Single Upload Token
+
+Used to create a token that can be used to upload data directly from browser, using the [@spheron/browser-upload](https://www.npmjs.com/package/@spheron/browser-upload) package. Checkout the browser-upload [docs](/sdk/browser/) for more information.
+
+```js
+const { uploadToken } = await client.createSingleUploadToken({
+  name: bucketName,
+  protocol,
+});
+```
+
+Function `createSingleUploadToken` takes two parameters:
+
+- **name** - (string) - Represents the name of the bucket on which you are uploading the data.
+- **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+
+**Response**
+
+```js
+interface TokenRes {
+  uploadToken: string;
+}
+```
+
+---
+
 ### Pin A CID on IPFS
 
 Used to pin a CID on Spheron IPFS dedicated node
