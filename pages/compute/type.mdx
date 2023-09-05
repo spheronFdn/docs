@@ -1,29 +1,29 @@
-import Scaling from "components/scaling";
+import Type from "components/type";
 import Navigation from "components/navigation";
 
 # Compute Type
 
-## What is compute scaling?
+## What is Compute Type?
 
-Compute Scaling is the ability to adjust the computational resources allocated to an instance,
+Compute Type is the ability to adjust the computational resources allocated to an instance,
 aiming to optimize performance and resource utilization.
 
-We offer the following three types of scaling:
+We offer the following three compute types:
 
-<Scaling />
+<Type />
 
-## No Scaling
+## Spot
 
 ### Pros
 
-- Setting up an instance with no scaling is straightforward and doesn't involve complex configurations.
+- Setting up an instance with spot is straightforward and doesn't involve complex configurations.
 - Decentralized deployment of resources occurs across a diverse set of Akash providers, and is not just limited to our own providers.
 
 ### Cons
 
 - Handling unexpected spikes in traffic can be problematic as there is no mechanism to handle the increased load.
 
-## Manual Scaling
+## On Demand
 
 ### Pros
 
@@ -34,10 +34,10 @@ We offer the following three types of scaling:
 
 - Requires user intervention to scale resources. It does not adapt automatically based on demand fluctuations.
 
-## Auto Scaling
+## Autoscale
 
 ### Pros
 
 - Enables the instance to automatically adjust resources based on demand fluctuations, ensuring optimal performance and efficient resource utilization.
 
-<Navigation name="Compute Scaling" />
+<Navigation name="Compute Type" />

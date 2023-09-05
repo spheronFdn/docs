@@ -1,32 +1,32 @@
 import QuickStartCard, { IQuickStartCard } from "./quick-start-card";
 import styles from "../styles/quick.module.css";
 
-const SCALING_LIST = [
+const TYPE_LIST = [
   {
-    path: "/compute/scaling/no-scaling",
+    path: "/compute/type/spot",
     emoji: "😢",
-    title: "No Scaling",
+    title: "Spot",
     body: "Easy instance setup.",
   },
   {
-    path: "/compute/scaling/manual-scaling",
+    path: "/compute/type/on-demand",
     emoji: "🚀",
-    title: "Manual Scaling",
+    title: "On Demand",
     body: "Manually allocate resources.",
   },
   {
-    path: "/compute/scaling/auto-scaling",
+    path: "/compute/type/autoscale",
     emoji: "🤖",
-    title: "Auto Scaling",
+    title: "Autoscale",
     body: "Automatic adjustments based on demand.",
   },
 ];
 
-const Scaling = () => {
+const Type = () => {
   return (
     <main>
       <section className={styles.section}>
-        {SCALING_LIST.map((item: IQuickStartCard, index) => (
+        {TYPE_LIST.map((item: IQuickStartCard, index) => (
           <QuickStartCard
             key={index}
             path={item.path}
@@ -40,4 +40,4 @@ const Scaling = () => {
   );
 };
 
-export default Scaling;
+export default Type;
