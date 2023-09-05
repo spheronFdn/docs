@@ -452,11 +452,11 @@ interface UsageWithLimits {
 
 ---
 
-### Ipns Records
+### IPNS Records
 
-#### Get Ipns records
+#### Get all IPNS records from Bucket
 
-Used to get the Ipns records that were published for the provided `bucketId`.
+Used to get the IPNS records that were published for the provided `bucketId`.
 
 ```js
 const ipnsRecords: IpnsRecord[] = await client.getBucketIpnsRecords(bucketId);
@@ -482,9 +482,9 @@ interface IpnsRecord {
 
 ---
 
-#### Get Ipns Record
+#### Get IPNS Record
 
-Used to get the information about the specific Ipns record.
+Used to get the information about the specific IPNS record.
 
 ```js
 const ipnsRecord: IpnsRecord = await client.getBucketIpnsRecord(
@@ -496,7 +496,7 @@ const ipnsRecord: IpnsRecord = await client.getBucketIpnsRecord(
 Function `getBucketIpnsRecord` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
+- **ipnsRecordId** - (string) - The id of the IPNS record.
 
 **Response**
 
@@ -514,9 +514,9 @@ interface IpnsRecord {
 
 ---
 
-#### Add Ipns record
+#### Add IPNS record
 
-Used to publish a new Ipns record.
+Used to publish a new IPNS record.
 
 ```js
 const ipnsRecord: IpnsRecord = await client.addBucketIpnsRecord(
@@ -528,7 +528,7 @@ const ipnsRecord: IpnsRecord = await client.addBucketIpnsRecord(
 Function `addBucketIpnsRecord` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+- **uploadId** - (string) - The id of the upload to which the IPNS record should point to.
 
 **Response**
 
@@ -546,9 +546,9 @@ interface IpnsRecord {
 
 ---
 
-#### Update Ipns Record
+#### Update IPNS Record
 
-Used to update an existing Ipns record of the Bucket.
+Used to update an existing IPNS record of the Bucket.
 
 ```js
 const ipnsRecord: IpnsRecord = await client.updateBucketIpnsRecord(
@@ -561,8 +561,8 @@ const ipnsRecord: IpnsRecord = await client.updateBucketIpnsRecord(
 Function `updateBucketIpnsRecord` takes three parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
-- **uploadId** - (string) - The id of the upload to which the ipns record should point to.
+- **ipnsRecordId** - (string) - The id of the IPNS record.
+- **uploadId** - (string) - The id of the upload to which the IPNS record should point to.
 
 **Response**
 
@@ -580,9 +580,9 @@ interface IpnsRecord {
 
 ---
 
-#### Delete Ipns Record
+#### Delete IPNS Record
 
-Used to delete the Ipns Record of the Bucket.
+Used to delete the IPNS Record of the Bucket.
 
 ```js
 await client.deleteBucketIpnsRecord(bucketId, ipnsRecordId);
@@ -591,7 +591,7 @@ await client.deleteBucketIpnsRecord(bucketId, ipnsRecordId);
 Function `deleteBucketIpnsRecord` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **ipnsRecordId** - (string) - The id of the ipns record.
+- **ipnsRecordId** - (string) - The id of the IPNS record.
 
 ---
 
