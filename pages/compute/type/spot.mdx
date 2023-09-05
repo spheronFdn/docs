@@ -1,17 +1,26 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Spot
+# Spot Compute
 
-Spheron offers Spot compute type in which the allocation of computational resources remains static and fixed.
+Spheron offers Spot compute in which the allocation of computational resources remains static and fixed.
 In this configuration, resource allocation remains unchanged irrespective of workload fluctuations or application demands.
 This approach is straightforward and doesn't involve complex configurations.
 
-## How to use Spot?
+<Callout type="warning">
+  The Spot compute is not covered under the Spheron SLA agreement since we do
+  not directly control the providers for Spot compute; it is currently
+  maintained by the Akash network. We do not guarantee continuous uptime for
+  these providers. While downtime is not a common occurrence, it can happen. We
+  advise against deploying production applications or storing sensitive data or
+  keys on Spot compute. For production needs, please use On Demand compute.
+</Callout>
+
+## How to use Spot Compute?
 
 ### With Docker
 
-To use Spot with a custom Docker image on Spheron:
+To use Spot compute with a custom Docker image on Spheron:
 
 1. Click "New Cluster" on the top right corner.
 2. Select **Import from Docker Hub**.
@@ -30,7 +39,7 @@ To use Spot with a custom Docker image on Spheron:
 
 ### With Marketplace App
 
-To use Spot with a marketplace app on Spheron:
+To use Spot compute with a marketplace app on Spheron:
 
 1. Click "New Cluster" on the top right corner.
 2. Select **Start from marketplace app**.
