@@ -7,8 +7,7 @@ import Navigation from "components/navigation";
 
 <Callout type="warning">
   Before running the **docker build** command, run this command in your
-  terminal: \
-  `export DOCKER_DEFAULT_PLATFORM=linux/amd64`.
+  terminal: <br /> `export DOCKER_DEFAULT_PLATFORM=linux/amd64`.
 </Callout>
 
 Spheron allows you to create a new cluster with a custom docker image.
@@ -18,19 +17,50 @@ To create a cluster:
 2. Select **Import from Docker Hub**.
 3. Enter the names for your cluster and docker image.
 4. Then, Add the tag and Click "Next."
-5. Select the instance plan that suits your needs and Click "Select Plan."
-6. Click "Deploy" to initiate deployment without additional configuration.
-
-<Callout>
-  **Troubleshoot:** You can change your plan by clicking "Change Plan" above the
-  selected plan.
-</Callout>
+5. Choose your desired Scaling option under Scaling.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for no scaling, or in the **eu-east** region for manual scaling. [Click here](/compute/cluster/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, Create new Port Policy Mapping and just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Create new Port Policy Mapping. Add the container port, and Select the exposed port you want to map it to. Click here to know more.
+11. Add **Environment Variable**, if any.
+12. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/#environment-variables) to know more.
+13. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+14. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
+15. Click "Deploy" to initiate deployment.
 
 <Callout type="info">
-  **NOTE:** \
-  1\. Spheron supports only public docker images at the moment. \
-  2\. Learn how to dockerize your server and push the docker image to the docker
-  hub [here](https://docs.docker.com/get-started/02_our_app/).
+  **NOTE:** <br /> 1\. Spheron supports only public docker images at the moment.{" "}
+  <br /> 2\. Learn how to dockerize your server and push the docker image to the
+  docker hub [here](https://docs.docker.com/get-started/02_our_app/).
+</Callout>
+
+### Region
+
+Region refers to specific geographic locations where a cloud service provider (CSP) has its data centers and computing resources.
+By choosing a region closer to your users, you can improve performance and reduce latency.
+Spheron offers the following regions for you to choose from:
+
+- us-east
+- us-west
+- us-central
+- eu-west
+- any
+
+<Callout type="info">
+  **NOTE:** It is recommended to select **any** region for **no scaling** to get
+  higher chances of successful deployment as it will deploy on any providers in
+  the network.
+</Callout>
+
+#### Manual Scaling
+
+For Manual Scaling deployments, we only have **eu-east** region live right now.
+
+<Callout type="info">
+  **NOTE:** <br />
+  For no scaling, the region will be set to **any** by default. <br />
+  For manual scaling, the region will be set to **eu-east** by default.
 </Callout>
 
 ### Additional Configuration
@@ -44,8 +74,8 @@ This way, users can access the web server by using its public IP address and the
 
 Port Mapping is required for deployment. To create a new port mapping:
 
-1. Click "New Port Mapping" under **Additional Configuration**.
-2. Add the container port, and Select the exposed port you want to map it to.
+1. Add the container port, and Select the exposed port you want to map it to.
+2. Click "+" beside **Port Policy Mapping** under **Additional Configuration**, to create more mappings.
 
 #### Environment Variables
 
@@ -53,40 +83,25 @@ Spheron allows you to add environment variables while configuring your deploymen
 They contain information such as directory paths or credentials.
 To configure these variables:
 
-1. Click "New Variable" under **Additional Configuration** to add a new environment variable.
-2. Add key and value. Use the **Secret Key** toggle if the value is a secret key.
+1. Click "+" beside **Environment Variable** under **Additional Configuration** to add a new environment variable.
+2. Add key and value.
 
-<Callout type="info">
-  **NOTE:** When you enable the secret key toggle, it will not be saved in the
-  database.
-</Callout>
+#### Secret Environment Variables
 
-#### Region
+Spheron allows you to add secret environment variables while configuring your deployment.
+These variables will not be saved in the database.
+To configure these variables:
 
-Region refers to specific geographic locations where a cloud service provider (CSP) has its data centers and computing resources.
-By choosing a region closer to your users, you can improve performance and reduce latency.
-Spheron offers the following regions for you to choose from:
+1. Click "+" beside **Secret Environment Variable** under **Additional Configuration** to add a new secret environment variable.
+2. Add key and value.
 
-- us-east
-- us-west
-- us-central
-- eu-west
-- any
+#### Advance Configuration
 
-To choose a region, navigate to the **Region** section under **Additional Configuration** and select your preferred region.
-
-<Callout type="info">
-  **NOTE:** Selecting **any** as the region will deploy the container in any
-  region.
-</Callout>
-
-#### Advanced Configuration
-
-Advanced Configurations gives you more flexibility and control over how your Docker container is launched and can help you customize its behavior to meet the specific needs of your application.
+Advance Configurations gives you more flexibility and control over how your Docker container is launched and can help you customize its behavior to meet the specific needs of your application.
 **Commands** and **Arguments** fields in the advanced configuration allow you to specify any additional commands or arguments that should be passed to the Docker container when it is launched. \
 To add Commands and Arguments:
 
-1. Click "Advanced Configuration" under **Additional Configuration** if you want to add advanced configuration.
+1. Click "Advance Configuration" under **Additional Configuration** if you want to add advanced configuration.
 2. Click "New Command" to add a new command.
 3. Click "New Argument" to add a new argument.
 
@@ -105,22 +120,23 @@ Spheron allows you to deploy a compute instance pre-installed with various appli
 To deploy a marketplace app:
 
 1. Click "New Cluster" on the top right corner.
-2. Select **marketplace app**.
+2. Select **Start from Marketplace App**.
 3. Pick your desired template from the marketplace.
-4. Spheron will automatically select the recommended plan for the specific template.
-5. If you want to change the plan, Click "Change Plan."
-6. Select the instance plan that suits your needs, and Click "Select Plan."
-7. Click "Deploy" to initiate deployment without additional configuration.
+4. Choose your desired Scaling option under **Scaling**.
+5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for no scaling, or in the **eu-east** region for manual scaling. [Click here](/compute/cluster/#region) to know more.
+6. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+10. Click "Deploy" to initiate deployment.
 
-### Additional Configuration
-
-#### Region
+### Region
 
 This section is the same as the [region section](/compute/cluster/#region) mentioned above.
 
-#### App Configuration
+### Advance Configuration
 
-App Configuration is applicable to certain apps only and not to all.
+Advance Configuration is applicable to certain apps only and not to all.
 For these specific apps, it is essential to fill in all the necessary configurations.
 That includes adding the **root username** and **root password** under their respective sections.
 

@@ -30,7 +30,13 @@ const SDK_LIST = [
     path: "/sdk/site",
     emoji: "🚧",
     title: "Site SDK",
-    body: "Create flows for your web-app organizations.",
+    body: "Create flows for your static-site organizations.",
+  },
+  {
+    path: "/sdk/fvm-deal-utils",
+    emoji: "💡",
+    title: "FVM Deal Utils SDK",
+    body: "For Node.js based environments",
   },
 ];
 

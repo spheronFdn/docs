@@ -17,8 +17,8 @@ const QUICK_START_LIST = [
   {
     path: "/static/deployment/logs",
     emoji: "🚀",
-    title: "Static App",
-    body: "Deploy static apps from your Git provider.",
+    title: "Static Site",
+    body: "Deploy static sites from your Git provider.",
   },
   {
     path: "/compute/cluster",

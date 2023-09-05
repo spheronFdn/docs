@@ -1,5 +1,14 @@
 {
   "cluster": "Cluster",
   "instance": "Instance",
-  "usage": "Usage"
+  "usage": "Usage",
+  "scaling": "Scaling",
+  "github-actions": {
+    "title": "Github Actions",
+    "href": "/github-actions"
+  },
+  "terraform": {
+    "title": "Spheron Terraform",
+    "href": "/terraform"
+  }
 }

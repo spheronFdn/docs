@@ -1,0 +1,43 @@
+import Scaling from "components/scaling";
+import Navigation from "components/navigation";
+
+# Compute Scaling
+
+## What is compute scaling?
+
+Compute Scaling is the ability to adjust the computational resources allocated to an instance,
+aiming to optimize performance and resource utilization.
+
+We offer the following three types of scaling:
+
+<Scaling />
+
+## No Scaling
+
+### Pros
+
+- Setting up an instance with no scaling is straightforward and doesn't involve complex configurations.
+- Decentralized deployment of resources occurs across a diverse set of Akash providers, and is not just limited to our own providers.
+
+### Cons
+
+- Handling unexpected spikes in traffic can be problematic as there is no mechanism to handle the increased load.
+
+## Manual Scaling
+
+### Pros
+
+- Capability to adjust the allocated resources to align with changing demands.
+- Ability to increase or decrease the number of instance replicas as needed, providing more flexibility in handling varying workloads.
+
+### Cons
+
+- Requires user intervention to scale resources. It does not adapt automatically based on demand fluctuations.
+
+## Auto Scaling
+
+### Pros
+
+- Enables the instance to automatically adjust resources based on demand fluctuations, ensuring optimal performance and efficient resource utilization.
+
+<Navigation name="Compute Scaling" />

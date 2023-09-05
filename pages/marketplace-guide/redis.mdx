@@ -6,22 +6,17 @@ Spheron allows you to deploy a compute instance pre-installed with Redis, all se
 To deploy Redis:
 
 1. Click "New Cluster" on the top right corner.
-2. Select **Select marketplace app**.
+2. Select **Start from Marketplace App**.
 3. Pick **Redis** from the marketplace.
-4. Spheron will automatically select the recommended plan for the specific template.
-5. If you want to change the plan, Click "Change Plan".
-6. Select the instance plan that suits your needs, and Click "Select Plan".
-7. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in any region. [Click here](/compute/cluster/#region) to know more.
-8. Add the **Password** for the Redis instance.
-9. Click "Deploy" to initiate deployment.
+4. Choose your desired Scaling option under **Scaling**.
+5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for no scaling, or in the **eu-east** region for manual scaling. [Click here](/compute/cluster/#region) to know more.
+6. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+10. Click "Deploy" to initiate deployment.
 
-## Advanced Configuration
-
-### Region
-
-Refer to the [region section](/compute/cluster/#region) for more information.
-
-### App Configuration
+## Advance Configuration
 
 - **Password** - The password associated with the Redis database.
 

@@ -1,3 +1,4 @@
+import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
 # Logs & Activity
@@ -26,9 +27,23 @@ Deploy logs generated during the container deployment or updates to the containe
 Deploy logs can be useful for tracking the progress of a deployment, identifying errors or issues that may have occurred during
 the deployment, and verifying that the deployment was successful.
 
+### Shell
+
+Shell offers a simple shell environment allowing users to execute shell commands directly on the selected instance.
+
+#### Limitations
+
+Commands executed within the shell should not exceed a 30-second runtime; otherwise, they will timeout.
+Refer the following guides for running commands in the background: [How to run Linux commands in background](https://linuxize.com/post/how-to-run-linux-commands-in-background/).
+
+<Callout type="info">
+  **NOTE:** Shell is only available for instances that have been successfully
+  provisioned.
+</Callout>
+
 ## Activity
 
-Activity provides all the updates that happen in between deployments. 
+Activity provides all the updates that happen in between deployments.
 The deployment occurs only once, and these updates are only generated when settings are modified.
 This includes updates on the status of a deployment, such as whether it is successful, failed, or is currently in progress.
 

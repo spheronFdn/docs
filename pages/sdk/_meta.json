@@ -3,5 +3,6 @@
   "storage-v2": "Storage SDK V2",
   "browser": "Browser Upload SDK",
   "compute": "Compute SDK",
-  "site": "Site SDK"
+  "site": "Site SDK",
+  "fvm-deal-utils": "FVM Deal Utils SDK"
 }
