@@ -305,7 +305,7 @@ const instanceResponse: InstanceResponse =
     path: "/",
     port: 8000
   },
-  scalable: true
+  type: ComputeTypeEnum.DEMAND
 });
 ```
 
@@ -334,7 +334,9 @@ Params:
   - `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
     - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
     - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
-  - `scalable` (boolean): Manual Scaling state to adjust the computational resources allocated to an instance.
+  - `type` (Enum): The computation type, either 'spot' or 'demand'. 
+    - `ComputeTypeEnum.SPOT`
+    - `ComputeTypeEnum.DEMAND`
 
 Types:    
 
@@ -445,7 +447,18 @@ await spheron.instance.update(
     secretEnvironmentVariables: [{ key: "key", value: "value"}],
     commands: ["executable"],
     args: ["param"],
-    tag: "latest";
+    tag: "latest",
+    storage: 10,
+    persistentStorage: {
+      size: 10
+      class: PersistentStorageClassEnum.HDD
+      mountPoint: "/etc/data"
+    },
+    customSpecs: {
+      cpu: 1;
+      memory: 2;
+    },
+    instanceCount: 2,
   }
 );
 ```
@@ -456,6 +469,15 @@ Params:
 - `commands`  (string[]) - (optional) list of executables for docker CMD command. 
 - `args`  (string[]) - (optional) list of params for docker CMD command. 
 - `tag`  (string[]) - (optional) tag for docker image.
+- `storage` (number) - (optional) size of storage in GB. Must be value between 1 and 1024. This is temporary storage data stored in it is lost when the instance closes.
+- `persistentStorage` (optional)
+  - `size` (number) - size of persistent storage in GB. Must be value between 1 and 1024. 
+  - `class` (PersistentStorageClassEnum) - class of persistant storage (HDD, SSD, NVMe).
+  - `mountPoint` (number) - mount point of persistent storage.
+- `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
+    - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
+    - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
+- `instanceCount` (number) - (optional) - number of instance.
 
 Returns `InstanceResponse` object, indicating instance update has started.
 
