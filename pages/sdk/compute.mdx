@@ -334,10 +334,9 @@ Params:
   - `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
     - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
     - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
-  - `type` (Enum): The computation type, either 'spot' or 'demand'. 
-    - `ComputeTypeEnum.SPOT`
-    - `ComputeTypeEnum.DEMAND`
-
+  - `type` (Enum): The computation type, which determines how your instance is allocated and billed.
+    - `ComputeTypeEnum.SPOT` - Spheron offers Spot compute where the allocation of computational resources is static and fixed. Resource allocation remains unchanged regardless of workload fluctuations or application demands, offering a straightforward approach without complex configurations.  [Learn more](https://docs.spheron.network/compute/type/spot/).
+    - `ComputeTypeEnum.DEMAND` - Spheron offers On Demand compute, allowing users to adjust the computational resources allocated to an instance. Users can make decisions to increase or decrease resources such as CPU, memory, or storage to meet changing performance requirements. This type provides direct control over resource adjustments, optimizing for specific workload characteristics and immediate operational needs. [Learn more](https://docs.spheron.network/compute/type/on-demand/).
 Types:    
 
 - `Port` 
@@ -478,6 +477,8 @@ Params:
     - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
     - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
 - `instanceCount` (number) - (optional) - number of instance.
+
+**Note**: Values for `persistentStorage`, `customSpecs`, and `instanceCount` can only be updated if the compute type is set to "on-demand" when deploying the instance.
 
 Returns `InstanceResponse` object, indicating instance update has started.
 
