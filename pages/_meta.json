@@ -4,6 +4,7 @@
   "organization": "Organization",
   "static": "Static Site",
   "compute": "Compute",
+  "storage": "Storage",
   "gateways": "Gateways",
   "framework-guide": "Framework Guide",
   "server-guide": "Server Guide",

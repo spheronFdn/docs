@@ -41,6 +41,7 @@ export const Pages = [
   ["Spot", "/compute/type/spot"],
   ["On Demand", "/compute/type/on-demand"],
   ["Autoscale", "/compute/type/autoscale"],
+  ["Upload", "/storage/upload"],
   ["Dedicated Gateways", "/gateways/dedicated"],
   ["Public Gateway", "/gateways/public-gateway"],
   ["Framework Guide", "/framework-guide"],
