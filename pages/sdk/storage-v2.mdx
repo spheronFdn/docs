@@ -85,13 +85,13 @@ Function `upload` takes two parameters:
 - **filePath** - (string) - The path to the file/directory that will be uploaded.
 - **configuration:** An object with the following parameters:
   1.  `configuration.name`
-      - Represents the name of the bucket on which you are uploading the data.
+  - Represents the name of the bucket on which you are uploading the data.
   2.  `configuration.protocol`
-      - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+  - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
   3.  `configuration.onUploadInitiated` **(Optional)**
-      - Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
+  - Callback function `(uploadId: string) => void`. The function will be called once, when the upload is initiated, right before the data is uploaded. The function will be called with one parameter, `uploadId`, which represents the id of the started upload.
   4.  `configuration.onChunkUploaded` **(Optional)**
-      - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents, the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
+  - Callback function `(uploadedSize: number, totalSize: number) => void`. The function will be called multiple times, depending on the upload size. The function will be called each time a chunk is uploaded, with two parameters. The first one `uploadedSize` represents, the size in Bytes for the uploaded chunk. The `totalSize` represents the total size of the upload in Bytes.
 
 **Response**
 
@@ -257,16 +257,17 @@ Used to pin a CID on Spheron IPFS dedicated node
 const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
   name,
   cid,
+  inBackground,
 });
 ```
 
 Function `pinCID` takes one parameter:
 
 - **configuration:** An object with the following parameters:
-  1.  `configuration.name`
-      - Represents the name of the bucket on which you are pinning the CID.
-  2.  `configuration.CID`
-      - The CID of the file you want to be pinned
+  - `configuration.name` (string) - Represents the name of the bucket on which you are pinning the CID.
+  - `configuration.cid` (string) - The CID of the file you want to be pinned
+  - `configuration.inBackground` (string)**optional** - when set to true, the pinning will processed in the background. Using the `uploadId` from the response, the status can be checked via [getUpload](/sdk/storage-v2/#get-upload) function.
+    > Note: When `inBackground` is set to true, `dynamicLinks` will not be included in the response.
 
 **Response**
 
