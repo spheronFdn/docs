@@ -14,9 +14,10 @@ const PlansCard: FC<IPlansCard> = ({ title, amount, dailyAmount, specs }) => {
       <div>
         <h3 className={styles.heading}>{title}</h3>
         <p className={styles.amount}>
-          <span className={styles.amountValue}>${amount}</span> Avg monthly
+          <span className={styles.amountValue}>${amount}</span>{" "}
+          <span className={styles.paragraph}>Avg monthly</span>
         </p>
-        <p className={styles.paragraph}>${dailyAmount} avg daily cost</p>
+        <p className={styles.dailyAmount}>${dailyAmount} avg daily cost</p>
         <ul>
           <li>
             {"\u2022"} {specs[0]}Gi RAM
