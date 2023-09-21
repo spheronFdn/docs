@@ -231,6 +231,7 @@ Used to create a token that can be used to upload data directly from browser, us
 const { uploadToken } = await client.createSingleUploadToken({
   name: bucketName,
   protocol,
+  maxSize,
 });
 ```
 
@@ -238,6 +239,7 @@ Function `createSingleUploadToken` takes two parameters:
 
 - **name** - (string) - Represents the name of the bucket on which you are uploading the data.
 - **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+- **maxSize** - (number) _optional_ - The maximum size of the upload in bytes. If the uploaded data size is exceeded an error will be thrown.
 
 **Response**
 
