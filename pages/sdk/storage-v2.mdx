@@ -268,7 +268,7 @@ Function `pinCID` takes one parameter:
 - **configuration:** An object with the following parameters:
   - `configuration.name` (string) - Represents the name of the bucket on which you are pinning the CID.
   - `configuration.cid` (string) - The CID of the file you want to be pinned
-  - `configuration.inBackground` (boolean) - **(optional)** - when set to true, the pinning will processed in the background. Using the `uploadId` from the response, the status can be checked via [getUpload](/sdk/storage-v2/#get-upload) function.
+  - `configuration.inBackground` (boolean) - _(optional)_ - when set to true, the pinning will processed in the background. Using the `uploadId` from the response, the status can be checked via [getUpload](/sdk/storage-v2/#get-upload) function.
     > Note: When `inBackground` is set to true, `dynamicLinks` will not be included in the response.
 
 **Response**
