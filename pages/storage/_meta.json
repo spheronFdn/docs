@@ -2,6 +2,7 @@
   "upload": "Upload",
   "buckets": "Buckets",
   "encryption": "Encryption & Access Control",
+  "billing": "Billing",
   "migration": "Migrate <v2 to >v2",
   "comparision": "Browser vs Storage",
   "rate-limits": "Rate Limits",
