@@ -1,0 +1,14 @@
+{
+  "upload": "Upload",
+  "buckets": "Buckets",
+  "encryption": "Encryption & Access Control",
+  "billing": "Billing",
+  "usage": "Usage",
+  "migration": "Migrate <v2 to >v2",
+  "comparision": "Browser vs Storage",
+  "rate-limits": "Rate Limits",
+  "gateways": {
+    "title": "Dedicated Gateways",
+    "href": "/gateways/dedicated"
+  }
+}
