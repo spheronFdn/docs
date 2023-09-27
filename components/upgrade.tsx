@@ -5,6 +5,7 @@ import BscIcon from "../assets/bsc.svg";
 import GnosisIcon from "../assets/gnosis.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import AvalancheIcon from "../assets/avalanche.svg";
+import FilecoinIcon from "../assets/filecoin.svg";
 import SolanaIcon from "../assets/solana.svg";
 import styles from "../styles/upgrade.module.css";
 
@@ -44,6 +45,12 @@ const UPGRADE_LIST = [
     logo: AvalancheIcon,
     alt: "avalanche",
     title: "Upgrade to Pro with Avalanche",
+  },
+  {
+    path: "/billing/upgrade/filecoin",
+    logo: FilecoinIcon,
+    alt: "filecoin",
+    title: "Upgrade to Pro with Filecoin",
   },
   {
     path: "/billing/upgrade/solana",

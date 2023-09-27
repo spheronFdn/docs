@@ -13,6 +13,7 @@ export const Pages = [
   ["Upgrade to Pro with Gnosis", "/billing/upgrade/gnosis"],
   ["Upgrade to Pro with Arbitrum", "/billing/upgrade/arbitrum"],
   ["Upgrade to Pro with Avalanche", "/billing/upgrade/avalanche"],
+  ["Upgrade to Pro with Filecoin", "/billing/upgrade/filecoin"],
   ["Upgrade to Pro with Solana", "/billing/upgrade/solana"],
   ["Organization", "/organization"],
   ["Members & Roles", "/organization/roles"],
