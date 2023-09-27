@@ -6,6 +6,9 @@ import GnosisIcon from "../assets/gnosis.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import AvalancheIcon from "../assets/avalanche.svg";
 import FilecoinIcon from "../assets/filecoin.svg";
+import MantleIcon from "../assets/mantle.svg";
+import BaseIcon from "../assets/base.svg";
+import LineaIcon from "../assets/linea.svg";
 import SolanaIcon from "../assets/solana.svg";
 import styles from "../styles/upgrade.module.css";
 
@@ -51,6 +54,24 @@ const UPGRADE_LIST = [
     logo: FilecoinIcon,
     alt: "filecoin",
     title: "Upgrade to Pro with Filecoin",
+  },
+  {
+    path: "/billing/upgrade/mantle",
+    logo: MantleIcon,
+    alt: "mantle",
+    title: "Upgrade to Pro with Mantle",
+  },
+  {
+    path: "/billing/upgrade/base",
+    logo: BaseIcon,
+    alt: "base",
+    title: "Upgrade to Pro with Base",
+  },
+  {
+    path: "/billing/upgrade/linea",
+    logo: LineaIcon,
+    alt: "linea",
+    title: "Upgrade to Pro with Linea",
   },
   {
     path: "/billing/upgrade/solana",

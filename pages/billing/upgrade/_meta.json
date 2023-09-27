@@ -6,5 +6,8 @@
   "arbitrum": "Upgrade to Pro with Arbitrum",
   "avalanche": "Upgrade to Pro with Avalanche",
   "filecoin": "Upgrade to Pro with Filecoin",
+  "mantle": "Upgrade to Pro with Mantle",
+  "base": "Upgrade to Pro with Base",
+  "linea": "Upgrade to Pro with Linea",
   "solana": "Upgrade to Pro with Solana"
 }
