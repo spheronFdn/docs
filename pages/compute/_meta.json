@@ -3,6 +3,7 @@
   "instance": "Instance",
   "usage": "Usage",
   "type": "Type",
+  "plans": "Plans",
   "github-actions": {
     "title": "Github Actions",
     "href": "/github-actions"
