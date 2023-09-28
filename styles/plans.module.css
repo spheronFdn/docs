@@ -14,17 +14,13 @@
   padding: 1em 1.6em;
   margin-top: 12px;
   background: rgba(130, 130, 130, 0.05);
-  border: 1px solid transparent;
+  border: 1px solid rgba(150, 150, 150, 0.2);
 }
 
 @media (max-width: 1200px) {
   .card {
     width: 100%;
   }
-}
-
-.card:hover {
-  border: 1px solid rgba(150, 150, 150, 0.5);
 }
 
 .heading {
