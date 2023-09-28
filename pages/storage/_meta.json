@@ -2,7 +2,7 @@
   "upload": "Upload",
   "buckets": "Buckets",
   "encryption": "Encryption & Access Control",
-  "migration": "Migrate <v2 to >v2",
+  "migration": "SDK Migration",
   "comparision": "Browser vs Storage",
   "rate-limits": "Rate Limits",
   "gateways": {
