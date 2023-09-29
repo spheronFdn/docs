@@ -1,8 +1,14 @@
 .linkIcon {
-  border: 1px solid transparent;
+  height: 37px;
+  width: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(150, 150, 150, 0.5);
   border-radius: 8px;
+  background-color: rgba(249, 250, 251, 0.1);
 }
 
 .linkIcon:hover {
-  border: 1px solid rgba(150, 150, 150, 0.5);
+  border: 1px solid rgba(219, 220, 221, 0.5);
 }
