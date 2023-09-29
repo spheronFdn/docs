@@ -2,7 +2,7 @@ import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
 import { SpheronLogo } from "./assets/spheron";
 import { GithubLogo } from "./assets/github";
-import { DiscordLogo } from "./assets/discord";
+import { CommunityLogo } from "./assets/community";
 import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
@@ -12,8 +12,8 @@ const config: DocsThemeConfig = {
     icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
   },
   chat: {
-    link: "https://discord.com/invite/ahxuCtm",
-    icon: <div className={styles.linkIcon}>{DiscordLogo}</div>,
+    link: "https://community.spheron.network/",
+    icon: <div className={styles.linkIcon}>{CommunityLogo}</div>,
   },
   editLink: {
     text: null,
