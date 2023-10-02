@@ -231,6 +231,7 @@ Used to create a token that can be used to upload data directly from browser, us
 const { uploadToken } = await client.createSingleUploadToken({
   name: bucketName,
   protocol,
+  maxSize,
 });
 ```
 
@@ -238,6 +239,7 @@ Function `createSingleUploadToken` takes two parameters:
 
 - **name** - (string) - Represents the name of the bucket on which you are uploading the data.
 - **protocol** - (string) - The protocol on which the data will be uploaded. The supported protocols are [ `ARWEAVE`, `IPFS`, `FILECOIN`].
+- **maxSize** - (number) _(optional)_ - The maximum size of the upload in bytes. If the uploaded data size is exceeded an error will be thrown.
 
 **Response**
 
@@ -257,16 +259,17 @@ Used to pin a CID on Spheron IPFS dedicated node
 const { uploadId, bucketId, protocolLink, dynamicLinks } = await client.pinCID({
   name,
   cid,
+  inBackground,
 });
 ```
 
 Function `pinCID` takes one parameter:
 
 - **configuration:** An object with the following parameters:
-  1.  `configuration.name`
-      - Represents the name of the bucket on which you are pinning the CID.
-  2.  `configuration.CID`
-      - The CID of the file you want to be pinned
+  - `configuration.name` (string) - Represents the name of the bucket on which you are pinning the CID.
+  - `configuration.cid` (string) - The CID of the file you want to be pinned
+  - `configuration.inBackground` (boolean) - _(optional)_ - when set to true, the pinning will processed in the background. Using the `uploadId` from the response, the status can be checked via [getUpload](/sdk/storage-v2/#get-upload) function.
+    > Note: When `inBackground` is set to true, `dynamicLinks` will not be included in the response.
 
 **Response**
 
@@ -362,7 +365,11 @@ Used to migrate the Buckets and their Uploads from Static Site organization to S
 <Callout type="info">
   To execute the migration you need to use the token of the Storage
   organization, and you need to be the owner of both the Storage and the Static
+<<<<<<< HEAD
   Site organizations. it.
+=======
+  Site organizations.
+>>>>>>> storage-doc
 </Callout>
 
 From version `2.0.0` of `@spheron/storage`, the SDK will only work with the Storage
@@ -382,15 +389,15 @@ to storage organization:
 ```js
 const { numberOfBuckets, numberOfUploads } =
   await client.migrateStaticSiteOrgToStorage(
-    storageOrganizationId,
-    staticSiteOrganizationId
+    staticSiteOrganizationId,
+    storageOrganizationId
   );
 ```
 
 Function `migrateStaticSiteOrgToStorage` takes two parameter:
 
-- **storageOrganizationId** - (string) - The id of the storage organization to which the data will be moved. The token for this organization should be used when initializing the SpheronClient.
 - **staticSiteOrganizationId** - (string) - The id of the static site organization from the the data will be moved
+- **storageOrganizationId** - (string) - The id of the storage organization to which the data will be moved. The token for this organization should be used when initializing the SpheronClient.
 
 **Response**
 

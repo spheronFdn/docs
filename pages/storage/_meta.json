@@ -1,6 +1,6 @@
 {
-  "upload": "Upload",
   "buckets": "Buckets",
+  "upload": "Upload",
   "encryption": "Encryption & Access Control",
   "migration": "SDK Migration",
   "comparision": "Browser vs Storage",
