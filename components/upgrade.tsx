@@ -1,4 +1,5 @@
 import UpgradeCard, { IUpgradeCard } from "./upgrade-card";
+import CreditCardIcon from "../assets/credit-card.svg";
 import PolygonIcon from "../assets/polygon.svg";
 import OptimismIcon from "../assets/optimism.svg";
 import BscIcon from "../assets/bsc.svg";
@@ -13,6 +14,12 @@ import SolanaIcon from "../assets/solana.svg";
 import styles from "../styles/upgrade.module.css";
 
 const UPGRADE_LIST = [
+  {
+    path: "/billing/upgrade/credit-card",
+    logo: CreditCardIcon,
+    alt: "credit-card",
+    title: "Upgrade to Pro with Credit Card",
+  },
   {
     path: "/billing/upgrade/polygon",
     logo: PolygonIcon,
