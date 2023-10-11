@@ -49,7 +49,7 @@ export const Pages = [
   ["Storage ENS Domains", "/storage/buckets/ens"],
   ["Encryption & Access Control", "/storage/encryption"],
   ["Storage Billing", "/storage/billing"],
-  ["Migrate <v2 to >v2", "/storage/migration"],
+  ["SDK Migration", "/storage/migration"],
   ["Browser vs Storage", "/storage/comparision"],
   ["Rate Limits", "/storage/rate-limits"],
   ["Dedicated Gateways", "/gateways/dedicated"],

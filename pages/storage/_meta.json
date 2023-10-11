@@ -3,7 +3,7 @@
   "buckets": "Buckets",
   "encryption": "Encryption & Access Control",
   "billing": "Billing",
-  "migration": "Migrate <v2 to >v2",
+  "migration": "SDK Migration",
   "comparision": "Browser vs Storage",
   "rate-limits": "Rate Limits",
   "gateways": {
