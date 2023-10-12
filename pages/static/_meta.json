@@ -1,5 +1,6 @@
 {
   "deployment": "Deployment",
   "projects": "Projects",
-  "edge": "Edge Network"
+  "edge": "Edge Network",
+  "usage": "Usage"
 }
