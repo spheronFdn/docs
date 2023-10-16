@@ -356,6 +356,50 @@ interface Upload {
 
 ---
 
+#### Pin Upload
+
+Used to pin the upload by its id.
+
+```js
+const upload: Upload = await client.pinUpload(uploadId);
+```
+
+Function `pinUpload` takes just one parameter:
+
+- **uploadId** - (string) - The upload id.
+
+**Response**: returns the pinned [upload](/sdk/storage-v2/#get-upload).
+
+<Callout type="info">
+
+Only uploads in `Unpinned` status can be pinned. The storage used will be increased by the upload size after the upload is pinned.
+
+</Callout>
+
+---
+
+#### Unpin Upload
+
+Used to unpin the upload by its id.
+
+```js
+const upload: Upload = await client.unpinUpload(uploadId);
+```
+
+Function `unpinUpload` takes just one parameter:
+
+- **uploadId** - (string) - The upload id.
+
+**Response**: returns the unpinned [upload](/sdk/storage-v2/#get-upload).
+
+<Callout type="info">
+
+Only uploads in `Pinned` status can be unpinned. The storage used will be decreased by the upload size after the upload is unpinned.
+
+</Callout>
+
+---
+
 ### Organization
 
 #### Migrate Buckets From Static Site Organization
