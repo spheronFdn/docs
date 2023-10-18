@@ -5,7 +5,7 @@ export const Pages = [
   ["Manage Funds", "/billing/funds"],
   ["Bonuses", "/billing/bonus"],
   ["Invoices & Usages", "/billing/invoices"],
-  ["Coupons", "/billing/coupons"],
+  ["Credits", "/billing/credits"],
   ["Upgrade to Pro with Credit Card", "/billing/upgrade/credit-card"],
   ["Upgrade to Pro with Polygon", "/billing/upgrade/polygon"],
   ["Upgrade to Pro with Optimism", "/billing/upgrade/optimism"],
