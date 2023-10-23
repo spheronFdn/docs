@@ -934,7 +934,7 @@ interface Domain {
 
 #### Add Bucket Domain
 
-Used to add a new domain to the specified bucket. The `link` property needs to have the `protocolLink` value of an existing bucket id. After adding a new domain, you will need to setup the record on your DNS provider:
+Used to add a new domain to the specified bucket. The `link` property needs to have the value of `protocolLink` of an existing upload from the specified bucket, or the value of `ipnsLink` of an existing ipns record from the specified bucket. After adding a new domain, you will need to setup the record on your DNS provider:
 
 - **domain**: you should create a **A** type record with the value `13.248.203.0` and the same name as the domain you have added.
 - **subdomain**: you should create a **CNAME** type record with the value `cname.spheron.io` and the same name as the domain you have added.
