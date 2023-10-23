@@ -282,6 +282,40 @@ interface PinCIDResponse {
 }
 ```
 
+#### Pin CID's on IPFS
+
+Used to pin an array of CID's to the Spheron IPFS node. For each of the provided CID's an upload will be created with status `IN_PINNING_QUEUE`. These uploads with status `IN_PINNING_QUEUE` will be dequeued and processed as soon as a free parallel upload slot becomes available.
+
+<Callout type="info">
+  **NOTE:** It's essential to keep in mind that if you attempt to pin more CIDs than the number of available parallel uploads, your standard uploads may be temporarily affected. They will only resume when a parallel upload slot becomes available.
+
+</Callout>
+
+```js
+const response: {
+  uploadId: string,
+  cid: string,
+}[] = await client.pinCIDs({
+  name,
+  cids,
+});
+```
+
+Function `pinCIDs` takes one parameter:
+
+- **configuration:** An object with the following parameters:
+  - `configuration.name` (string) - Represents the name of the bucket on which you are pinning the CID.
+  - `configuration.cids` (string[]) - The array of CID's that will be pinned to the Spheron IPFS Node.
+
+**Response** an array of object with structure
+
+```js
+{
+  uploadId: string; // the id of the upload.
+  cid: string; // the CID that was sent to be pinned
+}
+```
+
 ---
 
 #### Get CID Pin Status
@@ -795,6 +829,7 @@ Function `getBucketUploads` takes two parameters:
 ```js
 enum UploadStatusEnum {
   IN_PROGRESS = "InProgress",
+  IN_PINNING_QUEUE = "InPinningQueue",
   CANCELED = "Canceled",
   UPLOADED = "Uploaded",
   FAILED = "Failed",
