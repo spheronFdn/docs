@@ -5,7 +5,7 @@ import Navigation from "components/navigation";
 
 # How to deploy a Rust App?
 
-<Callout type="info">
+<Callout type='info'>
   **NOTE:** Spheron Compute offers the flexibility to create custom
   configurations for your instance.
 </Callout>
@@ -25,23 +25,23 @@ To successfully follow this guide, you will need the following:
 ## Step 1: Create a Rust App
 
 1. Create a new Rust project by running the following command:
-   ```sh
+   ```sh copy
    cargo new rustapp
    ```
 2. Change into the project directory:
-   ```sh
+   ```sh copy
    cd rustapp
    ```
 3. Open the **Cargo.toml** file and add the following dependencies under the **[dependencies]** section:
 
-   ```toml
+   ```toml copy
    [dependencies]
    rocket = "=0.5.0-rc.3"
    ```
 
-4. Open the **myproject/urls.py** file and replace its contents with the following code:
+4. Open the **/rustapp/src/main.rs** file and replace its contents with the following code:
 
-   ```rust
+   ```rust copy
    #[macro_use]
    extern crate rocket;
 
@@ -58,7 +58,7 @@ To successfully follow this guide, you will need the following:
 
 5. Start the app by running the following command:
 
-   ```sh
+   ```sh copy
    cargo run
    ```
 
@@ -70,7 +70,7 @@ To successfully follow this guide, you will need the following:
 
 Here's what the dockerfile for this Rust app will look like:
 
-```sh
+```sh copy
 # Use an official Rust base image
 FROM rust:latest
 
@@ -98,7 +98,7 @@ CMD ["cargo", "run", "--release"]
 Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows-based **AMD64** environment.
 Before running the docker build command, run this command in your terminal:
 
-```sh
+```sh copy
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ```
 
@@ -110,13 +110,13 @@ To build the Docker image:
 2. Open a terminal and navigate to the root directory of your project, where the Dockerfile is located.
 3. Run the following command to build the Docker image:
 
-```sh
+```sh copy
 docker build -t rustapp .
 ```
 
 4. After the build process completes, you can run a container based on the image using the following command:
 
-```sh
+```sh copy
 docker run -p 8000:8000 rustapp
 ```
 
@@ -138,13 +138,13 @@ To create a repository on Docker Hub:
 1. Login to the Docker Hub using the command docker login -u YOUR-USER-NAME.
 2. Use the docker tag command to give the rustapp image a new name. Be sure to swap out YOUR-USER-NAME with your Docker ID.
 
-```sh
+```sh copy
 docker tag rustapp YOUR-USER-NAME/rustapp
 ```
 
 3. Now try your push command again. If you’re copying the value from Docker Hub, you can drop the tagname portion, as you didn’t add a tag to the image name. If you don’t specify a tag, Docker will use a tag called latest.
 
-```sh
+```sh copy
 docker push YOUR-USER-NAME/rustapp
 ```
 
@@ -174,7 +174,7 @@ To run your app on Spheron:
 14. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
 15. Click "Deploy" to initiate deployment.
 
-<Callout type="info">
+<Callout type='info'>
   **NOTE:** Spheron supports only public docker images at the moment.
 </Callout>
 
@@ -197,15 +197,15 @@ Follow these instructions to verify the installation:
 
 ### Docker Fails When Building on Apple Silicon
 
-<Callout type="error">
+<Callout type='error'>
   ERROR: exec /usr/local/bin/docker-entrypoint.sh: exec format error
 </Callout>
 
 Docker images built with Apple Silicon (or another **ARM64** based architecture) can create issues when deploying the images to a Linux or Windows-based **AMD64** environment.
 Before running the docker build command, you must run this command in your terminal:
 
-```sh
+```sh copy
 export DOCKER_DEFAULT_PLATFORM=linux/amd64
 ```
 
-<Navigation name="Deploy Rust App" />
+<Navigation name='Deploy Rust App' />
