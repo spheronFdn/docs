@@ -3,7 +3,7 @@ export const Pages = [
   ["Billing", "/billing"],
   ["Payment Method", "/billing/payment-method"],
   ["Manage Funds", "/billing/funds"],
-  ["Bonuses", "/billing/bonus"],
+  ["Add-on", "/billing/add-on"],
   ["Invoices & Usages", "/billing/invoices"],
   ["Credits", "/billing/credits"],
   ["Upgrade to Pro with Credit Card", "/billing/upgrade/credit-card"],
