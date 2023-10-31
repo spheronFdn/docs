@@ -11,6 +11,62 @@ preventing performance bottlenecks during peak usage.
 
 ## How to use Autoscale Compute?
 
-Coming Soon...
+### With Docker
+
+To use Autoscale compute with a custom Docker image on Spheron:
+
+1. Click "New Cluster" on the top right corner.
+2. Select **Import from Docker Hub**.
+3. Enter the names for your cluster and docker image.
+4. Then, Add the tag and Click "Next".
+5. Select "Autoscale" under **Compute Type**.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in a region suitable for that instance. [Click here](/compute/cluster/#region) to know more.
+7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+9. Create new **Port Policy Mapping**. Add the container port, and Select the exposed port you want to map it to. [Click here](/compute/cluster/#port-mapping) to know more.
+10. Add **Environment Variable**, if any.
+11. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/#environment-variables) to know more.
+12. Under **Auto Scaling**, Choose an instance plan that best suits your needs.
+13. Set the maximum number of replicas allowed for your application. Autoscale will not exceed this limit.
+14. Set the minimum number of replicas required for your application. Autoscale will ensure that your application always has at least this many replicas running.
+15. You can create custom plans if required. [Click here](/compute/type/autoscale/#advanced-configuration) to know more.
+16. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+17. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
+18. Click "Deploy" to initiate deployment.
+
+### With Marketplace App
+
+To use Autoscale compute with a marketplace app on Spheron:
+
+1. Click "New Cluster" on the top right corner.
+2. Select **Start from marketplace app**.
+3. Pick your desired template from the marketplace.
+4. Select "Autoscale" under **Compute Type**.
+5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in a region suitable for that instance. [Click here](/compute/cluster/#region) to know more.
+6. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+7. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+8. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+9. Click "Deploy" to initiate deployment.
+
+## Custom Plans in Auto Scaling
+
+You can use the "Custom Plan / Specification" toggle to create custom plans.
+
+- **Max Replica:** Set the maximum number of replicas allowed for your application. Autoscale will not exceed this limit.
+- **Min Replica:** Set the minimum number of replicas required for your application. Autoscale will ensure that your application always has at least this many replicas running.
+- **Time Window:** Define the time window within which Autoscale will consider scaling actions. For example, if you set it to 5 minutes, Autoscale will evaluate performance metrics over the past 5 minutes to decide whether to scale.
+- **Cooldown:** Set a cooldown period between scaling actions. During this period, Autoscale will not perform any additional scaling actions to allow the system to stabilize.
+- **No. of Windows (Before Scaling Evaluation):** Specify the number of time windows to consider before evaluating whether scaling is needed.
+- **Threshold % (No. of checks in Alarm):** Set the threshold percentage (the number of checks in an alarm state) required to trigger a scaling action.
+
+### Scale Up Policy
+
+- **CPU:** Define the CPU utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas.
+- **RAM:** Specify the RAM utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas.
+
+### Scale Down Policy
+
+- **CPU:** Define the CPU utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas.
+- **RAM:** Specify the RAM utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas.
 
 <Navigation name="Autoscale" />
