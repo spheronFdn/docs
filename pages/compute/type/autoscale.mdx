@@ -45,8 +45,12 @@ To use Autoscale compute with a marketplace app on Spheron:
 5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in a region suitable for that instance. [Click here](/compute/cluster/#region) to know more.
 6. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
 7. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
-8. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
-9. Click "Deploy" to initiate deployment.
+8. Under **Auto Scaling**, Choose an instance plan that best suits your needs.
+9. Set the maximum number of replicas allowed for your application. Autoscale will not exceed this limit.
+10. Set the minimum number of replicas required for your application. Autoscale will ensure that your application always has at least this many replicas running.
+11. You can create auto scaling custom plans if required. [Click here](/compute/type/autoscale/#custom-plans-in-auto-scaling) to know more.
+12. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+13. Click "Deploy" to initiate deployment.
 
 ## Custom Plans in Auto Scaling
 
