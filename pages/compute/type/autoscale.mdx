@@ -52,6 +52,20 @@ To use Autoscale compute with a marketplace app on Spheron:
 12. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
 13. Click "Deploy" to initiate deployment.
 
+## How to update configuration of your instance?
+
+To update the configuration of your instance:
+
+1. Select your instance and Go to the **Settings** tab.
+2. Click "Update Instance" under the **Instance Plan** section.
+3. Update the instance plan to suit your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+4. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+5. You can update advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+6. Under the **Auto Scaling** tab, you can update an instance plan to suit your needs.
+7. You can update the maximum and minimum number of replicas allowed for your application.
+8. You can update to auto scaling custom plans if required. [Click here](/compute/type/autoscale/#custom-plans-in-auto-scaling) to know more.
+9. Click "Save" to update deployment.
+
 ## Custom Plans in Auto Scaling
 
 You can use the "Custom Plan / Specification" toggle to create custom plans.
@@ -65,12 +79,12 @@ You can use the "Custom Plan / Specification" toggle to create custom plans.
 
 ### Scale Up Policy
 
-- **CPU:** Define the CPU utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas.
-- **RAM:** Specify the RAM utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas.
+- **CPU:** Define the CPU utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas. You can add the number of steps to gradually scale up your application based on CPU utilization.
+- **RAM:** Specify the RAM utilization threshold that, when exceeded, triggers a scaling action to increase the number of replicas. You can add the number of steps to gradually scale up your application based on RAM utilization.
 
 ### Scale Down Policy
 
-- **CPU:** Define the CPU utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas.
-- **RAM:** Specify the RAM utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas.
+- **CPU:** Define the CPU utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas. You can add the number of steps to gradually scale down your application based on CPU utilization.
+- **RAM:** Specify the RAM utilization threshold that, when not met, triggers a scaling action to decrease the number of replicas. You can add the number of steps to gradually scale down your application based on RAM utilization.
 
 <Navigation name="Autoscale" />
