@@ -19,6 +19,7 @@ import MassBitIcon from "../assets/massbit.svg";
 import ArbitrumIcon from "../assets/arbitrum.svg";
 import FilecoinIcon from "../assets/filecoin.svg";
 import JupyterIcon from "../assets/jupyter.svg";
+import VSCodeIcon from "../assets/vscode.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -147,6 +148,12 @@ const MARKETPLACE_APP_LIST = [
     logo: JupyterIcon,
     alt: "jupyter",
     title: "Deploy Jupyter Notebook",
+  },
+  {
+    path: "/marketplace-guide/vscode",
+    logo: VSCodeIcon,
+    alt: "vscode",
+    title: "Deploy VSCode Server",
   },
 ];
 

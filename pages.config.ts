@@ -108,6 +108,7 @@ export const Pages = [
   ["Deploy Arbitrum One", "/marketplace-guide/arbitrum-one"],
   ["Deploy Filecoin Mainnet", "/marketplace-guide/filecoin"],
   ["Deploy Jupyter Notebook", "/marketplace-guide/jupyter"],
+  ["Deploy VSCode Server", "/marketplace-guide/vscode"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Storage SDK V2", "/sdk/storage-v2"],
