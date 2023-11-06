@@ -25,8 +25,15 @@ To deploy a Substrate node:
 
 ## Verify Installation
 
-The Substrate Node can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using it.
+- The Substrate Node can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. If you see messages that blocks are being proposed and finalized, you have a running node.
+
+```
+... Idle (0 peers), best: #3 (0xcc78…5cb1), finalized #1 ...
+... Starting consensus session on top of parent ...
+... Prepared block for proposing at 4 (0 ms) ...
+```
 
 For more information, refer to the [Substrate docs](https://docs.substrate.io/quick-start/start-a-node/).
 
