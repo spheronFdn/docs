@@ -1,12 +1,14 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Cluster
+# Compute
 
 <Callout type="info">
   **NOTE:** Spheron Compute offers the flexibility to create custom
   configurations for your instance.
 </Callout>
+
+Compute allows you to use CPU-based instances for running containers.
 
 ## Deploy from Docker Hub
 
@@ -19,7 +21,7 @@ Spheron allows you to create a new cluster with a custom docker image.
 To create a cluster:
 
 1. Click "New Cluster" on the top right corner.
-2. Choose "Compute" to use CPU-based instances for running containers, or "Accelerate" to leverage GPU-powered computing for enhanced performance.
+2. Choose "Compute" to use CPU-based instances for running containers.
 3. Choose your Compute Type option under **Compute Type**.
 4. Select **Import from Docker Hub**.
 5. Enter the names for your cluster and docker image.
@@ -126,7 +128,7 @@ Spheron allows you to deploy a compute instance pre-installed with various appli
 To deploy a marketplace app:
 
 1. Click "New Cluster" on the top right corner.
-2. Choose "Compute" to use CPU-based instances for running containers, or "Accelerate" to leverage GPU-powered computing for enhanced performance.
+2. Choose "Compute" to use CPU-based instances for running containers.
 3. Choose your desired Compute Type option under **Compute Type**.
 4. Select **Start from Marketplace App**.
 5. Pick your desired template from the marketplace.
@@ -161,4 +163,4 @@ Most apps can be verified for successful installation using the instructions bel
 - **Check instance logs and events** \
   After successfully deploying an app, it will produce logs and events, which you can check for any issues or errors.
 
-<Navigation name="Cluster" />
+<Navigation name="Compute" />
