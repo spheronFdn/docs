@@ -25,10 +25,10 @@
 
 .heading {
   font-size: 16px;
-  margin-bottom: 4px;
 }
 
 .amount {
+  margin-top: 4px;
   display: flex;
   align-items: center;
 }
@@ -48,4 +48,13 @@
   font-weight: 600;
   color: #777;
   margin-bottom: 10px;
+}
+
+.gpu {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 7px;
 }

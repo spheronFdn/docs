@@ -47,6 +47,8 @@ export const Pages = [
   ["Spot", "/compute/type/spot"],
   ["On Demand", "/compute/type/on-demand"],
   ["Autoscale", "/compute/type/autoscale"],
+  ["Compute Plans", "/compute/plans/compute-plans"],
+  ["Accelerate Plans", "/compute/plans/accelerate-plans"],
   ["Upload", "/storage/upload"],
   ["Buckets", "/storage/buckets"],
   ["IPNS", "/storage/buckets/ipns"],

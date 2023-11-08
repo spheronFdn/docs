@@ -1,7 +1,7 @@
 import PlansCard, { IPlansCard } from "./plans-card";
 import styles from "../styles/quick.module.css";
 
-const PLANS_LIST = [
+const CPU_PLANS_LIST = [
   {
     title: "Ventus Nano",
     amount: "1.16",
@@ -130,19 +130,55 @@ const PLANS_LIST = [
   },
 ];
 
-const Plans = () => {
+const GPU_PLANS_LIST = [
+  {
+    title: "Nvidia 1660",
+    amount: "274.13",
+    dailyAmount: "9.14",
+    specs: [16, 8],
+  },
+  {
+    title: "Nvidia T4",
+    amount: "799.47",
+    dailyAmount: "26.65",
+    specs: [32, 16],
+  },
+  {
+    title: "Nvidia A100",
+    amount: "548.25",
+    dailyAmount: "18.28",
+    specs: [32, 16],
+  },
+  {
+    title: "Nvidia V100",
+    amount: "704.01",
+    dailyAmount: "23.47",
+    specs: [64, 16],
+  },
+  {
+    title: "Nvidia 3090",
+    amount: "399.73",
+    dailyAmount: "13.32",
+    specs: [16, 8],
+  },
+];
+
+const Plans = ({ isGPU }) => {
   return (
     <main>
       <section className={styles.section}>
-        {PLANS_LIST.map((item: IPlansCard, index) => (
-          <PlansCard
-            key={index}
-            title={item.title}
-            amount={item.amount}
-            dailyAmount={item.dailyAmount}
-            specs={item.specs}
-          />
-        ))}
+        {(isGPU ? GPU_PLANS_LIST : CPU_PLANS_LIST).map(
+          (item: IPlansCard, index) => (
+            <PlansCard
+              key={index}
+              title={item.title}
+              amount={item.amount}
+              dailyAmount={item.dailyAmount}
+              specs={item.specs}
+              isGPU={isGPU}
+            />
+          )
+        )}
       </section>
     </main>
   );
