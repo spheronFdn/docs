@@ -132,16 +132,22 @@ const CPU_PLANS_LIST = [
 
 const GPU_PLANS_LIST = [
   {
+    title: "Nvidia 3080",
+    amount: "305.53",
+    dailyAmount: "10.18",
+    specs: [16, 8],
+  },
+  {
     title: "Nvidia 1660",
     amount: "274.13",
     dailyAmount: "9.14",
     specs: [16, 8],
   },
   {
-    title: "Nvidia T4",
-    amount: "799.47",
-    dailyAmount: "26.65",
-    specs: [32, 16],
+    title: "Nvidia A4000",
+    amount: "349.49",
+    dailyAmount: "11.65",
+    specs: [16, 8],
   },
   {
     title: "Nvidia A100",
@@ -154,6 +160,12 @@ const GPU_PLANS_LIST = [
     amount: "704.01",
     dailyAmount: "23.47",
     specs: [64, 16],
+  },
+  {
+    title: "Nvidia T4",
+    amount: "776.56",
+    dailyAmount: "25.89",
+    specs: [32, 16],
   },
   {
     title: "Nvidia 3090",
