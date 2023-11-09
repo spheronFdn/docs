@@ -38,7 +38,7 @@ export const Pages = [
   ["Regions & Routing", "/static/edge/regions"],
   ["Static Site Usage", "/static/usage"],
   ["Cluster", "/compute/cluster"],
-  ["Logs & Activity", "/compute/instance/logs"],
+  ["Logs, Metrics & Activity", "/compute/instance/logs"],
   ["Instance Domains", "/compute/instance/domain"],
   ["Instance Settings", "/compute/instance/settings"],
   ["Compute Usage", "/compute/usage"],
