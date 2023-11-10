@@ -138,9 +138,21 @@ const GPU_PLANS_LIST = [
     specs: [16, 8],
   },
   {
+    title: "Nvidia 3090",
+    amount: "374.61",
+    dailyAmount: "12.49",
+    specs: [16, 8],
+  },
+  {
     title: "Nvidia 1660",
     amount: "274.13",
     dailyAmount: "9.14",
+    specs: [16, 8],
+  },
+  {
+    title: "Nvidia Tesla T4",
+    amount: "336.93",
+    dailyAmount: "11.23",
     specs: [16, 8],
   },
   {
@@ -160,18 +172,6 @@ const GPU_PLANS_LIST = [
     amount: "704.01",
     dailyAmount: "23.47",
     specs: [64, 16],
-  },
-  {
-    title: "Nvidia T4",
-    amount: "776.56",
-    dailyAmount: "25.89",
-    specs: [32, 16],
-  },
-  {
-    title: "Nvidia 3090",
-    amount: "399.73",
-    dailyAmount: "13.32",
-    specs: [16, 8],
   },
 ];
 
