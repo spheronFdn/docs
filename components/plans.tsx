@@ -202,13 +202,6 @@ const GPU_PLANS_LIST = [
     hourlyAmount: "0.76",
     specs: [32, 16],
   },
-  {
-    title: "Nvidia V100",
-    amount: "704.01",
-    dailyAmount: "23.47",
-    hourlyAmount: "0.97",
-    specs: [64, 16],
-  },
 ];
 
 const Plans = ({ isGPU }) => {
