@@ -1,13 +1,10 @@
 import { FC } from "react";
 import Image from "next/image";
+import { IPlans } from "./plans";
 import NvidiaIcon from "../assets/nvidia.svg";
 import styles from "../styles/plans.module.css";
 
-export interface IPlansCard {
-  title: string;
-  amount: string;
-  dailyAmount: string;
-  specs: number[];
+export interface IPlansCard extends IPlans {
   isGPU: boolean;
 }
 
@@ -15,6 +12,7 @@ const PlansCard: FC<IPlansCard> = ({
   title,
   amount,
   dailyAmount,
+  hourlyAmount,
   specs,
   isGPU,
 }) => {
@@ -37,7 +35,11 @@ const PlansCard: FC<IPlansCard> = ({
           <span className={styles.amountValue}>${amount}</span>{" "}
           <span className={styles.paragraph}>Avg monthly</span>
         </p>
-        <p className={styles.dailyAmount}>${dailyAmount} avg daily cost</p>
+        {isGPU ? (
+          <p className={styles.dailyAmount}>${hourlyAmount} avg hourly cost</p>
+        ) : (
+          <p className={styles.dailyAmount}>${dailyAmount} avg daily cost</p>
+        )}
         <ul>
           <li>
             {"\u2022"} {specs[0]}Gi RAM

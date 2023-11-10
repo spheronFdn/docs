@@ -1,5 +1,13 @@
-import PlansCard, { IPlansCard } from "./plans-card";
+import PlansCard from "./plans-card";
 import styles from "../styles/quick.module.css";
+
+export interface IPlans {
+  title: string;
+  amount: string;
+  dailyAmount?: string;
+  hourlyAmount?: string;
+  specs: number[];
+}
 
 const CPU_PLANS_LIST = [
   {
@@ -135,42 +143,49 @@ const GPU_PLANS_LIST = [
     title: "Nvidia 3080",
     amount: "305.53",
     dailyAmount: "10.18",
+    hourlyAmount: "0.42",
     specs: [16, 8],
   },
   {
     title: "Nvidia 3090",
     amount: "374.61",
     dailyAmount: "12.49",
+    hourlyAmount: "0.52",
     specs: [16, 8],
   },
   {
     title: "Nvidia 1660",
     amount: "274.13",
     dailyAmount: "9.14",
+    hourlyAmount: "0.38",
     specs: [16, 8],
   },
   {
     title: "Nvidia Tesla T4",
     amount: "336.93",
     dailyAmount: "11.23",
+    hourlyAmount: "0.46",
     specs: [16, 8],
   },
   {
     title: "Nvidia A4000",
     amount: "349.49",
     dailyAmount: "11.65",
+    hourlyAmount: "0.48",
     specs: [16, 8],
   },
   {
     title: "Nvidia A100",
     amount: "548.25",
     dailyAmount: "18.28",
+    hourlyAmount: "0.76",
     specs: [32, 16],
   },
   {
     title: "Nvidia V100",
     amount: "704.01",
     dailyAmount: "23.47",
+    hourlyAmount: "0.97",
     specs: [64, 16],
   },
 ];
@@ -180,12 +195,13 @@ const Plans = ({ isGPU }) => {
     <main>
       <section className={styles.section}>
         {(isGPU ? GPU_PLANS_LIST : CPU_PLANS_LIST).map(
-          (item: IPlansCard, index) => (
+          (item: IPlans, index) => (
             <PlansCard
               key={index}
               title={item.title}
               amount={item.amount}
               dailyAmount={item.dailyAmount}
+              hourlyAmount={item.hourlyAmount}
               specs={item.specs}
               isGPU={isGPU}
             />
