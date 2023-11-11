@@ -1,0 +1,166 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Compute
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Compute allows you to use CPU-based instances for running containers.
+
+## Deploy from Docker Hub
+
+<Callout type="warning">
+  Before running the **docker build** command, run this command in your
+  terminal: <br /> `export DOCKER_DEFAULT_PLATFORM=linux/amd64`.
+</Callout>
+
+Spheron allows you to create a new cluster with a custom docker image.
+To create a cluster:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your Compute Type option under **Compute Type**.
+4. Select **Import from Docker Hub**.
+5. Enter the names for your cluster and docker image.
+6. Then, Add the tag and Click "Next."
+7. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+8. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, Create new Port Policy Mapping and just Click "Deploy" to initiate deployment.
+9. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+10. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+11. Create new Port Policy Mapping. Add the container port, and Select the exposed port you want to map it to. Click here to know more.
+12. Add **Environment Variable**, if any.
+13. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/#environment-variables) to know more.
+14. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
+15. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
+16. Click "Deploy" to initiate deployment.
+
+<Callout type="info">
+  **NOTE:** <br /> 1\. Spheron supports only public docker images at the moment.{" "}
+  <br /> 2\. Learn how to dockerize your server and push the docker image to the
+  docker hub [here](https://docs.docker.com/get-started/02_our_app/).
+</Callout>
+
+### Region
+
+Region refers to specific geographic locations where a cloud service provider (CSP) has its data centers and computing resources.
+By choosing a region closer to your users, you can improve performance and reduce latency.
+Spheron offers the following regions for you to choose from:
+
+- us-east
+- us-west
+- us-central
+- eu-west
+- any
+
+<Callout type="info">
+  **NOTE:** It is recommended to select **any** region for **Spot** to get
+  higher chances of successful deployment as it will deploy on any providers in
+  the network.
+</Callout>
+
+#### On Demand
+
+For On Demand deployments, we only have **eu-east** region live right now.
+
+<Callout type="info">
+  **NOTE:** <br />
+  For Spot, the region will be set to **any** by default. <br />
+  For On Demand, the region will be set to **eu-east** by default.
+</Callout>
+
+### Additional Configuration
+
+#### Port Mapping
+
+Port Mapping is used to direct incoming traffic from the outside world to a specific container port, which is then exposed as an external port.
+For example, suppose you have a container running a web server that is listening on port 8080, but you want to expose it to the public internet on port 80.
+By mapping port 80 to the container port 8080, incoming traffic on port 80 is automatically directed to the web server running inside the container on port 8080.
+This way, users can access the web server by using its public IP address and the exposed port number.
+
+Port Mapping is required for deployment. To create a new port mapping:
+
+1. Add the container port, and Select the exposed port you want to map it to.
+2. Click "+" beside **Port Policy Mapping** under **Additional Configuration**, to create more mappings.
+
+#### Environment Variables
+
+Spheron allows you to add environment variables while configuring your deployment.
+They contain information such as directory paths or credentials.
+To configure these variables:
+
+1. Click "+" beside **Environment Variable** under **Additional Configuration** to add a new environment variable.
+2. Add key and value.
+
+#### Secret Environment Variables
+
+Spheron allows you to add secret environment variables while configuring your deployment.
+These variables will not be saved in the database.
+To configure these variables:
+
+1. Click "+" beside **Secret Environment Variable** under **Additional Configuration** to add a new secret environment variable.
+2. Add key and value.
+
+#### Advance Configuration
+
+Advance Configurations gives you more flexibility and control over how your Docker container is launched and can help you customize its behavior to meet the specific needs of your application.
+**Commands** and **Arguments** fields in the advanced configuration allow you to specify any additional commands or arguments that should be passed to the Docker container when it is launched. \
+To add Commands and Arguments:
+
+1. Click "Advance Configuration" under **Additional Configuration** if you want to add advanced configuration.
+2. Click "New Command" to add a new command.
+3. Click "New Argument" to add a new argument.
+
+#### Health Checkup
+
+Health Checkup is critical to monitor the reliability and performance of your instance.
+It helps minimize downtime and provides a better user experience.
+To configure Health Checkup:
+
+1. Click "Health Checkup" under **Additional Configuration**.
+2. Add the desired health check path and health check port.
+
+## Deploy from Marketplace App
+
+Spheron allows you to deploy a compute instance pre-installed with various applications, all setup and ready to use on the Akash Network.
+To deploy a marketplace app:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick your desired template from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
+11. Click "Deploy" to initiate deployment.
+
+### Region
+
+This section is the same as the [region section](/compute/cluster/#region) mentioned above.
+
+### Advance Configuration
+
+Advance Configuration is applicable to certain apps only and not to all.
+For these specific apps, it is essential to fill in all the necessary configurations.
+That includes adding the **root username** and **root password** under their respective sections.
+
+## Verify Installation
+
+The app can be accessed only after the Compute Instance is provisioned.
+Thus, you need to wait for the installation to complete before you can start using the app.
+Most apps can be verified for successful installation using the instructions below, while others may require different procedures.
+
+- **Attempt to access the app** \
+  An app has an estimated deployment time of about 1-2 minutes.
+  If you can successfully access it, the installation has been completed successfully.
+  You can connect to the app with a **reverse DNS link** provided if the app has an HTTP port.
+  If not, you can connect using the connection URL of the instance, which will also be provided after the instance is provisioned.
+- **Check instance logs and events** \
+  After successfully deploying an app, it will produce logs and events, which you can check for any issues or errors.
+
+<Navigation name="Compute" />

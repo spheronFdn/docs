@@ -11,7 +11,7 @@
   min-height: 10em;
   min-height: fit-content;
   border-radius: 5px;
-  padding: 1em 1.6em;
+  padding: 1em 1.2em;
   margin-top: 12px;
   background: rgba(130, 130, 130, 0.05);
   border: 1px solid rgba(150, 150, 150, 0.2);
@@ -25,10 +25,10 @@
 
 .heading {
   font-size: 16px;
-  margin-bottom: 4px;
 }
 
 .amount {
+  margin-top: 4px;
   display: flex;
   align-items: center;
 }
@@ -48,4 +48,13 @@
   font-weight: 600;
   color: #777;
   margin-bottom: 10px;
+}
+
+.gpu {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-right: 7px;
 }

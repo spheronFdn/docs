@@ -12,20 +12,28 @@ Spheron allows you to deploy a compute instance pre-installed with Substrate, al
 To deploy a Substrate node:
 
 1. Click "New Cluster" on the top right corner.
-2. Select **Start from Marketplace App**.
-3. Pick **Substrate** from the marketplace.
-4. Choose your desired Compute Type option under **Compute Type**.
-5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
-6. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
-7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
-8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
-9. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
-10. Click "Deploy" to initiate deployment.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Substrate** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
+11. Click "Deploy" to initiate deployment.
 
 ## Verify Installation
 
-The Substrate Node can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using it.
+- The Substrate Node can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. If you see messages that blocks are being proposed and finalized, you have a running node.
+
+```
+... Idle (0 peers), best: #3 (0xcc78…5cb1), finalized #1 ...
+... Starting consensus session on top of parent ...
+... Prepared block for proposing at 4 (0 ms) ...
+```
 
 For more information, refer to the [Substrate docs](https://docs.substrate.io/quick-start/start-a-node/).
 

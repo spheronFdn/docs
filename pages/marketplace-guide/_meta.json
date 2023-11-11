@@ -19,5 +19,6 @@
   "massbit-gateway": "Deploy MassBit Gateway",
   "arbitrum-one": "Deploy Arbitrum One",
   "filecoin": "Deploy Filecoin Mainnet",
-  "jupyter": "Deploy Jupyter Notebook"
+  "jupyter": "Deploy Jupyter Notebook",
+  "vscode": "Deploy VSCode Server"
 }

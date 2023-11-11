@@ -1,7 +1,7 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Cluster
+# Accelerate
 
 <Callout type="info">
   **NOTE:** Spheron Compute offers the flexibility to create custom
@@ -19,19 +19,19 @@ Spheron allows you to create a new cluster with a custom docker image.
 To create a cluster:
 
 1. Click "New Cluster" on the top right corner.
-2. Select **Import from Docker Hub**.
-3. Enter the names for your cluster and docker image.
-4. Then, Add the tag and Click "Next."
-5. Choose your Compute Type option under **Compute Type**.
-6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+2. Choose "Accelerate" to leverage GPU-powered computing for enhanced performance.
+3. Select **Import from Docker Hub**.
+4. Enter the names for your cluster and docker image.
+5. Then, Add the tag and Click "Next."
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region. [Click here](/compute/cluster/accelerate/#region) to know more.
 7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, Create new Port Policy Mapping and just Click "Deploy" to initiate deployment.
-8. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+8. Select the instance plan that suits your needs. Our offerings include a range of GPU plans, though certain GPU plans may be out of stock and require [reaching out to our team](https://b4t4v7fj3cd.typeform.com/to/YsTtgJ6H) for access.
 9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
 10. Create new Port Policy Mapping. Add the container port, and Select the exposed port you want to map it to. Click here to know more.
 11. Add **Environment Variable**, if any.
-12. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/#environment-variables) to know more.
-13. You can add advanced configuration if required. [Click here](/compute/cluster/#advanced-configuration) to know more.
-14. You can add health checkup if required. [Click here](/compute/cluster/#health-checkup) to know more.
+12. Add **Secret Environment Variable** if the value is a secret key. It will not be saved in the database. [Click here](/compute/cluster/accelerate/#environment-variables) to know more.
+13. You can add advanced configuration if required. [Click here](/compute/cluster/accelerate/#advanced-configuration) to know more.
+14. You can add health checkup if required. [Click here](/compute/cluster/accelerate/#health-checkup) to know more.
 15. Click "Deploy" to initiate deployment.
 
 <Callout type="info">
@@ -44,29 +44,10 @@ To create a cluster:
 
 Region refers to specific geographic locations where a cloud service provider (CSP) has its data centers and computing resources.
 By choosing a region closer to your users, you can improve performance and reduce latency.
-Spheron offers the following regions for you to choose from:
+Spheron Accelerate offers the following regions for you to choose from:
 
 - us-east
-- us-west
-- us-central
-- eu-west
 - any
-
-<Callout type="info">
-  **NOTE:** It is recommended to select **any** region for **Spot** to get
-  higher chances of successful deployment as it will deploy on any providers in
-  the network.
-</Callout>
-
-#### On Demand
-
-For On Demand deployments, we only have **eu-east** region live right now.
-
-<Callout type="info">
-  **NOTE:** <br />
-  For Spot, the region will be set to **any** by default. <br />
-  For On Demand, the region will be set to **eu-east** by default.
-</Callout>
 
 ### Additional Configuration
 
@@ -125,14 +106,14 @@ Spheron allows you to deploy a compute instance pre-installed with various appli
 To deploy a marketplace app:
 
 1. Click "New Cluster" on the top right corner.
-2. Select **Start from Marketplace App**.
-3. Pick your desired template from the marketplace.
-4. Choose your desired Compute Type option under **Compute Type**.
-5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+2. Choose "Accelerate" to leverage GPU-powered computing for enhanced performance.
+3. Select **Start from Marketplace App**.
+4. Pick your desired template from the marketplace.
+5. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region. [Click here](/compute/cluster/accelerate/#region) to know more.
 6. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
-7. Select the instance plan that suits your needs. Use the "Create Custom Plan" toggle to create custom plans for your instance.
+7. Select the instance plan that suits your needs. Our offerings include a range of GPU plans, though certain GPU plans may be out of stock and require [reaching out to our team](https://b4t4v7fj3cd.typeform.com/to/YsTtgJ6H) for access.
 8. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
-9. You can add advanced configuration if required. [Click here](/compute/cluster/#additional-configuration-1) to know more.
+9. You can add advanced configuration if required. [Click here](/compute/cluster/accelerate/#advance-configuration-1) to know more.
 10. Click "Deploy" to initiate deployment.
 
 ### Region
@@ -159,4 +140,4 @@ Most apps can be verified for successful installation using the instructions bel
 - **Check instance logs and events** \
   After successfully deploying an app, it will produce logs and events, which you can check for any issues or errors.
 
-<Navigation name="Cluster" />
+<Navigation name="Accelerate" />
