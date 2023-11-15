@@ -20,6 +20,7 @@ import ArbitrumIcon from "../assets/arbitrum.svg";
 import FilecoinIcon from "../assets/filecoin.svg";
 import JupyterIcon from "../assets/jupyter.svg";
 import VSCodeIcon from "../assets/vscode.svg";
+import MinecraftIcon from "../assets/minecraft.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -154,6 +155,12 @@ const MARKETPLACE_APP_LIST = [
     logo: VSCodeIcon,
     alt: "vscode",
     title: "Deploy VSCode Server",
+  },
+  {
+    path: "/marketplace-guide/minecraft",
+    logo: MinecraftIcon,
+    alt: "minecraft",
+    title: "Deploy Minecraft Server",
   },
 ];
 
