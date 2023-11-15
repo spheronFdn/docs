@@ -20,5 +20,6 @@
   "arbitrum-one": "Deploy Arbitrum One",
   "filecoin": "Deploy Filecoin Mainnet",
   "jupyter": "Deploy Jupyter Notebook",
-  "vscode": "Deploy VSCode Server"
+  "vscode": "Deploy VSCode Server",
+  "minecraft": "Deploy Minecraft Server"
 }

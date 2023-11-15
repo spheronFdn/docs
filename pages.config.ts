@@ -112,6 +112,7 @@ export const Pages = [
   ["Deploy Filecoin Mainnet", "/marketplace-guide/filecoin"],
   ["Deploy Jupyter Notebook", "/marketplace-guide/jupyter"],
   ["Deploy VSCode Server", "/marketplace-guide/vscode"],
+  ["Deploy Minecraft Server", "/marketplace-guide/minecraft"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Storage SDK V2", "/sdk/storage-v2"],
