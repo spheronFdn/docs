@@ -6,17 +6,41 @@ const CLUSTER_TYPE_LIST = [
     path: "/compute/cluster/compute",
     emoji: "🚅",
     title: "Compute",
-    body: "Run containers on CPU-based instances",
+    body: "Run containers on CPU-based instances.",
   },
   {
     path: "/compute/cluster/accelerate",
     emoji: "🛩️",
     title: "Accelerate",
-    body: "GPU-powered computation boost",
+    body: "GPU-powered computation boost.",
+  },
+  {
+    path: "/compute/type",
+    emoji: "🚀",
+    title: "Compute Type",
+    body: "Adjust computational resources.",
+  },
+  {
+    path: "/compute/plans/compute-plans",
+    emoji: "💲",
+    title: "Compute Plans",
+    body: "Unparalleled flexibility & customization options.",
+  },
+  {
+    path: "/github-actions",
+    emoji: "🌀",
+    title: "Github Actions",
+    body: "Actions for working with Clusters.",
+  },
+  {
+    path: "/terraform",
+    emoji: "⚙️",
+    title: "Terraform",
+    body: "Deploy compute instances with Terraform.",
   },
 ];
 
-const Cluster = () => {
+const Compute = () => {
   return (
     <main>
       <section className={styles.section}>
@@ -34,4 +58,4 @@ const Cluster = () => {
   );
 };
 
-export default Cluster;
+export default Compute;
