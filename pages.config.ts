@@ -37,6 +37,7 @@ export const Pages = [
   ["Compression & Encryption", "/static/edge/compression"],
   ["Regions & Routing", "/static/edge/regions"],
   ["Static Site Usage", "/static/usage"],
+  ["Spheron Compute", "/compute"],
   ["Compute", "/compute/cluster/compute"],
   ["Accelerate", "/compute/cluster/accelerate"],
   ["Logs & Activity", "/compute/instance/logs"],

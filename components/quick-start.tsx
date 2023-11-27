@@ -21,7 +21,7 @@ const QUICK_START_LIST = [
     body: "Deploy static sites from your Git provider.",
   },
   {
-    path: "/compute/cluster/compute",
+    path: "/compute",
     emoji: "✈️",
     title: "Compute",
     body: "Deploy compute instances with one click.",
