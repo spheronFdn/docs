@@ -4,7 +4,7 @@ import styles from "../styles/quick.module.css";
 const CLUSTER_TYPE_LIST = [
   {
     path: "/compute/cluster/compute",
-    emoji: "🚅",
+    emoji: "🚂",
     title: "Compute",
     body: "Run containers on CPU-based instances.",
   },
