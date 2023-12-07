@@ -1,0 +1,57 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# How to deploy an Avail Node?
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Avail, all set up and ready to use on the Akash Network.
+To deploy a Avail node:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Avail Node** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
+11. Click "Deploy" to initiate deployment.
+
+## Verify Installation
+
+- The Avail Node can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. If you see messages that blocks are being proposed and finalized, you have a running node.
+
+```
+2023-11-07 17:35:19 Avail Node
+2023-11-07 17:35:19 ✌️  version 1.8.0-9c5f37b9230
+2023-11-07 17:35:19 ❤️  by Anonymous, 2017-2023
+2023-11-07 17:35:19 📋 Chain specification: Avail Goldberg Testnet
+2023-11-07 17:35:19 🏷  Node name: fresh-fan-5502
+2023-11-07 17:35:19 👤 Role: FULL
+2023-11-07 17:35:19 💾 Database: RocksDb at /tmp/substrateCTFPb5/chains/avail_goldberg_testnet/db/full
+2023-11-07 17:35:20 🔨 Initializing Genesis block/state (state: 0x6bc7…ec83, header-hash: 0x6f09…a7ae)
+2023-11-07 17:35:20 👴 Loading GRANDPA authority set from genesis on what appears to be first startup.
+2023-11-07 17:35:21 👶 Creating empty BABE epoch changes on what appears to be first startup.
+2023-11-07 17:35:21 🏷  Local node identity is: 12D3KooWEEa9iNANi6PUeXGaDqTgTR9T5YcP3A69nwbT4VXnG5R1
+2023-11-07 17:35:21 Prometheus metrics extended with avail metrics
+2023-11-07 17:35:21 💻 Operating system: linux
+2023-11-07 17:35:21 💻 CPU architecture: x86_64
+2023-11-07 17:35:21 💻 Target environment: gnu
+2023-11-07 17:35:21 💻 CPU: 13th Gen Intel(R) Core(TM) i7-13700K
+2023-11-07 17:35:21 💻 CPU cores: 16
+2023-11-07 17:35:21 💻 Memory: 31863MB
+2023-11-07 17:35:21 💻 Kernel: 6.5.8-100.fc37.x86_64
+2023-11-07 17:35:21 💻 Linux distribution: Fedora Linux 37 (Workstation Edition)
+```
+
+For more information, refer to the [Avail docs](https://docs.availproject.org/operate/node/docker/).
+
+<Navigation name="Deploy Avail Node" />

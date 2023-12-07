@@ -21,6 +21,7 @@ import FilecoinIcon from "../assets/filecoin.svg";
 import JupyterIcon from "../assets/jupyter.svg";
 import VSCodeIcon from "../assets/vscode.svg";
 import MinecraftIcon from "../assets/minecraft.svg";
+import AvailIcon from "../assets/avail.png";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -161,6 +162,12 @@ const MARKETPLACE_APP_LIST = [
     logo: MinecraftIcon,
     alt: "minecraft",
     title: "Deploy Minecraft Server",
+  },
+  {
+    path: "/marketplace-guide/avail",
+    logo: AvailIcon,
+    alt: "avail",
+    title: "Deploy Avail Node",
   },
 ];
 

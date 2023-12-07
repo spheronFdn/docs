@@ -21,5 +21,6 @@
   "filecoin": "Deploy Filecoin Mainnet",
   "jupyter": "Deploy Jupyter Notebook",
   "vscode": "Deploy VSCode Server",
-  "minecraft": "Deploy Minecraft Server"
+  "minecraft": "Deploy Minecraft Server",
+  "avail": "Deploy Avail Node"
 }
