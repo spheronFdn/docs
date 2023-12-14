@@ -38,7 +38,15 @@ const Status = () => {
   }, []);
 
   return (
-    <section style={{ display: "flex", alignItems: "center" }}>
+    <a
+      href="https://status.spheron.network/"
+      style={{
+        display: "flex",
+        alignItems: "center",
+        marginRight: "6px",
+        marginBottom: "4px",
+      }}
+    >
       <div
         style={{
           width: "10px",
@@ -53,7 +61,7 @@ const Status = () => {
       <div style={{ fontSize: "12px", color: colorCode }}>
         {status.description}
       </div>
-    </section>
+    </a>
   );
 };
 
