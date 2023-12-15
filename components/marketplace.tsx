@@ -22,6 +22,7 @@ import JupyterIcon from "../assets/jupyter.svg";
 import VSCodeIcon from "../assets/vscode.svg";
 import MinecraftIcon from "../assets/minecraft.svg";
 import AvailIcon from "../assets/avail.png";
+import ShardeumIcon from "../assets/shardeum.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -168,6 +169,12 @@ const MARKETPLACE_APP_LIST = [
     logo: AvailIcon,
     alt: "avail",
     title: "Deploy Avail Node",
+  },
+  {
+    path: "/marketplace-guide/shardeum",
+    logo: ShardeumIcon,
+    alt: "shardeum",
+    title: "Deploy Shardeum Node",
   },
 ];
 

@@ -22,5 +22,6 @@
   "jupyter": "Deploy Jupyter Notebook",
   "vscode": "Deploy VSCode Server",
   "minecraft": "Deploy Minecraft Server",
-  "avail": "Deploy Avail Node"
+  "avail": "Deploy Avail Node",
+  "shardeum": "Deploy Shardeum Node"
 }
