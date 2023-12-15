@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import Image from "next/image";
+import Spheron from "../assets/spheron.svg";
+import styles from "../styles/footer.module.css";
 
 interface IStatus {
   indicator: string;
   description: string;
 }
 
-const Status = () => {
+const Footer = () => {
   const [status, setStatus] = useState<IStatus>({
     indicator: "none",
     description: "All Systems Operational",
@@ -38,31 +41,34 @@ const Status = () => {
   }, []);
 
   return (
-    <a
-      href="https://status.spheron.network/"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        marginRight: "6px",
-        marginBottom: "4px",
-      }}
-    >
+    <section className={styles.footer}>
+      <a href="https://status.spheron.network/" className={styles.link}>
+        <div style={{ backgroundColor: colorCode }} className={styles.dot}>
+          {" "}
+        </div>
+        <div style={{ fontSize: "12px", color: colorCode }}>
+          {status.description}
+        </div>
+      </a>
       <div
-        style={{
-          width: "10px",
-          height: "10px",
-          backgroundColor: colorCode,
-          borderRadius: "100%",
-          marginRight: "6px",
-        }}
+        className="nx-flex nx-items-center"
+        style={{ marginLeft: "8px", marginBottom: "4px" }}
       >
-        {" "}
+        © Copyright 2023
+        <span className="nx-mx-2">
+          <Image src={Spheron} alt="Logo" width={20} height={20} />
+        </span>
+        Spheron |
+        <a
+          href="https://spheron.network/Spheron_Website_Terms_of_Use.pdf"
+          target="_blank"
+          className="nx-mx-2"
+        >
+          TOS
+        </a>
       </div>
-      <div style={{ fontSize: "12px", color: colorCode }}>
-        {status.description}
-      </div>
-    </a>
+    </section>
   );
 };
 
-export default Status;
+export default Footer;
