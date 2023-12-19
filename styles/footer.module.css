@@ -24,3 +24,20 @@
   border-radius: 100%;
   margin-right: 6px;
 }
+
+.website {
+  display: flex;
+  margin-right: 8px;
+}
+
+.website:hover {
+  text-decoration: underline;
+}
+
+.tos {
+  margin: 0 8px;
+}
+
+.tos:hover {
+  text-decoration: underline;
+}

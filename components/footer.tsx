@@ -55,14 +55,21 @@ const Footer = () => {
         style={{ marginLeft: "8px", marginBottom: "4px" }}
       >
         © Copyright 2023
-        <span className="nx-mx-2">
-          <Image src={Spheron} alt="Logo" width={20} height={20} />
-        </span>
-        Spheron |
+        <a
+          href="https://spheron.network"
+          target="_blank"
+          className={styles.website}
+        >
+          <span className="nx-mx-2">
+            <Image src={Spheron} alt="Logo" width={20} height={20} />
+          </span>
+          Spheron
+        </a>{" "}
+        |
         <a
           href="https://spheron.network/Spheron_Website_Terms_of_Use.pdf"
           target="_blank"
-          className="nx-mx-2"
+          className={styles.tos}
         >
           TOS
         </a>
