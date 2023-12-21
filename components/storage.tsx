@@ -11,7 +11,7 @@ const STORAGE_TYPE_LIST = [
   {
     path: "/sdk/storage-v2",
     emoji: "⛓️",
-    title: "Storage SDK V2",
+    title: "Storage SDK",
     body: "For Node.js based environments",
   },
   {
