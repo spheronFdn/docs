@@ -196,13 +196,7 @@ const GPU_PLANS_LIST = [
     dailyAmount: "12.49",
     hourlyAmount: "0.52",
     specs: [16, 8],
-  },
-  {
-    title: "Nvidia 1660",
-    amount: "274.13",
-    dailyAmount: "9.14",
-    hourlyAmount: "0.38",
-    specs: [16, 8],
+    akashImageId: "654cfafc57fb55af4e4c3a57",
   },
   {
     title: "Nvidia Tesla T4",
@@ -210,6 +204,7 @@ const GPU_PLANS_LIST = [
     dailyAmount: "11.23",
     hourlyAmount: "0.46",
     specs: [16, 8],
+    akashImageId: "654cfafc57fb55af4e4c3a56",
   },
   {
     title: "Nvidia A4000",
@@ -217,6 +212,7 @@ const GPU_PLANS_LIST = [
     dailyAmount: "11.65",
     hourlyAmount: "0.48",
     specs: [16, 8],
+    akashImageId: "654cfafc57fb55af4e4c3a59",
   },
   {
     title: "Nvidia A100",
@@ -224,6 +220,15 @@ const GPU_PLANS_LIST = [
     dailyAmount: "18.28",
     hourlyAmount: "0.76",
     specs: [32, 16],
+    akashImageId: "65412e415b8bd0a39081ca5f",
+  },
+  {
+    title: "Nvidia V100",
+    amount: "704.01",
+    dailyAmount: "23.52",
+    hourlyAmount: "0.98",
+    specs: [64, 16],
+    akashImageId: "65412e4b5b8bd0a39081ca61",
   },
 ];
 
