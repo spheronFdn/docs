@@ -5,26 +5,26 @@ const STORAGE_TYPE_LIST = [
   {
     path: "/storage/upload",
     emoji: "📤",
-    title: "Upload",
+    title: "Upload Files",
     body: "Upload data to decentralized storage.",
   },
   {
-    path: "/storage/buckets",
-    emoji: "🗃️",
-    title: "Buckets",
-    body: "Efficient data management.",
+    path: "/sdk/storage-v2",
+    emoji: "⛓️",
+    title: "Storage SDK V2",
+    body: "For Node.js based environments",
+  },
+  {
+    path: "/sdk/storage-v2/#ipns-records",
+    emoji: "💮",
+    title: "IPNS SDK",
+    body: "Gain precise control over IPNS records.",
   },
   {
     path: "/storage/encryption",
     emoji: "🔐",
     title: "Encryption",
     body: "Encrypt/Decrypt data for security and privacy.",
-  },
-  {
-    path: "/storage/billing",
-    emoji: "💲",
-    title: "Billing",
-    body: "Unparalleled flexibility & customization options.",
   },
   {
     path: "/storage/rate-limits",
