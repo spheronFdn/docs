@@ -15,6 +15,7 @@ const PlansCard: FC<IPlansCard> = ({
   hourlyAmount,
   specs,
   isGPU,
+  akashImageId,
 }) => {
   return (
     <section className={styles.card}>
@@ -44,6 +45,9 @@ const PlansCard: FC<IPlansCard> = ({
             {"\u2022"} {specs[1]} CPU
           </li>
         </ul>
+        <div className={styles.akashImage}>
+          Akash Image ID: <div>{akashImageId}</div>
+        </div>
       </div>
     </section>
   );

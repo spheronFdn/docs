@@ -7,8 +7,7 @@
 
 .card {
   width: 30%;
-  height: 12em;
-  min-height: 10em;
+  height: 15.5em;
   min-height: fit-content;
   border-radius: 5px;
   padding: 1em 1.2em;
@@ -57,4 +56,13 @@
 
 .logo {
   margin-right: 7px;
+}
+
+.akashImage {
+  color: #777;
+  margin-top: 10px;
+}
+
+.akashImage > div {
+  color: #e2e8f0;
 }

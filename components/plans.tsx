@@ -7,6 +7,7 @@ export interface IPlans {
   dailyAmount: string;
   hourlyAmount: string;
   specs: number[];
+  akashImageId: string;
 }
 
 const CPU_PLANS_LIST = [
@@ -16,6 +17,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.04",
     hourlyAmount: "0.0016",
     specs: [0.5, 1],
+    akashImageId: "6331ecb770dbf4bd413e73ab",
   },
   {
     title: "Ventus Micro",
@@ -23,6 +25,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.05",
     hourlyAmount: "0.0020",
     specs: [1, 1],
+    akashImageId: "6331ecb770dbf4bd413e73ac",
   },
   {
     title: "Ventus Small",
@@ -30,6 +33,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.08",
     hourlyAmount: "0.0033",
     specs: [2, 1],
+    akashImageId: "6331ecb770dbf4bd413e73ad",
   },
   {
     title: "Ventus Medium",
@@ -37,6 +41,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.15",
     hourlyAmount: "0.0062",
     specs: [4, 2],
+    akashImageId: "6331ecb770dbf4bd413e73ae",
   },
   {
     title: "Ventus 2x Medium",
@@ -44,6 +49,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.15",
     hourlyAmount: "0.0062",
     specs: [4, 2],
+    akashImageId: "639c80014e08002a4ec35d17",
   },
   {
     title: "Ventus Large",
@@ -51,6 +57,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.25",
     hourlyAmount: "0.0104",
     specs: [8, 2],
+    akashImageId: "6331ecb770dbf4bd413e73af",
   },
   {
     title: "Ventus 2x Large",
@@ -58,6 +65,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.31",
     hourlyAmount: "0.0129",
     specs: [8, 4],
+    akashImageId: "63cf12817c130a7f29faf57d",
   },
   {
     title: "Ventus X-Large",
@@ -65,6 +73,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.51",
     hourlyAmount: "0.0212",
     specs: [16, 4],
+    akashImageId: "6331ecb770dbf4bd413e73b0",
   },
   {
     title: "Glacies Nano",
@@ -72,6 +81,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.06",
     hourlyAmount: "0.0025",
     specs: [0.5, 2],
+    akashImageId: "6331ecb770dbf4bd413e73b1",
   },
   {
     title: "Glacies Micro",
@@ -79,6 +89,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.08",
     hourlyAmount: "0.0033",
     specs: [1, 2],
+    akashImageId: "6331ecb770dbf4bd413e73b2",
   },
   {
     title: "Glacies Small",
@@ -86,6 +97,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.10",
     hourlyAmount: "0.0041",
     specs: [2, 2],
+    akashImageId: "6331ecb770dbf4bd413e73b3",
   },
   {
     title: "Terra Nano",
@@ -93,6 +105,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.08",
     hourlyAmount: "0.0033",
     specs: [1, 2],
+    akashImageId: "6331ecb770dbf4bd413e73b7",
   },
   {
     title: "Terra Small",
@@ -100,6 +113,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.20",
     hourlyAmount: "0.0083",
     specs: [4, 4],
+    akashImageId: "6331ecb770dbf4bd413e73b9",
   },
   {
     title: "Terra Small 1Ti",
@@ -107,6 +121,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.20",
     hourlyAmount: "0.0083",
     specs: [4, 4],
+    akashImageId: "63ebbab0977150f1f37d4999",
   },
   {
     title: "Terra Medium",
@@ -114,6 +129,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.31",
     hourlyAmount: "0.0129",
     specs: [8, 4],
+    akashImageId: "6331ecb770dbf4bd413e73ba",
   },
   {
     title: "Terra Large",
@@ -121,6 +137,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.61",
     hourlyAmount: "0.0254",
     specs: [16, 8],
+    akashImageId: "6331ecb770dbf4bd413e73bb",
   },
   {
     title: "Terra Large 1Ti",
@@ -128,6 +145,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "0.61",
     hourlyAmount: "0.0254",
     specs: [16, 8],
+    akashImageId: "641b62dea2a8cbc1653df42e",
   },
   {
     title: "Terra 2x Large",
@@ -135,6 +153,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "1.01",
     hourlyAmount: "0.0420",
     specs: [32, 8],
+    akashImageId: "6331ecb770dbf4bd413e73bc",
   },
   {
     title: "Terra 3x Large",
@@ -142,6 +161,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "1.07",
     hourlyAmount: "0.0445",
     specs: [32, 10],
+    akashImageId: "63b6dff9cf305be3ff687f16",
   },
   {
     title: "Ignis Large",
@@ -149,6 +169,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "1.01",
     hourlyAmount: "0.0420",
     specs: [32, 8],
+    akashImageId: "6331ecb770dbf4bd413e73c1",
   },
   {
     title: "Ignis 2x Large",
@@ -156,6 +177,7 @@ const CPU_PLANS_LIST = [
     dailyAmount: "2.03",
     hourlyAmount: "0.0845",
     specs: [64, 16],
+    akashImageId: "6331ecb770dbf4bd413e73c2",
   },
 ];
 
@@ -166,6 +188,7 @@ const GPU_PLANS_LIST = [
     dailyAmount: "10.18",
     hourlyAmount: "0.42",
     specs: [16, 8],
+    akashImageId: "654cfafc57fb55af4e4c3a58",
   },
   {
     title: "Nvidia 3090",
@@ -217,6 +240,7 @@ const Plans = ({ isGPU }) => {
               dailyAmount={item.dailyAmount}
               hourlyAmount={item.hourlyAmount}
               specs={item.specs}
+              akashImageId={item.akashImageId || ""}
               isGPU={isGPU}
             />
           )
