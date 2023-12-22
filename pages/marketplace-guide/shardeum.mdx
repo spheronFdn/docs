@@ -13,7 +13,7 @@ To deploy a Shardeum Testnet Validator node:
 
 1. Click "New Cluster" on the top right corner.
 2. Choose "Compute" to use CPU-based instances for running containers.
-3. Choose your desired Compute Type option under **Compute Type**.
+3. Choose your desired Compute Type option under **Compute Type**. It is recommended to opt for **On-Demand** when configuring the Shardeum Node.
 4. Select **Start from Marketplace App**.
 5. Pick **Shardeum Testnet Validator** from the marketplace.
 6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
@@ -23,31 +23,20 @@ To deploy a Shardeum Testnet Validator node:
 10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
 11. Click "Deploy" to initiate deployment.
 
-## Deploy Your Own
-
-Deploy your own Shardeum Testnet Validator Node with Spheron:
-
-[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Shardeum%20Testnet%20Validator)
-
-## Verify Installation
-
-The Shardeum Testnet Validator Node can be accessed only after the Compute Instance is provisioned.
-Thus, you need to wait for the installation to complete before you can start using it.
-
-### How to run the node?
+## How to run the node?
 
 - Once the deployment is complete and you have a provider host with assigned ports, follow these steps in your terminal:
 
 ```
-ping provider.europlots.com
+ping provider.us-east.spheron.wiki
 # or
 ping provider.spheron.wiki
 ```
 
 - Set the IP address of the server as values for the variables **SERVERIP** and **LOCALLANIP**.
 - Update Port Variables:
-  - **SHMEXT:** Update from 9001 -> port assinged on 9001.
-  - **SHMINT:** Update from 10001 -> port assigned on 10001.
+  - **SHMEXT:** Update from 9001 -> External Port assinged on 9001.
+  - **SHMINT:** Update from 10001 -> External Port assigned on 10001.
 - In the Compute Shell Tab, execute the following command to update the dashboard password:
 
 ```
@@ -55,6 +44,16 @@ operator-cli gui set password yourpasswordherewrite
 ```
 
 <Callout type="info">**NOTE:** The default password is **HELLO**.</Callout>
+
+## Verify Installation
+
+Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080** to access the Shardeum UI for running the validator node.
+
+## Deploy Your Own
+
+Deploy your own Shardeum Testnet Validator Node with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Shardeum%20Testnet%20Validator)
 
 For more information, refer to the [Shardeum docs](https://docs.shardeum.org/node/run/validator).
 
