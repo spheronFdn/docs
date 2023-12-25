@@ -1,8 +1,10 @@
 import React from "react";
 import { DocsThemeConfig } from "nextra-theme-docs";
+import Footer from "./components/footer";
 import { SpheronLogo } from "./assets/spheron";
 import { GithubLogo } from "./assets/github";
 import { CommunityLogo } from "./assets/community";
+
 import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
@@ -22,8 +24,7 @@ const config: DocsThemeConfig = {
     content: null,
   },
   footer: {
-    text: null,
-    component: null,
+    text: <Footer />,
   },
   navigation: false,
   primaryHue: 200,

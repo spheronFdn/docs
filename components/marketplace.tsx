@@ -23,6 +23,7 @@ import VSCodeIcon from "../assets/vscode.svg";
 import MinecraftIcon from "../assets/minecraft.svg";
 import AvailIcon from "../assets/avail.png";
 import TensorFlowIcon from "../assets/tensorflow.svg";
+import ShardeumIcon from "../assets/shardeum.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -175,6 +176,12 @@ const MARKETPLACE_APP_LIST = [
     logo: TensorFlowIcon,
     alt: "tensorflow",
     title: "Deploy TensorFlow GPU",
+  },
+  {
+    path: "/marketplace-guide/shardeum",
+    logo: ShardeumIcon,
+    alt: "shardeum",
+    title: "Deploy Shardeum Node",
   },
 ];
 

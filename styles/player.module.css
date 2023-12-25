@@ -1,0 +1,16 @@
+.frame {
+  width: 100%;
+  height: 480px;
+}
+
+@media (max-width: 1200px) {
+  .frame {
+    height: 300px;
+  }
+}
+
+@media (max-width: 500px) {
+  .frame {
+    height: 200px;
+  }
+}

@@ -27,7 +27,7 @@ const QUICK_START_LIST = [
     body: "Deploy compute instances with one click.",
   },
   {
-    path: "/storage/upload",
+    path: "/storage",
     emoji: "📦",
     title: "Storage",
     body: "Effortless storage management.",

@@ -23,5 +23,6 @@
   "vscode": "Deploy VSCode Server",
   "minecraft": "Deploy Minecraft Server",
   "avail": "Deploy Avail Node",
-  "tensorflow": "Deploy TensorFlow GPU"
+  "tensorflow": "Deploy TensorFlow GPU",
+  "shardeum": "Deploy Shardeum Node"
 }
