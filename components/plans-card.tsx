@@ -46,7 +46,7 @@ const PlansCard: FC<IPlansCard> = ({
           </li>
         </ul>
         <div className={styles.akashImage}>
-          Akash Image ID: <div>{akashImageId}</div>
+          Plan ID: <div>{akashImageId}</div>
         </div>
       </div>
     </section>
