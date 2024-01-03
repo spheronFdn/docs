@@ -169,7 +169,7 @@ const MARKETPLACE_APP_LIST = [
     path: "/marketplace-guide/avail",
     logo: AvailIcon,
     alt: "avail",
-    title: "Deploy Avail Node",
+    title: "Deploy Avail Full Node",
   },
   {
     path: "/marketplace-guide/tensorflow",

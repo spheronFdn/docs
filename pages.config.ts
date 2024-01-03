@@ -114,7 +114,7 @@ export const Pages = [
   ["Deploy Jupyter Notebook", "/marketplace-guide/jupyter"],
   ["Deploy VSCode Server", "/marketplace-guide/vscode"],
   ["Deploy Minecraft Server", "/marketplace-guide/minecraft"],
-  ["Deploy Avail Node", "/marketplace-guide/avail"],
+  ["Deploy Avail Full Node", "/marketplace-guide/avail"],
   ["Deploy TensorFlow GPU", "/marketplace-guide/tensorflow"],
   ["Deploy Shardeum Node", "/marketplace-guide/shardeum"],
   ["Spheron SDK", "/sdk"],

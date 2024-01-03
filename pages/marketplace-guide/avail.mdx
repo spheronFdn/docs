@@ -1,7 +1,7 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# How to deploy an Avail Node?
+# How to deploy an Avail Full Node?
 
 <Callout type="info">
   **NOTE:** Spheron Compute offers the flexibility to create custom
@@ -20,7 +20,8 @@ To deploy a Avail node:
 7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
 8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
 9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
-10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
+10. Update the name and the chain details under arguments in advanced configuration, if required.
+    You can add more advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
 11. Click "Deploy" to initiate deployment.
 
 ## Deploy Your Own
@@ -58,6 +59,15 @@ Deploy your own Avail Node with Spheron:
 2023-11-07 17:35:21 💻 Linux distribution: Fedora Linux 37 (Workstation Edition)
 ```
 
+### How to update the name and the chain details?
+
+You can follow these steps to update the name and the chain details for your avail node:
+
+1. Navigate to the "Settings" tab from the instance page.
+2. Click "Update Instance" at the bottom.
+3. Update the name and the chain details under arguments in advanced configuration.
+4. Click "Update" to update deployment.
+
 For more information, refer to the [Avail docs](https://docs.availproject.org/operate/node/docker/).
 
-<Navigation name="Deploy Avail Node" />
+<Navigation name="Deploy Avail Full Node" />
