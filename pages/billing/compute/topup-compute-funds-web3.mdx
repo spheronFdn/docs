@@ -1,0 +1,70 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Top up Compute Balance with Web3 Wallet
+
+Spheron Compute uses a usage-based billing model.  This guide will show you how to top up your balance using a web3 wallet to pay for compute resources.
+
+**Steps to Top up your Compute Balance with a Web3 Wallet:**
+1. Add Web3 Wallet Payment method
+2. Deposit Funds into Spheron Escrow Wallet
+3. Top Up your Balance
+4. Setup Automatic Top Ups _(Optional BUT Strongly Recommended)_
+
+## Add Web3 Wallet Payment Method
+
+First, let's add a [Web3 Payment Method](/billing/payment-method/#connect-wallet).
+
+<Callout type="info">
+    For All Networks EXCEPT Solana.  Adding a [Solana Web3 Payment Method](/billing/payment-method/#for-solana-only).
+</Callout>
+
+**Follow these Steps to Setup your Web3 Wallet:**
+1. Go to **[Billing Details](https://app.spheron.network/#/app/billing/plan)** under the **Billing** tab and Click "Add Payment Method".
+2. Choose "Web3 Payment".
+3. Choose your desired network (EXCEPT Solana), token, and wallet, and Click "Save".
+4. Sign the transaction in your selected wallet.
+
+## Deposit Funds into Spheron Escrow Wallet
+
+Second, let's deposit funds in your [Spheron escrow wallet](/billing/funds/).
+
+To ensure you have sufficient funds to top up your compute balance, you need to deposit funds to your Spheron escrow wallet.
+
+**Follow these Steps to Deposit Funds into Escrow Wallet:**
+1. Connect your Web3 Wallet, if it is not already connected.
+2. Select **Deposit Funds** from the **Payment Method** dropdown.
+3. Add the amount you want to deposit and Click "Deposit" to approve and deposit your funds.
+
+## Top Up your Balance
+
+Third, let's top up your balance using your Web3 Payment Method with funds deposited into your Spheron escrow wallet.
+
+To ensure your compute clusters continue to run uninterupted, you need enough funds in your balance to pay for future hourly usage.
+
+**Follow these Steps to Top Up your Compute Balance:**
+1. Navigate to the Compute Billing page.
+2. Click "Top Up."
+3. Select Web3 Wallet Payment Method.
+4. Add the amount you want to deposit in USD and click "Purchase."
+
+## Auto Top Up your Balance
+
+Lastly, let's setup an Automatic Top Up.
+
+Enjoy uninterrupted service with automatic top ups.
+
+<Callout type="info">
+Just a heads-up: with our Auto Top-Up, we'll keep your balance in good shape by topping it up every month, starting from the day you turn it on. Don't forget to set how much you want to add, or you can always tweak it later. Need a hand figuring out the right amount? Just check out your hourly usage on the billing page, and it'll give you a pretty good idea of what you might need each month.
+</Callout>
+
+
+**Follow these Steps to Setup an Automatic Top Up for your Compute Balance:**
+1. Navigate to the Compute Billing page.
+2. Toggle on the Auto Top up option.
+3. Enter a recurring amount(At least $15 USD).
+4. Click "Schedule."
+
+Ensure your auto top up amount covers your [monthly compute usage](/billing/compute/compute-usage/).
+
+<Navigation name="Topup Compute Balance with Web3 Wallet" />
