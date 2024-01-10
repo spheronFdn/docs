@@ -90,10 +90,11 @@ const UPGRADE_LIST = [
 
 const Upgrade = () => {
   return (
-    <main>
+    <div>
       <section className={styles.section}>
-        {UPGRADE_LIST.map((item: IUpgradeCard) => (
+        {UPGRADE_LIST.map((item: IUpgradeCard, index: number) => (
           <UpgradeCard
+            key={index}
             path={item.path}
             logo={item.logo}
             alt={item.alt}
@@ -101,7 +102,7 @@ const Upgrade = () => {
           />
         ))}
       </section>
-    </main>
+    </div>
   );
 };
 
