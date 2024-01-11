@@ -9,6 +9,12 @@ const STORAGE_LIST = [
         alt: "Manage Storage Plan Subscription",
         title: "Manage Storage Plan Subscription",
     },
+    {
+        path: "/billing/storage/storage-plan-details/",
+        logo: IPFSIcon,
+        alt: "Available Storage Plan Subscriptions",
+        title: "Available Storage Plan Subscriptions",
+    },
 ];
 
 const StorageGuide = () => {
