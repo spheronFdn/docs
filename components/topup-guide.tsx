@@ -1,12 +1,12 @@
 import styles from "../styles/topup.module.css";
 import CreditCardIcon from "../assets/credit-card.svg";
 import TopupGuideCard, {ITopupGuideCard} from "./topup-guide-card";
-import BaseIcon from "../assets/base.svg";
+import MetamaskIcon from "../assets/metamask.svg";
 
 const TOPUP_LIST = [
     {
         path: "/billing/compute/topup-compute-funds-web3/",
-        logo: BaseIcon,
+        logo: MetamaskIcon,
         alt: "Top Up Compute Funds with a Web3 Wallet",
         title: "Top Up Compute Funds with a Web3 Wallet",
     },
