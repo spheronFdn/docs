@@ -13,19 +13,21 @@ To deploy a Shardeum Testnet Validator node:
 
 1. Click "New Cluster" on the top right corner.
 2. Choose "Compute" to use CPU-based instances for running containers.
-3. Choose your desired Compute Type option under **Compute Type**. It is recommended to opt for **On-Demand** when configuring the Shardeum Node.
+3. Choose **On-Demand** or **Autoscale** Compute Type option under **Compute Type**. It is recommended to opt for **On-Demand** when configuring the Shardeum Node.
 4. Select **Start from Marketplace App**.
 5. Pick **Shardeum Testnet Validator** from the marketplace.
-6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **eu-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in the **us-east** region for **On Demand**. [Click here](/compute/cluster/#region) to know more.
 7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
 8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
 9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
-10. You can add advanced configuration if required. [Click here](/compute/cluster/#advance-configuration-1) to know more.
+10. Set a password to access the Shardeum UI. You can find it under **Template Configuration**.
 11. Click "Deploy" to initiate deployment.
 
-## How to run the node?
+## How to access Shardeum UI?
 
-- Once the deployment is complete and you have a provider host with assigned ports, follow these steps in your terminal:
+Once the deployment is complete and you have a provider host with assigned ports, follow these steps:
+
+1. In your terminal:
 
 ```
 ping provider.us-east.spheron.wiki
@@ -33,21 +35,17 @@ ping provider.us-east.spheron.wiki
 ping provider.spheron.wiki
 ```
 
-- Set the IP address of the server as values for the variables **SERVERIP** and **LOCALLANIP**.
-- Update Port Variables:
-  - **SHMEXT:** Update from 9001 -> External Port assinged on 9001.
-  - **SHMINT:** Update from 10001 -> External Port assigned on 10001.
-- In the Compute Shell Tab, execute the following command to update the dashboard password:
+2. Navigate to **Settings** from your instance page and Click "Update".
+3. Under **Template Configuration**, set the IP address of the server as values for the variables **SERVERIP** and **LOCALLANIP**.
+4. Update Port Variables:
 
-```
-operator-cli gui set password yourpasswordherewrite
-```
+- **SHMEXT:** Update from 9001 -> External Port assinged on 9001.
+- **SHMINT:** Update from 10001 -> External Port assigned on 10001.
 
-<Callout type="info">**NOTE:** The default password is **HELLO**.</Callout>
-
-## Verify Installation
-
-Use the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080** to access the Shardeum UI for running the validator node.
+5. Click "Update" to update instance configuration.
+6. Click the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080**.
+7. Change the protocol from **http** to **https**.
+8. Click "Advanced" and then "Proceed to..." to access the Shardeum UI for running the validator node.
 
 **NOTE:** This will work only when the instance log
 displays the message:
@@ -56,6 +54,12 @@ displays the message:
 Starting operator gui
 done
 ```
+
+## How to run the node?
+
+1. Go to the Shardeum UI, enter your password and Click "Connect".
+2. Navigate to the **Maintenance** tab.
+3. Click "Run Node".
 
 ## Deploy Your Own
 
