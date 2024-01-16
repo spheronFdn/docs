@@ -166,10 +166,22 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Minecraft Server",
   },
   {
-    path: "/marketplace-guide/avail",
+    path: "/marketplace-guide/avail-full",
     logo: AvailIcon,
     alt: "avail",
     title: "Deploy Avail Full Node",
+  },
+  {
+    path: "/marketplace-guide/avail-validator",
+    logo: AvailIcon,
+    alt: "avail",
+    title: "Deploy Avail Validator Node",
+  },
+  {
+    path: "/marketplace-guide/avail-light",
+    logo: AvailIcon,
+    alt: "avail",
+    title: "Deploy Avail Light Client",
   },
   {
     path: "/marketplace-guide/tensorflow",
