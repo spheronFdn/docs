@@ -115,7 +115,7 @@ export const Pages = [
   ["Deploy VSCode Server", "/marketplace-guide/vscode"],
   ["Deploy Minecraft Server", "/marketplace-guide/minecraft"],
   ["Deploy Avail Full Node", "/marketplace-guide/avail-full"],
-  ["Deploy Avail Validator Node", "/marketplace-guide/avail-validator"],
+  ["Deploy Avail Validator Node", "/marketplace-guide/avail"],
   ["Deploy Avail Light Client", "/marketplace-guide/avail-light"],
   ["Deploy TensorFlow GPU", "/marketplace-guide/tensorflow"],
   ["Deploy Shardeum Node", "/marketplace-guide/shardeum"],

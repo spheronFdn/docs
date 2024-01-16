@@ -172,7 +172,7 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Avail Full Node",
   },
   {
-    path: "/marketplace-guide/avail-validator",
+    path: "/marketplace-guide/avail",
     logo: AvailIcon,
     alt: "avail",
     title: "Deploy Avail Validator Node",
