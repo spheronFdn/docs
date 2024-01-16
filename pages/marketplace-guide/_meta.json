@@ -22,7 +22,9 @@
   "jupyter": "Deploy Jupyter Notebook",
   "vscode": "Deploy VSCode Server",
   "minecraft": "Deploy Minecraft Server",
-  "avail": "Deploy Avail Node",
+  "avail-full": "Deploy Avail Full Node",
+  "avail-validator": "Deploy Avail Validator Node",
+  "avail-light": "Deploy Avail Light Client",
   "tensorflow": "Deploy TensorFlow GPU",
   "shardeum": "Deploy Shardeum Node"
 }
