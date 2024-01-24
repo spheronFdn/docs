@@ -40,18 +40,6 @@ To use the Browser SDK, you have to set up the following:
 
 ### Server
 
-<Callout type="info">
-
-If you are using the `>=2.0.0` version of the `@spheron/browser-upload`
-package, you also need to use the `>=2.0.0` version of the `@spheron/storage` on the server
-side.
-
-If you are using the `<2.0.0` version of the `@spheron/browser-upload`
-package, you also need to use the `<2.0.0` version of the `@spheron/storage` on the server
-side.
-
-  </Callout>
-
 You have to set up a web server with an endpoint that will be used by the frontend to fetch the token for upload.
 In the example, we have created a `/initiate-upload` endpoint.
 Make use of the `createSingleUploadToken` method from `@spheron/storage` package to generate the `uploadToken`.
@@ -90,11 +78,6 @@ app.get("/initiate-upload", async (req, res, next) => {
 ```
 
 You need to [Create an Access Token](/rest-api/#creating-an-access-token) to create the client.
-
-<Callout type="info">
-  - For `>=2.0.0` versions, Please choose `storage` type in the dashboard while generating the Access Token.
-  - For `<2.0.0` versions, Please choose `static site` type in the dashboard while generating the Access Token.
-</Callout>
 
 Function `createSingleUploadToken` takes two parameters:
 

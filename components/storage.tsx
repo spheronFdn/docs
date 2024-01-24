@@ -9,13 +9,13 @@ const STORAGE_TYPE_LIST = [
     body: "Upload data to decentralized storage.",
   },
   {
-    path: "/sdk/storage-v2",
+    path: "/sdk/storage",
     emoji: "⛓️",
     title: "Storage SDK",
     body: "For Node.js based environments",
   },
   {
-    path: "/sdk/storage-v2/#ipns-records",
+    path: "/sdk/storage/#ipns-records",
     emoji: "💮",
     title: "IPNS SDK",
     body: "Gain precise control over IPNS records.",

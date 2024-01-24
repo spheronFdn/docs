@@ -10,4 +10,13 @@ module.exports = withNextra({
     path: "",
   },
   trailingSlash: true,
+  async redirects() {
+    return [
+      {
+        source: "/sdk/storage-v2",
+        destination: "/sdk/storage",
+        permanent: true,
+      },
+    ];
+  },
 });
