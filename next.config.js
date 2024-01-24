@@ -2,14 +2,6 @@ const withNextra = require("nextra")({
   theme: "nextra-theme-docs",
   themeConfig: "./theme.config.tsx",
   defaultShowCopyCode: true,
-});
-
-module.exports = withNextra({
-  images: {
-    loader: "akamai",
-    path: "",
-  },
-  trailingSlash: true,
   async redirects() {
     return [
       {
@@ -19,4 +11,12 @@ module.exports = withNextra({
       },
     ];
   },
+});
+
+module.exports = withNextra({
+  images: {
+    loader: "akamai",
+    path: "",
+  },
+  trailingSlash: true,
 });
