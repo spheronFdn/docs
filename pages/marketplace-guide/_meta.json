@@ -26,5 +26,6 @@
   "avail": "Deploy Avail Validator Node",
   "avail-light": "Deploy Avail Light Client",
   "tensorflow": "Deploy TensorFlow GPU",
-  "shardeum": "Deploy Shardeum Node"
+  "shardeum": "Deploy Shardeum Node",
+  "celestia-light": "Deploy Celestia Light Node"
 }

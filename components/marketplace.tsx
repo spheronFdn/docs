@@ -24,6 +24,7 @@ import MinecraftIcon from "../assets/minecraft.svg";
 import AvailIcon from "../assets/avail.png";
 import TensorFlowIcon from "../assets/tensorflow.svg";
 import ShardeumIcon from "../assets/shardeum.svg";
+import CelestiaIcon from "../assets/celestia.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -194,6 +195,12 @@ const MARKETPLACE_APP_LIST = [
     logo: ShardeumIcon,
     alt: "shardeum",
     title: "Deploy Shardeum Node",
+  },
+  {
+    path: "/marketplace-guide/celestia-light",
+    logo: CelestiaIcon,
+    alt: "celestia",
+    title: "Deploy Celestia Light Node",
   },
 ];
 
