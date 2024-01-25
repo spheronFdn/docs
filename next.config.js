@@ -8,8 +8,8 @@ module.exports = withNextra({
   async redirects() {
     return [
       {
-        source: "/sdk/storage-v2/",
-        destination: "/sdk/storage/",
+        source: "/sdk/storage-v2",
+        destination: "/sdk/storage",
         permanent: true,
       },
     ];
