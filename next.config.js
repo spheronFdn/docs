@@ -14,9 +14,4 @@ module.exports = withNextra({
       },
     ];
   },
-  images: {
-    loader: "akamai",
-    path: "",
-  },
-  trailingSlash: true,
 });
