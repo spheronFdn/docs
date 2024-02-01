@@ -27,5 +27,6 @@
   "avail-light": "Deploy Avail Light Client",
   "tensorflow": "Deploy TensorFlow GPU",
   "shardeum": "Deploy Shardeum Node",
-  "celestia-light": "Deploy Celestia Light Node"
+  "celestia-light": "Deploy Celestia Light Node",
+  "elixir": "Deploy Elixir Validator Node"
 }

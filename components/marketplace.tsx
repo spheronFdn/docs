@@ -202,6 +202,12 @@ const MARKETPLACE_APP_LIST = [
     alt: "celestia",
     title: "Deploy Celestia Light Node",
   },
+  {
+    path: "/marketplace-guide/elixir",
+    logo: CelestiaIcon,
+    alt: "elixir",
+    title: "Deploy Elixir Validator Node",
+  },
 ];
 
 const Marketplace = () => {

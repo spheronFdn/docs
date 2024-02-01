@@ -119,6 +119,7 @@ export const Pages = [
   ["Deploy TensorFlow GPU", "/marketplace-guide/tensorflow"],
   ["Deploy Shardeum Node", "/marketplace-guide/shardeum"],
   ["Deploy Celestia Light Node", "/marketplace-guide/celestia-light"],
+  ["Deploy Elixir Validator Node", "/marketplace-guide/elixir"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],

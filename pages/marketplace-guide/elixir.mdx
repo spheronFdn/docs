@@ -1,0 +1,46 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+import VideoPlayer from "components/video-player";
+
+# How to deploy an Elixir Validator Node?
+
+<VideoPlayer embedId="FjQLH3gIXfA" />
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Elixir, all set up and ready to use on the Akash Network.
+To deploy a Elixir validator node:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Elixir Validator** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Add your "wallet address" and "private key" under **Template Configuration**.
+11. Click "Deploy" to initiate deployment.
+
+## Enroll your wallet as a Validator
+
+- Navigate to the [Elixir Network Dashboard](https://dashboard.elixir.finance/) with your wallet-connected browser.
+- Connect with Metamask and switch to the Goerli network.
+- Click "claim ELXR" next to the **Actions** section.
+- After receiving ELXR tokens, proceed to stake any amount between **100-1000 ELXR**.
+- Click "enroll" under Actions, and then enter the **wallet address** added while deploying up your validator.
+- Once the transaction is confirmed, ensure that valid orders are being processed by checking the **Instance Logs** section on the Spheron Instance page.
+
+## Deploy Your Own
+
+Deploy your own Elixir Validator Node with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Elixir%20Validator&templateId=65b3903e0d9f7a57ae7f6d16)
+
+For more information, refer to the [Elixir docs](https://docs.elixir.finance/running-an-elixir-validator).
+
+<Navigation name="Deploy Elixir Validator Node" />
