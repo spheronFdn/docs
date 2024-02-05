@@ -13,7 +13,7 @@ const Footer = () => {
     indicator: "none",
     description: "All Systems Operational",
   });
-  const [colorCode, setColorCode] = useState("#00FF00");
+  const [colorCode, setColorCode] = useState("#0057FF");
 
   useEffect(() => {
     (async () => {
@@ -24,7 +24,7 @@ const Footer = () => {
         if (!response.ok) throw new Error("Network response was not ok");
 
         const colorMapping = {
-          none: "#36B37E",
+          none: "#0057FF",
           minor: "#EFBF14",
           major: "#DE0B0B",
           critical: "#DE0B0B",
