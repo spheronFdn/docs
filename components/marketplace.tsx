@@ -26,6 +26,7 @@ import TensorFlowIcon from "../assets/tensorflow.svg";
 import ShardeumIcon from "../assets/shardeum.svg";
 import CelestiaIcon from "../assets/celestia.svg";
 import ElixirIcon from "../assets/elixir.png";
+import FuelIcon from "../assets/fuel.png";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -208,6 +209,12 @@ const MARKETPLACE_APP_LIST = [
     logo: ElixirIcon,
     alt: "elixir",
     title: "Deploy Elixir Validator Node",
+  },
+  {
+    path: "/marketplace-guide/fuel",
+    logo: FuelIcon,
+    alt: "fuel",
+    title: "Deploy Fuel Node",
   },
 ];
 

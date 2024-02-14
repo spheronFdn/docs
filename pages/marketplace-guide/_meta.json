@@ -28,5 +28,6 @@
   "tensorflow": "Deploy TensorFlow GPU",
   "shardeum": "Deploy Shardeum Node",
   "celestia-light": "Deploy Celestia Light Node",
-  "elixir": "Deploy Elixir Validator Node"
+  "elixir": "Deploy Elixir Validator Node",
+  "fuel": "Deploy Fuel Node"
 }
