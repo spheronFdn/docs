@@ -26,6 +26,7 @@ import TensorFlowIcon from "../assets/tensorflow.svg";
 import ShardeumIcon from "../assets/shardeum.svg";
 import CelestiaIcon from "../assets/celestia.svg";
 import ElixirIcon from "../assets/elixir.png";
+import PryzmIcon from "../assets/pryzm.svg";
 import styles from "../styles/framework.module.css";
 
 const MARKETPLACE_APP_LIST = [
@@ -204,10 +205,10 @@ const MARKETPLACE_APP_LIST = [
     title: "Deploy Celestia Light Node",
   },
   {
-    path: "/marketplace-guide/elixir",
-    logo: ElixirIcon,
-    alt: "elixir",
-    title: "Deploy Elixir Validator Node",
+    path: "/marketplace-guide/pryzm",
+    logo: PryzmIcon,
+    alt: "pryzm",
+    title: "Deploy Pryzm Validator Testnet",
   },
 ];
 
