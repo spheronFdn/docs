@@ -1,0 +1,106 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+import VideoPlayer from "components/video-player";
+
+# How to deploy an Babylon Validator Testnet?
+
+<VideoPlayer embedId="WYxJFuAniuo" />
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Babylon, all set up and ready to use on the Akash Network.
+To deploy a Babylon validator testnet:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Babylon Validator Testnet** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Add your "Moniker" under **Template Configuration**.
+11. Click "Deploy" to initiate deployment.
+
+## Verify Installation
+
+- The Babylon Validator Testnet can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. You can refresh the logs by clicking the refresh icon.
+
+### Create a New Key for Your Node
+
+You can run the following command in **Shell**:
+
+```sh
+babylond keys add wallet
+```
+
+### Fund Your Wallet
+
+1. Visit the `#faucet` channel on the official Babylon Discord server.
+2. Request funds by sharing the address you created in the channel using the command:
+
+```sh
+!faucet <your-address>
+```
+
+3. Check your wallet balance using this command:
+
+```sh
+babylond q bank balances $(babylond keys show wallet -a)
+```
+
+Ensure you have received **1,100,000 ubbn**.
+
+### Generate a BLS Key Pair
+
+Wait for the funds to be credited, then run this command:
+
+```sh
+babylond create-bls-key $(babylond keys show wallet -a)
+```
+
+### Update Configurations
+
+Run the following commands to update configuration:
+
+```sh
+> sed -i -e "s|^key-name *=.*|key-name = \"wallet\"|" $HOME/.babylond/config/app.toml
+> sed -i -e "s|^timeout_commit *=.*|timeout_commit = \"10s\"|" $HOME/.babylond/config/config.toml
+```
+
+### Verify Network Synchronization
+
+Check the synchronization status with:
+
+```sh
+babylond status | jq .SyncInfo
+```
+
+Proceed when **`catching_up`** turns to **`false`**.
+
+### Register Your Validator
+
+1. Use the following command to create your validator, replacing placeholders with your information:
+
+```sh
+babylond tx checkpointing create-validator --amount 1000000ubbn --pubkey $(babylond tendermint show-validator) --moniker "YOUR_MONIKER_NAME" --details "YOUR_DETAILS" --website "YOUR_WEBSITE_URL" --chain-id bbn-test-2 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0.00001ubbn -y
+```
+
+2. Customize the command with your details: <br /> Replace **`your-moniker-name`**, **`your-details`**, **`your-website`**, and **`your-email`** with your own information.
+3. Wait for 2-3 hours before checking your node in the inactive list at [Babylon validators list](https://babylon.explorers.guru/validators)
+
+## Deploy Your Own
+
+Deploy your own Babylon Validator Testnet with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Babylon%20Validator%20Testnet&templateId=65bf6c0ac22c1ed319c2ad60)
+
+For more information, refer to the [Babylon docs](https://docs.babylonchain.io/docs/introduction/overview).
+
+<Navigation name="Deploy Babylon Validator Testnet" />

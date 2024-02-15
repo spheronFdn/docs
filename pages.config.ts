@@ -120,6 +120,7 @@ export const Pages = [
   ["Deploy Shardeum Node", "/marketplace-guide/shardeum"],
   ["Deploy Celestia Light Node", "/marketplace-guide/celestia-light"],
   ["Deploy Elixir Validator Node", "/marketplace-guide/elixir"],
+  ["Deploy Babylon Validator Testnet", "/marketplace-guide/babylon"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],
