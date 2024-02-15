@@ -28,7 +28,7 @@ To deploy a Pryzm validator testnet:
 
 ## Verify Installation
 
-- The Avail Light Client can be accessed only after the Compute Instance is provisioned.
+- The Pryzm Validator Testnet can be accessed only after the Compute Instance is provisioned.
   Thus, you need to wait for the installation to complete before you can start using it.
 - As the node starts, the **Instance Logs** will display the output about the operations performed. You can refresh the logs by clicking the refresh icon.
 
@@ -76,7 +76,7 @@ Make sure you receive at least **2 upryzm** tokens.
 
 Check the synchronization status with:
 
-```bash
+```sh
 pryzmd status | jq .SyncInfo
 ```
 
@@ -86,7 +86,7 @@ Proceed when **`catching_up`** turns to **`false`**.
 
 1. Use the following command to create your validator, replacing placeholders with your information:
 
-```bash
+```sh
 pryzmd tx staking create-validator --amount 1000000upryzm --pubkey $(pryzmd tendermint show-validator) --moniker "your-moniker-name" --details "your-details" --website "your-website" --security-contact "your-email" --chain-id indigo-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0.015upryzm -y
 ```
 
