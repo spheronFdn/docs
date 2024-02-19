@@ -112,7 +112,7 @@ Used to encrypt a string or a file and upload it to IPFS.
 
 ```js
 const { uploadId, bucketId, protocolLink, dynamicLinks } =
-  await spheron.encryptUpload({
+  await client.encryptUpload({
     authSig,
     accessControlConditions,
     chain,
@@ -185,7 +185,7 @@ Used to decrypt the data of the previously encrypted upload.
 </Callout>
 
 ```js
-const decryptedData: Uint8Array = spheron.decryptUpload({
+const decryptedData: Uint8Array = client.decryptUpload({
   authSig,
   ipfsCid,
   litNodeClient,
@@ -892,7 +892,10 @@ const bucketDomain: Domain = await client.addBucketDomain(bucketId, {
 Function `addBucketDomain` takes two parameters:
 
 - **bucketId** - (string) - The id of the bucket.
-- **bucketDetails** - An object with the link, type, and name of the bucket to be added.
+- **bucketDetails:**
+  - **link** - (string) - The link of the bucket.
+  - **type** - (string) - The type of bucket.
+  - **name** - (string) - The new domain/subdomain of the bucket. Eg: `app.spheron.network`
 
 After you have setup the record on your DNS provider, then you should call the `verifyBucketDomain` method to verify your domain on Spheron. After the domain is verified, the data behind the link will be cached on the Spheron CDN.
 
@@ -977,7 +980,9 @@ Function `updateBucketDomain` takes three parameters:
 
 - **bucketId** - (string) - The id of the bucket.
 - **domainIdentifier** - (string) - It can either be the id of the domain or the name of the domain.
-- **options** - An object with the link and name of the bucket to be updated.
+- **options:**
+  - **link** - (string) - The link of the bucket.
+  - **name** - (string) - The new domain/subdomain of the bucket. Eg: `app.spheron.network`
 
 **Response**
 
