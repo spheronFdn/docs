@@ -15,12 +15,6 @@ const QUICK_START_LIST = [
     body: "Learn how to create multiple organizations.",
   },
   {
-    path: "/static/deployment/logs",
-    emoji: "🚀",
-    title: "Static Site",
-    body: "Deploy static sites from your Git provider.",
-  },
-  {
     path: "/compute",
     emoji: "✈️",
     title: "Compute",
@@ -37,12 +31,6 @@ const QUICK_START_LIST = [
     emoji: "⛩️",
     title: "Gateways",
     body: "Fast & reliable access to pinned content.",
-  },
-  {
-    path: "/framework-guide",
-    emoji: "📍",
-    title: "Framework Guide",
-    body: "Learn how to deploy your framework.",
   },
   {
     path: "/server-guide",

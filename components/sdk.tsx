@@ -20,18 +20,6 @@ const SDK_LIST = [
     title: "Compute SDK",
     body: "Designed to streamline work with your compute organizations",
   },
-  {
-    path: "/sdk/site",
-    emoji: "🚧",
-    title: "Site SDK",
-    body: "Create flows for your static-site organizations.",
-  },
-  {
-    path: "/sdk/fvm-deal-utils",
-    emoji: "💡",
-    title: "FVM Deal Utils SDK",
-    body: "For Node.js based environments",
-  },
 ];
 
 const SDK = () => {
