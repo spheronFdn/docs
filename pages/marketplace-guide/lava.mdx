@@ -1,0 +1,102 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+import VideoPlayer from "components/video-player";
+
+# How to deploy an Lava Validator Testnet?
+
+<VideoPlayer embedId="lXZcMKPUgaY" />
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Lava, all set up and ready to use on the Akash Network.
+To deploy a Lava validator testnet:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Lava Validator Testnet** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Add your "Moniker" under **Template Configuration**.
+11. Click "Deploy" to initiate deployment.
+
+## Verify Installation
+
+- The Lava Validator Testnet can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. You can refresh the logs by clicking the refresh icon.
+
+### Create or Recover Your Wallet
+
+Go to **Shell Command** from the left navigation and follow these steps:
+
+1. **To create a new wallet**
+
+```sh
+lavad keys add wallet
+```
+
+2. **To recover an existing wallet**
+
+```sh
+lavad keys add wallet --recover
+```
+
+Then, enter your mnemonic phrase when prompted.
+
+### Fund Your Wallet
+
+1. Visit the **#faucet** channel on the [official Lava Network Discord server](https://discord.com/invite/Tbk5NxTCdA) and request funds by sharing the address you previously created.
+2. Check your wallet balance using:
+
+```sh
+lavad q bank balances $(lavad keys show wallet -a)
+```
+
+Make sure you have at least **100000ulava** tokens.
+
+3. If you don't see a balance, your node might still be syncing with the blockchain. Wait until the **`catching_up`** status is **`false`**.
+4. Monitor your wallet on the Lava Explorer: Keep an eye on your transactions and balance by visiting [Lava Explorer](https://lava.explorers.guru/validators) and entering your wallet address. This step is crucial for ensuring that your wallet has been successfully funded and is correctly reflecting the transactions on the blockchain.
+
+### Verify Network Synchronization
+
+Check the synchronization status with:
+
+```sh
+lavad status | jq .SyncInfo
+```
+
+Proceed when **`catching_up`** turns to **`false`**.
+
+### Register Your Validator
+
+1. Use the following command to create your validator, replacing placeholders with your information:
+
+```sh
+lavad tx staking create-validator --amount=90000ulava --pubkey=$(lavad tendermint show-validator) --moniker "YOUR_MONIKER_NAME" --details "YOUR_DETAILS" --website "YOUR_WEBSITE_URL" --chain-id=lava-testnet-2 --commission-rate=0.1 --commission-max-rate=0.2 --commission-max-change-rate=0.05 --min-self-delegation=1 --gas="auto" --gas-adjustment "1.5" --gas-prices="0.05ulava" --from=wallet -y
+```
+
+2. Customize the command with your details: <br /> Replace **`YOUR_MONIKER_NAME`**, **`YOUR_DETAILS`**, and **`YOUR_WEBSITE_URL`** with your information.
+3. Make sure you see the validator details:
+
+```sh
+lavad q staking validator $(lavad keys show wallet --bech val -a)
+```
+
+4. Wait a few minutes after executing this command, before checking your node on the [Lava validators list](https://lava.explorers.guru/validators).
+
+## Deploy Your Own
+
+Deploy your own Lava Validator Testnet with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Lava%20Validator%20Testnet&templateId=65e0b1b4d7eb8625b3527f06)
+
+For more information, refer to the [Lava docs](https://docs.lavanet.xyz/validator).
+
+<Navigation name="Deploy Lava Validator Testnet" />
