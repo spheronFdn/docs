@@ -1,0 +1,64 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+import VideoPlayer from "components/video-player";
+
+# How to deploy an Fuel Beta-4 Node?
+
+<VideoPlayer embedId="XDOUn6mibHM" />
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Fuel Beta-4 Node, all set up and ready to use on the Akash Network.
+To deploy a Fuel node:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Fuel Beta-4 Node** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Add your "Service Name" and "Sepolia Rpc Endpoint" under **Template Configuration**.
+11. Click "Deploy" to initiate deployment.
+
+<Callout type="info">
+  **NOTE:** You can get a Sepolia Rpc Endpoint from either
+  [Infura](https://www.infura.io/) or [Alchemy](https://www.alchemy.com/).
+</Callout>
+
+## Verify Installation
+
+- The Fuel Beta-4 Node can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. If you see messages that blocks are being proposed and finalized, you have a running node.
+
+## Generating a P2P Key
+
+You can generate a new P2P key pairing by running the following command in the **Shell**:
+
+```
+> ls
+ chainConfig.json  fuel-key.txt peering-setup.sh
+> cat fuel-key.txt
+ {"peer_id":"16Uiu2HAm8kCaJaaKTujrSwdBxyCELTY979KYaP9YBkWVLTGTo7Bf","secret":"361b3275a3dd4150ea4c786b8dff7822205331e56ac2e73c32b17cb295978c8c","type":"p2p"}
+```
+
+<Callout type="info">
+  **NOTE:** Make sure you save this somewhere safe so you don't need to generate
+  a new key pair in the future.
+</Callout>
+
+## Deploy Your Own
+
+Deploy your own Fuel Beta-4 Node with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Fuel%20Beta-4%20Node&templateId=65c4582ac22c1ed319c2ad7c)
+
+For more information, refer to the [Fuel docs](https://docs.fuel.network/guides/running-a-node/running-a-testnet-node).
+
+<Navigation name="Deploy Fuel Node" />

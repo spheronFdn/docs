@@ -29,5 +29,6 @@
   "shardeum": "Deploy Shardeum Node",
   "celestia-light": "Deploy Celestia Light Node",
   "elixir": "Deploy Elixir Validator Node",
+  "fuel": "Deploy Fuel Node",
   "lava": "Deploy Lava Validator Testnet"
 }
