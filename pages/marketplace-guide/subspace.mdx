@@ -53,7 +53,23 @@ To deploy a Subspace node:
 
 - The Subspace Node can be accessed only after the Compute Instance is provisioned.
   Thus, you need to wait for the installation to complete before you can start using it.
-- The **Instance Logs** of the "Farmer Service" will display the output about the operations performed. If you see messages that blocks are being proposed and finalized, you have a running node.
+- The **Instance Logs** of the "Farmer Service" will display the output about the operations performed.
+- You can also access the Subspace Plot Manager using the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080** to verify if the plots are being created.
+
+```
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT Single disk farm 0:
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   ID: 01HSE46Q16MJHYHYTH8XNDNWYR
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Genesis hash: 0x0c121c75f4ef450f40619e1fca9d1e8e7fbabc42c895bc4790801e85d5a91c34
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Public key: 0xe688bc7cf5f6fa972fec5ee7470f5e8048f3f0157bfe60c608dfce36018fc668
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Allocated space: 93.1 GiB (100.0 GB)
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Directory: /plots/plot1
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT INFO subspace_farmer::commands::farm: Collecting already plotted pieces (this will take some time)...
+[farmer] Wed, 20 Mar 2024 14:38:16 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 86.74% complete
+[farmer] Wed, 20 Mar 2024 14:38:32 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 92.94% complete
+[farmer] Wed, 20 Mar 2024 14:38:50 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 99.13% complete
+[farmer] Wed, 20 Mar 2024 14:39:02 GMT INFO subspace_farmer::farmer_cache: Finished piece cache synchronization
+[farmer] Wed, 20 Mar 2024 14:39:02 GMT INFO {disk_farm_index=0}: subspace_farmer::single_disk_farm::plotting: Plotting sector (0.00% complete) sector_index=0
+```
 
 ## Deploy Your Own
 
