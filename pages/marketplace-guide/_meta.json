@@ -22,12 +22,15 @@
   "jupyter": "Deploy Jupyter Notebook",
   "vscode": "Deploy VSCode Server",
   "minecraft": "Deploy Minecraft Server",
+  "tensorflow": "Deploy TensorFlow GPU",
   "avail-full": "Deploy Avail Full Node",
   "avail": "Deploy Avail Validator Node",
   "avail-light": "Deploy Avail Light Client",
-  "tensorflow": "Deploy TensorFlow GPU",
   "shardeum": "Deploy Shardeum Node",
   "celestia-light": "Deploy Celestia Light Node",
   "elixir": "Deploy Elixir Validator Node",
+  "fuel": "Deploy Fuel Node",
+  "lava": "Deploy Lava Validator Testnet",
+  "babylon": "Deploy Babylon Validator Testnet",
   "pryzm": "Deploy Pryzm Validator Testnet"
 }

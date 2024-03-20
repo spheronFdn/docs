@@ -26,6 +26,9 @@ import TensorFlowIcon from "../assets/tensorflow.svg";
 import ShardeumIcon from "../assets/shardeum.svg";
 import CelestiaIcon from "../assets/celestia.svg";
 import ElixirIcon from "../assets/elixir.png";
+import FuelIcon from "../assets/fuel.png";
+import LavaIcon from "../assets/lava.png";
+import BabylonIcon from "../assets/babylon.png";
 import PryzmIcon from "../assets/pryzm.svg";
 import styles from "../styles/framework.module.css";
 
@@ -203,6 +206,30 @@ const MARKETPLACE_APP_LIST = [
     logo: CelestiaIcon,
     alt: "celestia",
     title: "Deploy Celestia Light Node",
+  },
+  {
+    path: "/marketplace-guide/elixir",
+    logo: ElixirIcon,
+    alt: "elixir",
+    title: "Deploy Elixir Validator Node",
+  },
+  {
+    path: "/marketplace-guide/fuel",
+    logo: FuelIcon,
+    alt: "fuel",
+    title: "Deploy Fuel Node",
+  },
+  {
+    path: "/marketplace-guide/lava",
+    logo: LavaIcon,
+    alt: "lava",
+    title: "Deploy Lava Validator Testnet",
+  },
+  {
+    path: "/marketplace-guide/babylon",
+    logo: BabylonIcon,
+    alt: "babylon",
+    title: "Deploy Babylon Validator Testnet",
   },
   {
     path: "/marketplace-guide/pryzm",
