@@ -29,9 +29,9 @@ yarn add @spheron/compute
 To use the Spheron Compute SDK, you have to create an instance of `SpheronClient`.
 
 ```js
-import SpheronClient from "@spheron/compute";
+import { SpheronClient } from "@spheron/compute";
 
-const client = new SpheronClient({ token });
+const spheron = new SpheronClient({ token });
 ```
 
 The `SpheronClient` constructor takes an object that has one property `token`.
@@ -71,8 +71,8 @@ interface Organization {
 
 <Callout type="info">
   **NOTE:** At the moment, Spheron Tokens are scoped to a single organization.
-  So you can only use them to get information about the organization for
-  which you have created the token.
+  So you can only use them to get information about the organization for which
+  you have created the token.
 </Callout>
 
 ---
@@ -84,7 +84,7 @@ Used to get the clusters of the organization. The method supports pagination.
 ```js
 const clusters: Cluster[] = await spheron.organization.getClusters({
   skip: 0,
-  limit: 10
+  limit: 10,
 });
 ```
 
@@ -111,17 +111,17 @@ Returns the `UsageWithLimits` object.
 ```js
 interface UsageWithLimits {
   used: {
-    computeCredit: number; // the amount used by the organization, in usd
-    computeBuildExecution: number; // the time used for builds, in seconds
-    numberOfRequests: number; // the number of requests organization has had until now
-    bandwidth: number; // the bytes of bandwidth used for current subscription
-    domains: number; // the number of domains and subdomains an organization has
+    computeCredit: number, // the amount used by the organization, in usd
+    computeBuildExecution: number, // the time used for builds, in seconds
+    numberOfRequests: number, // the number of requests organization has had until now
+    bandwidth: number, // the bytes of bandwidth used for current subscription
+    domains: number, // the number of domains and subdomains an organization has
   };
   limit: {
-    computeCredit: number; // the amount limit for organization, in usd
-    computeBuildExecution: number; // the time limit for builds, in seconds
-    bandwidth: number; // the limit of bandwidth for subscription
-    domains: number; // the limit on how many domains and subdomains can an organization have
+    computeCredit: number, // the amount limit for organization, in usd
+    computeBuildExecution: number, // the time limit for builds, in seconds
+    bandwidth: number, // the limit of bandwidth for subscription
+    domains: number, // the limit on how many domains and subdomains can an organization have
   };
 }
 ```
@@ -151,7 +151,7 @@ interface Cluster {
   url: string; // docker image
   proivder: ProviderEnum; // docker image provider (currently only dockerhub is supported)
   createdBy: string; // id of the user that created cluster
-  createdAt: Date; 
+  createdAt: Date;
   updatedAt: Date;
 };
 
@@ -184,18 +184,20 @@ Method return type is void. If there is an issue while deleting, an error will b
 Used for getting information about instances in the cluster.
 
 ```js
-const instanceInfo: InstancesInfo = await spheron.cluster.getInstancesInfo(clusterId);
+const instanceInfo: InstancesInfo = await spheron.cluster.getInstancesInfo(
+  clusterId
+);
 ```
 
 Returns an object of type `InstancesInfo`.
 
 ```js
 interface InstancesInfo {
-    provisioned: number; // number of provisioned instances in the cluster
-    provisioning: number; // number of provisioning instances in the cluster
-    failedToProvision: number; // number of fail to provision instances in the cluster
-    closed: number; // number of closed instances in the cluster
-    total: number; // total number of instances in the cluster
+  provisioned: number; // number of provisioned instances in the cluster
+  provisioning: number; // number of provisioning instances in the cluster
+  failedToProvision: number; // number of fail to provision instances in the cluster
+  closed: number; // number of closed instances in the cluster
+  total: number; // total number of instances in the cluster
 }
 ```
 
@@ -206,7 +208,9 @@ interface InstancesInfo {
 Used to get the current funds usage of the cluster.
 
 ```js
-const clusterUsage: ClusterFundsUsage = await spheron.cluster.getUsage(clusterId);
+const clusterUsage: ClusterFundsUsage = await spheron.cluster.getUsage(
+  clusterId
+);
 ```
 
 Params:
@@ -217,8 +221,8 @@ Returns an object of type `ClusterFundsUsage`.
 
 ```js
 interface ClusterFundsUsage {
-    dailyUsage: number; // cluster daily usage in usd
-    usedTillNow: number; // cluster daily usage in usd
+  dailyUsage: number; // cluster daily usage in usd
+  usedTillNow: number; // cluster daily usage in usd
 }
 ```
 
@@ -229,14 +233,13 @@ interface ClusterFundsUsage {
 Used to get the list of instances in the cluster. The method supports pagination.
 
 ```js
-const instances: InstanceDetailed[] =
-  await spheron.cluster.getInstances(
-    clusterId,
-    options: {
-      skip: 0,
-      limit: 10
-    }
-  );
+const instances: InstanceDetailed[] = await spheron.cluster.getInstances(
+  clusterId,
+  {
+    skip: 0,
+    limit: 10,
+  }
+);
 ```
 
 Params:
@@ -313,6 +316,7 @@ Params:
 
 - `clusterName` (string) - name of the cluster.
 - `configuration` the name of the variable.
+
   - `image` (string) - dockerhub image url (should be publicly available).
   - `tag` (string) - tag for docker image.
   - `ports` (Port[]) - list of port mappings.
@@ -323,23 +327,22 @@ Params:
   - `region` (string) - region in which to deploy the instance. List of available can be acquired from the [getRegions section under compute machine section](/sdk/compute/#getregions).
   - `replicas` (number) - number of instance replicas.
   - `storage` (number): size of storage in GB. It must be valued between 1 and 1024. This is temporary storage data stored in it is lost when the instance closes.
-  - `machineImageId` (string) - (optional) id of machine image which should be used for deploying instance. List of available machines can be acquired from [get the section under compute machine section](/sdk/compute/#get-4). Leave empty in case of using the custom spec. 
+  - `machineImageId` (string) - (optional) id of machine image which should be used for deploying instance. List of available machines can be acquired from [get the section under compute machine section](/sdk/compute/#get-4). Leave empty in case of using the custom spec.
   - `healthCheckConfig` (optional)
     - `path` (string) - path on which health check should be done.
     - `port` (number) - container port on which health check should be done.
   - `persistentStorage` (optional)
-    - `size` (number) - size of persistent storage in GB. Must be a value between 1 and 1024. 
+    - `size` (number) - size of persistent storage in GB. Must be a value between 1 and 1024.
     - `class` (PersistentStorageClassEnum) - class of persistant storage (HDD, SSD, NVMe).
     - `mountPoint` (number) - mount point of persistent storage.
   - `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
     - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
     - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
   - `type` (Enum): The computation type, which determines how your instance is allocated and billed.
-    - `ComputeTypeEnum.SPOT` - Spheron offers Spot compute where the allocation of computational resources is static and fixed. Resource allocation remains unchanged regardless of workload fluctuations or application demands, offering a straightforward approach without complex configurations.  [Learn more](https://docs.spheron.network/compute/type/spot/).
+    - `ComputeTypeEnum.SPOT` - Spheron offers Spot compute where the allocation of computational resources is static and fixed. Resource allocation remains unchanged regardless of workload fluctuations or application demands, offering a straightforward approach without complex configurations. [Learn more](https://docs.spheron.network/compute/type/spot/).
     - `ComputeTypeEnum.DEMAND` - Spheron offers On Demand compute, allowing users to adjust the computational resources allocated to an instance. Users can make decisions to increase or decrease resources such as CPU, memory, or storage to meet changing performance requirements. This type provides direct control over resource adjustments, optimizing for specific workload characteristics and immediate operational needs. [Learn more](https://docs.spheron.network/compute/type/on-demand/).
-Types:    
 
-- `Port` 
+- `Port`
   - `containerPort` (number) - container port that will be mapped.
   - `exposedPort` (number) - port to be mapped to.
 
@@ -349,7 +352,7 @@ Types:
   - \{ containerPort: 3000, exposedPort: 3000 \} - port 3000 will be mapped to random port.
 </Callout>
 
-- `EnvironmentVariable` 
+- `EnvironmentVariable`
   - `key` (string) - key of the environment variable.
   - `value` (string) - value of the environment variable.
 
@@ -358,8 +361,8 @@ Returns `InstanceResponse` object, indicating instance deployment has started. I
 ```js
 interface InstanceResponse {
   clusterId: string; // id of cluster instance is deployed in
-  instanceId: string;  // id of instance
-  instanceDeploymentId: string;  // id of instance deployment
+  instanceId: string; // id of instance
+  instanceDeploymentId: string; // id of instance deployment
 }
 ```
 
@@ -463,19 +466,20 @@ await spheron.instance.update(
 ```
 
 Params:
+
 - `environmentVariables` (EnvironmentVariable[]) - (optional) list of the environment variables.
 - `secretEnvironmentVariables` (EnvironmentVariable[]) - (optional) list of secret environment variables.
-- `commands`  (string[]) - (optional) list of executables for docker CMD command. 
-- `args`  (string[]) - (optional) list of params for docker CMD command. 
-- `tag`  (string[]) - (optional) tag for docker image.
+- `commands` (string[]) - (optional) list of executables for docker CMD command.
+- `args` (string[]) - (optional) list of params for docker CMD command.
+- `tag` (string[]) - (optional) tag for docker image.
 - `storage` (number) - (optional) size of storage in GB. Must be value between 1 and 1024. This is temporary storage data stored in it is lost when the instance closes.
 - `persistentStorage` (optional)
-  - `size` (number) - size of persistent storage in GB. Must be value between 1 and 1024. 
+  - `size` (number) - size of persistent storage in GB. Must be value between 1 and 1024.
   - `class` (PersistentStorageClassEnum) - class of persistant storage (HDD, SSD, NVMe).
   - `mountPoint` (number) - mount point of persistent storage.
 - `customSpecs` (optional) - Leave empty in case of using a predefined machine image.
-    - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
-    - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
+  - `cpu` (number) - custom cpu value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
+  - `memory` (number) - custom memeory value, for instance. Available values are [0.5, 1, 2, 4, 8, 16, 32].
 - `instanceCount` (number) - (optional) - number of instance.
 
 **Note**: Values for `persistentStorage`, `customSpecs`, and `instanceCount` can only be updated if the compute type is set to "on-demand" when deploying the instance.
@@ -485,10 +489,11 @@ Returns `InstanceResponse` object, indicating instance update has started.
 ```js
 interface InstanceResponse {
   clusterId: string; // id of cluster instance is deployed in
-  instanceId: string;  // id of instance
-  instanceDeploymentId: string;  // id of instance deployment
+  instanceId: string; // id of instance
+  instanceDeploymentId: string; // id of instance deployment
 }
 ```
+
 ---
 
 ### updateHealthCheck
@@ -496,10 +501,10 @@ interface InstanceResponse {
 Used to update endpoint used for instance health check.
 
 ```js
-const updated = await spheron.instance.updateHealthCheck(
-  instanceId,
-  { path: "/health", port: 3000 }
-);
+const updated = await spheron.instance.updateHealthCheck(instanceId, {
+  path: "/health",
+  port: 3000,
+});
 ```
 
 Params:
@@ -507,13 +512,13 @@ Params:
 - Id of the instance.
 - Id of the environment variable.
 - `healthCheck`
-  - `path`  (string) - health check path.
+  - `path` (string) - health check path.
   - `port` (number) - container port on which health check should be done.
 
 Returns the response indicating if the update was successful.
 
 ```js
-{ 
+{
   message: string; // the response message
   success: boolean; // the flag signaling if action was successful
 }
@@ -536,7 +541,7 @@ Params:
 Returns the response indicating if the update was successful.
 
 ```js
-{ 
+{
   message: string; // the response message
   success: boolean; // the flag signaling if action was successful
 }
@@ -573,8 +578,8 @@ interface InstanceDeployment {
     ports: Array<Port>; // port mappings
     environmentVariables: Array<EnvironmentVar>; // environment variables
     secretEnvironmentVariables: Array<EnvironmentVar>; // secret environment variables
-    commands: Array<string>; // list of executables for docker CMD command 
-    args: Array<string>; // list of params for docker CMD command 
+    commands: Array<string>; // list of executables for docker CMD command
+    args: Array<string>; // list of params for docker CMD command
     region: string; // region to which instance is deployed
     agreedMachineImage: MachineImageType
   };
@@ -601,9 +606,9 @@ interface Port {
 };
 
 interface EnvironmentVariable {
-  key: string; // environment variable key 
-  value: string; // environment variable value 
-  isSecret: boolean; // is environment variable secret 
+  key: string; // environment variable key
+  value: string; // environment variable value
+  isSecret: boolean; // is environment variable secret
 };
 
 interface MachineImageType {
@@ -616,7 +621,7 @@ interface MachineImageType {
       size: number; // persistent storage size in GB
       class: PersistentStorageClassEnum; // persistent storage class - HDD/SSD/NVMe
       mountPoint: string; // persistent storage mount point
-    }; 
+    };
 }
 
 enum PersistentStorageClassEnum {
@@ -701,18 +706,18 @@ Params:
 - `replicas` (number) - number of instance replicas.
 - `storage` (number) size of storage in GB. Must be value between 1 and 1024. This is temporary storage data stored in it is lost when the instance closes.
 - `persistentStorage` (optional)
-  - `size` (number) - size of persistent storage in GB. Must be value between 1 and 1024. 
+  - `size` (number) - size of persistent storage in GB. Must be value between 1 and 1024.
   - `class` (PersistentStorageClassEnum) - class of persistant storage (HDD, SSD, NVMe).
   - `mountPoint` (number) - mount point of persistent storage.
 - `customSpecs` (optional) - Leave empty in case of using predefined machine image.
   - `cpu` (number) - custom cpu value for instance. Avalilable values are [0.5, 1, 2, 4, 8, 16, 32].
-  - `memory` (number) - custom memeory value for instance. Avalilable values are [0.5, 1, 2, 4, 8, 16, 32].  
+  - `memory` (number) - custom memeory value for instance. Avalilable values are [0.5, 1, 2, 4, 8, 16, 32].
 
 Returns `MarketplaceInstanceResponse` object, indicating instance deployment has started. If there is an issue while deploying, an error will be thrown.
 
 ```js
 interface MarketplaceInstanceResponse {
-  marketplaceApp: MarketplaceApp; // marketplace app used 
+  marketplaceApp: MarketplaceApp; // marketplace app used
   marketplaceAppId: string; // the id of the marketplace app
   clusterId: string; // the id of the cluster instance belongs to
   instanceId: string; // the id of the instance
@@ -751,6 +756,7 @@ enum DomainTypeEnum {
     SUBDOMAIN
 }
 ```
+
 ---
 
 ### addDomain
@@ -761,7 +767,7 @@ Used to add a new domain to an instance.
 const domain: Domain = await spheron.instance.addDomain(instanceId, {
   name: "domain.com",
   type: DomainTypeEnum.DOMAIN,
-  link: connectionUrl
+  link: connectionUrl,
 });
 ```
 
@@ -772,7 +778,6 @@ Params:
   - `name` (string) - the domain name.
   - `type` (DomainTypeEnum) - the domain type.
   - `link` (string) - one of the `connectionUrls` list elements of an active deployment of the instance to which the domain will point to.
-
 
 Returns the newly created domain. After a domain is created, you need to call the [verifyDomain](/sdk/compute/#verifydomain) function for it to work.
 
@@ -812,7 +817,10 @@ Returns the updated domain. If the domain name is updated, you need to call the 
 Used to verify the domain, after which the content behind the domain will be cached on CDN.
 
 ```js
-const domain: Domain = await spheron.instance.verifyDomain(instanceId, domainId);
+const domain: Domain = await spheron.instance.verifyDomain(
+  instanceId,
+  domainId
+);
 ```
 
 Params:
@@ -878,6 +886,7 @@ Returns the response indicating the fetching process has started.
   message: string; // the response message
 }
 ```
+
 ---
 
 ### triggerLatestHealth
@@ -922,8 +931,9 @@ Method returns a list of `MarketplaceApp` objects. For more details about `Marke
 Used to get marketplace app based on the passed id.
 
 ```js
-const marketplaceApp: MarketplaceApp =
-  await spheron.computeMarketplace.get(marketplaceAppId);
+const marketplaceApp: MarketplaceApp = await spheron.computeMarketplace.get(
+  marketplaceAppId
+);
 ```
 
 Params:
@@ -953,6 +963,7 @@ interface MarketplaceAppVariable {
   required?: string;
 }
 ```
+
 ---
 
 ### getCategories
@@ -977,7 +988,7 @@ Used to get the list of available compute machines.
 const computeMachines: ComputeMachine[] = await spheron.computeMachine.get({
   skip: 0,
   limit: 10,
-  search: "2Gi"
+  search: "2Gi",
 });
 ```
 
