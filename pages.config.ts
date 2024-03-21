@@ -124,6 +124,7 @@ export const Pages = [
   ["Deploy Lava Validator Testnet", "/marketplace-guide/lava"],
   ["Deploy Babylon Validator Testnet", "/marketplace-guide/babylon"],
   ["Deploy Pryzm Validator Testnet", "/marketplace-guide/pryzm"],
+  ["Deploy Subspace Node", "/marketplace-guide/subspace"],
   ["Spheron SDK", "/sdk"],
   ["Storage SDK", "/sdk/storage"],
   ["Browser Upload SDK", "/sdk/browser"],

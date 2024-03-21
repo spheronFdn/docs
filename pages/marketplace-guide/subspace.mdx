@@ -1,0 +1,82 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# How to deploy an Subspace Node?
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Subspace, all set up and ready to use on the Akash Network.
+To deploy a Subspace node:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Subspace Network** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Select the "farmer" tab under **Personalize Your Compute Service** section.
+8. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+9. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+10. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+11. Add your "wallet address" under Template Configuration.
+12. Click "Deploy" to initiate deployment.
+
+## Create a Sub Wallet
+
+### Install Sub Wallet Chrome Extension
+
+1. Go to the Chrome Web Store and search for "Sub Wallet - Polkadot Wallet Link". Or Download it from [Here](https://chromewebstore.google.com/detail/subwallet-polkadot-wallet/onhogfjeacnfoofkfgppdlbmlmnplgbn).
+2. Click "Add to Chrome" and follow the prompts to install the extension.
+
+### Create a Sub Wallet Account
+
+1. Click on the Sub Wallet extension icon in your Chrome browser.
+2. On the SubWallet page, Click "Create a new account".
+3. Agree to the terms and conditions by clicking the checkbox and then Click "Continue".
+4. Create a secure password for your account. Remember to save it securely as SubWallet cannot recover lost passwords. Copy or download the seed phrase provided.
+5. Confirm that you have securely stored the seed phrase by clicking "I have kept it somewhere safe."
+
+### Configure Subspace Gemini 3H Network
+
+1. Click on the settings icon located in the upper right corner.
+2. Navigate to the **Network** section and enable "Subspace Gemini 3H".
+
+### Copy Wallet Address
+
+1. Return to the main menu of the SubWallet extension.
+2. Click "tSSC" and copy the wallet address.
+
+## Verify Installation
+
+- The Subspace Node can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- The **Instance Logs** of the "Farmer Service" will display the output about the operations performed.
+- You can also access the Subspace Plot Manager using the `Connection URL` provided by Spheron under **Port Policy Info for Port 8080** to verify if the plots are being created.
+
+```
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT Single disk farm 0:
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   ID: 01HSE46Q16MJHYHYTH8XNDNWYR
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Genesis hash: 0x0c121c75f4ef450f40619e1fca9d1e8e7fbabc42c895bc4790801e85d5a91c34
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Public key: 0xe688bc7cf5f6fa972fec5ee7470f5e8048f3f0157bfe60c608dfce36018fc668
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Allocated space: 93.1 GiB (100.0 GB)
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT   Directory: /plots/plot1
+[farmer] Wed, 20 Mar 2024 14:28:22 GMT INFO subspace_farmer::commands::farm: Collecting already plotted pieces (this will take some time)...
+[farmer] Wed, 20 Mar 2024 14:38:16 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 86.74% complete
+[farmer] Wed, 20 Mar 2024 14:38:32 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 92.94% complete
+[farmer] Wed, 20 Mar 2024 14:38:50 GMT INFO subspace_farmer::farmer_cache: Piece cache sync 99.13% complete
+[farmer] Wed, 20 Mar 2024 14:39:02 GMT INFO subspace_farmer::farmer_cache: Finished piece cache synchronization
+[farmer] Wed, 20 Mar 2024 14:39:02 GMT INFO {disk_farm_index=0}: subspace_farmer::single_disk_farm::plotting: Plotting sector (0.00% complete) sector_index=0
+```
+
+## Deploy Your Own
+
+Deploy your own Subspace Node with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Subspace%20Network&templateId=65e7017265cfd941fd91495e)
+
+For more information, refer to the [Subspace docs](https://docs.subspace.network/docs/farming-&-staking/).
+
+<Navigation name="Deploy Subspace Node" />
