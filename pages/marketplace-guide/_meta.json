@@ -31,5 +31,7 @@
   "elixir": "Deploy Elixir Validator Node",
   "fuel": "Deploy Fuel Node",
   "lava": "Deploy Lava Validator Testnet",
-  "babylon": "Deploy Babylon Validator Testnet"
+  "babylon": "Deploy Babylon Validator Testnet",
+  "pryzm": "Deploy Pryzm Validator Testnet",
+  "subspace": "Deploy Subspace Node"
 }

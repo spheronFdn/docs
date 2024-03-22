@@ -1,0 +1,104 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+import VideoPlayer from "components/video-player";
+
+# How to deploy an Pryzm Validator Testnet?
+
+<VideoPlayer embedId="3yVCl8luZBQ" />
+
+<Callout type="info">
+  **NOTE:** Spheron Compute offers the flexibility to create custom
+  configurations for your instance.
+</Callout>
+
+Spheron allows you to deploy a compute instance pre-installed with Pryzm, all set up and ready to use on the Akash Network.
+To deploy a Pryzm validator testnet:
+
+1. Click "New Cluster" on the top right corner.
+2. Choose "Compute" to use CPU-based instances for running containers.
+3. Choose your desired Compute Type option under **Compute Type**.
+4. Select **Start from Marketplace App**.
+5. Pick **Pryzm Validator Testnet** from the marketplace.
+6. Select your preferred **Region**, if any. If you do not add a region, the container will be deployed in **any** region for **Spot**, or in the **us-east** region for **On Demand**. [Click here](/compute/cluster/compute/#region) to know more.
+7. Spheron will automatically select the recommended plan for the specific template. If you intend to move forward with the recommended plan, just Click "Deploy" to initiate deployment.
+8. Select the instance plan that suits your needs. You can use the "Create Custom Plan" toggle to create custom plans for your CPU based instance.
+9. Configure Storage (SSD) plan for your instance. Use the "Add Persistent Storage" toggle to add persistent storage for your instance.
+10. Add your "Moniker" under **Template Configuration**.
+11. Click "Deploy" to initiate deployment.
+
+## Verify Installation
+
+- The Pryzm Validator Testnet can be accessed only after the Compute Instance is provisioned.
+  Thus, you need to wait for the installation to complete before you can start using it.
+- As the node starts, the **Instance Logs** will display the output about the operations performed. You can refresh the logs by clicking the refresh icon.
+
+### Prepare Your Environment
+
+1. Before issuing any commands, initialize your environment by running:
+
+```sh
+. $HOME/.profile
+```
+
+2. If you encounter an error that says **`/bin/sh: 1: pryzmd: not found`**, run the same command again to fix it.
+
+### Create or Recover Your Wallet
+
+1. **To create a new wallet**
+
+```sh
+pryzmd keys add wallet
+```
+
+2. **To recover an existing wallet**
+
+```sh
+pryzmd keys add wallet --recover
+```
+
+Then, enter your mnemonic phrase when prompted.
+
+### Fund Your Wallet
+
+1. Visit the [faucet app](https://testnet.pryzm.zone/faucet) to request test tokens for your wallet.
+2. Check your wallet balance using:
+
+```sh
+pryzmd q bank balances $(pryzmd keys show wallet -a)
+```
+
+Make sure you receive at least **2 upryzm** tokens.
+
+3. If you don't see a balance, your node might still be syncing with the blockchain. Wait until the **`catching_up`** status is **`false`**.
+4. Monitor your wallet on the Pryzm Explorer: Keep an eye on your transactions and balance by visiting [Pryzm Explorer](https://testnet.chainsco.pe/pryzm) and entering your wallet address. This step is crucial for ensuring that your wallet has been successfully funded and is correctly reflecting the transactions on the blockchain.
+
+### Verify Network Synchronization
+
+Check the synchronization status with:
+
+```sh
+pryzmd status | jq .SyncInfo
+```
+
+Proceed when **`catching_up`** turns to **`false`**.
+
+### Register Your Validator
+
+1. Use the following command to create your validator, replacing placeholders with your information:
+
+```sh
+pryzmd tx staking create-validator --amount 1000000upryzm --pubkey $(pryzmd tendermint show-validator) --moniker "your-moniker-name" --details "your-details" --website "your-website" --security-contact "your-email" --chain-id indigo-1 --commission-rate 0.05 --commission-max-rate 0.20 --commission-max-change-rate 0.01 --min-self-delegation 1 --from wallet --gas-adjustment 1.4 --gas auto --gas-prices 0.015upryzm -y
+```
+
+2. Customize the command with your details: <br /> Replace **`your-moniker-name`**, **`your-details`**, **`your-website`**, and **`your-email`** with your own information.
+3. Wait a few minutes after executing this command, before checking your node on the [Pryzm validators list](https://testnet.chainsco.pe/pryzm/validators).
+
+## Deploy Your Own
+
+Deploy your own Pryzm Validator Testnet with Spheron:
+
+[![Deploy with Spheron](https://bafybeihxqi3jlv6cy2ogh6jjljinntisolbspxcrbgykyv6e5xyzujl3aa.ipfs.sphn.link/spheron-deploy.svg)](https://app.spheron.network/#/compute/marketplace?template=Pryzm%20Validator%20Testnet&templateId=65cb8495652cae53edeea11c)
+
+For more information, refer to the [Pryzm docs](https://docs.pryzm.zone/overview/maintain-guides/getting-started/building-pryzmd-docker).
+
+<Navigation name="Deploy Pryzm Validator Testnet" />
