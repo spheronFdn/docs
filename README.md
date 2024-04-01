@@ -52,7 +52,7 @@ You can access the server at: http://localhost:3000
 
 We encourage you to read the [contribution guidelines](https://github.com/spheronFdn/docs/blob/main/.github/contribution-guidelines.md) to learn about our development process and how to propose bug fixes and improvements before submitting a pull request.
 
-The Spheron community extends beyond issues and pull requests! You can support Spheron [in many other ways](https://github.com/spheronFdn/docs/blob/main/.github/support.md) as well.
+The Spheron community extends beyond issues and pull requests! You can support Spheron [in many other ways](https://github.com/spheronFdn/docs/blob/main/.github/support.md) as well
 
 ## Community
 
