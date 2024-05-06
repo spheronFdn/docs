@@ -15,34 +15,10 @@ const QUICK_START_LIST = [
     body: "Learn how to create multiple organizations.",
   },
   {
-    path: "/static/deployment/logs",
-    emoji: "🚀",
-    title: "Static Site",
-    body: "Deploy static sites from your Git provider.",
-  },
-  {
     path: "/compute",
     emoji: "✈️",
     title: "Compute",
     body: "Deploy compute instances with one click.",
-  },
-  {
-    path: "/storage",
-    emoji: "📦",
-    title: "Storage",
-    body: "Effortless storage management.",
-  },
-  {
-    path: "/gateways/dedicated",
-    emoji: "⛩️",
-    title: "Gateways",
-    body: "Fast & reliable access to pinned content.",
-  },
-  {
-    path: "/framework-guide",
-    emoji: "📍",
-    title: "Framework Guide",
-    body: "Learn how to deploy your framework.",
   },
   {
     path: "/server-guide",
@@ -61,12 +37,6 @@ const QUICK_START_LIST = [
     emoji: "🔌",
     title: "Spheron API",
     body: "Take a look at how the Spheron API works.",
-  },
-  {
-    path: "/sdk",
-    emoji: "🧰",
-    title: "Spheron SDK",
-    body: "Unlock multi-chain storage capabilities.",
   },
   {
     path: "/cli",

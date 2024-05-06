@@ -1,9 +1,0 @@
-{
-  "domain": "Domains",
-  "handshake": "Handshake Domains",
-  "ens": "ENS Domains",
-  "https": "HTTPS",
-  "environments": "Environments",
-  "variables": "Env Variables",
-  "private": "Password Protected Domains"
-}

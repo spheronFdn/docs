@@ -2,35 +2,11 @@ import QuickStartCard, { IQuickStartCard } from "./quick-start-card";
 import styles from "../styles/quick.module.css";
 
 const SDK_LIST = [
-  {
-    path: "/sdk/storage",
-    emoji: "⛓️",
-    title: "Storage SDK",
-    body: "For Node.js based environments",
-  },
-  {
-    path: "/sdk/browser",
-    emoji: "🌐",
-    title: "Browser SDK",
-    body: "For Browser based environments",
-  },
-  {
+   {
     path: "/sdk/compute",
     emoji: "📼",
     title: "Compute SDK",
     body: "Designed to streamline work with your compute organizations",
-  },
-  {
-    path: "/sdk/site",
-    emoji: "🚧",
-    title: "Site SDK",
-    body: "Create flows for your static-site organizations.",
-  },
-  {
-    path: "/sdk/fvm-deal-utils",
-    emoji: "💡",
-    title: "FVM Deal Utils SDK",
-    body: "For Node.js based environments",
   },
 ];
 
