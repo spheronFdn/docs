@@ -10,8 +10,6 @@
   "rest-api": "Spheron API",
   "github-actions": "Github Actions",
   "terraform": "Spheron Terraform",
-  "community": "Open Community Page",
-  "edge-network": "Edge network",
   "signup": {
     "title": "Sign Up ↗",
     "type": "page",

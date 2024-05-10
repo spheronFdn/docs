@@ -38,6 +38,12 @@ const CLUSTER_TYPE_LIST = [
     title: "Terraform",
     body: "Deploy compute instances with Terraform.",
   },
+  {
+    path: "/compute/edge-network/cdn",
+    emoji: "🌍",
+    title: "Edge Network",
+    body: "Delivers content through its CDN from the edge",
+  },
 ];
 
 const Compute = () => {
