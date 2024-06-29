@@ -1,0 +1,5 @@
+{
+  "setup-ansible": "Setup Ansible",
+  "setup-provider": "Setup Provider",
+  "test-deployment": "Test Deployment"
+}

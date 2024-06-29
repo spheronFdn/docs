@@ -1,0 +1,417 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+## Setup Provider
+
+This guide provides detailed instructions on how to set up a Spheron provider. The process involves several steps, including SSH access, environment setup, ingress configuration, GPU cluster setup, provider installation, operator installation, and optional persistent storage setup.
+
+Follow the steps below to complete the setup.
+
+1. Access your provider instance using SSH
+
+```
+ssh -i [ssh_key] root@[provider-ip]
+```
+
+2. Change user to `spheron`
+
+```
+sudo su spheron
+cd 
+```
+
+3. Run the following command to get your wallet address. 
+
+```
+cat ~/.spheron/wallet.json
+```
+You will receive output similar to: `{"address":"d5a824a1b4a7de20ef1fb697d13a7e4dc3147a28","crypto":{"ci …..`
+
+4. Go to https://spheron-devnet.hub.caldera.xyz/
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1719584176122/6944c5d8-748e-46b9-9633-f60a6fc4ace1.png)
+
+## Register Provider
+
+Register the provider using the following command:
+
+<Callout type="info">
+Make sure you modify the attributes accordingly
+</Callout>
+
+```
+spheron provider add --from ~/.spheron/wallet.json --key-secret testPassword --payment-token 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292 --region [us-central-devnet] --domain [provider.devnetcsphn.com] --attributes ["region=us-central-devnet"]
+```
+
+## Setup Environment
+
+Setup the environment by running command below.
+
+```
+cd /home/spheron
+
+export KUBECONFIG=/home/spheron/.kube/kubeconfig
+
+git clone  https://github.com/spheronFdn/provider-helm-charts.git
+cd provider-helm-charts
+git checkout devnet-spheron
+cd charts
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add rook-release https://charts.rook.io/release
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+
+helm repo update
+
+kubectl create ns spheron-services
+kubectl label ns spheron-services akash.network/name=spheron-services akash.network=true
+kubectl create ns lease
+kubectl label ns lease akash.network=true
+kubectl apply -f https://raw.githubusercontent.com/akash-network/provider/main/pkg/apis/akash.network/crd.yaml
+```
+
+## Setup Ingress
+
+Run the below commean to setting up Ingress.
+
+```
+cat > ingress-nginx-custom.yaml << EOF
+controller:
+  service:
+    type: ClusterIP
+  ingressClassResource:
+    name: "spheron-ingress-class"
+  kind: DaemonSet
+  hostPort:
+    enabled: true
+  admissionWebhooks:
+    port: 7443
+  config:
+    allow-snippet-annotations: false
+    compute-full-forwarded-for: true
+    proxy-buffer-size: "16k"
+  metrics:
+    enabled: true
+  extraArgs:
+    enable-ssl-passthrough: true
+tcp:
+  "8443": "spheron-services/spheron-provider:8443"
+  "8444": "spheron-services/spheron-provider:8444"
+  "1317": "spheron-services/spheron-node-1:1317"
+  "9090":  "spheron-services/spheron-node-1:9090"
+  "26656": "spheron-services/spheron-node-1:26656"
+  "26657": "spheron-services/spheron-node-1:26657"
+EOF
+```
+
+```
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-nginx --create-namespace \
+    -f ingress-nginx-custom.yaml
+
+kubectl label ns ingress-nginx app.kubernetes.io/name=ingress-nginx app.kubernetes.io/instance=ingress-nginx
+kubectl label ingressclass spheron-ingress-class akash.network=true
+```
+
+## Only For the GPU Cluster
+
+1. Start with the below script to setup the helm chart for the GPU provider deployment.
+
+```
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
+
+helm repo update
+
+
+# Create NVIDIA RuntimeClass
+cat > /home/spheron/gpu-nvidia-runtime-class.yaml <<EOF
+kind: RuntimeClass
+apiVersion: node.k8s.io/v1
+metadata:
+  name: nvidia
+handler: nvidia
+EOF
+
+kubectl apply -f /home/spheron/gpu-nvidia-runtime-class.yaml
+
+helm upgrade -i nvdp nvdp/nvidia-device-plugin \
+  --namespace nvidia-device-plugin \
+  --create-namespace \
+  --version 0.14.5 \
+  --set runtimeClassName="nvidia"
+```
+The script we executed in the initial steps creates a configuration file at `/etc/rancher/k3s/config.yaml` location. Verify if it is present or else create it. 
+
+2. For creating the configuration file use the following command.
+
+```
+cat > /etc/rancher/k3/config.yaml <<'EOF'
+containerd_additional_runtimes:
+  - name: nvidia
+    type: "io.containerd.runc.v2"
+    engine: ""
+    root: ""
+    options:
+      BinaryName: '/usr/bin/nvidia-container-runtime'
+EOF
+```
+3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes
+
+```
+cat > gpu-test-pod.yaml << EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nbody-gpu-benchmark
+  namespace: default
+spec:
+  restartPolicy: OnFailure
+  runtimeClassName: nvidia
+  containers:
+  - name: cuda-container
+    image: nvcr.io/nvidia/k8s/cuda-sample:nbody
+    args: ["nbody", "-gpu", "-benchmark"]
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+    env:
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+EOF
+
+kubectl apply -f gpu-test-pod.yaml
+echo "Waiting 60 seconds for the test pod to start..."
+sleep 60
+kubectl get pods -A -o wide
+kubectl logs nbody-gpu-benchmark
+kubectl delete pod nbody-gpu-benchmark
+```
+
+We need to add some labels to the GPU nodes `akash.network/capabilities.gpu.vendor.nvidia.model.gpumodel=true` to activate GPU.
+
+4. Find the GPU model of the node using this command 
+
+```
+nvidia-smi --query-gpu=gpu_name --format=csv,noheader
+
+## Example Output
+TESLA P4
+```
+
+5. To apply the label use the following command
+
+```
+kubectl label node spheron-node2 [akash.network/capabilities.gpu.vendor.nvidia.model.p4=1]
+```
+
+## Install Provider
+Set up the following variables
+
+```
+REGION=[us-central-devnet]
+DOMAIN=[provider.devnetdsphn.com]
+```
+Install helm charts
+
+```
+helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
+        --set from=/spheron-key/wallet.json \
+        --set keysecret=testPassword \
+        --set domain=$DOMAIN \
+        --set bidpricestrategy=shellScript \
+        --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)" \
+        --set ipoperator=false \
+        --set node=spheron \
+        --set log_restart_patterns="rpc node is not catching up|bid failed" \
+        --set resources.limits.cpu="2" \
+        --set resources.limits.memory="2Gi" \
+        --set resources.requests.cpu="1" \
+        --set resources.requests.memory="1Gi"
+        
+kubectl patch configmap spheron-provider-scripts \
+      --namespace spheron-services \
+      --type json \
+      --patch='[{"op": "add", "path": "/data/liveness_checks.sh", "value":"#!/bin/bash\necho \"Liveness check bypassed\""}]'
+
+kubectl rollout restart statefulset/spheron-provider -n spheron-services        
+```
+
+## Install Operators
+
+Install the hostname and inventory operators
+
+```
+helm upgrade --install spheron-hostname-operator ./spheron-hostname-operator -n spheron-services
+helm upgrade --install inventory-operator ./spheron-inventory-operator -n spheron-services
+```
+
+## Install Persistent Storage (Optional)
+
+If you want to add persistent storage, include it in the capabilities during the provider registration. Then, execute the following commands.
+
+```
+apt-get install -y lvm2
+cat > rook.yml << EOF
+operatorNamespace: rook-ceph
+
+configOverride: |
+  [global]
+  osd_pool_default_pg_autoscale_mode = on
+  osd_pool_default_size = 1
+  osd_pool_default_min_size = 1
+
+cephClusterSpec:
+  resources:
+
+  mon:
+    count: 1
+  mgr:
+    count: 1
+
+  storage:
+    useAllNodes: true
+    useAllDevices: true
+    config:
+      osdsPerDevice: "1"
+
+cephBlockPools:
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^vd[a-z]$"
+    storageClass:
+      enabled: true
+      name: beta1
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^sd[a-z]$"
+    storageClass:
+      enabled: true
+      name: beta2
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^nvme[0-9]$"
+    storageClass:
+      enabled: true
+      name: beta3
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-nodes
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+    storageClass:
+      enabled: true
+      name: akash-nodes
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        # RBD image format. Defaults to "2".
+        imageFormat: "2"
+        # RBD image features. Available for imageFormat: "2". CSI RBD currently supports only `layering` feature.
+        imageFeatures: layering
+        # The secrets contain Ceph admin credentials.
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        # Specify the filesystem type of the volume. If not specified, csi-provisioner
+        # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
+        # in hyperconverged settings where the volume is mounted on the same node as the osds.
+        csi.storage.k8s.io/fstype: ext4
+
+# Do not create default Ceph file systems, object stores
+cephFileSystems:
+cephObjectStores:
+
+# Spawn rook-ceph-tools, useful for troubleshooting
+toolbox:
+  enabled: true
+  resources:
+EOF
+
+helm search repo rook-release --version v1.12.4
+helm upgrade --install --wait --create-namespace -n rook-ceph rook-ceph rook-release/rook-ceph --version 1.12.4
+echo "Did you update nodes in rook-ceph-cluster.values1.yml?"
+#SHOWS DUPLICATE ISSUE - WORKS WHEN RUN TWICE
+helm upgrade --install --create-namespace -n rook-ceph rook-ceph-cluster --set operatorNamespace=rook-ceph rook-release/rook-ceph-cluster --version 1.12.4 -f rook.yml --force
+
+sleep 30
+
+kubectl label sc spheron-nodes akash.network=true
+kubectl label sc beta3 akash.network=true
+kubectl label sc beta2 akash.network=true
+kubectl label sc beta1 akash.network=true
+
+echo "Did you update this label to the same node in rook-ceph-cluster.values1.yml?"
+kubectl label node $PERSISTENT_STORAGE_NODE1 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE1_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE2 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE3 akash.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+
+echo "If health not OK, do this"
+kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash -c "ceph health mute POOL_NO_REDUNDANCY"
+```
+<Navigation name="Setup Provider" />
