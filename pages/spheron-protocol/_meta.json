@@ -7,5 +7,6 @@
   "protocol-cli": {
     "title": "Spheron Protocol CLI",
     "href": "/spheron-cli/protocol-cli"
-  }
+  },
+  "gpu-tiering": "Spheron GPU Tiering"
 }

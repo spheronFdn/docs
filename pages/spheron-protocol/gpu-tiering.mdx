@@ -1,0 +1,79 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Spheron GPU Tiering
+
+The Spheron GPU Tiering list categorizes various GPU models into different tiers based on their performance and capabilities. Each tier has a specific multiplier within the Spheron network. Here’s the detailed table below:
+
+| Manufacturer | GPU Model                   | Tier         | Spheron Multiplier | Device id | Memory |  
+| :----------: | :-------------------------: | :----------: | :----------------: | :-------: | :----: |
+| NVIDIA       | T1000                       | Entry 1      | 0.1                | 1ff0      | 8Gi    |
+| NVIDIA       | P40                         | Entry 1      | 0.1                | 1b38      | 24Gi   |
+| NVIDIA       | GeForce GTX 1080 Ti         | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 2080 Ti         | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 3050            | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 3050 Ti         | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 3060            | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 3060 Laptop     | Entry 1      | 0.1                |
+| NVIDIA       | GeForce RTX 3070 Laptop     | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 3070 Ti Laptop  | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4070            | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 3060 Ti         | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 3070            | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 3070 Ti         | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 3080            | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4050            | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4060            | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4060 Ti         | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4060 Laptop     | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4070 Laptop     | Entry 2      | 0.25               |
+| NVIDIA       | Tesla P100 PCIe             | Entry 2      | 0.25               |
+| NVIDIA       | GeForce RTX 4070 Ti         | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 4070 SUPER      | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 4070 Ti SUPER   | Low 1        | 0.5                |
+| NVIDIA       | RTX 5000                    | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 3080 Ti         | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 3080 Laptop     | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 3080 Ti Laptop  | Low 1        | 0.5                |
+| NVIDIA       | RTX 4000                    | Low 1        | 0.5                |
+| NVIDIA       | RTX A4000                   | Low 1        | 0.5                |
+| NVIDIA       | Tesla T4                    | Low 1        | 0.5                |
+| NVIDIA       | GeForce RTX 3090            | Low 2        | 0.75               |
+| NVIDIA       | GeForce RTX 4080            | Low 2        | 0.75               |
+| NVIDIA       | GeForce RTX 4080 SUPER      | Low 2        | 0.75               |
+| NVIDIA       | RTX 4000 SFF Ada Generation | Low 2        | 0.75               |
+| NVIDIA       | Tesla V100-SXM2-16GB        | Low 2        | 0.75               |
+| NVIDIA       | Tesla V100-PCIE-16GB        | Low 2        | 0.75               |
+| NVIDIA       | GeForce RTX 4090 Laptop     | Low 2        | 0.75               |
+| NVIDIA       | GeForce RTX 3090 Ti         | Medium 1     | 1                  |
+| NVIDIA       | GeForce RTX 4090            | Medium 1     | 1                  |
+| NVIDIA       | GeForce RTX 4090 D          | Medium 1     | 1                  |
+| NVIDIA       | RTX A5000                   | Medium 1     | 1                  |
+| NVIDIA       | A10                         | Medium 1     | 1                  |
+| NVIDIA       | A10G                        | Medium 1     | 1                  |
+| NVIDIA       | L4                          | Medium 1     | 1                  |
+| NVIDIA       | Tesla V100-SXM2-32GB        | Medium 1     | 1                  |
+| NVIDIA       | Tesla V100-PCIE-32GB        | Medium 1     | 1                  |
+| NVIDIA       | Tesla V100S-PCIE-32GB       | Medium 1     | 1                  |
+| NVIDIA       | RTX 8000                    | Medium 2     | 1.5                |
+| NVIDIA       | A16                         | Medium 2     | 1.5                |
+| NVIDIA       | RTX 5000 Ada Generation     | Medium 2     | 1.5                |
+| NVIDIA       | RTX A6000                   | Medium 2     | 1.5                |
+| NVIDIA       | A30                         | Medium 2     | 1.5                |
+| NVIDIA       | A40                         | High 1       | 2                  |
+| NVIDIA       | A40-8Q                      | High 1       | 2                  |
+| NVIDIA       | A40 PCIe                    | High 1       | 2                  |
+| NVIDIA       | A100-PCIE-40GB              | High 1       | 2                  |
+| NVIDIA       | L40                         | High 1       | 2                  |
+| NVIDIA       | L40S                        | High 1       | 2                  |
+| NVIDIA       | RTX 6000 Ada Generation     | High 2       | 3                  |
+| NVIDIA       | A100-SXM4-40GB              | High 2       | 3                  |
+| NVIDIA       | A100-SXM4-80GB              | Ultra High 1 | 6                  |
+| NVIDIA       | A100 80G PCIe NVLink        | Ultra High 1 | 6                  |
+| NVIDIA       | A100 80GB NVLink            | Ultra High 1 | 6                  |
+| NVIDIA       | A100 80GB PCIe              | Ultra High 1 | 6                  |
+| NVIDIA       | H100 PCIe                   | Ultra High 2 | 12                 |
+| NVIDIA       | H100 80G PCIe               | Ultra High 2 | 12                 |
+| NVIDIA       | H100 80GB SXM5              | Ultra High 2 | 12                 |
+
+<Navigation name="Spheron GPU Tiering" />

@@ -9,6 +9,7 @@ export const Pages = [
   ["Setup Ansible", "/spheron-protocol/provider-onboarding/setup-ansible"],
   ["Setup Provider", "/spheron-protocol/provider-onboarding/setup-provider"],
   ["Adding Nodes to a Spheron Cluster", "/spheron-protocol/provider-onboarding/spheron-add-node"],
+  ["Spheron GPU Tiering", "/spheron-protocol/gpu-tiering"],
   ["Billing", "/billing"],
   ["Payment Method", "/billing/payment-method"],
   ["Manage Funds", "/billing/funds"],
