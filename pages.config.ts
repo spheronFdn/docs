@@ -15,6 +15,7 @@ export const Pages = [
     "Adding Nodes to a Spheron Cluster",
     "/spheron-protocol/provider-onboarding/spheron-add-node",
   ],
+  ["Spheron GPU Tiering", "/spheron-protocol/gpu-tiering"],
   ["Billing", "/billing"],
   ["Payment Method", "/billing/payment-method"],
   ["Manage Funds", "/billing/funds"],
