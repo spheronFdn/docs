@@ -1,69 +1,77 @@
 import { Callout } from "nextra-theme-docs";
 import Navigation from "components/navigation";
 
-# Spheron GPU Tiering
+# GPU Support & Tiering
 
-The Spheron GPU Tiering list categorizes various GPU models into different tiers based on their performance and capabilities. Each tier has a specific multiplier within the Spheron network. Here’s the detailed table below:
+The GPU Support & Tiering list categorizes various GPU models into different tiers based on their performance and capabilities. Each tier has a specific multiplier within the Spheron network. Here's the detailed table below:
 
-| **GPU Model**                | **GPU Short Name** | **Provider Capability**                                                | **Tier**     | **Spheron Multiplier** |
-|:----------------------------:|:------------------:|:----------------------------------------------------------------------:|:------------:|:----------------------:|
-| NVIDIA T1000                 | t1000              | spheron.network/capabilities.gpu.vendor.nvidia.model.t1000=true        | Entry 1      | 0.1                    |
-| NVIDIA Tesla p4              | p4                 | spheron.network/capabilities.gpu.vendor.nvidia.model.p4=true           | Entry 1      | 0.1                    |
-| NVIDIA GTX 1050 (2GB)        | gtx1050            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1050=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1050 Ti (4GB)     | gtx1050ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1050ti=true    | Entry 1      | 0.1                    |
-| NVIDIA GTX 1060 (3GB)        | gtx1060            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1060 (6GB)        | gtx1060            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1060 (5GB)        | gtx1060            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1070 (8GB)        | gtx1070            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1070=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1070 Ti (8GB)     | gtx1070ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1070ti=true    | Entry 1      | 0.1                    |
-| NVIDIA GTX 1080 (8GB)        | gtx1080            | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1080=true      | Entry 1      | 0.1                    |
-| NVIDIA GTX 1080 Ti (11GB)    | gtx1080ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1080ti=true    | Entry 1      | 0.1                    |
-| NVIDIA RTX 2060 (6GB)        | rtx2060            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2060=true      | Entry 1      | 0.1                    |
-| NVIDIA RTX 2060 Super (8GB)  | rtx2060super       | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2060super=true | Entry 1      | 0.1                    |
-| NVIDIA RTX 2070 (8GB)        | rtx2070            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2070=true      | Entry 1      | 0.1                    |
-| NVIDIA RTX 2080 (8GB)        | rtx2080            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080=true      | Entry 2      | 0.25                   |
-| NVIDIA RTX 2080 Super (8GB)  | rtx2080super       | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080super=true | Entry 2      | 0.25                   |
-| NVIDIA RTX 3050 (8GB)        | rtx3050            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3050=true      | Entry 2      | 0.25                   |
-| NVIDIA RTX 3060 (12GB)       | rtx3060            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3060=true      | Entry 2      | 0.25                   |
-| NVIDIA RTX 3060 Ti (8GB)     | rtx3060ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3060ti=true    | Entry 2      | 0.25                   |
-| NVIDIA RTX 3070 (8GB)        | rtx3070            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3070=true      | Entry 2      | 0.25                   |
-| NVIDIA RTX 3070 Ti (8GB)     | rtx3070ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3070ti=true    | Entry 2      | 0.25                   |
-| NVIDIA RTX 4060 (8GB)        | rtx4060            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060=true      | Entry 2      | 0.25                   |
-| NVIDIA RTX 4060 Ti (8GB)     | rtx4060ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060ti=true    | Entry 2      | 0.25                   |
-| NVIDIA RTX 4060 Ti (16GB)    | rtx4060ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060ti=true    | Entry 2      | 0.25                   |
-| NVIDIA RTX 4070 (12GB)       | rtx4070            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4070=true      | Entry 2      | 0.25                   |
-| NVIDIA Tesla P100 PCIe       | p100               | spheron.network/capabilities.gpu.vendor.nvidia.model.p100=true         | Entry 2      | 0.25                   |
-| NVIDIA RTX A4000             | rtxa4000           | spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa4000=true     | Entry 2      | 0.25                   |
-| NVIDIA RTX 2080 Ti (11GB)    | rtx2080ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080ti=true    | Low 1        | 0.5                    |
-| NVIDIA RTX 3080 (10GB)       | rtx3080            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080=true      | Low 1        | 0.5                    |
-| NVIDIA RTX 3080 (12GB)       | rtx3080            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080=true      | Low 1        | 0.5                    |
-| NVIDIA RTX 3080 Ti (12GB)    | rtx3080ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080ti=true    | Low 1        | 0.5                    |
-| NVIDIA RTX 4070 Ti (12GB)    | rtx4070ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4070ti=true    | Low 1        | 0.5                    |
-| NVIDIA RTX 4000              | rtx4000            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4000=true      | Low 1        | 0.5                    |
-| NVIDIA Tesla T4              | t4                 | spheron.network/capabilities.gpu.vendor.nvidia.model.t4=true           | Low 1        | 0.5                    |
-| NVIDIA RTX 4080 (16GB)       | rtx4080            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4080=true      | Low 2        | 0.75                   |
-| NVIDIA P40                   | p40                | spheron.network/capabilities.gpu.vendor.nvidia.model.p40=true          | Medium 1     | 1                      |
-| NVIDIA Titan RTX (24GB)      | titanrtx           | spheron.network/capabilities.gpu.vendor.nvidia.model.titanrtx=true     | Medium       | 1                      |
-| NVIDIA RTX 3090 (24GB)       | rtx3090            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3090=true      | Medium 1     | 1                      |
-| NVIDIA RTX 3090 Ti (24GB)    | rtx3090ti          | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3090ti=true    | Medium 1     | 1                      |
-| NVIDIA RTX 4090 (24GB)       | rtx4090            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4090=true      | Medium 1     | 1                      |
-| NVIDIA RTX A5000             | rtxa5000           | spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa5000=true     | Medium 1     | 1                      |
-| NVIDIA A10                   | a10                | spheron.network/capabilities.gpu.vendor.nvidia.model.a10=true          | Medium 1     | 1                      |
-| NVIDIA A10G                  | a10g               | spheron.network/capabilities.gpu.vendor.nvidia.model.a10g=true         | Medium 1     | 1                      |
-| NVIDIA L4                    | l4                 | spheron.network/capabilities.gpu.vendor.nvidia.model.l4=true           | Medium 1     | 1                      |
-| NVIDIA Tesla V100-SXM2-32GB  | v100               | spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true         | Medium 1     | 1                      |
-| NVIDIA Tesla V100-PCIE-32GB  | v100               | spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true         | Medium 1     | 1                      |
-| NVIDIA Tesla V100S-SXM2-32GB | v100               | spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true         | Medium 1     | 1                      |
-| NVIDIA L40                   | l40                | spheron.network/capabilities.gpu.vendor.nvidia.model.l40=true          | Medium 1     | 1                      |
-| NVIDIA RTX 8000              | rtx8000            | spheron.network/capabilities.gpu.vendor.nvidia.model.rtx8000=true      | Medium 2     | 1.5                    |
-| NVIDIA RTX A6000             | rtxa6000           | spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa6000=true     | Medium 2     | 1.5                    |
-| NVIDIA L40s                  | l40s               | spheron.network/capabilities.gpu.vendor.nvidia.model.l40s=true         | Medium 2     | 1.5                    |
-| NVIDIA A40                   | a40                | spheron.network/capabilities.gpu.vendor.nvidia.model.a40=true          | High 1       | 2                      |
-| NVIDIA A100-PCIE-40GB        | a100               | spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true         | High 1       | 2                      |
-| NVIDIA A100-SXM4-40GB        | a100               | spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true         | High 2       | 3                      |
-| NVIDIA A100-SXM4-80GB        | a100               | spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true         | Ultra High 1 | 6                      |
-| NVIDIA A100 80GB PCIe        | a100               | spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true         | Ultra High 1 | 6                      |
-| NVIDIA H100 80G PCIe         | h100               | spheron.network/capabilities.gpu.vendor.nvidia.model.h100=true         | Ultra High 2 | 12                     |
-| NVIDIA H100 80GB SXM5        | h100               | spheron.network/capabilities.gpu.vendor.nvidia.model.h100=true         | Ultra High 2 | 12                     |
+| **GPU Model**                | **GPU Short Name** | **Tier**     | **Multiplier**         | **Provider Capability**                                                  |
+|:----------------------------:|:------------------:|:------------:|:----------------------:|:------------------------------------------------------------------------:|
+| NVIDIA T1000                 | t1000              | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.t1000=true`        |
+| NVIDIA Tesla p4              | p4                 | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.p4=true`           |
+| NVIDIA GTX 1050 (2GB)        | gtx1050            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1050=true`      |
+| NVIDIA GTX 1050 Ti (4GB)     | gtx1050ti          | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1050ti=true`    |
+| NVIDIA GTX 1060 (3GB)        | gtx1060            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true`      |
+| NVIDIA GTX 1060 (6GB)        | gtx1060            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true`      |
+| NVIDIA GTX 1060 (5GB)        | gtx1060            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1060=true`      |
+| NVIDIA GTX 1070 (8GB)        | gtx1070            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1070=true`      |
+| NVIDIA GTX 1070 Ti (8GB)     | gtx1070ti          | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1070ti=true`    |
+| NVIDIA GTX 1080 (8GB)        | gtx1080            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1080=true`      |
+| NVIDIA GTX 1080 Ti (11GB)    | gtx1080ti          | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.gtx1080ti=true`    |
+| NVIDIA RTX 2060 (6GB)        | rtx2060            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2060=true`      |
+| NVIDIA RTX 2060 Super (8GB)  | rtx2060super       | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2060super=true` |
+| NVIDIA RTX 2070 (8GB)        | rtx2070            | Entry 1      | 0.1                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2070=true`      |
+| NVIDIA RTX 2080 (8GB)        | rtx2080            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080=true`      |
+| NVIDIA RTX 2080 Super (8GB)  | rtx2080super       | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080super=true` |
+| NVIDIA RTX 3050 (8GB)        | rtx3050            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3050=true`      |
+| NVIDIA RTX 3060 (12GB)       | rtx3060            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3060=true`      |
+| NVIDIA RTX 3060 Ti (8GB)     | rtx3060ti          | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3060ti=true`    |
+| NVIDIA RTX 3070 (8GB)        | rtx3070            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3070=true`      |
+| NVIDIA RTX 3070 Ti (8GB)     | rtx3070ti          | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3070ti=true`    |
+| NVIDIA RTX 4060 (8GB)        | rtx4060            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060=true`      |
+| NVIDIA RTX 4060 Ti (8GB)     | rtx4060ti          | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060ti=true`    |
+| NVIDIA RTX 4060 Ti (16GB)    | rtx4060ti          | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4060ti=true`    |
+| NVIDIA RTX 4070 (12GB)       | rtx4070            | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4070=true`      |
+| NVIDIA Tesla P100 PCIe       | p100               | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.p100=true`         |
+| NVIDIA RTX A4000             | rtxa4000           | Entry 2      | 0.25                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa4000=true`     |
+| NVIDIA RTX 2080 Ti (11GB)    | rtx2080ti          | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx2080ti=true`    |
+| NVIDIA RTX 3080 (10GB)       | rtx3080            | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080=true`      |
+| NVIDIA RTX 3080 (12GB)       | rtx3080            | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080=true`      |
+| NVIDIA RTX 3080 Ti (12GB)    | rtx3080ti          | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3080ti=true`    |
+| NVIDIA RTX 4070 Ti (12GB)    | rtx4070ti          | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4070ti=true`    |
+| NVIDIA RTX 4000              | rtx4000            | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4000=true`      |
+| NVIDIA Tesla T4              | t4                 | Low 1        | 0.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.t4=true`           |
+| NVIDIA RTX 4080 (16GB)       | rtx4080            | Low 2        | 0.75                   | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4080=true`      |
+| NVIDIA P40                   | p40                | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.p40=true`          |
+| NVIDIA Titan RTX (24GB)      | titanrtx           | Medium       | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.titanrtx=true`     |
+| NVIDIA RTX 3090 (24GB)       | rtx3090            | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3090=true`      |
+| NVIDIA RTX 3090 Ti (24GB)    | rtx3090ti          | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx3090ti=true`    |
+| NVIDIA RTX 4090 (24GB)       | rtx4090            | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx4090=true`      |
+| NVIDIA RTX A5000             | rtxa5000           | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa5000=true`     |
+| NVIDIA A10                   | a10                | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a10=true`          |
+| NVIDIA A10G                  | a10g               | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a10g=true`         |
+| NVIDIA L4                    | l4                 | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.l4=true`           |
+| NVIDIA Tesla V100-SXM2-32GB  | v100               | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true`         |
+| NVIDIA Tesla V100-PCIE-32GB  | v100               | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true`         |
+| NVIDIA Tesla V100S-SXM2-32GB | v100               | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.v100=true`         |
+| NVIDIA L40                   | l40                | Medium 1     | 1                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.l40=true`          |
+| NVIDIA RTX 8000              | rtx8000            | Medium 2     | 1.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtx8000=true`      |
+| NVIDIA RTX A6000             | rtxa6000           | Medium 2     | 1.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.rtxa6000=true`     |
+| NVIDIA L40s                  | l40s               | Medium 2     | 1.5                    | `spheron.network/capabilities.gpu.vendor.nvidia.model.l40s=true`         |
+| NVIDIA A40                   | a40                | High 1       | 2                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a40=true`          |
+| NVIDIA A100-PCIE-40GB        | a100               | High 1       | 2                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true`         |
+| NVIDIA A100-SXM4-40GB        | a100               | High 2       | 3                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true`         |
+| NVIDIA A100-SXM4-80GB        | a100               | Ultra High 1 | 6                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true`         |
+| NVIDIA A100 80GB PCIe        | a100               | Ultra High 1 | 6                      | `spheron.network/capabilities.gpu.vendor.nvidia.model.a100=true`         |
+| NVIDIA H100 80G PCIe         | h100               | Ultra High 2 | 12                     | `spheron.network/capabilities.gpu.vendor.nvidia.model.h100=true`         |
+| NVIDIA H100 80GB SXM5        | h100               | Ultra High 2 | 12                     | `spheron.network/capabilities.gpu.vendor.nvidia.model.h100=true`         |
+
+
+We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to lease a GPU for deployment or become a provider and lend your GPU. Here is the definition of the columns:
+
+- **GPU Short Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU short name instead of the full name. Otherwise, the network won’t recognize the GPU type, and the deployment will fail.
+- **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving rewards as part of the provider network.
+- **Provider Capability:** This is crucial for providers when adding their provider information on-chain. Providers need to pass the correct capabilities based on the GPUs they are offering to the network. The capabilities must match what we have provided here. If incorrect capabilities are submitted, it can result in reward slashing.
+
 
 <Navigation name="Spheron GPU Tiering" />

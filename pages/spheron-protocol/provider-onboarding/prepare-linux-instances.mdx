@@ -52,7 +52,18 @@ ansible --version
 
 Create the following name entries on your domain provider.
 
-![](https://lh7-us.googleusercontent.com/docsz/AD_4nXc4ki_jdq2wKulDKFH8C2YGNbO9P-9Y15KKhw0ey4q3Tl8X37qor8zJ89AOlNka09hBaeZQxH7KceYblB3ymnrbRvTKmpAgWTVOeAylxjuV75xh4qD5zYsTV6ztOY_zh0iGChbCcebzTbBTAtJABmb_zDiZ?key=K8s7MiIU7rCOqDEeNF_KMg)
+![Domain Provider](assets/domain-provider.png)
+
+This is the records you need to put for your domain - `example.com`
+
+| Type | Name           | Content            |
+|------|----------------|--------------------|
+| CNAME| `*.provider`   | node.example.com   |
+| CNAME| `*.ingress`    | node.example.com   |
+| A    | `node`         | 67.220.82.33       |
+| CNAME| `provider`     | node.example.com   |
+
+
 
 
 ## 3. Prepare Linux Instance for Installation Using Ansible
@@ -65,7 +76,7 @@ git clone https://github.com/spheronFdn/provider-deployment
 ```
 Repo has the following file structure: 
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1719581261775/fa713697-fe90-4ca8-ac59-569cf6e15cc2.png)
+![Playbook Repo](assets/playbook-repo.png)
 
 ### Step 2: Edit Inventory File 
 
