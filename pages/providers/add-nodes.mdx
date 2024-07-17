@@ -211,10 +211,22 @@ metadata:
 handler: nvidia
 EOF
 ```
+```
+sudo su spheron
+```
 
 ### Configure the New Node on Master node
+<Callout type="info">
+  **NOTE:** Execute this on the new node which has the GPU in it by SSH into it.
+</Callout>
 
 1. SSH into the new node and check if the file `/etc/rancher/k3/config.yaml` exists:
+```
+sudo su spheron
+```
+```
+cd
+```
 
 ```
 cat /etc/rancher/k3/config.yaml
