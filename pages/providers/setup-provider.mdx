@@ -358,12 +358,12 @@ kubectl get nodes
 ```
 
 ## Install Provider
-Set up the following variables by updating the region name and the domain.
+{/* Set up the following variables by updating the region name and the domain. */}
 
-```
+{/* ```
 REGION=[us-central-devnet]
 DOMAIN=[provider.devnetdsphn.com]
-```
+``` */}
 
 Install the helm charts:
 
@@ -372,6 +372,8 @@ sudo su spheron
 ```
 ```
 cd /home/spheron/provider-helm-charts/charts
+REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
+DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set from=/spheron-key/wallet.json \
         --set keysecret=testPassword \
