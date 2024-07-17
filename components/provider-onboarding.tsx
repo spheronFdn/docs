@@ -4,7 +4,7 @@ import styles from "../styles/quick.module.css";
 const PROVIDERS_TYPE_LIST = [
   {
     path: "/providers/hardware-requirements",
-    emoji: "🅰️",
+    emoji: "🗄️",
     title: "Hardware Requirements",
     body: "Software & Hardware Requirement.",
   },
