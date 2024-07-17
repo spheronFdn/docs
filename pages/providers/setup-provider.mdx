@@ -593,4 +593,29 @@ Use the following curl request to check the status of the provider. Update the h
 curl --insecure https://[hostname]:8443/status
 ```
 
+## Upgrading the Provider
+
+### Upgrade the CLI
+
+To upgrade the CLI binary and incorporate the latest updates, run the following commands:
+
+```
+wget -O install.sh https://sphnctl.sh
+chmod +x install.sh
+./install.sh
+```
+
+<Callout type="info">
+**Note:** This step may not be necessary if there are no updates to the CLI binary. The team will inform you if this step is required during any provider upgrades.
+</Callout>
+
+
+### Restart the Provider Services
+
+To apply the latest changes from the source, restart the provider services using the following command:
+
+```
+kubectl rollout restart statefulset/spheron-provider -n spheron-services
+```
+
 <Navigation name="Setup Provider" />
