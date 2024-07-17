@@ -163,8 +163,13 @@ vi /home/spheron/.spheron/provider-config.json
 
 ## Registering a Provider
 
-To register a provider, use the following command:
+Before you register, please ensure you set the wallet you intend to use for the provider. You can either create a new wallet or use the default one generated for you. For more details, refer to the [Wallet Configurations](/user-guide/protocol-cli#wallet-configurations) section.
 
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+
+Next, register your provider, use the following command:
 
 ```
 sphnctl provider add --config /home/spheron/.spheron/provider-config.json
