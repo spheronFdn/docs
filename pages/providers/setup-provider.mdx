@@ -86,6 +86,38 @@ Here is the format for the provider configuration:
 
 ```
 {
+  "name": "spheron-provider-1",
+  "region": "us-east",
+  "hostname": "provider.example.com",
+  "gpu": [
+    {
+      "id": 2,
+      "name": "p4",
+      "units": 1
+    },
+    {
+      "id": 1,
+      "name": "t1000",
+      "units": 1
+    }
+  ],
+  "cpu": [
+    {
+      "id": 1,
+      "name": "gp",
+      "unit": 24
+    }
+  ],
+  "ram": [
+    "ddr5"
+  ],
+  "storage": [
+    "ssd"
+  ],
+  "payment_tokens": [
+    "USDT",
+    "USDC"
+  ],
   "pricing": {
     "cpu": "3.00",
     "memory": "1.00",
@@ -95,29 +127,24 @@ Here is the format for the provider configuration:
     "nvme": "0.05",
     "endpoint": "0.06",
     "ip": "6",
-    "gpu": "p4=50,rtx4090=80"
+    "gpu": "p4=30,t1000=25"
   },
-  "payment_tokens": ["USDT", "USDC"],
-  "gpu": ["p4", "t1000", "a100"],
-  "cpu": ["hpc", "gp"],
-  "ram": ["ddr4"],
-  "storage": ["ssd"],
-  "region": "us-east",
-  "hostname": "provider.example.com",
-  "attribute": ["test=true"]
+  "attribute": [
+    "test=true"
+  ]
 }
 ```
 
 You can edit the values to suit your requirements, but do not change the keys. These values will be recorded on-chain in our contracts. Let's walk through what each of these configuration parameters means:
 
-- **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
-- **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
-- **GPU:** List all the GPU models supported by your provider. Use the shorthand values from the [GPU support](/user-guide/supports#gpu-support--tiering) page. Ensure you include the pricing for each GPU model in the Pricing section.
-- **CPU:** List all the types of CPUs you support. We only have support for **gp** (General purpose) server hardware for now.
-- **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
-- **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme.
+- **Name:** Specify the name of the provider.
 - **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
 - **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
+- **GPU:** List all the GPU models supported by your provider. Use the GPU shorthand and GPU ID values from the [GPU support](/user-guide/supports#gpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your GPU units through our slark node's Proof of Compute challenges. Ensure you include the pricing for each GPU model in the Pricing section.
+- **CPU:** List all the CPU types you support. Use the CPU shorthand and CPU ID values from the [CPU support](/user-guide/supports#cpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your CPU units through our slark node's Proof of Compute challenges.- **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
+- **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme.
+- **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
+- **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
 - **Attribute:** Add any number of attributes for your provider in a key=value pair format.
 
 Once you have updated the configuration values, create a `provider-config.json` file for your provider at `/home/spheron/.spheron/provider-config.json`. To do this:
@@ -140,13 +167,29 @@ To register a provider, use the following command:
 
 
 ```
-sphnctl provider add --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/provider-config.json
+sphnctl provider add --config /home/spheron/.spheron/provider-config.json
 ```
 
 <Callout type="info">
 Note: You can modify and change provider details using below command:
 ```
-provider update --from ~/.spheron/wallet.json --key-secret testPassword --config /home/spheron/.spheron/provider-config.json
+provider update --config /home/spheron/.spheron/provider-config.json
+```
+</Callout>
+
+## Set provider attributes
+You need to set provider attributes, to activate Spheron liveness rewards:
+
+```
+sphnctl provider set-attribute --config ~/.spheron/provider-config.json
+```
+
+<Callout type="info">
+**Note:** This step is crucial for providers to start receiving challenges from the slark node for verification. Successfully passing these challenges enables providers to earn liveness rewards from the protocol. If you encounter any issues, please reach out to the team for assistance.
+
+You can check the attributes that have been set using this command:
+```
+provider provider get-attribute --category ["GPU"/"CPU"]
 ```
 </Callout>
 
@@ -376,7 +419,7 @@ kubectl get nodes
 ```
 kubectl describe node [node-name] | grep -A10 Labels
 ```
-
+{/* 
 ## Install Persistent Storage (Optional)
 
 If you want to add persistent storage, include it in the capabilities during the provider registration. Then, execute the following commands.
@@ -542,7 +585,7 @@ kubectl label node $PERSISTENT_STORAGE_NODE3 spheron.network/storageclasses=${PE
 
 echo "If health not OK, do this"
 kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash -c "ceph health mute POOL_NO_REDUNDANCY"
-```
+``` */}
 
 ##  Check the status of your provider
 

@@ -9,6 +9,7 @@ export const Pages = [
   ["Protocol CLI", "/user-guide/protocol-cli"],
   ["Supported Configurations", "/user-guide/supports"],
   ["Provider Onboarding", "/providers"],
+  ["Hardware Requirements", "/providers/hardware-requirements"],
   ["Prepare Linux Instances", "/providers/prepare-linux-instances"],
   ["Setup Provider", "/providers/setup-provider"],
   ["Adding Nodes to a Spheron Cluster", "/providers/add-nodes"],
