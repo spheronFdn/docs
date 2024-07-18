@@ -291,19 +291,6 @@ kubectl logs nbody-gpu-benchmark
 kubectl delete pod nbody-gpu-benchmark
 ```
 
-### Verify the node has GPU labels
-
-<Callout type="info">
-Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
-```
-kubectl get nodes
-```
-</Callout>
-
-```
-kubectl describe node [Node Name] | grep -A10 Labels
-```
-
 ### Update Provider Capabilities
 On the new GPU node, update the provider configuration to add your GPU / CPU hardware and units:
 
@@ -342,7 +329,21 @@ sphnctl provider set-attribute --config ~/.spheron/provider-config.json
 Restart the provider on new GPU node to apply the new capabilities:
 
 ```
-kubectl rollout restart statefulset/spheron-provider -n spheron-services  
+kubectl rollout restart statefulset/spheron-provider -n spheron-services
+kubectl rollout restart deployment/operator-inventory -n spheron-services   
+```
+
+### Verify the node has GPU labels
+
+<Callout type="info">
+Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
+```
+kubectl get nodes
+```
+</Callout>
+
+```
+kubectl describe node [Node Name] | grep -A10 Labels
 ```
 
 Now your provider should have GPU or new CPU hardware working 🚀🚀🚀
