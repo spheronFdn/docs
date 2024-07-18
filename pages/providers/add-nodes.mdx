@@ -312,6 +312,11 @@ On the new GPU node, update the provider configuration to add your GPU / CPU har
 vi /home/spheron/.spheron/provider-config.json
 ```
 
+<Callout type="info">
+**Note:** Refer to [Provider Configuration](/providers/setup-provider#create-provider-configuration) for checking the configuation structure and update it based on that.
+</Callout>
+
+
 2. Update the provider configuration into the `provider-config.json` file and save it.
 
 3. Now update the config onchain by running the below commands:
@@ -328,6 +333,10 @@ sphnctl provider update --config /home/spheron/.spheron/config.json
 ```
 sphnctl provider set-attribute --config ~/.spheron/provider-config.json
 ```
+
+<Callout type="info">
+**Note:** If you get RPC error which running these command, you can retry it or reach out to team with the issue.
+</Callout>
 
 ### Restart the Provider
 Restart the provider on new GPU node to apply the new capabilities:
