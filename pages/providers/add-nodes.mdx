@@ -182,6 +182,11 @@ sudo chmod +x add-agent.sh
 
 ```
 sudo su spheron
+```
+```
+cd
+```
+```
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
 helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
 
@@ -241,12 +246,6 @@ containerd_additional_runtimes:
     options:
       BinaryName: '/usr/bin/nvidia-container-runtime'
 EOF
-```
-
-3. Now restart k3s using
-
-```
-sudo systemctl restart k3s
 ```
 
 ### Create a GPU Test Pod (First GPU Node Only)
