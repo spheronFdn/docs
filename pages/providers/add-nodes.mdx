@@ -78,7 +78,7 @@ SPHERON_NODE1_IP=[134.195.196.81] # your master node
 
 # all you child nodes
 nodes=(
-    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
+    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list and change the node name if you want
 )
 ```
 - Run the Script on the Master Node
@@ -162,7 +162,7 @@ SPHERON_NODE1_IP=134.195.196.81 # your master node
 
 # all you child nodes
 nodes=(
-    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list
+    ["spheron-node2"]="134.195.196.213" ## add nodes like this in the list and change the node name if you want
 )
 ```
 - Run the Script on the Master Node
@@ -174,11 +174,11 @@ sudo chmod +x add-agent.sh
 
 ### Install the Nvidia Driver (First GPU Node Only)
 
-1. If this is the first GPU node, run these commands:
-
-<Callout type="info">
-  **NOTE:** Only Execute if this is the first GPU Node.
+<Callout type="warning">
+  **NOTE: Only Execute the next 2 step in this section if this is the first GPU Node in your cluster.**
 </Callout>
+
+1. If this is the first GPU node, run these commands:
 
 ```
 sudo su spheron
@@ -196,7 +196,10 @@ helm upgrade -i nvdp nvdp/nvidia-device-plugin \
   --set runtimeClassName="nvidia"
 ```
 
-2. Create the Nvidia RuntimeClass (First GPU Node Only) using the root user.
+2. Create the Nvidia RuntimeClass using the root user.
+<Callout type="warning">
+  **NOTE:** Only Execute if this is the first GPU node.
+</Callout>
 
 ```
 sudo su 
@@ -215,18 +218,13 @@ EOF
 sudo su spheron
 ```
 
-### Configure the New Node on Master node
-<Callout type="info">
+### Configure the New Node
+
+<Callout type="warning">
   **NOTE:** Execute this on the new node which has the GPU in it by SSH into it.
 </Callout>
 
 1. SSH into the new node and check if the file `/etc/rancher/k3/config.yaml` exists:
-```
-sudo su spheron
-```
-```
-cd
-```
 
 ```
 cat /etc/rancher/k3/config.yaml
@@ -252,6 +250,12 @@ sudo systemctl restart k3s
 ```
 
 ### Create a GPU Test Pod (First GPU Node Only)
+
+<Callout type="warning">
+  **NOTE:** 
+  - Only Execute these next steps in this section if this is the first GPU Node in your cluster.
+  - Please SSH back to the master node for the next steps.
+</Callout>
 
 SSH back to the master node and create a GPU test pod to check if the GPU is configured successfully with Kubernetes.
 
@@ -288,35 +292,51 @@ kubectl logs nbody-gpu-benchmark
 kubectl delete pod nbody-gpu-benchmark
 ```
 
-<Callout type="info">
-  Do the next step on master node!!!
-</Callout>
-
-### Verify the node has GPU labels (On Master Node)
-
-```
-kubectl describe node <node-name> | grep -A10 Labels
-```
+### Verify the node has GPU labels
 
 <Callout type="info">
-  Do the next step on new GPU node!!!
+Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
+```
+kubectl get nodes
+```
 </Callout>
 
-### Update Provider Capabilities (On New GPU Node)
-On the new GPU node, update the provider capabilities:
+```
+kubectl describe node [Node Name] | grep -A10 Labels
+```
+
+### Update Provider Capabilities
+On the new GPU node, update the provider configuration to add your GPU / CPU hardware and units:
+
+1. Open the configuration file in a text editor:
+```
+vi /home/spheron/.spheron/provider-config.json
+```
+
+2. Update the provider configuration into the `provider-config.json` file and save it.
+
+3. Now update the config onchain by running the below commands:
 
 ```
-sphnctl wallet use --key-secret testPassword --name wallet
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+```
 sphnctl provider update --config /home/spheron/.spheron/config.json
 ```
 
-### Restart the Provider (On New GPU Node)
+4. Then, you need to set provider GPU & CPU attributes for Spheron liveness rewards:
+
+```
+sphnctl provider set-attribute --config ~/.spheron/provider-config.json
+```
+
+### Restart the Provider
 Restart the provider on new GPU node to apply the new capabilities:
 
 ```
 kubectl rollout restart statefulset/spheron-provider -n spheron-services  
 ```
 
-Now your provider should have GPU working 🚀🚀🚀
+Now your provider should have GPU or new CPU hardware working 🚀🚀🚀
 
 <Navigation name="Adding Nodes to a Spheron Cluster" />

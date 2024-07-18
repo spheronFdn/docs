@@ -403,6 +403,23 @@ Update the `deploy.yml` manifest file with the desired change.
 sphnctl deployment update --lid [Lease ID] deploy.yml
 ```
 
+Here is an example of how the result will look:
+
+```
+Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+Validating SDL configuration.
+SDL validated.
+Sending update request...
+Waiting for providers to accept on the update order...
+Deployment update using wallet 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+ lid: 26
+ provider: 0xe5CF265769039267c8FDbadd87f8a28B99769267
+ agreed price: 125304312995
+Sending the manifest for update…
+Deployment manifest sent, waiting for acknowledgment.
+Update deployment is finished.
+```
+
 ### Close Deployment
 Should you need to close the deployment follow this step.
 
