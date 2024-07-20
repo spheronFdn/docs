@@ -56,8 +56,12 @@ sudo su spheron
 ```
 cd
 ```
+3. Change the wallet configuration to default wallet.
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
 
-3. Run the following command to get your wallet address. 
+4. Run the following command to get your wallet address. 
 
 ```
 cat ~/.spheron/wallet.json
@@ -67,7 +71,7 @@ You will receive output similar to:
 {"address":"d5a824a1b4a7de20ef1fb697d13a7e4dc3147a28","crypto":{"ci...
 ```
 
-4. Go to the [**Faucet**](https://www.alchemy.com/faucets/arbitrum-sepolia) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
+5. Go to the [**Faucet**](https://www.alchemy.com/faucets/arbitrum-sepolia) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 <Callout type="info">
 To retrieve the mnemonic, run the following command:
