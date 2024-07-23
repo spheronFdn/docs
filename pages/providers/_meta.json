@@ -3,5 +3,6 @@
   "prepare-linux-instances": "Prepare Instances",
   "setup-provider": "Setup Provider",
   "add-nodes": "Adding More Nodes",
+  "common-issues": "Common Issues",
   "reward-details": "Reward Details"
 }

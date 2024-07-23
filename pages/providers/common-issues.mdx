@@ -1,0 +1,66 @@
+import { Callout } from "nextra-theme-docs";
+import Navigation from "components/navigation";
+
+# Common Issues and Resolutions
+
+This document addresses common issues that many providers face when setting up their provider on a Linux machine. Below are the known issues and their resolutions. Please refer to this document if you encounter any of these problems.
+
+### SSH Issues When Running Ansible
+
+First of all you need to have root access and root user or a user that have root previledge to your server and a SSH key that can access that user with root previledge. 
+Also make sure that your SSH have root login access on ubuntu server. If you seeing that you can't login via SSH directly, you need to follow these steps.
+To check if the SSH have access to root login, just try SSHing to your server using this command:
+```
+ssh -i <path to your ssh key> root@<server-ip>
+```
+
+You can try adding creating a new SSH in your local system using SSH keygen - 
+```
+ssh-keygen
+```
+
+Make sure to enter correct details and no password for using the SSH key.
+Once you have your new ssh key setup, please run the next command to authorize the SSH key to your server:
+```
+ssh-copy-id -i <path to your ssh key> root@<server-ip>
+```
+This will authorize your SSH to login to your linux server. To check it you can try login in to your server using this command:
+```
+ssh -i <path to your ssh key> root@<server-ip>
+```
+
+If this also didn't work, this means that SSH root login is disabled by default as a security feature. To enable it, you need to follow these steps: [Allow SSH root login](https://linuxconfig.org/allow-ssh-root-login-on-ubuntu-20-04-focal-fossa-linux)
+
+Then try login to your server to check if it's working perfectly or not.
+
+### Wallet-Related Issues
+
+The frequent issues that we've seen is when you try to run `sphnctl wallet current` & it gives you error regarding nil pointer exception, something like below:
+![Wallet Issue](assets/wallet-issue-1.jpeg)
+
+You need to first add the wallet on spheron user by using this command: 
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+
+Once you run this, all the `sphnctl` commands which require wallet will start working for you and you can continue with your setup.å
+
+These steps should help you resolve the most common issues encountered during the setup process. If you encounter any other issues, please consult the appropriate documentation or support resources.
+
+### Provider Configuration not correctly filled
+
+We've noticed multiple instances where providers did not correctly fill out the `provider-config.json` file. This results in incorrect configurations being submitted on-chain to our contracts. To ensure proper setup, please update the `provider-config.json` file correctly. Then, use the following commands to update your on-chain provider details.
+
+To update the provider metadata, run:
+```sh
+sphnctl provider add --config /home/spheron/.spheron/provider-config.json
+```
+
+To update the CPU and GPU resources of the provider, run:
+```sh
+sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.json
+```
+
+If you have accidentally messed up the provider host URI on-chain, please contact our team for assistance.
+
+<Navigation name="Common Issues" />

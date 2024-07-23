@@ -13,6 +13,7 @@ export const Pages = [
   ["Prepare Linux Instances", "/providers/prepare-linux-instances"],
   ["Setup Provider", "/providers/setup-provider"],
   ["Adding Nodes to a Spheron Cluster", "/providers/add-nodes"],
+  ["Common Issues", "/providers/common-issues"],
   ["Reward Details", "/providers/reward-details"],
   ["Spheron Compute", "/compute"],
   ["Compute Cluster", "/compute/cluster/compute"],
