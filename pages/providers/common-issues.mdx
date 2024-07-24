@@ -5,6 +5,14 @@ import Navigation from "components/navigation";
 
 This document addresses common issues that many providers face when setting up their provider on a Linux machine. Below are the known issues and their resolutions. Please refer to this document if you encounter any of these problems.
 
+### Running Ansible Playbook Outside the Server
+
+We have created the Ansible playbook to handle all the necessary tasks for preparing the server for provider installation. However, a common issue is that providers often run the Ansible playbook inside the server itself, which is incorrect.
+
+We require providers to run the Ansible playbook outside the server. It can be executed from any machine, such as your personal laptop, desktop, or even another server. The key requirement is that the machine from which you run the script must have the SSH key to access the target server. Additionally, ensure that you properly update the content in `inventory.ini` and `playbook.yml`.
+
+We have included comments and a checklist in the playbook to indicate which items need to be updated. Please follow this checklist carefully. Once you have made all the necessary updates, you can run the Ansible playbook command to execute the script.
+
 ### SSH Issues When Running Ansible
 
 To use Ansible, you must have root access or a user with root privileges on your server, along with an SSH key that can access this user. Ensure that SSH root login is enabled on your Ubuntu server. If you are unable to log in via SSH directly, follow these steps.
