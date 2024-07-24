@@ -62,12 +62,18 @@ We've noticed multiple instances where providers did not correctly fill out the 
 
 1. Update the `provider-config.json` file correctly. Then, use the following commands to update your on-chain provider details.
 
-2. To update the provider metadata, run:
+2. In the `provider-config.json`, ensure you update the GPU section properly. To fill this data, please refer to the [GPU support](/user-guide/supports#gpu-support--tiering) section to get the GPU ID & GPU name.
+
+<Callout type="info">
+**Note:** There have been instances where providers make mistakes with the GPU ID. The `id` mentioned in the `provider-config.json` is the GPU ID specific to a particular GPU model. For example, for an RTX 4090 (24 GB), the ID would be 40.
+</Callout>
+
+3. To update the provider metadata, run:
 ```sh
 sphnctl provider add --config /home/spheron/.spheron/provider-config.json
 ```
 
-3. To update the CPU and GPU resources of the provider, run:
+4. To update the CPU and GPU resources of the provider, run:
 ```sh
 sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.json
 ```
