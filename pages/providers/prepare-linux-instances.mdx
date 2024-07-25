@@ -63,8 +63,24 @@ This is the records you need to put for your domain - `example.com`
 | A    | `node`         | 67.220.82.33       |
 | CNAME| `provider`     | node.example.com   |
 
+## 3. Firewall & Port Policy for Master node
 
+To ensure the master node on your provider functions correctly, you must expose specific TCP ports on your server. The required configuration includes:
 
+1. TCP Ports Range: Open all TCP ports from 1000 to 65535. This wide range ensures that all necessary communications and services can operate without restriction.
+2. Standard Web Ports:
+    - Port 80: This port is typically used for HTTP traffic, allowing web services to be accessible over the internet.
+    - Port 443: This port is used for HTTPS traffic, ensuring secure, encrypted communications for web services.
+
+By exposing these ports to the internet, you enable the master node to interact with various components and services, ensuring seamless operation and connectivity.
+
+### Steps to Expose Ports
+
+1. Firewall Configuration: Adjust your firewall settings to allow inbound and outbound traffic on the specified ports.
+2. Network Settings: Ensure that your network configuration (e.g., router, security groups) permits traffic on these ports.
+3. Server Security: Regularly monitor and secure these ports to protect against unauthorized access and potential vulnerabilities.
+
+Following these steps will help maintain the proper functionality and security of your master node on the provider.
 
 ## 3. Prepare Linux Instance for Installation Using Ansible
 
