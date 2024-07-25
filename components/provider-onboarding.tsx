@@ -9,6 +9,12 @@ const PROVIDERS_TYPE_LIST = [
     body: "Software & Hardware Requirement.",
   },
   {
+    path: "/providers/common-issues",
+    emoji: "🐛",
+    title: "Common Issues",
+    body: "Some common issues that provider might face.",
+  },
+  {
     path: "/providers/prepare-linux-instances",
     emoji: "🅰️",
     title: "Prepare Instances",
