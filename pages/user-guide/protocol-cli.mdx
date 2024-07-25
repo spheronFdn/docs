@@ -55,6 +55,20 @@ Make sure to read the output carefully and save your mnemonic phrase and key sec
 Once created, the wallet will be saved locally at `~/.spheron`. You can access the key-secret of the current wallet in `~/.spheron/config.json`. 
 The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the "Changing Your Wallet" section.
 
+### Wallet Balance
+
+You can check the current balance the wallets you created in local:
+
+```sh
+sphnctl wallet balance
+```
+
+Here is an example of how the result will look:
+
+```sh
+Current ETH balance: [Balance]
+```
+
 ### Checking the Current Wallet
 
 To see which wallet is currently in use for deployments, run the following command:
@@ -90,6 +104,21 @@ Switched default account to xxx:
 ```
 This will update the current wallet to the specified one.
 
+### Export the Private Key of Wallet
+
+You can export your private key of the wallets you created in local and import it in metamask:
+
+```sh
+sphnctl wallet private-key
+```
+
+Here is an example of how the result will look:
+
+```sh
+Here is the private key of the wallet [address]:
+[Exported Private Key]
+```
+
 ## Account Overview
 
 You need to fund your wallet with some ETH to deploy anything on Spheron. We are currently deployed on Arbitrum chain, you can try getting some ETH from the faucet or buy it from the market to pay for the transaction fees.
@@ -115,7 +144,7 @@ The amount you pass need to be in full precision i.e if the USDT has 6 precision
 </Callout>
 
 <Callout type="info">
-**Note:** There is a restriction on minimum of 15$ deposited funds in your account of any token to start any deployment
+**Note:** There is a restriction on minimum amount of deposited funds in your account of any token to start any deployment. Refer [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) to see the minimum token requirement for deposit.
 </Callout>
 
 ### Withdrawing Balance
@@ -172,7 +201,7 @@ Here is an example of how the result will look:
 
 ```sh
 Available tokens:
-Denom: SPH, Precision: 18, TokenAddress: 0x0000000000000000000000000000000000000000
+Denom: ETH, Precision: 18, TokenAddress: 0x0000000000000000000000000000000000000000
 Denom: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
 ```
 
@@ -249,6 +278,7 @@ Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
 Validating SDL configuration.
 SDL validated.
 Sending configuration for provider matching.
+Create deployment tx: [Tx Hash]
 Waiting for providers to bid on the deployment order...
 Bid found.
 Order matched successfully.
@@ -275,12 +305,18 @@ sphnctl deployment get --lid [Lease ID]
 Here is an example of how the result will look:
 
 ```sh
-Here is the status of the Lease ID: 101
+Status of the deployment ID: [Lease ID]
+Deployment details:
+ Status:  Matched
+ Provider:  avaaaa
+ Price:  1.21222
+ Start time:  2024-07-25T10:10:12Z
+
 Services running:
   web
     URL: []
     Ports:
-      - provider.provider.devnetasphn.com:8888 -> 42100 (TCP)
+      - provider.provider.devnetasphn.com:42100 -> 8888 (TCP)
     Replicas: 1/1 available, 1 ready
     Host URI: provider.devnetasphn.com
     Region: us-east
@@ -385,12 +421,14 @@ There are some other options that you can use to stream events or change output 
 | `--service`                                     | No        | Name of service you want specifically query the logs from.                            |
 
 
-{/* ### Connect to Deployment Shell
+### Connect to Deployment Shell
 To connect to your deployment's shell access, you need to run this command to fetch it:
 
 ```sh
-sphnctl deployment shell --lid [Lease ID]
-``` */}
+sphnctl deployment shell "[Service Name]" "/bin/sh" --lid [Lease ID] --stdin --tty --replica-index 0
+```
+
+This will create a shell access to the service running on the instance. The service name can be found in the ICL yaml under services parameter.
 
 ### Update the Deployment
 Update the `deploy.yml` manifest file with the desired change.
@@ -405,11 +443,12 @@ sphnctl deployment update --lid [Lease ID] deploy.yml
 
 Here is an example of how the result will look:
 
-```
+```sh
 Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
 Validating SDL configuration.
 SDL validated.
 Sending update request...
+Update tx: [Tx Hash]
 Waiting for providers to accept on the update order...
 Deployment update using wallet 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
  lid: 26
@@ -431,5 +470,22 @@ Here is an example of how the result will look:
 ```sh
 Close request sent to provider!
 ```
+
+### Get all the Deployment
+If you want to fetch all the leases you deployed till now using your current wallet.
+
+```sh
+sphnctl deployment list
+```
+Here is an example of how the result will look:
+
+```sh
+   ID|                                    Provider|   State|             StartTime|
+  171|  0xb99E315d14653A7e2068b2764289e6F61755ebce|  Active|  2024-07-25T09:51:41Z|
+```
+<Callout type="info">
+**NOTE:** You can add `-a` flag to filter all the active leases on your wallet. Also note that if you change you wallet, all the leases will be different from what you used to see.
+</Callout>
+
 
 <Navigation name="Protocol CLI" />
