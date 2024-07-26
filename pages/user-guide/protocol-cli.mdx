@@ -440,13 +440,12 @@ This will create a shell access to the service running on the instance. The serv
 
 ### Other Options:
 
-| Option                      | Mandatory          | Default   | Description                                                                                                                               |
-|-----------------------------|--------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| `--lid`                     | Yes                |           | Lease ID of the deployment                                                                                                                |
-| `--stdin`                   | No                 |           | Connect stdin connection to the service                                                                                                   |
-| `--tty`                     | No                 |           | Connect an interactive terminal to the deployment. If not passed, it will only log the result of the command sent.                        |
-| `--replica-index`           | No                 |           | Replica index of the service in the instance to connect to if there are multiple of them otherwise not needed.                            |
-
+| Option                                   | Mandatory          | Description                                                                                                                               |
+|------------------------------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `--lid`                                  | Yes                | Lease ID of the deployment                                                                                                                |
+| `--stdin`                                | No                 | Connect stdin connection to the service                                                                                                   |
+| `--tty`                                  | No                 | Connect an interactive terminal to the deployment. If not passed, it will only log the result of the command sent.                        |
+| `--replica-index`&nbsp;&nbsp;&nbsp;&nbsp;| No                 | Replica index of the service in the instance to connect to if there are multiple of them otherwise not needed.                            |
 
 
 ### Update the Deployment
