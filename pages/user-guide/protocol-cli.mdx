@@ -425,10 +425,29 @@ There are some other options that you can use to stream events or change output 
 To connect to your deployment's shell access, you need to run this command to fetch it:
 
 ```sh
-sphnctl deployment shell "[Service Name]" "/bin/sh" --lid [Lease ID] --stdin --tty --replica-index 0
+sphnctl deployment shell [Service_Name] [Command] --lid [Lease ID] --stdin --tty
 ```
 
 This will create a shell access to the service running on the instance. The service name can be found in the ICL yaml under services parameter.
+
+### Arguments:
+- **Service Name:** This is the name defined for your service in your ICL YAML file under the `services` parameter. You can connect to any service running in the deployment by specifying the service name in the shell command.
+- **Command:** This is the command you want to execute within the service of the deployment, such as `/bin/sh`.
+
+<Callout type="info">
+**NOTE:** If the service name or command you need to pass contains spaces, enclose the entire string in quotes. This ensures it is treated as a single argument.
+</Callout>
+
+### Other Options:
+
+| Option                      | Mandatory          | Default   | Description                                                                                                                               |
+|-----------------------------|--------------------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| `--lid`                     | Yes                |           | Lease ID of the deployment                                                                                                                |
+| `--stdin`                   | No                 |           | Connect stdin connection to the service                                                                                                   |
+| `--tty`                     | No                 |           | Connect an interactive terminal to the deployment. If not passed, it will only log the result of the command sent.                        |
+| `--replica-index`           | No                 |           | Replica index of the service in the instance to connect to if there are multiple of them otherwise not needed.                            |
+
+
 
 ### Update the Deployment
 Update the `deploy.yml` manifest file with the desired change.
