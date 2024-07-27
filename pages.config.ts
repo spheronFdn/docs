@@ -8,6 +8,7 @@ export const Pages = [
   ["Infrastructure Composition Language", "/user-guide/icl"],
   ["Protocol CLI", "/user-guide/protocol-cli"],
   ["Supported Configurations", "/user-guide/supports"],
+  ["Deploy Your App", "/user-guide/deploy-your-app"],
   ["Provider Onboarding", "/providers"],
   ["Hardware Requirements", "/providers/hardware-requirements"],
   ["Common Issues", "/providers/common-issues"],
