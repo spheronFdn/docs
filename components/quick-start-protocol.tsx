@@ -21,10 +21,10 @@ const QUICK_START_LIST = [
     body: "Learn about the provider rewards.",
   },
   {
-    path: "/user-guide/icl",
-    emoji: "🗂️",
-    title: "ICL Configuration",
-    body: "Learn about the deployment config.",
+    path: "/user-guide/deploy-your-app",
+    emoji: "🚀",
+    title: "Deploy your app",
+    body: "Learn how to deploy your app on Spheron Protocol.",
   },
   {
     path: "/user-guide/protocol-cli",
