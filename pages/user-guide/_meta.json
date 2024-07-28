@@ -1,6 +1,6 @@
 {
+  "deploy-your-app": "Deploy Your App",
   "icl": "Infrastructure Composition Language (ICL)",
   "protocol-cli": "Protocol CLI",
-  "supports": "Supported Configurations",
-  "deploy-your-app": "Deploy Your App"
+  "supports": "Supported Configurations"
 }

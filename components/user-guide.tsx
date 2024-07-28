@@ -3,6 +3,12 @@ import styles from "../styles/quick.module.css";
 
 const GUIDE_TYPE_LIST = [
   {
+    path: "/user-guide/deploy-your-app",
+    emoji: "🚀",
+    title: "Deploy your app",
+    body: "Learn how to deploy your app on Spheron Protocol.",
+  },
+  {
     path: "/user-guide/icl",
     emoji: "⚡",
     title: "ICL Configuration",

@@ -268,7 +268,7 @@ EOF
 To deploy on Spheron, run:
 
 ```sh
-sphnctl deployment create deploy.yml
+sphnctl deployment create gpu.yml
 ```
 
 Here is an example of how the result will look:
@@ -456,7 +456,7 @@ Update the `deploy.yml` manifest file with the desired change.
 </Callout>
 
 ```sh
-sphnctl deployment update --lid [Lease ID] deploy.yml
+sphnctl deployment update --lid [Lease ID] gpu.yml
 ```
 
 Here is an example of how the result will look:
@@ -466,8 +466,9 @@ Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
 Validating SDL configuration.
 SDL validated.
 Sending update request...
-Update tx: [Tx Hash]
+Update request sent: [Tx Hash]
 Waiting for providers to accept on the update order...
+Update request accepted by the provider.
 Deployment update using wallet 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
  lid: 26
  provider: 0xe5CF265769039267c8FDbadd87f8a28B99769267
@@ -476,6 +477,16 @@ Sending the manifest for update…
 Deployment manifest sent, waiting for acknowledgment.
 Update deployment is finished.
 ```
+
+<Callout type="info">
+**NOTE:**
+1. If you want to change the compute resources, a new agreed price will be provided by the provider. Please note that if the requested compute resources are not available, the provider can choose not to accept the update request. In that case, you can close the deployment and create a new one.
+2. There are some restrictions on what can be updated:
+    - Ports cannot be updated at runtime
+    - Region cannot be updated at runtime
+    - Tier cannot be updated at runtime
+    - Token cannot be updated at runtime
+</Callout>
 
 ### Close Deployment
 Should you need to close the deployment follow this step.
@@ -486,7 +497,7 @@ sphnctl deployment close --lid [Lease ID]
 Here is an example of how the result will look:
 
 ```sh
-Close request sent to provider!
+Close request sent to provider: [Tx Hash]
 ```
 
 ### Get all the Deployment
