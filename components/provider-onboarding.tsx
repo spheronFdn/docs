@@ -32,6 +32,12 @@ const PROVIDERS_TYPE_LIST = [
     title: "Add Nodes",
     body: "Adding Nodes to Spheron Provider.",
   },
+  {
+    path: "https://provider.spheron.network",
+    emoji: "💻",
+    title: "Dashboard",
+    body: "Checkout your provider details.",
+  },
 ];
 
 const ProviderOnboarding = () => {
