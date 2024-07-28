@@ -119,11 +119,11 @@ Here is the private key of the wallet [address]:
 [Exported Private Key]
 ```
 
-## Account Overview
+## Escrow Account Overview
 
 You need to fund your wallet with some ETH to deploy anything on Spheron. We are currently deployed on Arbitrum chain, you can try getting some ETH from the faucet or buy it from the market to pay for the transaction fees.
 
-### Depositing Balance
+### Depositing Fund
 
 You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like USDT, you need to run this command:
 
@@ -147,7 +147,7 @@ The amount you pass need to be in full precision i.e if the USDT has 6 precision
 **Note:** There is a restriction on minimum amount of deposited funds in your account of any token to start any deployment. Refer [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) to see the minimum token requirement for deposit.
 </Callout>
 
-### Withdrawing Balance
+### Withdrawing Fund
 
 To withdraw a specific token, you need to run this command:
 
@@ -172,11 +172,11 @@ The amount you pass need to be in full precision i.e if the USDT has 6 precision
 </Callout>
 
 
-### Checking your Account Balance
+### Checking your Escrow Balance
 Check your account has sufficient balance by running:
 
 ```sh
-sphnctl payment balance --token [Token Name]
+sphnctl wallet balance --token [Token Name]
 ```
 
 Here is an example of how the result will look:
