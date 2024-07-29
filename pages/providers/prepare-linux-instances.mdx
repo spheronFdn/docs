@@ -52,6 +52,10 @@ ansible --version
 
 ## 2. Setup Domain for the Provider
 
+<Callout type="warning">
+**Note:** Before attaching a domain for the provider setup, we recommend avoiding domains with the TLD **.dev** or **.app**. These domains are always redirected to HTTPS due to a Google initiative, and since SSL is not yet supported by Spheron Providers, deployments using these TLDs will not work for users.
+</Callout>
+
 Create the following name entries on your domain provider.
 
 ![Domain Provider](assets/domain-provider.png)
