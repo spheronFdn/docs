@@ -112,12 +112,6 @@ Here is the format for the provider configuration:
       "unit": 24
     }
   ],
-  "ram": [
-    "ddr5"
-  ],
-  "storage": [
-    "ssd"
-  ],
   "payment_tokens": [
     "USDT",
     "USDC"
@@ -126,11 +120,6 @@ Here is the format for the provider configuration:
     "cpu": "3.00",
     "memory": "1.00",
     "ephemeral": "0.03",
-    "hdd": "0.02",
-    "ssd": "0.04",
-    "nvme": "0.05",
-    "endpoint": "0.06",
-    "ip": "6",
     "gpu": "p4=30,t1000=25"
   }
 }
@@ -141,8 +130,8 @@ You can edit the values to suit your requirements, but do not change the keys. T
 - **Name:** Specify the name of the provider.
 - **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
 - **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
-- **GPU:** List all the GPU models supported by your provider. Use the GPU shorthand and GPU ID values from the [GPU support](/user-guide/supports#gpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your GPU units through our slark node's Proof of Compute challenges. Ensure you include the pricing for each GPU model in the Pricing section.
-- **CPU:** List all the CPU types you support. Use the CPU shorthand and CPU ID values from the [CPU support](/user-guide/supports#cpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your CPU units through our slark node's Proof of Compute challenges.- **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
+- **GPU:** List all the GPU models supported by your provider. Use the GPU shorthand (name) and GPU ID (id) values from the [GPU support](/user-guide/supports#gpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your GPU units through our slark node's Proof of Compute challenges. Ensure you include the pricing for each GPU model in the Pricing section.
+- **CPU:** List all the CPU types you support. Use the CPU shorthand (name) and CPU ID (id) values from the [CPU support](/user-guide/supports#cpu-support--tiering) page, and specify the number of units you are providing. These units will be used for rewards and to verify the correctness of your CPU units through our slark node's Proof of Compute challenges.- **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.
 - **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme.
 - **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
 - **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.

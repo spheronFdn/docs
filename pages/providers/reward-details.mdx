@@ -45,15 +45,15 @@ Provider Nodes are categorized into 7 tiers, with each tier representing a highe
 
 The table below categorizes providers into different tiers based on their performance metrics. Each tier represents a level of trust and performance, with higher tiers earning greater rewards.
 
-| **Tier** | **Tier Name**               | **Uptime (%)** | **Slashing Requirement (%)** | **Rewards Multiplier** |
-|:--------:|:----------------------------|:--------------:|:----------------------------:|:----------------------:|
-| 1        | Most Trusted Providers      | > 99           | < 85                         | 2.0                    |
-| 2        | Highly Trusted Providers    | > 98           | < 80                         | 1.7                    |
-| 3        | Trusted Providers           | > 97           | < 75                         | 1.5                    |
-| 4        | Somewhat Trusted Providers  | > 95           | < 70                         | 1.2                    |
-| 5        | Less Trusted Providers      | > 90           | < 65                         | 1.1                    |
-| 6        | Untrusted Providers         | > 85           | < 60                         | 1.0                    |
-| 7        | Most Untrusted Providers    | > 75           | -                            | 0.0                    |
+| **Tier** | **Tier Name**               | **Uptime (%)** | **Slashing Requirement (%)** | **Rewards Multiplier** | **Upgrade Era Requirements** | **Downgrade Era Requirements** |
+|:--------:|:----------------------------|:--------------:|:----------------------------:|:----------------------:|:----------------------------:|:------------------------------:|
+| 1        | Most Trusted Providers      | > 99           | < 85                         | 2.0                    | -                            | 32                             |
+| 2        | Highly Trusted Providers    | > 98           | < 80                         | 1.7                    | 30                           | 25                             |
+| 3        | Trusted Providers           | > 97           | < 75                         | 1.5                    | 23                           | 20                             |
+| 4        | Somewhat Trusted Providers  | > 95           | < 70                         | 1.2                    | 17                           | 14                             |
+| 5        | Less Trusted Providers      | > 90           | < 65                         | 1.1                    | 11                           | 7                              |
+| 6        | Untrusted Providers         | > 85           | < 60                         | 1.0                    | 5                            | 5                              |
+| 7        | Most Untrusted Providers    | > 75           | -                            | 0.0                    | 3                            | -                              |
 
 ### Understanding Uptime
 
@@ -89,9 +89,13 @@ Providers in **Tier 7** are considered the least trusted and do not accrue any r
 
 The metrics for uptime and slashing are calculated based on challenges performed by the Slark node. This node challenges providers at random times, requiring them to complete a Proof of Compute task. Successful completion of these tasks is recorded, and after 24 hours, the Slark node evaluates the provider's performance.
 
-- **Uptime Calculation**: The Slark node calculates uptime by counting the number of successful challenges out of the total challenges within an Era.
+- **Uptime Calculation**: The Slark node calculates uptime based on two types of challenges: GPU and CPU. The total uptime is determined by the success rate of both challenge types. For providers with GPUs, the calculation uses a weighted approach:
+  - 80% weightage is given to GPU challenge successes
+  - 20% weightage is given to CPU challenge successes
+  
+  This weighted calculation ensures that GPU performance, which is typically more critical for compute-intensive tasks, has a greater impact on the overall uptime score. For providers without GPUs, the uptime is calculated solely based on CPU challenge successes.
 - **Slashing Decision**: If a provider's uptime falls below the slashing requirement, the Slark node initiates a slashing transaction on-chain, causing the provider to lose their rewards for that Era.
-- **Promotion and Demotion**: The Slark node also determines if a provider should be promoted or demoted based on their performance over multiple Eras. Consistent good performance can lead to promotion to a higher tier, while consistent poor performance can lead to demotion to a lower tier.
+- **Promotion and Demotion**: The Slark node evaluates provider performance over multiple Eras to determine tier changes. Consistent high performance leads to promotion, while sustained poor performance results in demotion. The "Upgrade Era Requirements" and "Downgrade Era Requirements" columns in the table above indicate the number of consecutive Eras a provider must meet or fail to meet their tier's criteria for promotion or demotion, respectively. This system encourages providers to maintain consistent high-quality service while allowing for occasional fluctuations in performance.
 
 By understanding and meeting these metrics, providers can maximize their rewards and achieve higher tiers within the Spheron network.
 
