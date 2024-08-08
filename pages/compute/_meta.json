@@ -3,7 +3,6 @@
   "instance": "Instance",
   "usage": "Usage",
   "type": "Type",
-  "plans": "Plans",
   "edge-network": "Edge network",
   "github-actions": {
     "title": "Github Actions",

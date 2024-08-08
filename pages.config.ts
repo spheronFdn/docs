@@ -26,8 +26,6 @@ export const Pages = [
   ["Compute Type", "/compute/type"],
   ["On Demand", "/compute/type/on-demand"],
   ["Autoscale", "/compute/type/autoscale"],
-  ["Compute Plans", "/compute/plans/compute-plans"],
-  ["Accelerate Plans", "/compute/plans/accelerate-plans"],
   ["Edge Network", "/compute/edge-network"],
   ["CDN", "/compute/edge-network/cdn"],
   ["Caching", "/compute/edge-network/caching"],
