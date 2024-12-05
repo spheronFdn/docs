@@ -13,10 +13,10 @@ const config: DocsThemeConfig = {
     link: "https://github.com/spheronFdn/docs",
     icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
   },
-  chat: {
-    link: "https://community.spheron.network/",
-    icon: <div className={styles.linkIcon}>{CommunityLogo}</div>,
-  },
+  // chat: {
+  //   link: "https://community.spheron.network/",
+  //   icon: <div className={styles.linkIcon}>{CommunityLogo}</div>,
+  // },
   editLink: {
     text: null,
   },
