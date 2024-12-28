@@ -120,39 +120,45 @@ To use these commands:
 
 After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
 
-1. Access the setup page for your registered node. There, You should find a link to download the `fizzup.sh` script.
-2. Download the `fizzup.sh` script to your machine. Make sure to save it in a location you can easily access via a terminal or command prompt.
-3. Open your terminal or command prompt and navigate to the directory where you saved the script.
-4. Make the script executable by running the following command:
-   ```bash
-   chmod +x <location of fizzup script>/fizzup.sh
-   ```
-   Replace `<location of fizzup script>` with the actual path to the script's directory.
-5. Run the script by entering the following command:
-   ```bash
-   <location of fizzup script>/fizzup.sh
-   ```
-   This command executes the script and starts the Fizz node client on your machine.
-6. To verify if your Fizz node is running, use the following command:
-   ```bash
-   docker-compose -f ~/.spheron/fizz/docker-compose.yml logs -f
-   ```
-   If this doesn't work, try:
-   ```bash
-   docker compose -f ~/.spheron/fizz/docker-compose.yml logs -f
-   ```
-   These commands will show you the logs of your Fizz node, allowing you to confirm it's running correctly.
-7. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
-8. On the setup page, you'll see a "Check Status" button and a switch to "Automatically check status."
-9. Click the "Check Status" button to manually initiate a status check for your Fizz node.
-10. Alternatively, you can toggle on the "Automatically check status" switch to have the system periodically check your node's status without manual intervention.
-11. The system will now perform checks to validate if your node is active and correctly configured.
+1. Open your terminal or command prompt and run the following command in your terminal to install the Fizz CLI:
+```bash
+curl -sL https://sphnctl.sh | bash  
+```
+2. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
+![Fizz Generate Command](assets/fizz-generate-command.png)
+
+3. Use the below command to start your node, replacing the `...` with your node-specific token:
+```bash
+sphnctl fizz start --token ...  
+```
+4. Monitor your node’s logs to ensure it is running smoothly:
+```bash
+sphnctl fizz logs  
+```
+5. Verify that the CLI and node versions are up-to-date by running the following command:
+
+```bash
+sphnctl fizz version  
+```
+
+<Callout type="info">
+If your dashboard doesn’t reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
+</Callout>
+
+6. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
+7. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
+8. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
+```bash
+sphnctl fizz status  
+```
+9. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
+10. The system will now perform checks to validate if your node is active and correctly configured.
 
 <Callout type="info">
   The validation process may take a few minutes. During this time, the system verifies your node's connectivity, resource availability, and configuration.
 </Callout>
 
-12. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
+11. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
 
 ## Accessing Your Dashboard
 
@@ -162,6 +168,14 @@ After your node has been successfully validated and marked active, you'll be red
 - **Resource Utilization**: Graphs and statistics show how your node's resources are used.
 - **Earnings Tracker**: A detailed breakdown of your points and earnings from providing resources to the network.
 - **Settings and Configuration**: Options to adjust your node's resource settings or modify available resources.
+
+- **Node Status**: Provides real-time information about your node, including its current state (Active or Inactive), uptime, geographical location, and operating system. Also, you can view your node’s unique identifier, associated address, and CLI status.
+- **Upgrade Notification**: Alerts you to update your Fizz Node to the latest version to maintain optimal performance and avoid penalties like losing FN points. Includes a direct link to the setup page for easy upgrading.
+- **Resource Tiers**: Displays your progress across various tiers, highlighting achievements and current tier level. For example, an “Lunar Fizz Operator" badge signifies special recognition for Phase 2 Fizzers.
+- **Points Summary**: Shows key metrics, including the Phase 1 CPU Multiplier, points earned per era, and total points.
+- **Resource Allocation**: Detailed insights into your node's resources, including CPU, RAM, and Storage, with values for utilized, allocatable, and claimed resources.
+- **Bandwidth Usage**: A live gauge shows your node's current bandwidth performance. 
+- **Gateway Information**: Displays the active gateway your node is connected to, such as "spheron-testnet."
 
 Check your dashboard regularly to ensure your node performs optimally and stay informed about your earnings in the Spheron network.
 
