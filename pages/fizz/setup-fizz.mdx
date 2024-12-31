@@ -123,17 +123,35 @@ After successfully registering your node, you need to set up and run the Fizz no
 1. Access the setup page for your registered node. There, You should find a link to download the `fizzup.sh` script.
 2. Download the `fizzup.sh` script to your machine. Make sure to save it in a location you can easily access via a terminal or command prompt.
 3. Open your terminal or command prompt and navigate to the directory where you saved the script.
-4. Make the script executable by running the following command:
+4. Make sure the `ubuntu-drivers` executable is available by running the following command:
+   ```bash
+   ubuntu-drivers -h
+   ```
+   If the executable exists, it will print output like:
+   ```console
+   Usage: ubuntu-drivers [OPTIONS] COMMAND [ARGS]...
+   ```
+   Otherwise, run the following command to install it:
+   ```bash
+   sudo apt install ubuntu-drivers-common
+   ```
+5. Make the script executable by running the following command:
    ```bash
    chmod +x <location of fizzup script>/fizzup.sh
    ```
    Replace `<location of fizzup script>` with the actual path to the script's directory.
-5. Run the script by entering the following command:
+   <Callout type="warning">
+     The script might automatically reboot your machine several times, do save your work before running it.
+   </Callout>
+6. Run the script by entering the following command:
    ```bash
    <location of fizzup script>/fizzup.sh
    ```
    This command executes the script and starts the Fizz node client on your machine.
-6. To verify if your Fizz node is running, use the following command:
+   <Callout type="info">
+     The script might require you to reboot the machine. Please pay attention to the script outputs.
+   </Callout>
+7. To verify if your Fizz node is running, use the following command:
    ```bash
    docker-compose -f ~/.spheron/fizz/docker-compose.yml logs -f
    ```
