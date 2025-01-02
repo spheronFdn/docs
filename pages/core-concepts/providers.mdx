@@ -19,7 +19,7 @@ For providers to join the network, they must undergo a comprehensive verificatio
 
 1. **Provider Registration Proposal:** Providers interested in joining the network must first submit a registration proposal. This proposal includes detailed specifications about the provider’s resources, such as region, compute capacity, tier, and type of compute.
 2. **Governance Review:** The governance body reviews the proposal. Upon approval, the provider’s details are registered in our Provider Registry smart contract. This registration triggers the creation of a new smart contract specific to the provider, updating the proxy address in the registry contract.
-3. **Staking Requirement:** Following registration, providers are required to stake $SPHN tokens. This stake activates the provider’s bidding engine, allowing them to start submitting bids for new deployments.
+3. **Staking Requirement:** Following registration, providers are required to stake $SPON tokens. This stake activates the provider’s bidding engine, allowing them to start submitting bids for new deployments.
 
 <Callout type="info">
 **NOTE:** Initially, to lower barriers to entry and accelerate network growth, provider registration proposals will be automatically approved. However, once the network reaches a certain level of maturity, we plan to introduce a curation process by submitting a governance proposal to disable the automatic approval mechanism.
@@ -80,24 +80,24 @@ Providers can also declare their connectivity capabilities, which are crucial fo
 
 ## Incentive and Staking Mechanism
 
-Provider Nodes are mandated to stake $SPHN tokens to participate in the network actively. This staking mechanism fulfills several critical roles: it secures a vested interest in the network's prosperity, establishes a method for penalizing misconduct, and synchronizes providers objectives with the network's overarching goals. Acts of malfeasance such as prolonged downtime, delays in system upgrades, or misuse of user deployments incur penalties, including the slashing of stakes. This robust accountability framework is instrumental in bolstering network security and maintaining participant trust.
+Provider Nodes are mandated to stake $SPON tokens to participate in the network actively. This staking mechanism fulfills several critical roles: it secures a vested interest in the network's prosperity, establishes a method for penalizing misconduct, and synchronizes providers objectives with the network's overarching goals. Acts of malfeasance such as prolonged downtime, delays in system upgrades, or misuse of user deployments incur penalties, including the slashing of stakes. This robust accountability framework is instrumental in bolstering network security and maintaining participant trust.
 
 ## Reward System for Provider Nodes
 
 Provider Nodes receive compensation based on the utilization of their computational resources. This reward structure is meticulously designed to motivate the ongoing provision of resources while ensuring that contributions are equitably remunerated. Additionally, in periods of low utilization or idle period, the foundation provides liveness incentives to ensure that providers remain active within the network, thereby preventing potential exits due to insufficient returns on investment (ROI) or inability to cover operational expenses (OpEx).
 
-## Delegation of $SPHN Tokens and Rewards
+## Delegation of $SPON Tokens and Rewards
 
-The system also enables the delegation of $SPHN tokens to Provider Nodes by token holders aiming to strengthen network security. This mechanism increases a node’s likelihood of being selected for deployments, enhancing potential earnings. Providers need to provide a commission on the rewards earned by the liveness rewards given by the foundation, which will be allocated to the stakers to provide delegation on their node. 
+The system also enables the delegation of $SPON tokens to Provider Nodes by token holders aiming to strengthen network security. This mechanism increases a node’s likelihood of being selected for deployments, enhancing potential earnings. Providers need to provide a commission on the rewards earned by the liveness rewards given by the foundation, which will be allocated to the stakers to provide delegation on their node. 
 
 The Annual Percentage Rate (APR) for stakers is dynamic, influenced by factors such as the provider's liveness rewards during a given epoch, and the network's inflation rate.
 This comprehensive incentive and staking mechanism ensures that Provider Nodes are not only motivated to maintain high standards of operation but are also financially supported to sustain participation in the network, thereby aligning individual success with the network's overall health and longevity.
 
 ## Slashing Mechanism
 
-Providers are subject to penalties for any misconduct within the network, such as user data misuse or spoofing, as identified by the Spheron Team or the broader ecosystem. In such instances, the provider's $SPHN collateral—which includes both staked and delegated funds—along with any accrued rewards, will be slashed. This measure is intended to provide restitution for any data breaches or other damages inflicted upon consumers.
+Providers are subject to penalties for any misconduct within the network, such as user data misuse or spoofing, as identified by the Spheron Team or the broader ecosystem. In such instances, the provider's $SPON collateral—which includes both staked and delegated funds—along with any accrued rewards, will be slashed. This measure is intended to provide restitution for any data breaches or other damages inflicted upon consumers.
 
-Additionally, providers face penalties for downtime during active leases. The value of the liveness reward corresponding to the duration of the downtime is deducted from the provider’s $SPHN collateral. In scenarios where there are no active leases, only the liveness rewards are slashed, sparing the main collateral. However, providers can enter Maintenance Mode during scheduled maintenance or upgrades to prevent collateral slashing during these periods.
+Additionally, providers face penalties for downtime during active leases. The value of the liveness reward corresponding to the duration of the downtime is deducted from the provider’s $SPON collateral. In scenarios where there are no active leases, only the liveness rewards are slashed, sparing the main collateral. However, providers can enter Maintenance Mode during scheduled maintenance or upgrades to prevent collateral slashing during these periods.
 
 To ensure stability within the network and discourage intermittent connectivity, a cooldown period of 3 hours is imposed on earning Availability Rewards whenever a node is terminated or paused and then reconnected. This policy aims to promote consistent service availability and prevent nodes from exploiting the reward system through frequent disconnects and reconnects.
 
