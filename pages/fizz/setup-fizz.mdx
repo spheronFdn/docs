@@ -31,10 +31,9 @@ To begin, you must register your Fizz node on the Spheron network. Follow these 
         Learn more about how to check your system specs and resources in this [Section](/fizz/setup-fizz#learn-about-your-system-specs--resources).
       </Callout>
    - **Region**: Select the geographical location where your node is situated. This helps users choose nodes based on their proximity requirements.
-   - **Payment Tokens**: Choose the cryptocurrencies or tokens you will accept as payment for your services.
    - **Gateway Selection**: This is a crucial step. Choose a gateway carefully, considering factors such as:
      - The number of fizz nodes connected to the gateway. A gateway can't connect more than 1000 fizz node so select another gateway which is nearest to you.
-     - Proximity to the gatewa, make sure you choose the gateway which is nearest to you so that the latency is not too high for users who want to use your GPU / compute.
+     - Proximity to the gateway, make sure you choose the gateway which is nearest to you so that the latency is not too high for users who want to use your GPU / compute.
      - Try to select the recommended gateway in the list as the dashboard already selects the gateway based on your node preferences.
 
 4. To complete the registration, you'll need some ETH on the Spheron chain for gas fees. If you don't have any, you can get some from our faucet at [faucet.spheron.network](https://faucet.spheron.network).
@@ -55,7 +54,7 @@ To begin, you must register your Fizz node on the Spheron network. Follow these 
 This step is only necessary if you could not get ETH from the Spheron faucet. You can skip this step if you successfully obtained ETH from the Spheron faucet.
 </Callout>
 
-6. Now click on the "Register" button. 
+6. Now click on the "Register Your Fizz Node" button. 
 
 7. Once you confirm the transaction, your node will be officially registered in the Spheron network, and you can proceed to the next steps.
 
@@ -116,7 +115,7 @@ To use these commands:
    sudo lshw -class memory
    ```
 
-## Running the Fizz Node Client
+## Running the Fizz Node Client (Linux/Mac)
 
 After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
 
@@ -159,6 +158,78 @@ sphnctl fizz status
 </Callout>
 
 11. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
+
+## Running the Fizz Node Client (Windows)
+
+1. Before proceeding, ensure your NVIDIA drivers and CUDA version are up-to-date. Open your terminal and run:
+
+```bash
+nvidia-smi
+```
+![Nvidia SMI Command](assets/nvidia-smi.png)
+
+2. If an update is required, visit the [official NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/) page to download and install the latest version.
+
+3. If WSL is already enabled, skip this step. Open PowerShell as an administrator and execute:
+
+```bash
+wsl --install
+```
+![Enable WSL Command](assets/enable-wsl.png)
+
+This will Enable WSL, Set WSL 2 as the default version and Install a default Linux distribution. **Restart your system if prompted.**
+
+4. If your Linux distribution is outdated, install Ubuntu 22.04. Open the Microsoft Store and Search for Ubuntu 22.04.
+Install it.
+
+5. If Docker Desktop is already configured for WSL, skip this step. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) from the official website.
+During installation, select Use WSL 2 instead of Hyper-V. **Restart if prompted.**
+
+6. Open Docker Desktop and Go to Settings > General. Ensure WSL 2 is selected as the backend. Enable integration with Ubuntu. Click "Apply & Restart".
+![Enable Docker Ubuntu](assets/enable-docker-ubuntu.png)
+
+7. Go to Resource > WSL Integration > Enable Ubuntu. Click "Apply & Restart".
+![Enable Docker Ubuntu - 2](assets/enable-docker-ubuntu-2.png)
+
+8 Launch Ubuntu as Administrator & Run the following command to install the Spheron CLI
+```bash
+curl -sL https://sphnctl.sh | bash
+```
+9. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
+![Fizz Generate Command](assets/generate-command-windows.png)
+
+10. Use the below command to start your node, replacing the `...` with your node-specific token:
+```bash
+sphnctl fizz start --token ...  
+```
+11. Monitor your node’s logs to ensure it is running smoothly:
+```bash
+sphnctl fizz logs  
+```
+12. Verify that the CLI and node versions are up-to-date by running the following command:
+
+```bash
+sphnctl fizz version  
+```
+
+<Callout type="info">
+If your dashboard doesn’t reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
+</Callout>
+
+13. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
+14. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
+15. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
+```bash
+sphnctl fizz status  
+```
+16. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
+17. The system will now perform checks to validate if your node is active and correctly configured.
+
+<Callout type="info">
+  The validation process may take a few minutes. During this time, the system verifies your node's connectivity, resource availability, and configuration.
+</Callout>
+
+18. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
 
 ## Accessing Your Dashboard
 
