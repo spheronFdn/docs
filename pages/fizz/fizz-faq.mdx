@@ -13,7 +13,7 @@ To check if your Fizz Node is active, visit [Fizz Node Status](https://fizz.sphe
 Spheron aims to maximize your earnings by creating a resource pool of idle resources. However, your earnings depend on various factors, including demand. In addition to direct utilization points, Spheron offers IDLE rewards in Fizz Node Points. The network requires a token to operate, and any related information will be communicated publicly.
 
 #### 4. Can I run a Fizz Node on a Windows device?
-Support for Windows is currently unavailable, but you can run it on Windows Subsystem for Linux (WSL).
+Yes, you can run it on Windows Subsystem for Linux (WSL). Please follow the steps provided [here](http://localhost:3000/fizz/setup-fizz#running-the-fizz-node-client-windows).
 
 #### 5. When installing Docker, I'm receiving an "Incompatible CPU Detected" error on my M1/M2/M3 Mac. What should I do?
 
@@ -52,26 +52,9 @@ Future updates aim to allow Fizz Nodes to utilize multiple GPUs simultaneously, 
 
 Stay tuned for announcements from the Spheron team regarding updates that will enable multi-GPU support in Fizz Nodes.
 
-#### 8. I'm getting a permission denied error when running the fizzup.sh script. How do I fix this?
+#### 8. I'm getting a permission denied error when running the Spheron CLI. How do I fix this?
 
-If you encounter a "permission denied" error when running the `fizzup.sh` script, it's likely because the script is trying to access `/root/.spheron`, which your current user doesn't have permission to access. This error might look something like this:
-
-![Permission Denied Error](assets/permission-denied-error.png)
-
-To resolve this issue, you need to switch to the root user before executing the script. Follow these steps:
-
-1. Switch to the root user:
-   ```bash
-   sudo bash
-   ```
-
-2. Once you're in the root shell, run the fizzup.sh script:
-   ```bash
-   ./fizzup.sh
-   ```
-
-This should allow the script to access the necessary directories and complete the installation process. Remember to exercise caution when operating as the root user, as it has unrestricted access to your system.
-
+If you encounter a "permission denied" error. it's likely because the script is trying to access `/root/.spheron`, which your current user doesn't have permission to access. Switch to root and run the command again.
 
 #### 9. Is my data secure using someone else's GPU through a Fizz Node?
 
@@ -84,20 +67,20 @@ Alternatively, you can implement a system where a proxy server handles your data
 To check the status of your Fizz Node, follow these steps:
 
 1. **Access the Fizz Node Dashboard**:
-   - Go to the Fizz Node dashboard by navigating to the URL provided in the setup process.
+   - Go to the Fizz Node dashboard by navigating to the 'My Fizz' Section.
    - If you're using the Spheron Fizz App, click the "Check Status" button.
-   - Alternatively, you can use the command `docker compose -f ~/.spheron/fizz/docker-compose.yml ps` or `docker-compose -f ~/.spheron/fizz/docker-compose.yml ps` to check the status of your Fizz Node.
+   - Alternatively, you can use the command `sphnctl fizz logs` to check the status of your Fizz Node.
 
 2. **Review the Status Information**:
    - The status information will be displayed in the output.
    - Look for the container status, which should indicate if the container is running (`Up`) or not (`Exited`).
 
 3. **Check the Logs**:
-   - If the container is not running, you can check the logs for any errors or issues by using the command `docker compose -f ~/.spheron/fizz/docker-compose.yml logs` or `docker-compose -f ~/.spheron/fizz/docker-compose.yml logs`.
+   - If the container is not running, you can check the logs for any errors or issues by using the command `sphnctl fizz logs`.
 
 4. **Verify the Node Status**:
    - If the container is running, your Fizz Node is active.
-   - If the container is not running, you can start it again using the command `<your-fizz-node-directory>/fizzup.sh`.
+   - If the container is not running, you can start it again using the command `sphnctl fizz start --token ...'. replacing the `...` with your node-specific token.
 
 By following these steps, you can verify the status of your Fizz Node and troubleshoot any issues if the container is not running.
 
@@ -152,11 +135,12 @@ If you encounter an error stating that the "brew command not found" when running
    If Homebrew is properly installed and configured, you should see the help output for Homebrew commands.
 
 5. **Run the Fizz Node script again**:
-   If the brew command is now working properly, you can run the Fizz Node script again:
+   If the brew command is now working properly, you can run the Fizz Node command again:
 
    ```bash
-   ./fizzup.sh
+   sphnctl fizz start --token .... 
    ```
+  replacing the `...` with your node-specific token.
 
 By following these steps, you should be able to resolve the "brew command not found" error and successfully run the Fizz Node script. If you continue to experience issues, ensure that your system meets all the prerequisites for running a Fizz Node and consider reaching out to the Spheron support community for further assistance.
 
@@ -177,11 +161,15 @@ We've introduced a new feature that allows you to change your gateway if your cu
 
 After changing your gateway, follow these steps:
 
-1. **Download the New Script**: 
-   - Go to the setup screen and download the updated script.
-
-2. **Follow the Setup Guide**: 
-   - Execute the steps in the setup guide in a way that is similar to your initial setup process.
+1. **Stop the running fizz node**: Go to CLI and enter this command to stop the node.
+   ```bash
+   sphnctl fizz stop
+   ```
+2. **Restart the node by running below command**: 
+   ```bash
+   sphnctl fizz start --token .... 
+   ```
+  replacing the `...` with your node-specific token.
 
 3. **Check Your Status**: 
    - Verify your node's status to ensure everything is running smoothly.
@@ -230,11 +218,8 @@ We've introduced a new feature that allows you to update your Fizz Node resource
 5. **Wait for Reload**:
    - Let the screen reload once all transactions are confirmed.
 
-6. **Download New Script**:
-   - Click the "Download" button to get the new script.
-
-7. **Run the New Script**:
-   - Follow the steps outlined on the setup screen to run your new script with the updated resources.
+6. **Follow the dashboard commands**:
+   - Follow the dashboard commands same as you do while installing the fizz for the first time.
 
 Important Notes:
 - Simply changing the script will not update your Fizz Node resources. You must first update them through the dashboard.
@@ -265,7 +250,7 @@ If you encounter the error "Error creating container: Error response from daemon
    - For Ubuntu users: Follow the [Ubuntu NVIDIA drivers installation guide](https://ubuntu.com/server/docs/nvidia-drivers-installation)
    - For other distributions, consult your distribution's documentation
 
-After upgrading both Docker and NVIDIA drivers, try running the `fizzup.sh` script again.
+After upgrading both Docker and NVIDIA drivers, try running the fizz node again.
 
 #### 17. I'm getting an OS mismatch error while running the script. How do I fix this?
 
@@ -287,12 +272,325 @@ If you encounter an OS mismatch error while running the script, you'll need to u
 4. **Confirm the Change**:
    - Confirm the transaction in your wallet when prompted
 
-5. **Download New Script**:
-   - After the OS change is confirmed, download the script again
-   - This new script will be configured for your updated OS setting
-
-6. **Run the New Script**:
-   - Execute the newly downloaded script
+5. **Follow the dashboard commands**:
+   - Follow the dashboard commands same as you do while installing the fizz for the first time.
    - The OS mismatch error should now be resolved
+
+#### 18. Why is the Generate Command button taking a long time and not giving any output?
+You need to confirm a MetaMask signature to generate the command. If you do not confirm the transaction, the command will not be generated. Please check your MetaMask or connected wallet.
+
+#### 19. I’m setting up the node on a VPS. Should I stop the node on my Mac first?
+Yes, stop the node on your Mac before setting it up and running it on the VPS. Running the node concurrently on both systems is not allowed.
+
+#### 20. Why do I lose Era points if my claimed resources don’t match my actual system capacity?
+If the claimed and allocated resources don’t match, they are deducted daily. To avoid this:
+- Click the "Update Resource" button.
+- Adjust your claimed resources to match what you can actually allocate to fizz node.
+
+#### 21. How do I fix the error: `glibc version GLIBC_2.32 not found`?
+This issue is resolved, but if you are still facing this issue, please update your Ubuntu to 22.04 Version.
+
+#### 22. Why does the error say CUDA is not supported on WSL?
+As stated in the error, CUDA installation is not supported on WSL. You need to install CUDA manually on your Windows system.
+
+#### 23. Why am I getting a "node already running on another device" error?
+This happens when the node is still active on another system. Stop the node on the older system using:
+
+```bash
+sphnctl fizz stop
+```
+Then, proceed with running the node on the new VPS.
+
+#### 24. Why did my points decrease overnight?
+Points can decrease if:
+- Uptime drops below 50%.
+- Allocated resources are below the claimed resources.
+
+Ensure both conditions are met to maintain your points.
+
+#### 25. Can I run the node on vast.ai servers?
+No, vast.ai servers lack the required sudo access and host-network Docker support.
+
+#### 26. How do I resolve unmet dependencies when installing NVIDIA drivers?
+Ensure the following:
+1. NVIDIA drivers and runtime are installed correctly.
+2. The Docker daemon is running. Restart Docker if necessary.
+3. Reboot your system after making changes.
+
+#### 27. Which country should I select if my VPS is in Japan but my IP is in Korea?
+Select Japan as the country for your location.
+
+#### 28. Why am I getting an "Unauthorized request" error?
+This happens if:
+- You change the gateway URL in the script but not in the dashboard.
+- The older script is still in use.
+
+Solution: Delete the old script and follow the instructions provided on the dashboard after updating the gateway.
+
+#### 29. Why is my CPU capacity marked in yellow under the Allocatable tab?
+The claimed CPU resources exceed what is available. Adjust the configuration to share only free resources or whatever you want to share with fizz node. Not your whole
+
+#### 30. What does "docker-compose file is obsolete" mean?
+Ensure:
+1. CUDA > 12.1 is installed.
+2. NVIDIA drivers > 560 are installed.
+3. Restart your system and run the node commands in admin mode.
+
+#### 31. Why is GPU utilization dropping below 80%?
+Check GPU utilization using `nvidia-smi`. Close other applications using the GPU to allow the node to detect resources properly.
+
+#### 32. Will my points decrease if I stop running the node?
+If resource verification was completed, points won’t decrease. Without verification, points will gradually reduce to zero.
+
+#### 33. Why is GPU VRAM showing 0%?
+Ensure you have:
+- NVIDIA drivers > 560.
+- CUDA version > 12.1.
+
+Reinstall drivers if needed.
+
+#### 34. Can GPU VRAM be manually adjusted?
+No, the node automatically detects VRAM.
+
+#### 35. Why can’t I change my gateway?
+Ensure your wallet is connected and you’ve accepted the wallet transaction message. If errors persist, switch to a different browser.
+
+#### 36. Why does Docker cause packet loss on my internet connection?
+Change the gateway to a closer location.
+
+#### 37. Why do Apple chips earn fewer FN points?
+Apple chips are falls under CPUs. Ensure the node is active to update FN points after one era (24 hours).
+
+#### 38. Can I run multiple nodes on different systems?
+Yes, but each node requires a unique system and wallet.
+
+#### 39. How do I resolve the "permission denied" error?
+You need root access to the server/system to run the node.
+
+#### 40. Does CPU allocation refer to threads or cores?
+It refers to threads.
+
+#### 41. Why does my GPU show 0% allocatable GPU?
+Run the script in admin mode. Ensure resources are correctly configured and no mismatches occur.
+
+#### 42. What does "Pre-run Node test failed" mean?
+- Close any applications using port 8080 and try again.
+- Ensure internet speed is proper. Upgrade your connection if necessary.
+
+#### 43. How do I fix GPU ID mismatch errors?
+Run these commands:
+```bash
+sudo apt update
+sudo apt install -y jq
+```
+Then rerun the setup.
+
+#### 44. Why does my node remain active but show 0 resources utilized?
+If resources aren’t actively used, they will show 0. This doesn’t affect FN points as long as the node is active.
+
+#### 45. What causes the "GPU not found" error?
+Select the correct GPU in the node configuration. Reinstall the CLI and rerun the commands mentioned on the dashboard.
+
+#### 46. Why does GPU VRAM usage stay below 80%?
+Close applications using GPU VRAM. Use `nvidia-smi` to inspect processes.
+
+#### 47. Why don’t allocatable resources match actual resources?
+Adjust Docker resources. Follow [this guide](/fizz/docker-resource-setup) if needed. Ensure free resources are correctly detected.
+
+#### 48. How can I resolve the "Docker daemon not running" error?
+Make sure Docker is installed and running in the background. Restart the Docker service if necessary.
+
+#### 49. What should I do if NVIDIA drivers are outdated?
+Update NVIDIA drivers to version 560 or higher and restart the system to apply changes.
+
+#### 50. Why am I unable to allocate full GPU resources?
+Close any applications using the GPU to free up resources. Use `nvidia-smi` to check running processes.
+
+#### 51. How do I resolve "failed resource validation" errors?
+Ensure the claimed resources match what you can actually allocate. Adjust the node settings in the Fizz dashboard if needed.
+
+#### 52. Why does resource detection fail on my system?
+Check if Docker is properly configured and running. Ensure no conflicting applications are consuming resources.
+
+#### 53. What happens if I don’t update my Fizz Node?  
+Updating your Fizz Node is essential. Failure to update will result in no point accumulation.  
+
+#### 54. Can Fizz Nodes be used for devices with larger GPUs?  
+No, for larger GPUs, it is recommended to connect via the Provider Node.  
+
+#### 55. Can I run more than one Fizz Node per wallet?  
+No, only one node is allowed per wallet.  
+
+#### 56. How does the system check the liveness of a Fizz Node?  
+The system performs periodic liveness checks. Nodes must remain active for at least 50% of the era (approximately 12 hours per day) to avoid penalties.  
+
+#### 57. My node has been active for over 24 hours, but I haven’t received rewards or updates on the dashboard. What’s wrong?  
+Analyze the dashboard for errors. Possible issues include:  
+- Poor internet connection.  
+- Gateway problems.  
+- Allocatable resources not matching claimed resources.  
+Resolve any identified issues and ensure the node runs consistently.  
+
+#### 58. How can I ensure my Fizz Node stays updated?  
+Monitor the announcements channel in the Discord server regularly to stay informed about updates.  
+
+#### 59. Are there penalties for low uptime on my Fizz Node?  
+Yes, point slashing occurs if uptime is less than 50% per day (12 hours).  
+
+#### 60. How do I check if my node is registered to the correct wallet?  
+Once you connect the correct wallet, you will automatically sign in. If you are prompted to register a new node, it means you have not connected the right wallet.  
+
+#### 61. Why is my Fizz Node inactive despite completing all setup steps?  
+If your node logs show it as active but the dashboard displays it as inactive, please wait a few minutes and refresh. The node status should update and reflect as active shortly.  
+
+#### 62. Can I use a single VPS to host multiple Fizz Nodes?  
+No. Each Fizz Node requires its own dedicated VPS.  
+
+#### 63. How do I resolve an “Unsupported GPU” error during Fizz Node setup?  
+During setup, ensure you have selected a compatible GPU resource. Additionally, verify that your NVIDIA GPU drivers are up to date.  
+
+#### 64. Why does my Fizz Node keep disconnecting from the gateway?  
+Frequent disconnections are often due to gateway connectivity issues. If the problem persists, try switching to a different gateway.  
+
+#### 65. Can I claim FN Points manually if my node was inactive due to technical issues?  
+If the downtime was caused by user-side technical issues, you generally cannot claim points manually.  
+
+#### 66. How do I stop my node if it’s causing GPU overheating?  
+Run the following command to stop your node immediately:  
+```bash
+sphnctl fizz stop
+```  
+
+#### 67. Why do I keep getting a “node already running on another device” error?  
+Check whether the node is running on any other machine or VPS. If you find it running, stop it there before starting it on the new device. If you can’t identify another running instance, try changing your gateway in the configuration and attempt to start the node again.  
+
+#### 68. What does the error “No NVIDIA GPU detected” mean for Fizz Node?  
+This typically indicates that Docker is not detecting your GPU. Ensure Docker is running in the background, and if you are on Windows, confirm that WSL Integration is enabled for Docker.
+
+#### 69. How do I resolve an issue where Docker isn’t running during the Fizz Node setup?  
+Verify that Docker is installed and actively running on your system. If Docker fails to start or has errors, consult the official [Docker documentation](https://docs.docker.com/) for troubleshooting steps and solutions.  
+
+#### 70. Why is my node’s performance lower than expected on a high-spec VPS?  
+Node performance depends on several factors, including network speed and background processes consuming GPU memory (VRAM). Ensure your internet connection is stable, and close any unnecessary applications or processes that might be using GPU resources.  
+
+#### 71. How do I troubleshoot a “dial error” in the node log?  
+Try changing to a different gateway. This error usually indicates a connectivity or configuration problem with the current gateway.  
+
+#### 72. Why is my Fizz Node still inactive after changing its configuration?  
+Double-check that your configured resources (especially GPU) match the actual resources available on your VPS. Also, verify that you’ve selected a functional gateway. Inactivity can occur if the node can’t properly align with the claimed resources or connect to the gateway.  
+
+#### 73. What does the “Failed to run Fizz” error indicate, and how can I fix it?  
+This error typically points to a GPU or Docker configuration issue. Verify the following:  
+- Your NVIDIA drivers are correctly installed and up to date.  
+- The NVIDIA Container Toolkit (nvidia-docker2) is installed.  
+- Docker is configured to use the NVIDIA runtime.  
+After making any changes, restart the Docker service and try running the node again.  
+
+#### 74. How can I verify if my Fizz Node is using the correct GPU drivers?  
+After a successful Fizz Node setup, there should be no driver-related errors. You can also run the following command to verify GPU usage and driver details:  
+```bash
+nvidia-smi
+```  
+
+#### 75. What should I do if my Fizz Node setup script hangs during execution?  
+Exit your terminal session, reopen it, and re-run the setup script. This often resolves transient issues or stalled processes.  
+
+#### 76. How do I switch my Fizz Node from GPU to CPU mode?  
+Open the Update Resources section on your dashboard and set GPU to “None.” This will configure your node to run in CPU-only mode. 
+
+#### 77. Can you add Rabby wallet support for the Fizz dashboard?  
+Currently, only MetaMask is supported. There are no plans to integrate Rabby Wallet at this time.  
+
+#### 78. Is there any penalty for moving my Fizz Node to a new server?  
+No, there is no penalty as long as you stop the old node before starting it on the new server.  
+
+#### 79. Can I run a Fizz Node without an NVIDIA GPU?  
+Yes! Simply choose CPU Node during setup if you don’t have an NVIDIA GPU or prefer not to use one.  
+
+#### 80. Why do my points get added in the evening but subtracted in the morning?
+This usually indicates a mismatch between claimed vs. allocatable resources. Ensure your actual hardware resources match what you’ve allocated in your node configuration.  
+
+#### 81. My Fizz Node now shows my GPU as having no memory in WSL. How can I fix this?  
+- Uninstall your current Ubuntu WSL distribution.  
+- Update Docker Desktop for Windows and your NVIDIA drivers to the latest versions.  
+- Reinstall Ubuntu on WSL.  
+- In Docker Desktop, enable WSL integration.  
+- Inside WSL, run `nvidia-smi` to confirm your GPU is recognized.  
+
+#### 82. I upgraded my VPS due to a warning. Is there a penalty? 
+There is no penalty for upgrading your VPS. Just remember to stop the node on the old server to avoid conflicts.  
+
+#### 83. What percentage of VRAM usage is acceptable?
+Generally, around 80% or above is considered acceptable. Ensure your node still has enough GPU memory to operate smoothly.  
+
+#### 84. The Fizz Node asked me to update NVIDIA drivers, but the error persists. 
+- Check that your CUDA version is at least 12.1.  
+- Reinstall or update your NVIDIA drivers if needed.  
+- Ensure Docker is configured for GPU usage.  
+
+#### 85. How do I transfer my node to another VPS?  
+- Stop the node on your current VPS.  
+- Run the installation steps on your new VPS.  
+- Start the node on your new server. There’s no penalty if you properly shut down the old node first.  
+
+#### 86. How do I install the CUDA toolkit manually before running the node?  
+Download the CUDA toolkit (version 12.6 or newer) from NVIDIA’s official site and install it. Afterwards, proceed with your Fizz Node setup.  
+
+#### 87. How do I manually install NVIDIA drivers for Fizz Node?  
+Visit NVIDIA’s download page (for Windows) or the equivalent for your operating system. Download and install the driver package according to the instructions provided.  
+
+#### 88. hy is my node showing resource limits that don’t match my VPS specs? 
+The allocatable resources can differ from your VPS’s nominal specs if other processes (or the host OS) are already consuming CPU, GPU, or memory. Close unnecessary applications and check usage via `nvidia-smi` (for GPU) or system monitoring tools.  
+
+#### 89. Why does my Fizz Node fail to detect Docker services?  
+This usually occurs if WSL integration in Docker Desktop is disabled or if Docker isn’t running. Verify Docker is installed, started, and has WSL integration turned on if you’re using Windows + WSL.  
+
+#### 90. I’m using an AMD EPYC 9454P 48-Core Processor on a VMware server but only receiving 25 FN Points per core. Is this normal or a recognition issue?  
+Make sure you’ve selected the correct machine configuration during the Fizz Node installation. If the installer isn’t accurately identifying your CPU’s resources, the node may award fewer points.  
+
+#### 91. My GPU VRAM usage is stuck at 18%. I’ve reinstalled everything, but the problem persists. Any advice?  
+Ensure your NVIDIA driver version is above 560 and your CUDA version is above 12.1. Incomplete or outdated GPU drivers can cause the VRAM usage to display incorrectly.  
+
+#### 92. Can I increase CPU usage or allocate more cores to my Fizz Node?  
+Yes. In the Fizz dashboard, navigate to **Update Resources** and increase your CPU core allocation as needed.  
+
+#### 93. If I close my node and delete the VPS, will it affect my FN Points?  
+You can shut down and remove your node without incurring slashing penalties; however, you won’t earn points while your node is offline.  
+
+#### 94. When do total compute hours start counting?  
+Total compute hours begin once your node has been actively leased for compute tasks. Ensure your node is configured correctly and is available for leasing.  
+
+#### 95. How do points increase over time?  
+Points accumulate based on node uptime, active leases, and participation in network challenges. Maintaining a high uptime ensures a steady increase in points.  
+
+#### 96. How often does the system check my node’s liveness?  
+The network pings your node once per hour to verify liveness. If your node is unresponsive during a ping, it fails that hour’s liveness check.  
+
+#### 97. I’m trying to add another Fizz Node. Is there a limit per wallet?  
+You can run multiple nodes on different machines under one account, but only one wallet can be used per device.  
+
+#### 98. I mistakenly chose GPU settings, but my system has no GPU. Can I switch?  
+Yes. Go to the **Resources** section in your Fizz dashboard and change your GPU allocation to **None**.  
+
+#### 99. Is running the node on a VPS CPU still incentivized?  
+Yes. You can earn FN Points even on a CPU-only node.  
+
+#### 100. I see this message: “Event file .spheron/fizz-docker-events/0.json does not exist.” What does it mean?
+This is not an error; the script will continue to run normally.  
+
+#### 101. Can I transfer my node to another VPS using the same wallet?  
+Yes. Stop your node on the old VPS, then run the setup script on the new VPS.  
+
+#### 102. Why is my bandwidth usage at 0 when my node is active?  
+Dashboard metrics can lag. If bandwidth remains at 0 for an extended period and your node is otherwise active, reach out to the support team via Discord.  
+
+#### 103. Can I run a node on a VPS without a GPU?  
+Yes. Just select **CPU-only mode** when setting up the node.  
+
+#### 104. Can I set up a Fizz Node outside a container?  
+No. Fizz Nodes must run within the containerized environment provided by the Spheron CLI.  
+
+#### 105. Does Fizz Node require root access to run correctly?  
+Yes, root privileges are needed to ensure the node can manage the necessary resources and configurations.  
 
 <Navigation name="Fizz Node FAQ" />
