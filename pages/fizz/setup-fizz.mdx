@@ -25,17 +25,31 @@ To begin, you must register your Fizz node on the Spheron network. Follow these 
       </Callout>
    - **Region**: Select the geographical location where your node is situated. This helps users choose nodes based on their proximity requirements.
    - **Gateway Selection**: This is a crucial step. Choose a gateway carefully, considering factors such as:
-     - The number of fizz nodes connected to the gateway. A gateway can't connect more than 1000 fizz node so select another gateway which is nearest to you.
+     - The number of fizz nodes connected to the gateway. A gateway can't connect more than 2000 fizz node so select another gateway which is nearest to you.
      - Proximity to the gateway, make sure you choose the gateway which is nearest to you so that the latency is not too high for users who want to use your GPU / compute.
      - Try to select the recommended gateway in the list as the dashboard already selects the gateway based on your node preferences.
 
-4. Now click on the "Register Your Fizz Node" button. 
+4. To complete the registration, you'll need some ETH on the Spheron chain for gas fees. If you don't have any, you can get some from our faucet at [faucet.spheron.network](https://faucet.spheron.network).
 
-5. To complete the registration, you'll need pay a small registration fee of **0.02 ETH (Mainnet)** from any avilable chains. 
+5. Now click on the "Register Your Fizz Node" button. 
 
-6. Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+6. For the Stellar phase and beyond, node registration requires:
+   - A deposit of 0.02 ETH
+   - This can be deposited on any of our supported mainnet chains:
+     - Base
+     - Arbitrum
+     - ZkSync Era
+     - BNB Chain
+     - Ethereum
 
-7. Once you confirm the transaction, your node will be officially registered in the Spheron network, and you can proceed to the next steps.
+7. Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+
+8. Once you confirm all the transactions including the deposit, your node will be officially registered in the Spheron network, and you can proceed to the next steps.
+
+<Callout type="warning">
+Note: Please make sure to confirm all the transactions including the deposit, otherwise your node will not be registered and you might need to re-register your node.
+</Callout>
+
 
 ## Learn About Your System Specs / Resources
 
@@ -120,7 +134,7 @@ sphnctl fizz version
 ```
 
 <Callout type="info">
-If your dashboard doesn’t reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
+If your dashboard doesn't reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
 </Callout>
 
 6. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
@@ -181,7 +195,7 @@ curl -sL https://sphnctl.sh | bash
 ```bash
 sphnctl fizz start --token ...  
 ```
-11. Monitor your node’s logs to ensure it is running smoothly:
+11. Monitor your node's logs to ensure it is running smoothly:
 ```bash
 sphnctl fizz logs  
 ```
@@ -192,7 +206,7 @@ sphnctl fizz version
 ```
 
 <Callout type="info">
-If your dashboard doesn’t reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
+If your dashboard doesn't reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
 </Callout>
 
 13. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
@@ -219,7 +233,7 @@ After your node has been successfully validated and marked active, you'll be red
 - **Earnings Tracker**: A detailed breakdown of your points and earnings from providing resources to the network.
 - **Settings and Configuration**: Options to adjust your node's resource settings or modify available resources.
 
-- **Node Status**: Provides real-time information about your node, including its current state (Active or Inactive), uptime, geographical location, and operating system. Also, you can view your node’s unique identifier, associated address, and CLI status.
+- **Node Status**: Provides real-time information about your node, including its current state (Active or Inactive), uptime, geographical location, and operating system. Also, you can view your node's unique identifier, associated address, and CLI status.
 - **Upgrade Notification**: Alerts you to update your Fizz Node to the latest version to maintain optimal performance and avoid penalties like losing FN points. Includes a direct link to the setup page for easy upgrading.
 - **Resource Tiers**: Displays your progress across various tiers, highlighting achievements and current tier level. For example, an “Lunar Fizz Operator" badge signifies special recognition for Phase 2 Fizzers.
 - **Points Summary**: Shows key metrics, including the Phase 1 CPU Multiplier, points earned per era, and total points.

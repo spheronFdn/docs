@@ -39,8 +39,7 @@ ssh -i [ssh_key] root@[provider-ip]
 
 ![Provider Setup 5](assets/provider-setup-5.png)
 
-
-## Deposit test Arbitrum sepolia ETH to the provider's wallet
+## Deposit test ETH to the provider's wallet
 
 1. Use the following command to SSH into your provider instance
 
@@ -74,7 +73,7 @@ Currently using account wallet:
  passphrase: testPassword
 ```
 
-5. Go to the [**Faucet**](https://www.alchemy.com/faucets/arbitrum-sepolia) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
+5. Go to our [**Faucet**](https://faucet.spheron.network) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
 
 <Callout type="info">
 To retrieve the private key of your wallet, run the following command:
@@ -368,14 +367,6 @@ helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set resources.limits.memory="2Gi" \
         --set resources.requests.cpu="1" \
         --set resources.requests.memory="1Gi"
-
-helm upgrade --install spheron-gateway ./gw -n spheron-services \
-        --set from=/spheron-key/wallet.json \
-        --set keysecret=testPassword \
-        --set domain=$DOMAIN \
-        --set bidpricestrategy=shellScript \
-        --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)"
-
         
 kubectl patch configmap spheron-provider-scripts \
       --namespace spheron-services \
