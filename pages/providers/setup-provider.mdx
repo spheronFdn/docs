@@ -355,10 +355,10 @@ cd /home/spheron/provider-helm-charts/charts
 REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
 DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
-        --set from=/spheron-key/wallet.json \
-        --set keysecret=testPassword \
-        --set domain=$DOMAIN \
-        --set bidpricestrategy=shellScript \
+        --set provider.from=/home/spheron/.spheron/wallet.json \
+        --set provider.keysecret=testPassword \
+        --set provider.domain=$DOMAIN \
+        --set bidPrice.strategy=shellScript \
         --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)" \
         --set ipoperator=false \
         --set node=spheron \
