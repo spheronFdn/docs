@@ -157,8 +157,6 @@ profiles:
   name: hello-world
   duration: 1h
   mode: provider # or 'fizz' for Fizz Mode
-  tier:
-    - community
   compute:
     web:
       resources:
@@ -170,8 +168,6 @@ profiles:
           size: 1Gi
   placement:
     westcoast:
-      attributes:
-        region: us-east
       pricing:
         web:
           token: CST
