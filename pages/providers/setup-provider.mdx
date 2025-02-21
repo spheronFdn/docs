@@ -355,7 +355,7 @@ cd /home/spheron/provider-helm-charts/charts
 REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
 DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
-        --set provider.from=/home/spheron/.spheron/wallet.json \
+        --set provider.from=/spheron-key/wallet.json \
         --set provider.keySecret=testPassword \
         --set provider.domain=$DOMAIN \
         --set bidPrice.strategy=shellScript \
