@@ -8,7 +8,7 @@ import { CommunityLogo } from "./assets/community";
 import styles from "./styles/global.module.css";
 
 const config: DocsThemeConfig = {
-  logo: <>{SpheronLogo}</>,
+  logo: SpheronLogo,
   project: {
     link: "https://github.com/spheronFdn/docs",
     icon: <div className={styles.linkIcon}>{GithubLogo}</div>,
