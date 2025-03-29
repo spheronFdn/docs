@@ -5,7 +5,6 @@ import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import CustomFooter from '@/components/footer'
 import { SpheronLogo } from "@/components/icons/spheron-full";
-// import { OramaSearch } from "@orama/plugin-nextra";
 import "./globals.css";
 
 
