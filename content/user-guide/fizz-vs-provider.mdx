@@ -1,0 +1,229 @@
+import { Callout } from "nextra/components";
+
+# Provider Mode vs Fizz Mode
+
+This guide explains the key differences between Provider Mode and Fizz Mode in Spheron, helping developers choose the right deployment strategy for their applications.
+
+## Overview
+
+Spheron offers two distinct deployment modes, each designed for different use cases and requirements:
+
+### Provider Mode
+- Enterprise-grade infrastructure
+- High reliability and stability
+- Production-ready environment
+- Higher resource availability
+- Premium features and capabilities
+
+### Fizz Mode
+- Consumer-grade distributed network
+- Cost-effective solution
+- Community-driven infrastructure
+- Suitable for testing and development
+- Basic feature set
+
+## Detailed Comparison
+
+### 1. Networking Features
+
+#### Provider Mode
+```yaml
+# Example Provider Mode networking configuration
+expose:
+  - port: 3000
+    as: 80  # Can map to standard HTTP/HTTPS ports
+    to:
+      - global: true
+    accept:
+      - www.yourapp.com
+```
+
+- Supports ports 80 and 443
+- Built-in HTTPS with self-signed certificates
+- Subdomain-based access for port 80
+- Load balancing capabilities with multiple containers by passing more than one count
+- Higher bandwidth allocation
+
+#### Fizz Mode
+```yaml
+# Example Fizz Mode networking configuration
+expose:
+  - port: 8080  # Cannot use ports 80/443
+    to:
+      - global: true
+  - port_range: 8443-8445  # Supports port ranges
+    port_range_as: 8443-8445
+    to:
+      - global: true
+```
+
+- Cannot use ports 80/443
+- No built-in HTTPS
+- Supports port ranges
+- Basic networking features
+- Variable bandwidth
+- Can use `use_public_port` to expose your service so that container ports can be exposed to ports assigned by Spheron
+- Can be used to deploy P2P applications and clustering applications
+
+<Callout type="warning">
+When using Fizz Mode, ensure your application doesn't rely on standard HTTP/HTTPS ports (80/443), as these are not available.
+</Callout>
+
+### 2. Resource Management
+
+#### Provider Mode
+```yaml
+# Example Provider Mode resource configuration
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 4
+        memory:
+          size: 8Gi
+        storage:
+          size: 20Gi
+        gpu:  # GPU support available
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: t4
+```
+
+- High resource limits
+- GPU support
+- Shared Memory (SHM) support
+- Consistent performance
+- Resource scaling options
+
+#### Fizz Mode
+```yaml
+# Example Fizz Mode resource configuration
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+```
+
+- Limited resource availability - max 32 units of CPU, 128Gi of memory and 2000Gi of storage, and only 1 GPU in a Fizz node
+- Variable performance - Can have downtime if fizz node is stopped by the user
+- Limited scaling options - Updating resource in runtime is not supported
+- Shared Memory (SHM) is not supported
+- You can't change count to multiple containers in a single deployment
+- Can't deploy multiple GPUs for a single deployment
+
+### 3. Logging and Monitoring
+
+#### Provider Mode
+```bash
+# Real-time log following
+sphnctl deployment logs --lid 123 --follow
+
+# Service-specific logs
+sphnctl deployment logs --lid 123 --service web
+```
+
+- Real-time log streaming - you can follow the logs as they are generated
+- Advanced filtering options
+- Service-specific logging
+- Detailed event tracking - you can see all the events happening in your deployment
+
+#### Fizz Mode
+```bash
+# Startup logs (Fizz-specific feature)
+sphnctl deployment logs --lid 123 --startup
+
+# Basic logs
+sphnctl deployment logs --lid 123
+```
+
+- Basic logging capabilities
+- Startup logs available - to check what's happening during the startup of your application
+- No real-time streaming
+- Limited filtering options
+- Detailed event tracking - you can see all the events happening in your deployment
+
+### 4. Deployment Updates
+
+#### Provider Mode
+- Dynamic resource scaling
+- Live environment updates
+- Container image updates
+- Zero-downtime updates
+- Secure and more reliable
+
+#### Fizz Mode
+- Can't update resource in runtime
+- May require redeployment to update deployment resource specification
+
+## Best Practices
+
+### When to Use Provider Mode
+
+1. **Security Requirements**
+   - HTTPS requirements
+   - Custom domain needs
+   - Compliance requirements
+
+2. **Resource Intensive Applications**
+   - ML/AI workloads
+   - Data processing
+   - GPU requirements
+
+### When to Use Fizz Mode
+
+1. **Cost-Sensitive Projects**
+   - MVP deployments
+   - Personal projects
+   - Learning environments
+   - Low-traffic applications
+
+2. **Distributed Applications**
+   - Edge computing or Edge GPU computing use cases
+   - P2P applications
+   - Decentralized services
+
+## Troubleshooting Common Issues
+
+### Provider Mode Issues
+
+1. **Port Conflicts**
+   - Verify port mappings
+   - Use port 80 or 443 for your service if you want to use subdomain-based access
+
+2. **Resource Allocation**
+   - Check scaling configurations
+   - Verify resource requests
+   - Can deploy multiple GPUs for a single deployment
+
+3. **Deployment Not Available**
+   - Check the Replicas if it is 0 - wait for a few minutes for deployment to pull the image and start the containers, and check again
+   - You can check the logs for more details using the flag `--follow` to see if there are any errors in the logs if the deployment is not available
+   - You can also check the events using `sphnctl deployment events --lid <lid>` to see if there are any errors in the events like pull image failure, start container failure, etc.
+
+### Fizz Mode Issues
+
+1. **Connectivity**
+   - Use correct port ranges
+   - Check if the service is running on the correct port
+   - Can use `use_public_port` to expose your service so that container ports can be exposed to ports assigned by Spheron - this is useful for P2P applications and clustering applications
+
+2. **Performance**
+   - Can deploy consumer-grade services with limited resources
+   - GPU deployment is limited to 1 GPU per deployment
+
+3. **Deployment Not Available**
+   - If you see "Deployment details not available. No response from host."
+   - Check startup logs to diagnose the issue:
+     ```bash
+     sphnctl deployment logs --lid <deployment-id> --startup
+     ```
+   - Startup logs will show the deployment initialization steps and help identify any problems

@@ -1,0 +1,213 @@
+import { Callout } from "nextra/components";
+
+# Reward Details for Fizz Nodes
+
+To understand the rewarding system for Fizz nodes, let's first understand how reward emission works in the Spheron Protocol.
+
+## Reward Emission
+
+Fizz nodes are incentivized with liveness points based on the resources they contribute to the network. This approach encourages participation and helps cover operational expenses (OpEx).
+
+- The liveness points are currently issued in FN (Fizz Node) Points until team announces something else. These points are non-transferable.
+- The liveness point is issued every **ERA** (which is 24 hours) and will be accumulated in the Fizz node's wallet. 
+
+<Callout type="info">
+**Note:** Fizz node operators are advised to securely save their wallet address to avoid losing the points. Alternatively, you can use a burner wallet to hold the points which will be used to claim the rewards. Please make sure to not get your wallet compromised.
+</Callout>
+
+Liveness points are determined based on the following factors:
+
+### Resource Rewards
+
+Fizz earns points based on the GPU and compute resources it provides to the network. The higher the quality of the resource, the better the reward multiplier. Different resource categories will be introduced, each with different base points and multipliers based on tiering (e.g., CPU tiering). Currently, only GPU tiering with 10 tiers has been introduced.
+
+**How are resource points calculated?**
+
+Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** with a multiplier of **1x**, and **y** units of **GPU B**, which falls in **High Tier 2** with a multiplier of **6x**. The base reward for GPU Tier is **k**. The resource reward calculation will be: 
+```
+(x * 1 + y * 6) * k
+```
+
+### GPU Resource Tiering
+
+Fizz Node can earn points based on the GPU resources they contribute to the network. Different GPU models are categorized into tiers, each with its own multiplier. The higher the tier and multiplier, the greater the points for that GPU. Below is a table showing all supported GPU models, their tiers, and corresponding multipliers:
+
+| GPU Model                | GPU Name        | Tier     | Multi plier | FN  | GPU / hr   | GPU / mo   | CPU / mo | RAM / GB/mo | Stor / GB/mo     |
+|:------------------------:|:---------------:|:--------:|:-----------:|:---:|:----------:|:----------:|:--------:|:-----------:|:----------------:|
+| NVIDIA T1000             | t1000           | Entry 1  |    0.1      | 500 |   $0.044   |    $31.50  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla p4          | p4              | Entry 1  |    0.1      | 500 |   $0.046   |    $32.90  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1050          | gtx1050         | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1050 Ti       | gtx1050ti       | Entry 1  |    0.1      | 500 |   $0.070   |    $50.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1060          | gtx1060         | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1070          | gtx1070         | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1070 Ti       | gtx1070ti       | Entry 1  |    0.1      | 500 |   $0.070   |    $50.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1080          | gtx1080         | Entry 1  |    0.1      | 500 |   $0.053   |    $37.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1080 Ti       | gtx1080ti       | Entry 1  |    0.1      | 500 |   $0.072   |    $51.84  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1650          | gtx1650         | Entry 1  |    0.1      | 500 |   $0.040   |    $28.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1650 Ti       | gtx1650ti       | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1660          | gtx1660         | Entry 1  |    0.1      | 500 |   $0.040   |    $28.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1660 Ti       | gtx1660ti       | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA GTX 1660 Super    | gtx1660super    | Entry 1  |    0.1      | 500 |   $0.055   |    $39.60  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2050          | rtx2050         | Entry 1  |    0.1      | 500 |   $0.042   |    $30.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2060          | rtx2060         | Entry 1  |    0.1      | 500 |   $0.045   |    $32.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2060 Super    | rtx2060super    | Entry 1  |    0.1      | 500 |   $0.055   |    $39.60  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2070          | rtx2070         | Entry 1  |    0.1      | 500 |   $0.050   |    $36.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080          | rtx2080         | Entry 2  |    0.25     | 500 |   $0.050   |    $37.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080 Super    | rtx2080super    | Entry 2  |    0.25     | 500 |   $0.056   |    $40.32  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3050          | rtx3050         | Entry 2  |    0.25     | 500 |   $0.051   |    $36.72  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3050 Ti       | rtx3050ti       | Entry 2  |    0.25     | 500 |   $0.055   |    $39.60  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3060          | rtx3060         | Entry 2  |    0.25     | 500 |   $0.052   |    $37.44  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3060 Ti       | rtx3060ti       | Entry 2  |    0.25     | 500 |   $0.058   |    $41.76  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3070          | rtx3070         | Entry 2  |    0.25     | 500 |   $0.052   |    $37.44  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3070 Ti       | rtx3070ti       | Entry 2  |    0.25     | 500 |   $0.063   |    $45.50  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4050          | rtx4050         | Entry 2  |    0.25     | 500 |   $0.055   |    $39.60  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4060          | rtx4060         | Entry 2  |    0.25     | 500 |   $0.055   |    $39.60  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4060 Ti       | rtx4060ti       | Entry 2  |    0.25     | 500 |   $0.065   |    $46.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070          | rtx4070         | Entry 2  |    0.25     | 500 |   $0.058   |    $41.76  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla P100 PCIe   | p100            | Entry 2  |    0.25     | 500 |   $0.060   |    $43.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX A4000         | rtxa4000        | Entry 2  |    0.25     | 500 |   $0.081   |    $58.10  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 2080 Ti       | rtx2080ti       | Low 1    |    0.5      | 500 |   $0.070   |    $50.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3080          | rtx3080         | Low 1    |    0.5      | 500 |   $0.070   |    $50.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3080 Ti       | rtx3080ti       | Low 1    |    0.5      | 500 |   $0.072   |    $51.84  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070 Ti       | rtx4070ti       | Low 1    |    0.5      | 500 |   $0.075   |    $54.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070 Super    | rtx4070super    | Low 1    |    0.5      | 500 |   $0.077   |    $55.44  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4070 Ti Super | rtx4070tisuper  | Low 1    |    0.5      | 500 |   $0.078   |    $56.16  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4000          | rtx4000         | Low 1    |    0.5      | 500 |   $0.060   |    $43.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA P40               | p40             | Low 1    |    0.5      | 500 |   $0.085   |    $61.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla T4          | t4              | Low 1    |    0.5      | 500 |   $0.035   |    $25.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4080          | rtx4080         | Low 2    |    0.75     | 500 |   $0.085   |    $61.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4080 Super    | rtx4080super    | Low 2    |    0.75     | 500 |   $0.090   |    $64.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Titan RTX         | titanrtx        | Low 2    |    0.75     | 500 |   $0.132   |    $95.05  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3090          | rtx3090         | Low 2    |    0.75     | 500 |   $0.126   |    $90.65  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 3090 Ti       | rtx3090ti       | Low 2    |    0.75     | 500 |   $0.148   |    $106.56 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4090          | rtx4090         | Medium 1 |    1        | 500 |   $0.175   |    $126.00 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4000 Ada      | rtx4000-ada     | Medium 1 |    1        | 500 |   $0.140   |    $100.80 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 4000 SFF Ada  | rtx4000-sff-ada | Medium 1 |    1        | 500 |   $0.145   |    $104.40 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX A5000         | rtxa5000        | Medium 1 |    1        | 500 |   $0.088   |    $63.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA A10               | a10             | Medium 1 |    1        | 500 |   $0.091   |    $65.45  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA A10G              | a10g            | Medium 1 |    1        | 500 |   $0.123   |    $88.20  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA L4                | l4              | Medium 1 |    1        | 500 |   $0.098   |    $71.40  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla V100        | v100            | Medium 1 |    1        | 500 |   $0.088   |    $63.00  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA Tesla V100S       | v100s           | Medium 1 |    1        | 500 |   $0.092   |    $66.24  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA A40               | a40             | Medium 1 |    1        | 500 |   $0.112   |    $79.80  |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 5090          | rtx5090         | Medium 1 |    1        | 500 |   $0.250   |    $180.00 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 5080          | rtx5080         | Medium 1 |    1        | 500 |   $0.185   |    $133.20 |  $0.75   |    $0.1     |      $0.01       |
+| NVIDIA RTX 5070 Ti       | rtx5070ti       | Medium 1 |    1        | 500 |   $0.150   |    $108.00 |  $0.75   |    $0.1     |      $0.01       |
+
+We support almost all Nvidia GPUs and continuously add support for new ones, including AMD GPUs. This table is useful if you want to become a fizz node and lend your GPU. Here is the definition of the columns:
+
+- **GPU Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU's short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
+- **Tier:** This helps fizzers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the Fizz network.
+- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the Fizz network.
+- **FN (Fizz Node Points):** This is the base point for all GPUs in the tier in Spheron Points.
+- **GPU / hr:** This is the price for the GPU leasing in USD per hour. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
+- **GPU / mo:** This is the price for the GPU leasing in USD per month. The price is calculated based on the GPU model and the tier taken from the market price of multiple GPU marketplaces.
+- **CPU / mo:** This is the price for the CPU in USD per month. The price is fixed at $0.75 per month for all GPU types.
+- **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all GPU types.
+- **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all GPU types.
+
+### CPU Resource Tiering
+
+The CPU Support & Tiering list categorizes various CPU types based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
+
+| CPU Type         | CPU Name | Tier     | Multiplier | FN   | CPU / hr   | CPU / mo   | RAM / GB/mo | Storage / GB/mo |
+|:----------------:|:--------:|:--------:|:----------:|:----:|:----------:|:----------:|:-----------:|:---------------:|
+| General Purpose  | gp       | Medium 1 | 1          | 25   | $0.001     | $0.75      | $0.1        | $0.01           |
+| APPLE M1         | m1       | Low 1    | 0.5        | 25   | $0.035     | $25.55     | $0.1        | $0.01           |
+| APPLE M1 Pro     | m1-pro   | Low 1    | 0.5        | 25   | $0.044     | $31.94     | $0.1        | $0.01           |
+| APPLE M1 Max     | m1-max   | Low 2    | 0.75       | 25   | $0.050     | $36.00     | $0.1        | $0.01           |
+| APPLE M1 Ultra   | m1-ultra | Low 2    | 0.75       | 25   | $0.120     | $86.40     | $0.1        | $0.01           |
+| APPLE M2         | m2       | Low 1    | 0.5        | 25   | $0.044     | $31.94     | $0.1        | $0.01           |
+| APPLE M2 Pro     | m2-pro   | Low 2    | 0.75       | 25   | $0.056     | $41.14     | $0.1        | $0.01           |
+| APPLE M2 Max     | m2-max   | Medium 1 | 1          | 25   | $0.070     | $51.10     | $0.1        | $0.01           |
+| APPLE M2 Ultra   | m2-ultra | Medium 2 | 1.5        | 25   | $0.150     | $108.00    | $0.1        | $0.01           |
+| APPLE M3         | m3       | Low 1    | 0.5        | 25   | $0.050     | $36.00     | $0.1        | $0.01           |
+| APPLE M3 Pro     | m3-pro   | Low 2    | 0.75       | 25   | $0.062     | $44.64     | $0.1        | $0.01           |
+| APPLE M3 Max     | m3-max   | Medium 1 | 1          | 25   | $0.070     | $51.10     | $0.1        | $0.01           |
+| APPLE M4         | m4       | Low 2    | 0.75       | 25   | $0.062     | $44.64     | $0.1        | $0.01           |
+| APPLE M4 Pro     | m4-pro   | Medium 1 | 1          | 25   | $0.074     | $53.28     | $0.1        | $0.01           |
+| APPLE M4 Max     | m4-max   | Medium 2 | 1.5        | 25   | $0.100     | $72.00     | $0.1        | $0.01           |
+
+We support almost all CPU types and continuously add support for new CPUs. This table is helpful if you want to become a fizz node and lend your CPU. Here is the definition of the columns:
+
+- **CPU Type:** This is the full name of the Compute.
+- **CPU Name:** This is useful for users who want to lease a CPU. When specifying the CPU you want to lease, you need to provide the CPU's short name instead of the full name. Otherwise, the network won't recognize the CPU type, and the deployment will fail.
+- **Tier:** This helps fizzers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the fizz network.
+- **Multiplier:** This is the multiplier for the tier. This is important for receiving points as part of the fizz network.
+- **FN (Fizz Node Points):** This is the base point for all CPUs in the tier in Spheron Points.
+- **CPU / hr:** This is the price for the CPU leasing in USD per hour. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
+- **CPU / mo:** This is the price for the CPU leasing in USD per month. The price is calculated based on the CPU model and the tier taken from the market price of multiple CPU marketplaces.
+- **RAM / GB/mo:** This is the price for RAM in USD per GB per month. The price is fixed at $0.1 per GB per month for all CPU types.
+- **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all CPU types.
+
+
+### Liveness Requirement
+
+Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum liveness requirement to receive points:
+
+- Fizz nodes must maintain at least 50% liveness within an ERA to receive points. i.e you need to be online for at least 12 hours in a 24 hour period to receive points.
+- If a Fizz node's liveness falls below 50% in an ERA, you will not accrue any points for that ERA.
+
+### How Liveness is Calculated
+
+Liveness for Fizz nodes is calculated using a simple hourly challenge system:
+
+- Every hour, at multiple random times, the network checks if the Fizz node is live and operational.
+- The network will also check if your node is maintaining the latest version of fizz node both Fizz Node version and the CLI version. The latest version will change as team releases new versions. Please make sure to be active on the Spheron Discord server to get notified for the latest versions.
+- During this hourly check, the network also validates that the available resources (GPU VRAM, CPU, RAM, and Storage) match what was claimed during node registration, excluding resources currently being utilized.
+- If the node responds successfully to the challenge and passes the resource validation, it passes the liveness check for that hour.
+- If the node fails to respond or fails the resource validation, the liveness check for that hour fails.
+- If a Fizz node fails the minimun 50% of the challenges in an ERA (24 hrs), you will not accrue any points for that ERA.
+
+<Callout type="warning">
+**Important:** Ensure you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks, leading to point loss for the ERA if liveness falls below 50%.
+</Callout>
+
+This system ensures that Fizz nodes are incentivized to maintain both reasonable availability and accurate resource reporting without the stricter requirements placed on provider nodes.
+
+## Reward Calculation
+
+The reward for Fizz nodes is calculated based on two main factors:
+
+1. **Resource Contribution**: The amount and quality of resources (e.g., GPU, CPU, storage) contributed to the network.
+2. **Liveness**: Whether the node maintained at least 50% liveness during the ERA.
+
+The final reward for an ERA is calculated as follows:
+
+```
+ERA Reward = Resource Reward Points * Liveness Factor
+
+Where:
+- Resource Reward is calculated based on the contributed resources
+- Liveness Factor is 1 if liveness ≥ 50%, or 0 if liveness < 50%
+```
+
+## Direct Earnings from Users
+
+In addition to the liveness points, Fizz node operators can earn directly from users who lease their compute resources, providing an additional revenue stream for node operators.
+
+### How Direct Earnings Work
+
+1. **User Leasing**: When a user leases compute resources from your Fizz node using your client, they pay fees based on the pricing you set during the setup.
+
+2. **Immediate Earnings**: These earnings are credited to your account immediately after the lease is completed.
+
+3. **Withdrawal**: You can withdraw your earnings at any time from your dashboard.
+
+### Fee Structure
+
+While you receive the majority of the earnings from user leases, there are some fees associated with each transaction:
+
+- **Foundation Fee**: 5% of the earnings goes to the Spheron Foundation
+- **Gateway Fee**: 5% of the earnings go to the Gateway
+
+This means that as a Fizz node operator, you receive 90% of the total amount paid by the user for leasing your compute resources.
+
+<Callout type="info">
+**Example**: If a user pays 100 USDT tokens to lease your compute resources:
+- You receive: 90 USDT tokens
+- Spheron Foundation receives: 5 USDT tokens
+- Gateway receives: 5 USDT tokens
+</Callout>
+
+By Offering competitive pricing and maintaining good resource availability can maximize your direct earnings from user leases and the liveness points.

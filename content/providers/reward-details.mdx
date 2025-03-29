@@ -1,0 +1,173 @@
+import { Callout } from "nextra/components";
+
+# Reward Details
+
+To understand rewarding system, let's first understand how reward emission works in the Spheron Protocol.
+
+## Reward Emission
+
+Providers are incentivized with liveness points based on tiers and multipliers to ensure they remain active within the network. This approach prevents potential exits due to insufficient returns on investment (ROI) or the inability to cover operational expenses (OpEx).
+
+- The liveness points are currently issued in a points system until the launch of the $SPON token. These points are non-transferable.
+- The liveness reward is issued every **ERA** (which is 24 hours) and will be accumulated in the provider's wallet. 
+
+<Callout type="info">
+**Note:** Providers are advised to securely save their provider wallet to avoid losing the points.
+</Callout>
+Liveness points are determined based on several factors:
+
+### Resource Rewards
+
+Providers earn points based on the GPU and compute resources they provide to the network. The higher the quality of the resource, the better the reward multiplier. Different resource categories will be introduced, each with different base points and multipliers based on tiering (e.g., CPU tiering, Storage tiering, and Connectivity tiering). Currently, only GPU tiering with 10 tiers has been introduced.
+
+**How are resource points calculated?**
+
+Let's say you have **x** units of **GPU A**, which falls in **Medium Tier 1** with a multiplier of **1x**, and **y** units of **GPU B**, which falls in **High Tier 2** with a multiplier of **6x**. The base reward for GPU Tier is **k**. The resource reward calculation will be: 
+```
+(x * 1 + y * 6) * k
+```
+
+### GPU Resource Tiering
+
+Providers can earn points based on the GPU resources they contribute to the network. Different GPU models are categorized into tiers, each with its own multiplier. The higher the tier and multiplier, the greater the points for that GPU. Below is a table showing all supported GPU models, their tiers, and corresponding multipliers:
+
+| **GPU Model**                | **GPU Short Name** | **Tier**     | **Multiplier** | **SP**               |
+|------------------------------|--------------------|--------------|----------------|----------------------|
+| NVIDIA T1000                 | t1000              | Entry 1      | 0.1            | 20                   |
+| NVIDIA Tesla p4              | p4                 | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1050              | gtx1050            | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1050 Ti           | gtx1050ti          | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1060              | gtx1060            | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1070              | gtx1070            | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1070 Ti           | gtx1070ti          | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1080              | gtx1080            | Entry 1      | 0.1            | 20                   |
+| NVIDIA GTX 1080 Ti           | gtx1080ti          | Entry 1      | 0.1            | 20                   |
+| NVIDIA RTX 2060              | rtx2060            | Entry 1      | 0.1            | 20                   |
+| NVIDIA RTX 2060 Super        | rtx2060super       | Entry 1      | 0.1            | 20                   |
+| NVIDIA RTX 2070              | rtx2070            | Entry 1      | 0.1            | 20                   |
+| NVIDIA RTX 2080              | rtx2080            | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 2080 Super        | rtx2080super       | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 3050              | rtx3050            | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 3060              | rtx3060            | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 3060 Ti           | rtx3060ti          | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 3070              | rtx3070            | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 3070 Ti           | rtx3070ti          | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 4060              | rtx4060            | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 4060 Ti           | rtx4060ti          | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 4070              | rtx4070            | Entry 2      | 0.25           | 20                   |
+| NVIDIA Tesla P100 PCIe       | p100               | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX A4000             | rtxa4000           | Entry 2      | 0.25           | 20                   |
+| NVIDIA RTX 2080 Ti           | rtx2080ti          | Low 1        | 0.5            | 20                   |
+| NVIDIA RTX 3080              | rtx3080            | Low 1        | 0.5            | 20                   |
+| NVIDIA RTX 3080 Ti           | rtx3080ti          | Low 1        | 0.5            | 20                   |
+| NVIDIA RTX 4070 Ti           | rtx4070ti          | Low 1        | 0.5            | 20                   |
+| NVIDIA RTX 4000              | rtx4000            | Low 1        | 0.5            | 20                   |
+| NVIDIA P40                   | p40                | Low 1        | 0.5            | 20                   |
+| NVIDIA Tesla T4              | t4                 | Low 1        | 0.5            | 20                   |
+| NVIDIA RTX 4080              | rtx4080            | Low 2        | 0.75           | 20                   |
+| NVIDIA Titan RTX             | titanrtx           | Low 2        | 0.75           | 20                   |
+| NVIDIA RTX 3090              | rtx3090            | Low 2        | 0.75           | 20                   |
+| NVIDIA RTX 3090 Ti           | rtx3090ti          | Low 2        | 0.75           | 20                   |
+| NVIDIA RTX 4000 Ada          | rtx4000-ada        | Medium 1     | 1              | 20                   |
+| NVIDIA RTX 4090              | rtx4090            | Medium 1     | 1              | 20                   |
+| NVIDIA RTX A5000             | rtxa5000           | Medium 1     | 1              | 20                   |
+| NVIDIA A10                   | a10                | Medium 1     | 1              | 20                   |
+| NVIDIA A10G                  | a10g               | Medium 1     | 1              | 20                   |
+| NVIDIA L4                    | l4                 | Medium 1     | 1              | 20                   |
+| NVIDIA Tesla V100            | v100               | Medium 1     | 1              | 20                   |
+| NVIDIA A40                   | a40                | Medium 1     | 1              | 20                   |
+| NVIDIA L40                   | l40                | Medium 2     | 1.5            | 20                   |
+| NVIDIA RTX 8000              | rtx8000            | Medium 2     | 1.5            | 20                   |
+| NVIDIA RTX A6000             | rtxa6000           | Medium 2     | 1.5            | 20                   |
+| NVIDIA L40s                  | l40s               | High 1       | 2              | 20                   |
+| NVIDIA RTX 6000 Ada          | rtx6000-ada        | High 1       | 2              | 20                   |
+| NVIDIA A100 PCIE 40GB        | a100-pcie-40g      | High 2       | 3              | 20                   |
+| NVIDIA A100 SXM4 40GB        | a100-sxm-40g       | High 2       | 3              | 20                   |
+| NVIDIA A100 80GB             | a100-80g           | Ultra High 1 | 6              | 20                   |
+| NVIDIA H100 80G              | h100               | Ultra High 2 | 12             | 20                   |
+
+
+We support almost all Nvidia GPUs and are continuously adding support for new GPUs, including AMD GPUs. This table is useful if you want to lease a GPU for deployment or become a provider and lend your GPU. Here is the definition of the columns:
+
+- **GPU Short Name:** This is useful for users who want to lease a GPU. When specifying the GPU you want to lease, you need to provide the GPU's short name instead of the full name. Otherwise, the network won't recognize the GPU type, and the deployment will fail.
+- **Tier:** This helps providers understand which resource tier and associated multiplier they are eligible for. This is important for receiving points as part of the provider network.
+- **SP (Server Points):** These are the base points for each tier based on GPU and CPU.
+
+### CPU Resource Tiering
+
+The CPU Support & Tiering list categorizes various CPU types based on their performance and capabilities. Each tier has a specific multiplier within the Spheron protocol. Here's the detailed table below:
+
+| **CPU Type**                | **CPU Short Name** | **Tier**     | **Multiplier** | **SP**               |
+|-----------------------------|--------------------|--------------|----------------|----------------------|
+| General Purpose             | gp                 | Medium       | 1              | 0.1                  |
+
+### Trust Reward Booster
+
+Providers must maintain a specific uptime based on their current tier requirement to receive ERA liveness points. Failure to maintain the required uptime within an ERA will results in a 100% slashing of points for that ERA.
+
+Uptime in the Spheron network is calculated based on challenges performed by the Slark node (currently maintained by Spheron). At a random time, the Slark node will challenge the provider to perform a Proof of Compute challenge. If the challenge is successful, it will be recorded, and after 24 hours, all challenges are evaluated. If the uptime is below than required, a slashing transaction will be made on-chain to slash the provider's reward.
+
+However, if the provider performs well for three consecutive Eras, they will be promoted to the next higher Tier, resulting in a higher booster on their liveness points. Conversely, if the provider underperforms for five consecutive Eras, they will be demoted to a lower Tier and receive a lower booster on their liveness points.
+
+Each Tier has an associated booster. The higher the Tier, the greater the booster on the points. For more information about the Tier Boosters, refer to the [Trust & Performance Tier](/providers/reward-details#trust--performance-tier) section.
+
+
+## Trust & Performance Tier
+
+Provider Nodes are categorized into 7 tiers, with each tier representing a higher level of service quality and reliability. The Trust and Performance Tiers classify providers based on their reliability, performance, and trustworthiness. Higher tiers indicate greater trust and performance, leading to higher prioritization and points.
+
+The table below categorizes providers into different tiers based on their performance metrics. Each tier represents a level of trust and performance, with higher tiers earning greater points.
+
+| **Tier** | **Tier Name**               | **Uptime (%)** | **Slashing Requirement (%)** | **Multiplier** | **Upgrade Era Requirements** | **Downgrade Era Requirements** |
+|:--------:|:----------------------------|:--------------:|:----------------------------:|:----------------------:|:----------------------------:|:------------------------------:|
+| 1        | Most Trusted Providers      | > 99           | < 85                         | 2.0                    | -                            | 32                             |
+| 2        | Highly Trusted Providers    | > 98           | < 80                         | 1.7                    | 30                           | 25                             |
+| 3        | Trusted Providers           | > 97           | < 75                         | 1.5                    | 23                           | 20                             |
+| 4        | Somewhat Trusted Providers  | > 95           | < 70                         | 1.2                    | 17                           | 14                             |
+| 5        | Less Trusted Providers      | > 90           | < 65                         | 1.1                    | 11                           | 7                              |
+| 6        | Untrusted Providers         | > 85           | < 60                         | 1.0                    | 5                            | 5                              |
+| 7        | Most Untrusted Providers    | > 75           | -                            | 0.0                    | 3                            | -                              |
+
+### Understanding Uptime
+
+**Uptime** is a critical metric used to evaluate a provider's performance. It measures the percentage of time a provider is operational and able to handle tasks within an ERA (24 hours). The uptime requirement varies by tier:
+
+- **Tier 1 (Most Trusted Providers)**: Requires more than 99% uptime.
+- **Tier 2 (Highly Trusted Providers)**: Requires more than 98% uptime.
+- **Tier 3 (Trusted Providers)**: Requires more than 97% uptime.
+- **Tier 4 (Somewhat Trusted Providers)**: Requires more than 95% uptime.
+- **Tier 5 (Less Trusted Providers)**: Requires more than 90% uptime.
+- **Tier 6 (Untrusted Providers)**: Requires more than 85% uptime.
+- **Tier 7 (Most Untrusted Providers)**: Requires more than 75% uptime.
+
+**Purpose of Uptime**: Uptime is used to determine if a provider is performing well. Providers that meet or exceed the uptime requirements for their tier can be promoted to a higher tier, resulting in increased points. Conversely, failing to meet the uptime requirements can lead to demotion to a lower tier.
+
+### Slashing Requirement
+
+The **Slashing Requirement** is the minimum performance threshold that providers must meet to avoid having their points slashed. If a provider's performance falls below this threshold, they will not receive any points for that ERA.
+
+- **Tier 1**: Points are slashed if uptime falls below 85%.
+- **Tier 2**: Points are slashed if uptime falls below 80%.
+- **Tier 3**: Points are slashed if uptime falls below 75%.
+- **Tier 4**: Points are slashed if uptime falls below 70%.
+- **Tier 5**: Points are slashed if uptime falls below 65%.
+- **Tier 6**: Points are slashed if uptime falls below 60%.
+- **Tier 7**: Does not have a slashing requirement because providers in this tier do not receive any points.
+
+### Tier 7 - Most Untrusted Providers
+
+Providers in **Tier 7** are considered the least trusted and do not accrue any points. To start earning points, they must improve their performance and move up to at least **Tier 6** by meeting the required uptime metrics.
+
+### How Metrics Are Calculated
+
+The metrics for uptime and slashing are calculated based on challenges performed by the Slark node. This node challenges providers at random times, requiring them to complete a Proof of Compute task. Successful completion of these tasks is recorded, and after 24 hours, the Slark node evaluates the provider's performance.
+
+- **Uptime Calculation**: The Slark node calculates uptime based on two types of challenges: GPU and CPU. The total uptime is determined by the success rate of both challenge types. For providers with GPUs, the calculation uses a weighted approach:
+  - 80% weightage is given to GPU challenge successes
+  - 20% weightage is given to CPU challenge successes
+  
+  This weighted calculation ensures that GPU performance, which is typically more critical for compute-intensive tasks, has a greater impact on the overall uptime score. For providers without GPUs, the uptime is calculated solely based on CPU challenge successes.
+- **Slashing Decision**: If a provider's uptime falls below the slashing requirement, the Slark node initiates a slashing transaction on-chain, causing the provider to lose their points for that Era.
+- **Promotion and Demotion**: The Slark node evaluates provider performance over multiple Eras to determine tier changes. Consistent high performance leads to promotion, while sustained poor performance results in demotion. The "Upgrade Era Requirements" and "Downgrade Era Requirements" columns in the table above indicate the number of consecutive Eras a provider must meet or fail to meet their tier's criteria for promotion or demotion, respectively. This system encourages providers to maintain consistent high-quality service while allowing for occasional fluctuations in performance.
+
+By understanding and meeting these metrics, providers can maximize their points and achieve higher tiers within the Spheron network.

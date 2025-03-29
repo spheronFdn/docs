@@ -1,0 +1,309 @@
+import { Callout } from "nextra/components";
+
+# Supported Configurations
+
+## GPU Support
+
+The GPU Support lists all the supported GPU models in the network. Here's the detailed table below:
+
+| **GPU Model**                | **GPU Short Name** |
+|------------------------------|--------------------|
+| NVIDIA T1000                 | t1000              |
+| NVIDIA Tesla p4              | p4                 |
+| NVIDIA GTX 1050              | gtx1050            |
+| NVIDIA GTX 1050 Ti           | gtx1050ti          |
+| NVIDIA GTX 1060              | gtx1060            |
+| NVIDIA GTX 1070              | gtx1070            |
+| NVIDIA GTX 1070 Ti           | gtx1070ti          |
+| NVIDIA GTX 1080              | gtx1080            |
+| NVIDIA GTX 1080 Ti           | gtx1080ti          |
+| NVIDIA GTX 1650              | gtx1650            |
+| NVIDIA GTX 1650 Ti           | gtx1650ti          |
+| NVIDIA GTX 1660              | gtx1660            |
+| NVIDIA GTX 1660 Ti           | gtx1660ti          |
+| NVIDIA GTX 1660 Super        | gtx1660super       |
+| NVIDIA RTX 2050              | rtx2050            |
+| NVIDIA RTX 2060              | rtx2060            |
+| NVIDIA RTX 2060 Super        | rtx2060super       |
+| NVIDIA RTX 2070              | rtx2070            |
+| NVIDIA RTX 2080              | rtx2080            |
+| NVIDIA RTX 2080 Super        | rtx2080super       |
+| NVIDIA RTX 2080 Ti           | rtx2080ti          |
+| NVIDIA RTX 3050              | rtx3050            |
+| NVIDIA RTX 3060              | rtx3060            |
+| NVIDIA RTX 3060 Ti           | rtx3060ti          |
+| NVIDIA RTX 3070              | rtx3070            |
+| NVIDIA RTX 3070 Ti           | rtx3070ti          |
+| NVIDIA RTX 3080              | rtx3080            |
+| NVIDIA RTX 3080 Ti           | rtx3080ti          |
+| NVIDIA RTX 3090              | rtx3090            |
+| NVIDIA RTX 3090 Ti           | rtx3090ti          |
+| NVIDIA RTX 4050              | rtx4050            |
+| NVIDIA RTX 4060              | rtx4060            |
+| NVIDIA RTX 4060 Ti           | rtx4060ti          |
+| NVIDIA RTX 4070              | rtx4070            |
+| NVIDIA RTX 4070 Ti           | rtx4070ti          |
+| NVIDIA RTX 4070 Ti Super     | rtx4070tisuper     |
+| NVIDIA RTX 4080              | rtx4080            |
+| NVIDIA RTX 4090              | rtx4090            |
+| NVIDIA RTX 4000              | rtx4000            |
+| NVIDIA RTX 4000 Ada          | rtx4000-ada        |
+| NVIDIA Tesla P100 PCIe       | p100               |
+| NVIDIA RTX A4000             | rtxa4000           |
+| NVIDIA RTX A5000             | rtxa5000           |
+| NVIDIA RTX A6000             | rtxa6000           |
+| NVIDIA P40                   | p40                |
+| NVIDIA Tesla T4              | t4                 |
+| NVIDIA Titan RTX             | titanrtx           |
+| NVIDIA A10                   | a10                |
+| NVIDIA A10G                  | a10g               |
+| NVIDIA L4                    | l4                 |
+| NVIDIA Tesla V100            | v100               |
+| NVIDIA A40                   | a40                |
+| NVIDIA L40                   | l40                |
+| NVIDIA L40s                  | l40s               |
+| NVIDIA RTX 8000              | rtx8000            |
+| NVIDIA RTX 6000 Ada          | rtx6000-ada        |
+| NVIDIA A100 PCIE 40GB        | a100-pcie-40g      |
+| NVIDIA A100 SXM4 40GB        | a100-sxm-40g       |
+| NVIDIA A100 80GB             | a100-80g           |
+| NVIDIA H100 80G              | h100               |
+
+## CPU Support
+
+The CPU Supports list categorizes various CPU types based on their performance and capabilities. Here's the detailed table below:
+
+| **CPU Type**                | **CPU Short Name** |
+|-----------------------------|--------------------|
+| General Purpose             | gp                 |
+| APPLE M1                    | m1                 |
+| APPLE M1 Pro                | m1-pro             |
+| APPLE M1 Max                | m1-max             |
+| APPLE M1 Ultra              | m1-ultra           |
+| APPLE M2                    | m2                 |
+| APPLE M2 Pro                | m2-pro             |
+| APPLE M2 Max                | m2-max             |
+| APPLE M2 Ultra              | m2-ultra           |
+| APPLE M3                    | m3                 |
+| APPLE M3 Pro                | m3-pro             |
+| APPLE M3 Max                | m3-max             |
+| APPLE M4                    | m4                 |
+| APPLE M4 Pro                | m4-pro             |
+| APPLE M4 Max                | m4-max             |
+
+## Supported Payment Tokens
+
+These are all the payment tokens that we currently support:
+
+| **Token Name**    | **ICL Config Use** | **Precision** | **Minimum Deposit Amount** |
+|:-----------------:|:------------------:|:-------------:|:--------------------------:|
+| USDT              | USDT               | 6             | 1 USDT                     |
+| USDC              | USDC               | 6             | 1 USDC                     |
+| usd pegged SPON   | uSPON              | 6             | 1 uSPON                    |
+
+The precision is used in the ICL configuration when mentioning the max price for the deployment. 
+You need to convert the amount to the precision value before passing it to the ICL deployment.
+
+
+## Supported Regions
+
+These are all the regions that we currently support:
+
+| Region                           | Region Name   |
+|----------------------------------|:-------------:|
+| Afghanistan                      | afghan        |
+| Albania                          | albania       |
+| Algeria                          | algeria       |
+| Andorra                          | andorra       |
+| Angola                           | angola        |
+| Antigua and Barbuda              | antigua-b     |
+| Argentina                        | argentina     |
+| Armenia                          | armenia       |
+| Australia                        | australia     |
+| Austria                          | austria       |
+| Azerbaijan                       | azerbaijan    |
+| Bahamas                          | bahamas       |
+| Bahrain                          | bahrain       |
+| Bangladesh                       | bangladesh    |
+| Barbados                         | barbados      |
+| Belarus                          | belarus       |
+| Belgium                          | belgium       |
+| Belize                           | belize        |
+| Benin                            | benin         |
+| Bhutan                           | bhutan        |
+| Bolivia                          | bolivia       |
+| Bosnia and Herzegovina           | bosnia-h      |
+| Botswana                         | botswana      |
+| Brazil                           | brazil        |
+| Brunei                           | brunei        |
+| Bulgaria                         | bulgaria      |
+| Burkina Faso                     | burkina-f     |
+| Burundi                          | burundi       |
+| Cabo Verde                       | cabo-verde    |
+| Cambodia                         | cambodia      |
+| Cameroon                         | cameroon      |
+| Canada                           | canada        |
+| Central African Republic         | cent-afr      |
+| Chad                             | chad          |
+| Chile                            | chile         |
+| China                            | china         |
+| Colombia                         | colombia      |
+| Comoros                          | comoros       |
+| Congo, Democratic Republic of the| congo-dr      |
+| Congo, Republic of the           | congo-r       |
+| Costa Rica                       | costa-rica    |
+| Croatia                          | croatia       |
+| Cuba                             | cuba          |
+| Cyprus                           | cyprus        |
+| Czech Republic                   | czech-rep     |
+| Denmark                          | denmark       |
+| Djibouti                         | djibouti      |
+| Dominica                         | dominica      |
+| Dominican Republic               | dominican-r   |
+| Ecuador                          | ecuador       |
+| Egypt                            | egypt         |
+| El Salvador                      | el-salvador   |
+| Equatorial Guinea                | equatorial-g  |
+| Eritrea                          | eritrea       |
+| Estonia                          | estonia       |
+| Eswatini                         | eswatini      |
+| Ethiopia                         | ethiopia      |
+| Fiji                             | fiji          |
+| Finland                          | finland       |
+| France                           | france        |
+| Gabon                            | gabon         |
+| Gambia                           | gambia        |
+| Georgia                          | georgia       |
+| Germany                          | germany       |
+| Ghana                            | ghana         |
+| Greece                           | greece        |
+| Grenada                          | grenada       |
+| Guatemala                        | guatemala     |
+| Guinea                           | guinea        |
+| Guinea-Bissau                    | guinea-b      |
+| Guyana                           | guyana        |
+| Haiti                            | haiti         |
+| Honduras                         | honduras      |
+| Hungary                          | hungary       |
+| Iceland                          | iceland       |
+| India                            | india         |
+| Indonesia                        | indonesia     |
+| Iran                             | iran          |
+| Iraq                             | iraq          |
+| Ireland                          | ireland       |
+| Israel                           | israel        |
+| Italy                            | italy         |
+| Jamaica                          | jamaica       |
+| Japan                            | japan         |
+| Jordan                           | jordan        |
+| Kazakhstan                       | kazakhstan    |
+| Kenya                            | kenya         |
+| Kiribati                         | kiribati      |
+| Korea, South                     | korea-south   |
+| Kosovo                           | kosovo        |
+| Kuwait                           | kuwait        |
+| Kyrgyzstan                       | kyrgyzstan    |
+| Laos                             | laos          |
+| Latvia                           | latvia        |
+| Lebanon                          | lebanon       |
+| Lesotho                          | lesotho       |
+| Liberia                          | liberia       |
+| Libya                            | libya         |
+| Liechtenstein                    | liechtenstein |
+| Lithuania                        | lithuania     |
+| Luxembourg                       | luxembourg    |
+| Madagascar                       | madagascar    |
+| Malawi                           | malawi        |
+| Malaysia                         | malaysia      |
+| Maldives                         | maldives      |
+| Mali                             | mali          |
+| Malta                            | malta         |
+| Marshall Islands                 | marshall-i    |
+| Mauritania                       | mauritania    |
+| Mauritius                        | mauritius     |
+| Mexico                           | mexico        |
+| Micronesia                       | micronesia    |
+| Moldova                          | moldova       |
+| Monaco                           | monaco        |
+| Mongolia                         | mongolia      |
+| Montenegro                       | montenegro    |
+| Morocco                          | morocco       |
+| Mozambique                       | mozambique    |
+| Myanmar                          | myanmar       |
+| Namibia                          | namibia       |
+| Nauru                            | nauru         |
+| Nepal                            | nepal         |
+| Netherlands                      | netherlands   |
+| New Zealand                      | new-zealand   |
+| Nicaragua                        | nicaragua     |
+| Niger                            | niger         |
+| Nigeria                          | nigeria       |
+| North Macedonia                  | north-macedon |
+| Norway                           | norway        |
+| Oman                             | oman          |
+| Pakistan                         | pakistan      |
+| Palau                            | palau         |
+| Panama                           | panama        |
+| Papua New Guinea                 | papua-n-g     |
+| Paraguay                         | paraguay      |
+| Peru                             | peru          |
+| Philippines                      | philippines   |
+| Poland                           | poland        |
+| Portugal                         | portugal      |
+| Qatar                            | qatar         |
+| Romania                          | romania       |
+| Russia                           | russia        |
+| Rwanda                           | rwanda        |
+| Saint Kitts and Nevis            | saint-k-n     |
+| Saint Lucia                      | saint-lucia   |
+| Saint Vincent and the Grenadines | saint-v-g     |
+| Samoa                            | samoa         |
+| San Marino                       | san-marino    |
+| Sao Tome and Principe            | sao-tome-p    |
+| Saudi Arabia                     | saudi-arabia  |
+| Senegal                          | senegal       |
+| Serbia                           | serbia        |
+| Seychelles                       | seychelles    |
+| Sierra Leone                     | sierra-leone  |
+| Singapore                        | singapore     |
+| Slovakia                         | slovakia      |
+| Slovenia                         | slovenia      |
+| Solomon Islands                  | solomon-i     |
+| Somalia                          | somalia       |
+| South Africa                     | south-africa  |
+| South Sudan                      | south-sudan   |
+| Spain                            | spain         |
+| Sri Lanka                        | sri-lanka     |
+| Sudan                            | sudan         |
+| Suriname                         | suriname      |
+| Sweden                           | sweden        |
+| Switzerland                      | switzerland   |
+| Syria                            | syria         |
+| Taiwan                           | taiwan        |
+| Tajikistan                       | tajikistan    |
+| Tanzania                         | tanzania      |
+| Thailand                         | thailand      |
+| Timor-Leste                      | timor-leste   |
+| Togo                             | togo          |
+| Tonga                            | tonga         |
+| Trinidad and Tobago              | trinidad-t    |
+| Tunisia                          | tunisia       |
+| Turkey                           | turkey        |
+| Turkmenistan                     | turkmenistan  |
+| Tuvalu                           | tuvalu        |
+| Uganda                           | uganda        |
+| Ukraine                          | ukraine       |
+| United Arab Emirates             | uae           |
+| United Kingdom                   | uk            |
+| United States, East              | us-east       |
+| United States, West              | us-west       |
+| United States, Central           | us-central    |
+| Uruguay                          | uruguay       |
+| Uzbekistan                       | uzbekistan    |
+| Vanuatu                          | vanuatu       |
+| Vatican City                     | vatican-c     |
+| Venezuela                        | venezuela     |
+| Vietnam                          | vietnam       |
+| Yemen                            | yemen         |
+| Zambia                           | zambia        |
+| Zimbabwe                         | zimbabwe      |

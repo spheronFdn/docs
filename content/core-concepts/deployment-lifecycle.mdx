@@ -1,0 +1,30 @@
+import { Callout } from "nextra/components";
+
+# Deployment Lifecycle
+
+## Overview
+
+The deployment lifecycle in a decentralized compute network is a structured process that encompasses several key stages. It begins with a user's request for server deployment and progresses through various states, including `PROVIDER_LOOKUP`, bidding, lease creation, deployment activation, and optional updates or termination. Each step is facilitated by the network's smart contracts, ensuring a transparent, secure, and efficient pathway from request to resource allocation.
+
+## Operational Steps of the Deployment Lifecycle
+
+### 1. Initiation and Provider Lookup:
+- The lifecycle begins with a user initiating a server deployment request, placing it in the `PROVIDER_LOOKUP` state. This state triggers all eligible network providers to start the bidding process, actively competing to fulfill the request.
+
+### 2. Provider Selection and Bidding:
+- During the `PROVIDER_LOOKUP` phase, providers that meet the deployment criteria are invited to submit their bids `(CREATE_BID)` for the requested resources. Bidding is allowed for a duration of 1-2 blocks, after which no further bids are accepted. The order is then processed by the matchmaking engine, which selects the optimal provider based on the bids received. The result is forwarded to the Order Smart Contract to initiate lease creation.
+
+### 3. Lease Creation and Provider Matching:
+- Following the selection of a provider, the Order Smart Contract updates the deployment status to `CREATE_LEASE`, issuing an event that prompts the provider to reserve the specified resources for the deployment. This step formalizes the agreement between the user and the provider through the execution of the smart contract, ensuring the resources are allocated for the user's needs.
+
+### 4. Deployment Activation:
+- Upon reservation confirmation, the provider node updates the Order Contract to signal readiness for receiving the deployment manifest necessary for server setup.
+- The user then transmits the deployment manifest via an MTLS connection, enabling the provider to commence server deployment.
+- The provider configures and activates the server, ensuring it meets all specified requirements. Following successful deployment, the provider updates the deployment status on-chain to `DEPLOYMENT_CONFIRMED`, which includes vital access details such as IP addresses, ports, and connection URLs, necessary for user access.
+
+### 5. Termination and Closure:
+- Users retain the ability to terminate their deployments by emitting a `CLOSE_LEASE` event. Upon synchronization, the provider node will cease the operation of the server, marking the deployment as closed on the blockchain `(LEASE_CLOSED)`, thus concluding the resource allocation.
+
+### 6. Deployment Updates:
+- The lifecycle also accommodates the modification of existing deployments. Users may request updates concerning general configurations, specifications, or replicas via a `UPDATE_LEASE` transaction. Upon provider synchronization and implementation of the requested changes, a `LEASE_UPDATED` event is recorded on-chain, reflecting the modifications and any associated adjustments in pricing.
+- At the core of the deployment process are smart contracts that automate the management of transactions, funds held in escrow, and rewards. These smart contracts ensure that the terms of deployment agreements are enforced and that funds are transferred securely and efficiently based on resource usage. By leveraging blockchain technology, the system provides transparency and builds trust, which are crucial for maintaining the integrity of the network and gaining user confidence.

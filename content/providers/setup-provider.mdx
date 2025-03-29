@@ -1,0 +1,604 @@
+import { Callout } from "nextra/components";
+
+## Setup Provider
+
+This guide provides detailed instructions on how to set up a Spheron provider. The process involves several steps, including SSH access, environment setup, ingress configuration, GPU cluster setup, provider installation, operator installation.
+
+Follow the steps below to complete the setup.
+
+## Initialize setup
+
+### 1. SSH into the Provider Instance
+
+Use the following command to SSH into your provider instance:
+
+```
+ssh -i [ssh_key] root@[provider-ip]
+```
+
+### 2. Initialize Configuration Prompts
+
+1. Upon the first setup, you will be prompted with a question. Respond with `y` if this is your first node setup for the provider.
+
+![Provider Setup 1](/provider-setup-1.webp)
+
+2. Respond with `y` if you are setting up the node for GPU. 
+
+<Callout type="info">
+**Note:** This will be prompted only if you have a GPU in the server.
+</Callout>
+
+![Provider Setup 2](/provider-setup-2.webp)
+
+3. Provide the domain you attached in the [playbook hostname](/providers/prepare-linux-instances#step-3-edit-playbook).
+
+![Provider Setup 4](/provider-setup-4.webp)
+
+4. After the successful script run, you would see a output like below.
+
+![Provider Setup 5](/provider-setup-5.webp)
+
+## Deposit test ETH to the provider's wallet
+
+1. Use the following command to SSH into your provider instance
+
+```
+ssh -i [ssh_key] root@[provider-ip]
+```
+
+2. Change user to `spheron`
+
+```
+sudo su spheron
+```
+```
+cd
+```
+3. Change the wallet configuration to default wallet.
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+
+4. Run the following command to get your wallet address. 
+
+```
+sphnctl wallet current
+```
+You will receive output similar to: 
+```
+Currently using account wallet:
+ path: /home/spheron/.spheron/wallet.json
+ address: 0xff8B0b7ff6Db1E90dd3DcDfd337ae30E2a4149D1
+ passphrase: testPassword
+```
+
+5. Go to our [**Faucet**](https://faucet.spheron.network) to obtain some test gas tokens for the address you got from the previous step. These tokens will allow you to perform on-chain transactions.
+
+<Callout type="info">
+To retrieve the private key of your wallet, run the following command:
+
+```
+sphnctl wallet private-key
+```
+
+And import it in your metamask or you can directly copy the content in ` ~/.spheron/wallet.json` & save it in your local system with extension `wallet.json` and import it via metamask using this [Guide](https://support.metamask.io/managing-my-wallet/accounts-and-addresses/how-to-import-an-account/#importing-using-a-json-file).
+</Callout>
+
+6. Run the following command to check the balance of your wallet:
+
+```
+sphnctl wallet balance
+```
+
+## Create Provider Configuration
+
+Here is the format for the provider configuration:
+
+```json
+{
+  "name": "spheron-provider-1",
+  "region": "us-east",
+  "hostname": "provider.example.com",
+  "gpu": [
+    {
+      "name": "p4",
+      "unit": 1
+    },
+    {
+      "name": "t1000",
+      "unit": 1
+    }
+  ],
+  "cpu": [
+    {
+      "name": "gp",
+      "unit": 24
+    }
+  ],
+  "payment_tokens": [
+    "USDT",
+    "USDC"
+  ],
+  "pricing": {
+    "cpu": "3.00",
+    "memory": "1.00",
+    "ephemeral": "0.03",
+    "gpu": "p4=30,t1000=25"
+  },
+  "attribute": [
+    "capabilities/storage/3/class=ram",
+    "capabilities/storage/3/persistent=false"
+  ]
+}
+```
+
+You can edit the values to suit your requirements, but do not change the keys. These values will be recorded on-chain in our contracts. Let's walk through what each of these configuration parameters means:
+
+- **Name:** Specify the name of the provider.
+- **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
+- **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
+- **GPU:** List all the GPU models supported by your provider. Use the GPU shorthand (name) values from the [GPU support](/providers/reward-details#gpu-resource-tiering) page, and specify the number of units you are providing. These units will be used for points and to verify the correctness of your GPU units through our Slark node's Proof of Compute challenges. Ensure you include the pricing for each GPU model in the Pricing section.
+- **CPU:** List all the CPU types you support. Use the CPU shorthand (name) values from the [CPU support](/providers/reward-details#cpu-resource-tiering) page, and specify the number of units you are providing. These units will be used for points and to verify the correctness of your CPU units through our slark node's Proof of Compute challenges.
+{/* - **RAM:** List all types of RAM you support. Options include: ddr2, ddr3, ddr4.- **Storage:** List all types of storage you support. Options include: hdd, ssd, nvme. */}
+- **Payment Tokens:** Specify all the tokens you want to accept for payments. Refer to [Payment Token Support](/user-guide/supports#supported-payment-tokens) page for supported tokens.
+- **Pricing:** This section sets the pricing for your hardware. All prices are per unit in USD. For example, the CPU is priced at $3 per CPU or thread per month. For GPUs, list each model with its unit price per month, separated by commas.
+- **Attribute:** Add any number of attributes for your provider in a key=value pair format. For example:
+  ```json
+  "attribute": [
+    "capabilities/storage/3/class=ram",
+    "capabilities/storage/3/persistent=false"
+  ]
+  ```
+  These specific attributes are required only if you want to enable the shared memory (shm) feature on your provider. While not mandatory, it is recommended to enable shared memory on your provider to allow users to deploy AI workloads with shared memory enabled. Adding these attributes will not cause any issues even if you don't use the feature.
+
+Once you have updated the configuration values, create a `provider-config.json` file for your provider at `/home/spheron/.spheron/provider-config.json`. To do this:
+
+1. Switch to the spheron user:
+```
+sudo su spheron
+```
+
+2. Open the configuration file in a text editor:
+```
+vi /home/spheron/.spheron/provider-config.json
+```
+
+3. Paste the updated configuration into the `provider-config.json` file and save it.
+
+## Registering a Provider
+
+Before you register, please ensure you set the wallet you intend to use for the provider. You can either create a new wallet or use the default one generated for you. For more details, refer to the [Wallet Configurations](/user-guide/protocol-cli#wallet-configurations) section.
+
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+
+Next, register your provider, use the following command:
+
+```
+sphnctl provider add --config /home/spheron/.spheron/provider-config.json
+```
+
+<Callout type="info">
+Note: You can modify and change provider details using below command:
+```
+sphnctl provider update --config /home/spheron/.spheron/provider-config.json
+```
+</Callout>
+
+## Set provider attributes
+You need to set provider attributes, to activate Spheron liveness points:
+
+```
+sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.json
+```
+
+<Callout type="info">
+**Note:** This step is crucial for providers to start receiving challenges from the slark node for verification. Successfully passing these challenges enables providers to earn liveness points from the protocol. If you encounter any issues, please reach out to the team for assistance.
+
+You can check the attributes that have been set using this command:
+```
+sphnctl provider get-attribute --category ["GPU"/"CPU"]
+```
+</Callout>
+
+## Setup Environment
+
+Setup the environment by running command below.
+
+```
+cd /home/spheron
+
+export KUBECONFIG=/home/spheron/.kube/kubeconfig
+
+git clone https://github.com/spheronFdn/provider-helm-charts.git
+cd provider-helm-charts/charts
+
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo add rook-release https://charts.rook.io/release
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+
+helm repo update
+
+kubectl create ns spheron-services
+kubectl label ns spheron-services spheron.network/name=spheron-services spheron.network=true
+kubectl create ns lease
+kubectl label ns lease spheron.network=true
+wget https://spheron-release.s3.amazonaws.com/crd/crd.yaml
+kubectl apply -f crd.yaml
+```
+
+## Setup Ingress
+
+Run the below commean to setting up Ingress.
+
+```
+helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+    --namespace ingress-nginx --create-namespace \
+    -f ingress-nginx-custom.yaml
+
+kubectl label ns ingress-nginx app.kubernetes.io/name=ingress-nginx app.kubernetes.io/instance=ingress-nginx
+kubectl label ingressclass spheron-ingress-class spheron.network=true
+```
+
+## Only For the GPU Cluster
+
+<Callout type="warning">
+Note: Before you start the next step, please be aware that it applies exclusively to GPU servers.
+</Callout>
+
+1. Start with the below script to setup the helm chart for the GPU provider deployment.
+
+```
+helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
+helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
+
+helm repo update
+
+
+# Create NVIDIA RuntimeClass
+cat > /home/spheron/gpu-nvidia-runtime-class.yaml <<EOF
+kind: RuntimeClass
+apiVersion: node.k8s.io/v1
+metadata:
+  name: nvidia
+handler: nvidia
+EOF
+
+kubectl apply -f /home/spheron/gpu-nvidia-runtime-class.yaml
+
+helm upgrade -i nvdp nvdp/nvidia-device-plugin \
+  --namespace nvidia-device-plugin \
+  --create-namespace \
+  --version 0.14.5 \
+  --set runtimeClassName="nvidia"
+```
+The script we executed in the initial steps creates a configuration file at `/etc/rancher/k3/config.yaml` location. Verify if it is present or else create it. 
+
+2. For creating the configuration file use the following command. Run the command one by one:
+
+```
+sudo su
+```
+```
+cat > /etc/rancher/k3/config.yaml <<'EOF'
+containerd_additional_runtimes:
+  - name: nvidia
+    type: "io.containerd.runc.v2"
+    engine: ""
+    root: ""
+    options:
+      BinaryName: '/usr/bin/nvidia-container-runtime'
+EOF
+```
+```
+sudo su spheron
+```
+3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes. Run the command one by one:
+
+```
+cat > gpu-test-pod.yaml << EOF
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nbody-gpu-benchmark
+  namespace: default
+spec:
+  restartPolicy: OnFailure
+  runtimeClassName: nvidia
+  containers:
+  - name: cuda-container
+    image: nvcr.io/nvidia/k8s/cuda-sample:nbody
+    args: ["nbody", "-gpu", "-benchmark"]
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+    env:
+    - name: NVIDIA_VISIBLE_DEVICES
+      value: all
+    - name: NVIDIA_DRIVER_CAPABILITIES
+      value: all
+EOF
+```
+```
+kubectl apply -f gpu-test-pod.yaml
+echo "Waiting 60 seconds for the test pod to start..."
+sleep 60
+kubectl get pods -A -o wide
+kubectl logs nbody-gpu-benchmark
+kubectl delete pod nbody-gpu-benchmark
+```
+
+
+4. Fetch the node name using the following command to check if your nodes are configured properly:
+
+```
+kubectl get nodes
+```
+
+## Install Provider
+{/* Set up the following variables by updating the region name and the domain. */}
+
+{/* ```
+REGION=[us-central-devnet]
+DOMAIN=[provider.devnetdsphn.com]
+``` */}
+
+Install the helm charts:
+
+```
+sudo su spheron
+```
+```
+cd /home/spheron/provider-helm-charts/charts
+REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
+DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
+helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
+        --set provider.from=/spheron-key/wallet.json \
+        --set provider.keySecret=testPassword \
+        --set provider.domain=$DOMAIN \
+        --set bidPrice.strategy=shellScript \
+        --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)" \
+        --set ipoperator=false \
+        --set node=spheron \
+        --set log_restart_patterns="rpc node is not catching up|bid failed" \
+        --set resources.limits.cpu="2" \
+        --set resources.limits.memory="2Gi" \
+        --set resources.requests.cpu="1" \
+        --set resources.requests.memory="1Gi"
+        
+kubectl patch configmap spheron-provider-scripts \
+      --namespace spheron-services \
+      --type json \
+      --patch='[{"op": "add", "path": "/data/liveness_checks.sh", "value":"#!/bin/bash\necho \"Liveness check bypassed\""}]'
+
+kubectl rollout restart statefulset/spheron-provider -n spheron-services        
+```
+
+## Install Operators
+
+Install the hostname and inventory operators
+
+```
+helm upgrade --install spheron-hostname-operator ./spheron-hostname-operator -n spheron-services
+helm upgrade --install inventory-operator ./spheron-inventory-operator -n spheron-services
+```
+
+## Verify the node has GPU labels
+
+<Callout type="warning">
+Note: Verify GPU label only if you have done GPU setup, otherwise check if the node has spheron labels.
+</Callout>
+
+<Callout type="info">
+Note: To find the node name for this step, you need to execute the below step and take the first name in the list:
+```
+kubectl get nodes
+```
+</Callout>
+
+```
+kubectl describe node [Node Name] | grep -A10 Labels
+```
+{/* 
+## Install Persistent Storage (Optional)
+
+If you want to add persistent storage, include it in the capabilities during the provider registration. Then, execute the following commands.
+
+```
+apt-get install -y lvm2
+cat > rook.yml << EOF
+operatorNamespace: rook-ceph
+
+configOverride: |
+  [global]
+  osd_pool_default_pg_autoscale_mode = on
+  osd_pool_default_size = 1
+  osd_pool_default_min_size = 1
+
+cephClusterSpec:
+  resources:
+
+  mon:
+    count: 1
+  mgr:
+    count: 1
+
+  storage:
+    useAllNodes: true
+    useAllDevices: true
+    config:
+      osdsPerDevice: "1"
+
+cephBlockPools:
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^vd[a-z]$"
+    storageClass:
+      enabled: true
+      name: beta1
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^sd[a-z]$"
+    storageClass:
+      enabled: true
+      name: beta2
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-deployments
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+        deviceFilter: "^nvme[0-9]$"
+    storageClass:
+      enabled: true
+      name: beta3
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        imageFormat: "2"
+        imageFeatures: layering
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        csi.storage.k8s.io/fstype: ext4
+
+  - name: spheron-nodes
+    spec:
+      failureDomain: host
+      replicated:
+        size: 1
+      parameters:
+        min_size: "1"
+    storageClass:
+      enabled: true
+      name: spheron-nodes
+      isDefault: false
+      reclaimPolicy: Delete
+      allowVolumeExpansion: true
+      parameters:
+        # RBD image format. Defaults to "2".
+        imageFormat: "2"
+        # RBD image features. Available for imageFormat: "2". CSI RBD currently supports only `layering` feature.
+        imageFeatures: layering
+        # The secrets contain Ceph admin credentials.
+        csi.storage.k8s.io/provisioner-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/provisioner-secret-namespace: rook-ceph
+        csi.storage.k8s.io/controller-expand-secret-name: rook-csi-rbd-provisioner
+        csi.storage.k8s.io/controller-expand-secret-namespace: rook-ceph
+        csi.storage.k8s.io/node-stage-secret-name: rook-csi-rbd-node
+        csi.storage.k8s.io/node-stage-secret-namespace: rook-ceph
+        # Specify the filesystem type of the volume. If not specified, csi-provisioner
+        # will set default as `ext4`. Note that `xfs` is not recommended due to potential deadlock
+        # in hyperconverged settings where the volume is mounted on the same node as the osds.
+        csi.storage.k8s.io/fstype: ext4
+
+# Do not create default Ceph file systems, object stores
+cephFileSystems:
+cephObjectStores:
+
+# Spawn rook-ceph-tools, useful for troubleshooting
+toolbox:
+  enabled: true
+  resources:
+EOF
+
+helm search repo rook-release --version v1.12.4
+helm upgrade --install --wait --create-namespace -n rook-ceph rook-ceph rook-release/rook-ceph --version 1.12.4
+echo "Did you update nodes in rook-ceph-cluster.values1.yml?"
+#SHOWS DUPLICATE ISSUE - WORKS WHEN RUN TWICE
+helm upgrade --install --create-namespace -n rook-ceph rook-ceph-cluster --set operatorNamespace=rook-ceph rook-release/rook-ceph-cluster --version 1.12.4 -f rook.yml --force
+
+sleep 30
+
+kubectl label sc spheron-nodes spheron.network=true
+kubectl label sc beta3 spheron.network=true
+kubectl label sc beta2 spheron.network=true
+kubectl label sc beta1 spheron.network=true
+
+echo "Did you update this label to the same node in rook-ceph-cluster.values1.yml?"
+kubectl label node $PERSISTENT_STORAGE_NODE1 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE1_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE2 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+kubectl label node $PERSISTENT_STORAGE_NODE3 spheron.network/storageclasses=${PERSISTENT_STORAGE_NODE3_CLASS} --overwrite
+
+echo "If health not OK, do this"
+kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-tools" -o jsonpath='{.items[0].metadata.name}') -- bash -c "ceph health mute POOL_NO_REDUNDANCY"
+``` */}
+
+##  Check the status of your provider
+
+Use the following curl request to check the status of the provider. Update the hostname with your own hostname to properly test the provider status.
+
+```
+curl --insecure https://[hostname]:8443/status
+```
+
+You can also look up your provider on our [Provider Dashboard](https://provider.spheron.network) to check if your era uptime is up to the mark. Additionally, you can withdraw your earnings and view your provider's tier and the points you are accruing.
+
+## Upgrading the Provider
+
+### Upgrade the CLI
+
+To upgrade the CLI binary and incorporate the latest updates, run the following commands:
+
+```
+wget -O install.sh https://sphnctl.sh
+chmod +x install.sh
+./install.sh
+```
+
+<Callout type="info">
+**Note:** This step may not be necessary if there are no updates to the CLI binary. The team will inform you if this step is required during any provider upgrades.
+</Callout>
+
+
+### Restart the Provider Services
+
+To apply the latest changes from the source, restart the provider services using the following command:
+
+```
+kubectl rollout restart statefulset/spheron-provider -n spheron-services
+```

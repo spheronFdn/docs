@@ -1,0 +1,56 @@
+# Payment System
+
+## Overview
+
+Spheron Network introduces an advanced Payment System, underpinned by a token-based economy, specifically crafted to ensure transparent and equitable compensation for providers of GPU resources. 
+
+This section delves into the mechanisms and structures of the payment system, highlighting its role in addressing inefficiencies within the current market and ensuring that providers are appropriately rewarded for their contributions.
+
+## Introduction to the Token-Based Economy
+The Payment System in this network is based on a token economy, where any token, including $SPON tokens, can be used as a medium of exchange. This innovative approach is designed to make transactions within the network smoother and easier, allowing for a seamless transfer of value between users and providers. It also enables a great ecosystem of contributors and opens up opportunities for foundations or other players to bring utility to the network by enabling different tokens for payment. However, any token used for payment must be approved through the token governance model.
+The foundation of this Payment System on blockchain technology ensures that all transactions are transparent, auditable, and secure, thereby increasing trust and reliability across the entire network.
+
+## User Payment Contributions
+
+![User Payment](/user-payment.webp)
+
+The workflow of user payment from the above Figure shows that for the user to start a deployment in the protocol, the user needs to first deposit their initial fund to our Escrow Smart Contract which will hold their balance (some in locked and some in unlocked). The user then can create an order to start a new deployment to the Order Smart Contract, which will fetch the user balance (which is unlocked) to verify the minimum balance of the user before starting the order matching process.
+
+The user also needs to mention how many days/hour it wants to lock the initial fund for the deployment order and also the token user wants to pay the provider for the workload. The locking of initial funds for the order will be calculated once the order is matched with the provider and the contract knows what bid was selected. Once a lease is created the fund will be locked in the escrow and the user won’t be able to access these funds unless the user closes the lease. As the lease progresses the amount in the locked state is debited from the user and assigned to the provider based on the time passed (calculated using block.timestamp). If the user closes the lease prematurely, the balance of both the user and provider is updated, the final balance is pushed to both accounts, and the lease is marked closed.
+
+In short, the system delineates a clear and flexible mechanism for user payments:
+
+- **Compute Escrow Wallets:** Users establish contract wallets on the blockchain, serving as compute escrows into which they deposit a minimum amount. This escrow system allows users to deposit an array of tokens, including $SPON, offering the flexibility to manage their funds according to compute usage.
+- **Withdrawal and Fund Management:** Users have the capability to withdraw any remaining funds from the escrow wallet, ensuring they only pay for the compute resources utilized. The escrow wallet also facilitates the transfer of instance ownership and funds between users, providing a layer of versatility and control over resource allocation and usage.
+- **Maximum Resource Allocation Mechanism:** Upon the deposition of funds into the escrow wallet, the user's allocation of computational resources is governed by a predefined bracket system. This system systematically determines the quantity of resources allocated based on the amount of funds deposited, ensuring a structured and equitable distribution of computing power. For instance, a deposit of $15 entitles the user to a specific allocation of computational resources, encapsulated as follows:
+    - **For standard compute allocations:** The user is entitled to access 8 CPUs, 32 GB of RAM, and 512 GB of Disk space.
+    - **For GPU-intensive tasks:** The allocation includes access to a mid-tier GPU (such as the A4000 or A6000 models), complemented by 32 CPUs, 128 GB of RAM, and 1 TB of Disk
+
+## Mechanisms for Provider Compensation
+
+![Provider Compensation](/provider-compensation.webp)
+
+When a user's deployment order is successfully matched with a provider, a lease agreement is established. This lease automatically locks a portion of the user's funds, which is estimated to cover the fees for the agreed-upon duration (e.g., days or months). The locked funds are gradually transferred from the user to the provider as payment, starting from the moment the lease begins. The user cannot access these locked funds until the lease expires or is canceled by either party.
+However, providers can withdraw the funds that have accumulated in the escrow account associated with their deployments. 
+
+Additionally, providers must contribute 20% of the total deployment payment to the Spheron Foundation.
+If either the provider or the user decides to cancel an ongoing lease, the remaining balances of both parties are updated. The final balances are then transferred to their respective accounts, and the lease is officially closed. Furthermore, if the locked funds become insufficient to continue supporting the active lease, the Lease Smart Contract will automatically terminate the lease. After that, the Order Smart Contract will trigger an event to shut down the server.
+To encourage the use of the $SPON token in transactions and improve the network's economic efficiency, Spheron has implemented a specific fee structure.
+
+### User Fees:
+
+- Payments made with tokens other than $SPON attract a 2% facilitation fee.
+- Payments made with $SPON are not subject to any fees.
+
+### Provider Fees:
+- Liveness rewards do not incur any fees.
+- For utilization payments:
+    - Payments to providers in tokens other than $SPON or $SPON incur a 1% fee.
+    - Payments made in $SPON are free from any fees.
+
+This fee strategy is designed to incentivize the utilization of the network’s native token, $SPON, thereby reducing transaction costs for both users and providers while supporting the sustainability and growth of the network.
+
+### Compensation Model
+The compensation model for providers is meticulously structured to ensure fairness and incentivize participation:
+- **Utilization Payments:** Providers will receive payment in any token that the user has used to start the deployment. A provider can mention all the token it want to support and will be matched with orders which give payments in the token the provider supports. 
+- **Liveness Rewards:** Provider nodes are incentivized by the foundation to continue to be a part of the network if there is less utilization of the provider capacity in any Era timeframe. This will make sure the providers are not leaving the network, in case providers are not able to make enough ROI on their hardware and aren’t able to pay for their OpEx charges. The rewards will be given in $SPON tokens, over a defined period known as an Era.

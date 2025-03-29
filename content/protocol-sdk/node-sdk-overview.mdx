@@ -1,0 +1,702 @@
+import { Callout } from "nextra/components";
+import { Tabs } from 'nextra/components'
+
+
+# Node.js SDK Overview
+
+The **[Spheron Protocol SDK for Node.js](https://github.com/spheronFdn/protocol-sdk/tree/main/nodejs)** provides a comprehensive set of modules to interact with the Spheron decentralized infrastructure. This includes modules for lease management, deployment operations, and escrow functionality.
+
+## Prerequisites
+
+- Node.js: Version 14 or higher.
+- npm: Version 6 or higher.
+- Docker: If you plan to run the Provider Proxy Server using Docker.
+- Git: For cloning the repository if running the Provider Proxy Server from source.
+
+## Installation
+
+Install the Spheron SDK for Node.js using npm or yarn or bun:
+
+<Tabs items={['npm', 'yarn', 'bun']}>
+  <Tabs.Tab>
+    ```bash
+    npm install @spheron/protocol-sdk
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    yarn add @spheron/protocol-sdk
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```bash
+    bun add @spheron/protocol-sdk
+    ```
+  </Tabs.Tab>
+</Tabs>
+## Usage
+
+### Initializing the SDK
+
+To use the Spheron SDK, first import it and initialize it with the desired network type:
+
+```javascript
+const { SpheronSDK } = require('@spheron/protocol-sdk');
+
+const sdk = new SpheronSDK('testnet');
+```
+
+**Note:** Chain type can be `testnet` or `mainnet`. But currently, only `testnet` is supported.
+
+If you want to perform write operations, you'll need to provide a private key:
+
+```javascript
+const sdk = new SpheronSDK('testnet', 'your-private-key');
+```
+
+**Note:** Never hardcode your private key; use environment variables or secure key management systems.
+
+**Constructor Parameters:**
+
+- `networkType`: Specifies the environment. Possible values are `'testnet'` or `'mainnet'`.
+- `privateKey` (optional): Private key for signing transactions.
+
+### Modules Overview
+
+The SDK provides several modules for different functionalities:
+
+- **Escrow Module**: Handles escrow-related operations, such as user balance management, deposits, withdrawals, and earnings management.
+- **Deployment Module**: Facilitates the creation, updating, and closing of deployments.
+- **Lease Module**: Manages compute leases, including retrieving lease details and managing active leases.
+
+## Modules
+
+### Escrow Module
+
+The Escrow Module handles operations related to the escrow system, allowing users to manage their token balances within the Spheron ecosystem.
+
+#### 1. `getUserBalance`
+
+Fetches the user's balance from the escrow contract for a given token and wallet address.
+
+```javascript
+const balance = await sdk.escrow.getUserBalance('USDT', '0xYourWalletAddress');
+console.log('Your USDT balance in escrow is:', balance);
+```
+
+**Parameters:**
+
+- `token` (string): The token symbol. Supported tokens are `USDT`, `USDC`, `DAI`, and `WETH`.
+- `walletAddress` (string, optional): The wallet address to query. If not provided, the wallet associated with the provided private key will be used.
+
+**Returns:**
+
+- `Promise<object>`: An object containing the user's balance information:
+  - `lockedBalance` (string): The locked balance of the specified token in the escrow.
+  - `unlockedBalance` (string): The unlocked balance of the specified token in the escrow.
+  - `token` (object): Details about the token:
+    - `name` (string): The name of the token.
+    - `symbol` (string): The symbol of the token.
+    - `decimal` (number): The number of decimal places for the token.
+
+#### 2. `depositBalance`
+
+Deposits a specified amount of tokens into the escrow contract.
+
+```javascript
+const depositReceipt = await sdk.escrow.depositBalance({
+  token: 'USDC',
+  amount: 100,
+});
+console.log('Deposit transaction receipt:', depositReceipt);
+```
+
+**Parameters:**
+
+- `token` (string): The token symbol to withdraw (`USDT`, `USDC`, or any other token supported by the Spheron network).
+- `amount` (number): The amount to deposit.
+- `onSuccessCallback` (function, optional): Callback function for successful deposit.
+- `onFailureCallback` (function, optional): Callback function for failed deposit.
+
+<Callout type="info">
+ Note: To know more about the tokens supported by the Spheron network, please refer to the [Tokens](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
+
+**Returns:**
+
+- `Promise<TransactionReceipt>`: The transaction receipt of the deposit operation.
+
+#### 3. `withdrawBalance`
+
+Withdraws a specified amount of tokens from the escrow contract.
+
+```javascript
+const withdrawReceipt = await sdk.escrow.withdrawBalance({
+  token: 'DAI',
+  amount: 50,
+});
+console.log('Withdrawal transaction receipt:', withdrawReceipt);
+```
+
+**Parameters:**
+
+- `token` (string): The token symbol to withdraw (`USDT`, `USDC`, or any other token supported by the Spheron network).
+- `amount` (number): The amount to withdraw.
+- `onSuccessCallback` (function, optional): Callback function for successful withdrawal.
+- `onFailureCallback` (function, optional): Callback function for failed withdrawal.
+
+<Callout type="info">
+ Note: To know more about the tokens supported by the Spheron network, please refer to the [Tokens](/user-guide/supports#supported-payment-tokens) section.
+</Callout>
+
+**Returns:**
+
+- `Promise<TransactionReceipt>`: The transaction receipt of the withdrawal operation.
+
+### Deployment Module
+
+The Deployment Module streamlines the process of creating, updating, retrieving, and closing deployments on the Spheron network.
+
+<Callout type="info">
+  Note: 
+  - To do any deployments on Spheron, a proxy server needs to be set up by the SDK consumer. 
+  - You can use the default proxy server provided by Spheron `https://provider-proxy.sphn.xyz` or set up your own proxy server. To set up your own proxy server, please refer to the [Provider Proxy Server](/protocol-sdk/provider-proxy-server) section.
+  - To know more about the operator deployments, please refer to the [Operator Deployments](/user-guide/operator-deployments) section.
+  - To know more about the deployment ICL YAML configuration, please refer to the [ICL YAML Configuration](/user-guide/icl) section.
+</Callout>
+
+#### 1. `createDeployment`
+
+Creates a new deployment using the [ICL (Infrastructure Configuration Language) YAML](https://docs.spheron.network/user-guide/icl) configuration.
+
+```javascript
+const iclYaml = `
+version: "1.0"
+
+services:
+  py-cuda:
+    image: quay.io/jupyter/pytorch-notebook:cuda12-pytorch-2.4.1
+    expose:
+      - port: 8888
+        as: 8888
+        to:
+          - global: true
+    env:
+      - JUPYTER_TOKEN=sentient
+profiles:
+  name: py-cuda
+  duration: 2h
+  mode: provider
+  tier:
+    - community
+  compute:
+    py-cuda:
+      resources:
+        cpu:
+          units: 8
+        memory:
+          size: 16Gi
+        storage:
+          - size: 200Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+  placement:
+    westcoast:
+      attributes:
+        region: us-central
+      pricing:
+        py-cuda:
+          token: USDT
+          amount: 10
+
+deployment:
+  py-cuda:
+    westcoast:
+      profile: py-cuda
+      count: 1
+`;
+
+const providerProxyUrl = 'https://provider-proxy.sphn.xyz';
+
+const deploymentResult = await sdk.deployment.createDeployment(iclYaml, providerProxyUrl);
+console.log('Deployment result:', deploymentResult);
+```
+
+**Parameters:**
+
+- `iclYaml` (string): The deployment configuration in YAML format.
+- `providerProxyUrl` (string): URL of the provider proxy server. You can use the default proxy server provided by Spheron or set up your own proxy server.
+- `createOrderMatchedCallback` (function, optional): Callback function for successful deployment matched with a lease.
+- `createOrderFailedCallback` (function, optional): Callback function for failed deployment.
+- `isOperator` (boolean, optional): Whether the deployment is an operator deployment.
+
+**Returns:**
+
+- `Promise<object>`: An object containing:
+  - `leaseId` (string): The ID of the newly created lease.
+  - `transaction` (TransactionReceipt): The transaction details of the deployment creation.
+
+#### 2. `updateDeployment`
+
+Updates an existing deployment using the Lease ID and ICL YAML configuration.
+
+```javascript
+const updatedIclYaml = `
+version: "1.0"
+
+services:
+  py-cuda:
+    image: quay.io/jupyter/pytorch-notebook:cuda12-pytorch-2.4.1
+    expose:
+      - port: 8888
+        as: 8888
+        to:
+          - global: true
+    env:
+      - JUPYTER_TOKEN=sentient
+profiles:
+  name: py-cuda
+  duration: 2h
+  mode: provider
+  tier:
+    - community
+  compute:
+    py-cuda:
+      resources:
+        cpu:
+          units: 4
+        memory:
+          size: 8Gi
+        storage:
+          - size: 100Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+  placement:
+    westcoast:
+      attributes:
+        region: us-central
+      pricing:
+        py-cuda:
+          token: USDT
+          amount: 10
+
+deployment:
+  py-cuda:
+    westcoast:
+      profile: py-cuda
+      count: 1
+`;
+
+const providerProxyUrl = 'https://provider-proxy.sphn.xyz';
+
+const updateResult = await sdk.deployment.updateDeployment(
+  leaseId,
+  updatedIclYaml,
+  providerProxyUrl
+);
+console.log('Update result:', updateResult);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID of the deployment to update.
+- `iclYaml` (string): The updated deployment configuration in YAML format.
+- `providerProxyUrl` (string): URL of the provider proxy server.
+- `updatedOrderLeaseCallback` (function, optional): Callback function for successful updated order matched with a lease.
+  - `leaseId` (string): The ID of the updated lease.
+  - `providerAddress` (string): The address of the provider handling the deployment.
+- `updatedOrderLeaseFailedCallback` (function, optional): Callback function for failed updated order transaction.
+- `updateOrderAcceptedCallback` (function, optional): Callback function for successful updated order.
+  - `leaseId` (string): The ID of the updated lease.
+- `updateOrderFailedCallback` (function, optional): Callback function for failed updated order matched with a lease.
+- `isOperator` (boolean, optional): Whether the deployment is an operator deployment.
+
+**Returns:**
+
+- `Promise<object>`: An object containing:
+  - `orderId` (string): The ID of the updated lease.
+  - `providerAddress` (string): The address of the provider handling the deployment.
+
+#### 3. `closeDeployment`
+
+Closes an existing deployment using the Lease ID.
+
+```javascript
+const closeDeploymentResult = await sdk.deployment.closeDeployment(leaseId);
+console.log('Deployment closed:', closeDeploymentResult);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID of the deployment to close.
+
+**Returns:**
+
+- `Promise<TransactionReceipt>`: The transaction receipt of the close operation.
+
+#### 4. `getDeployment`
+
+Retrieves the details of an existing deployment based on the provided Lease ID.
+
+```javascript
+const providerProxyUrl = 'https://provider-proxy.sphn.xyz';
+
+const deploymentDetails = await sdk.deployment.getDeployment(leaseId, providerProxyUrl);
+console.log('Deployment details:', deploymentDetails);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID of the deployment.
+- `providerProxyUrl` (string): URL of the provider proxy server.
+
+**Returns:**
+
+- `Promise<object>`: An object containing the deployment details, including:
+  - `services` (object): Information about the deployed services, where each key is the service name:
+    - `name` (string): The name of the service.
+    - `available` (number): The number of available instances.
+    - `total` (number): The total number of instances.
+    - `uris` (string[] | null): The URIs of the service.
+    - `observed_generation` (number): The observed generation of the service.
+    - `replicas` (number): The number of replicas.
+    - `updated_replicas` (number): The number of updated replicas.
+    - `ready_replicas` (number): The number of ready replicas.
+    - `available_replicas` (number): The number of available replicas.
+    - `container_statuses` (array): Status information for the containers.
+    - `creationTimestamp` (string): The timestamp when the service was created.
+  - `forwarded_ports` (object): Information about forwarded ports for each service:
+    - `[service_name]` (array): An array of port forwarding objects:
+      - `host` (string): The hostname for accessing the service.
+      - `port` (number): The original port of the service.
+      - `externalPort` (number): The external port mapped to the service.
+      - `proto` (string): The protocol used (e.g., 'TCP').
+      - `name` (string): The name of the service.
+  - `ips` (null | object): IP information (if available).
+
+<Callout type="info">
+  Few things to understand about the deployment details:
+  - `services.ready_replicas` is the number of replicas that are ready to serve the traffic. If the `services.ready_replicas` is not equal to `services.total` then the deployment is not ready to serve the traffic.
+  - `services.uris` is the list of Host URIs of the service. If the service is not ready to serve the traffic, then the `uris` will be `null`. You can use this to access the deployment that you did on fizz node or provider.
+  - `forwarded_ports[service_name].externalPort` is the port that you can use to access the service `service_name` from the outside of the deployment.
+</Callout>
+
+#### 5. `getDeploymentLogs`
+
+Retrieves the logs of a specific deployment.
+
+```javascript
+const providerProxyUrl = 'https://provider-proxy.sphn.xyz';
+const logs = await sdk.deployment.getDeploymentLogs(leaseId, providerProxyUrl);
+console.log('Deployment logs:', logs);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID of the deployment.
+- `providerProxyUrl` (string): URL of the provider proxy server.
+- `logsOptions` (object, optional): Options for the logs.
+  - `tail` (number, optional): Number of lines to show from the end of the logs.
+  - `service` (string, optional): Name of the service to get logs for.
+  - `startup` (boolean, optional): Start up logs. Only applicable for fizz mode deployments.
+
+**Returns:**
+
+- `Promise<string[]>`: The logs of the deployment.
+
+### Lease Module
+
+The Lease Module provides functionality for managing and interacting with compute leases.
+
+#### 1. `getLeaseDetails`
+
+Retrieves detailed information about a specific lease.
+
+```javascript
+const leaseId = 'your-lease-id';
+
+const leaseDetails = await sdk.leases.getLeaseDetails(leaseId);
+console.log('Lease details:', leaseDetails);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID to retrieve details for.
+
+**Returns:**
+
+- `Promise<object>`: An object containing the details of the lease:
+  - `leaseId` (string): The ID of the lease.
+  - `fizzId` (string): The ID of the associated Fizz node.
+  - `requestId` (string): The ID of the request associated with this lease.
+  - `resourceAttribute` (object): Details about the resources allocated:
+    - `cpuUnits` (number): Number of CPU units.
+    - `cpuAttributes` (array): Additional CPU attributes.
+    - `ramUnits` (number): Amount of RAM allocated.
+    - `ramAttributes` (array): Additional RAM attributes.
+    - `gpuUnits` (number): Number of GPU units.
+    - `gpuAttributes` (array): Additional GPU attributes.
+    - `endpointsKind` (number): Type of endpoints.
+    - `endpointsSequenceNumber` (number): Sequence number for endpoints.
+  - `acceptedPrice` (string): The accepted price for the lease.
+  - `providerAddress` (string): The address of the provider.
+  - `tenantAddress` (string): The address of the tenant.
+  - `startBlock` (string): The block number when the lease started.
+  - `startTime` (number): The timestamp when the lease started.
+  - `endTime` (number): The timestamp when the lease ended (0 if still active).
+  - `state` (string): The current state of the lease (e.g., 'active').
+
+#### 3. `getLeasesByState`
+
+Retrieves leases filtered by state (`ACTIVE` or `TERMINATED`) with pagination support.
+
+```javascript
+const walletAddress = '0xYourWalletAddress';
+const options = {
+  state: 'ACTIVE',
+  page: 1,
+  pageSize: 10,
+};
+
+const leases = await sdk.leases.getLeasesByState(walletAddress, options);
+console.log('Leases:', leases);
+```
+
+**Parameters:**
+
+- `walletAddress` (string): Address to retrieve leases for.
+- `options` (object, optional):
+  - `state` (string): State of the leases to retrieve (`ACTIVE` or `TERMINATED`).
+  - `page` (number): Page number for pagination.
+  - `pageSize` (number): Number of items per page.
+
+**Returns:**
+
+- `Promise<object>`: An object containing:
+  - `leases` (LeaseWithOrderDetails[]): An array of lease objects with additional order details:
+    - All properties from the lease object
+    - `name` (string): The name of the order
+    - `tier (string): The tier of the order
+    - `region` (string | undefined): The region of the provider or Fizz node
+    - `token` (object): Token details
+      - `symbol` (string | undefined): The symbol of the token
+      - `decimal` (number | undefined): The number of decimal places for the token
+  - `activeCount` (number): The number of active leases
+  - `terminatedCount` (number): The number of terminated leases
+  - `totalCount` (number): The total number of leases
+
+## Not so important modules
+
+### Escrow Module
+
+#### 1. `getProviderEarnings`
+
+Retrieves the earnings information for a specific provider in the Spheron network.
+
+```javascript
+const providerAddress = '0xProviderAddress';
+const tokenAddress = '0xTokenAddress';
+
+const earnings = await sdk.escrow.getProviderEarnings(providerAddress, tokenAddress);
+console.log('Provider earnings:', earnings);
+```
+
+**Parameters:**
+
+- `providerAddress` (string): The address of the provider.
+- `tokenAddress` (string): The address of the token.
+
+**Returns:**
+
+- `Promise<object>`: An object containing the provider's earnings information:
+  - `earned` (string): The total amount earned.
+  - `withdrawn` (string): The amount withdrawn.
+  - `balance` (string): The current balance.
+
+#### 2. `getFizzEarnings`
+
+Retrieves the earnings information for a specific Fizz node in the Spheron network.
+
+```javascript
+const fizzAddress = '0xFizzNodeAddress';
+const tokenAddress = '0xTokenAddress';
+
+const earnings = await sdk.escrow.getFizzEarnings(fizzAddress, tokenAddress);
+console.log('Fizz node earnings:', earnings);
+```
+
+**Parameters:**
+
+- `fizzAddress` (string): The address of the Fizz node.
+- `tokenAddress` (string): The address of the token.
+
+**Returns:**
+
+- `Promise<object>`: An object containing the Fizz node's earnings information:
+  - `earned` (string): The total amount earned.
+  - `withdrawn` (string): The amount withdrawn.
+  - `balance` (string): The current balance.
+
+#### 3. `withdrawProviderEarnings`
+
+Withdraws earnings for a specific provider in the Spheron network.
+
+```javascript
+const withdrawalReceipt = await sdk.escrow.withdrawProviderEarnings({
+  rewardWallet: '0xRewardWalletAddress',
+  tokenAddress: '0xTokenAddress',
+  amount: 100,
+  decimals: 18,
+  onSuccessCallback: (receipt) => {
+    console.log('Provider earnings withdrawal receipt:', receipt);
+  },
+  onFailureCallback: (error) => {
+    console.error('Provider earnings withdrawal failed:', error);
+  },
+});
+console.log('Provider earnings withdrawal receipt:', withdrawalReceipt);
+```
+
+**Parameters:**
+
+- `Object`: An object containing the following parameters:
+  - `rewardWallet` (string): The address of the reward wallet.
+  - `tokenAddress` (string): The address of the token to withdraw.
+  - `amount` (number): The amount to withdraw.
+  - `decimals` (number): The number of decimals for the token.
+  - `onSuccessCallback` (function, optional): Callback function for successful withdrawal.
+  - `onFailureCallback` (function, optional): Callback function for failed withdrawal.
+
+**Returns:**
+
+- `Promise<TransactionReceipt>`: The transaction receipt of the withdrawal operation.
+
+#### 4. `withdrawFizzEarnings`
+
+Withdraws earnings for a specific Fizz node in the Spheron network.
+
+```javascript
+const withdrawalReceipt = await sdk.escrow.withdrawFizzEarnings({
+  rewardWallet: '0xRewardWalletAddress',
+  tokenAddress: '0xTokenAddress',
+  amount: 100,
+  decimals: 18,
+  onSuccessCallback: (receipt) => {
+    console.log('Fizz node earnings withdrawal receipt:', receipt);
+  },
+  onFailureCallback: (error) => {
+    console.error('Fizz node earnings withdrawal failed:', error);
+  },
+});
+console.log('Fizz node earnings withdrawal receipt:', withdrawalReceipt);
+```
+
+**Parameters:**
+
+- `Object`: An object containing the following parameters:
+  - `rewardWallet` (string): The address of the reward wallet.
+  - `tokenAddress` (string): The address of the token to withdraw.
+  - `amount` (number): The amount to withdraw.
+  - `decimals` (number): The number of decimals for the token.
+  - `onSuccessCallback` (function, optional): Callback function for successful withdrawal.
+  - `onFailureCallback` (function, optional): Callback function for failed withdrawal.
+
+**Returns:**
+
+- `Promise<TransactionReceipt>`: The transaction receipt of the withdrawal operation.
+
+### Lease Module
+
+#### 1. `getLeaseIds`
+
+Retrieves active, terminated, and all lease IDs for a given address.
+
+```javascript
+const walletAddress = '0xYourWalletAddress';
+
+const { activeLeaseIds, terminatedLeaseIds, allLeaseIds } = await sdk.leases.getLeaseIds(
+  walletAddress
+);
+
+console.log('Active Leases:', activeLeaseIds);
+console.log('Terminated Leases:', terminatedLeaseIds);
+console.log('All Leases:', allLeaseIds);
+```
+
+**Parameters:**
+
+- `walletAddress` (string): Address to retrieve lease IDs for.
+
+**Returns:**
+
+- `Promise<object>`: An object containing arrays of lease IDs:
+  - `activeLeaseIds` (string[]): Active lease IDs.
+  - `terminatedLeaseIds` (string[]): Terminated lease IDs.
+  - `allLeaseIds` (string[]): All lease IDs.
+
+#### 2. `closeLease`
+
+Closes an active lease. You can do it using closeDeployment method of deployment module as well. Both of them are idempotent.
+
+```javascript
+const leaseId = 'your-lease-id';
+
+const closeLeaseReceipt = await sdk.leases.closeLease(leaseId);
+console.log('Lease closed:', closeLeaseReceipt);
+```
+
+**Parameters:**
+
+- `leaseId` (string): Lease ID to close.
+
+**Returns:**
+
+- `Promise<object>`: Transaction receipt of the close operation.
+
+#### 3. `listenToLeaseClosedEvent`
+
+Sets up a listener for the `LeaseClosed` event.
+
+```javascript
+sdk.leases.listenToLeaseClosedEvent(
+  ({ orderId, providerAddress, tenantAddress }) => {
+    console.log('Lease closed:', orderId);
+  },
+  () => {
+    console.error('Listening failed or timed out');
+  },
+  60000 // Timeout in milliseconds
+);
+```
+
+**Parameters:**
+
+- `onSuccessCallback` (function): Function called when a `LeaseClosed` event is detected.
+- `onFailureCallback` (function): Function called if listening fails or times out.
+- `timeout` (number, optional): Time in milliseconds before the listener times out.
+
+## Examples
+
+For detailed examples of how to use each module, please refer to the [Examples Directory](https://github.com/spheronFdn/protocol-sdk/tree/main/examples).
+
+## Error Handling
+
+It's recommended to wrap your SDK calls in `try-catch` blocks to handle any potential errors:
+
+```javascript
+try {
+  const result = await sdk.someModule.someMethod();
+  // Handle successful result
+} catch (error) {
+  console.error('An error occurred:', error);
+  // Handle error
+}
+```

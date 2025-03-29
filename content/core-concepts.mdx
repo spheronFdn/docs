@@ -1,0 +1,65 @@
+---
+asIndexPage: true
+---
+
+import { Callout } from "nextra/components";
+import { Link } from "nextra-theme-docs";
+
+# Spheron Protocol
+
+## Overview
+
+To build a strong and fully functioning decentralized network for sharing compute and GPU resources, we have focused on several important parts:
+
+1. How do providers register themselves on the network?
+2. How orders for resources are matched with available providers?
+3. How providers are incentivized and rewarded?
+4. How payments are managed and settled?
+
+A key part of our discussion has been about the different types of provider nodes on the network. There are two main categories:
+
+1. [Fizz Nodes](/core-concepts/fizz)
+1. [Providers](/core-concepts/providers)
+
+The following sections will explain in detail the architecture and process involved specifically for Providers when it comes to:
+
+1. Deploying resources on the network
+2. How their resources are matched to orders from users
+
+We'll cover things like the role of smart contracts, the matchmaking process, and how providers are selected to fulfill orders in a simple, easy-to-understand way.
+
+## Deployment Order Workflow
+
+![Depolyment Order Workflow](/depolyment-order-workflow.webp)
+
+This architecture is centered around a matchmaking engine, a pivotal component within the network. This engine processes order details and provider bids, selecting the optimal provider for each deployment based on specific parameters outlined in [Section](/core-concepts#matching-parameters-for-provider-selection). After a match is made, the order smart contract initiates a lease with the selected provider. Subsequently, the user transmits the deployment manifest to initiate workload deployment on the designated provider over MTLS connection. Upon completion, the user can verify the deployment status and access all relevant deployment details such as connection URLs and port mappings.
+
+## Matchmaking Mechanism: Facilitating Decentralized Resource Allocation
+
+Within the ecosystem of a decentralized compute network, the Matchmaker Mechanism stands as a crucial component, orchestrating the dynamic allocation of compute resources between demand (deployment requests) and supply (provider nodes).
+
+This section details the operational dynamics, economic incentives, and the complex consensus parameters that define the functionality of the Matchmaking Engine.
+
+## Operational Dynamics of the Matchmaker Operator
+
+![Matchmaker Operator](/matchmaker-operator.webp)
+
+Spheron has adopted an AVS-based architecture for our matching engine, leveraging the Economic and Ethereum Inclusion Trust afforded by the Eigen Layer AVS protocol. This protocol is trusted economically due to ETH restaking and offers decentralization through a broad network of ETH validator operators.
+When a user initiates a new deployment request on our L2 chain, they execute a function on the Deployment Order Smart Contract, which then emits an `ORDER_CREATED` event. Providers listen for this event and submit their bids to the Deployment Order Smart Contract. 
+
+After all bids have been collected, the matchmaking engine begins the process of selecting a provider based on predefined matching parameters. Once the selection is done, the matchmaking engine creates a transaction onchain to mark the provider selected onchain, which will create a lease for the matched order and emit `CREATE_LEASE` event. The user can then verify the lease and send the Deployment Manifest (containing all the configurations and secrets) to the matched provider, which the provider listens for and begins the server deployment on their cluster.
+
+## Matching Parameters for Provider Selection
+
+The consensus mechanism at the heart of the Matchmaker Node is engineered to evaluate a myriad of parameters to ascertain the optimal provider node for each deployment request:
+
+- **Region / Availability Zone:** Prioritizes geographical proximity to minimize latency and adhere to data residency regulations.
+- **Price Delta:** Ensures economic efficiency by matching deployment budgets with competitive provider bids.
+- **Uptime / Availability:** Values providers with a proven track record of reliability.
+- **Reputation:** Factors in the historical performance and network standing of providers.
+- **Resource Availability:** Assesses the current capacity of providers to fulfill the deployment requirements.
+- **Slashes:** Considers any penalties incurred by providers for previous contract violations or failures.
+- **Stakes:** The higher the stake amount, the greater the likelihood that a provider will be selected for deployments. This mechanism ensures that those who commit more significantly to the network are rewarded with increased opportunities for engagement and revenue.
+- **Randomness:** Incorporates an element of unpredictability to safeguard against deterministic biases in the selection process.
+
+These parameters are synthesized through a robust algorithm, culminating in selecting a provider node that aligns with the deployment's stipulated criteria. The Matchmaker Node executes an on-chain transaction `(CREATE_LEASE)`, officially documenting the allocation and commencing the deployment process.

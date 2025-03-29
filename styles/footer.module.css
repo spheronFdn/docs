@@ -1,0 +1,44 @@
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  margin-right: 6px;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+
+.link:hover {
+  background: rgba(210, 215, 211, 0.2);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  margin-right: 6px;
+}
+
+.website {
+  display: flex;
+  margin-right: 8px;
+}
+
+.website:hover {
+  text-decoration: underline;
+}
+
+.tos {
+  margin: 0 8px;
+}
+
+.tos:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,767 @@
+import { Callout } from "nextra/components";
+
+# Infrastructure Composition Language (ICL)
+
+Spheron Network uses a declarative system for resource allocation. Users specify their deployment requirements, 
+services, node requirements and pricing parameters through a **"manifest"** file called `deploy.yaml`, written in Infrastructure Composition Language (ICL).
+ICL is designed to be user-friendly and follows the YAML standard, making it similar to Docker Compose files.
+
+The `deploy.yaml` file, which can also use the `.yml` extension, serves as a request form for network resources. 
+
+It's structured into several key sections:
+
+1. [Network Configuration](/user-guide/icl#1-network-configuration) 
+2. [Version](/user-guidel/icl#2-version-configuration)
+3. [Services](/user-guide/icl#3-services-configuration)
+4. [Profiles](/user-guide/icl#4-profiles)
+5. [Deployment](/user-guide/icl#5-deployment-configuration)
+6. [GPU Support](/user-guide/icl#6-gpu-integration-support-in-compute-profiles)
+7. [Private Container Registry Integration](/user-guide/icl#7-private-container-registry-integration)
+8. [Port Range](/user-guide/icl#8-port-range)
+9. [Pull Policy](/user-guide/icl#9-pull-policy)
+10. [Shared Memory (SHM) Support](/user-guide/icl#10-shared-memory-shm-support)
+
+<Callout type="info">
+  **NOTE:** For examples of deployment configurations:
+  - [Single service deployment](https://github.com/spheronFdn/docs/blob/main/examples/protocol/icl-example.yaml)
+  - [Multi-service deployment](https://github.com/spheronFdn/docs/blob/main/examples/protocol/icl-multiservice-example.yaml)
+  
+  These examples demonstrate how to structure your `deploy.yaml` file for different deployment scenarios.
+</Callout>
+
+
+## 1. Network Configuration
+The Infrastructure Composition Language (ICL) file allows you to define networking settings for your deployment. This determines how workloads can connect to each other and be accessed externally. By default, workloads within a deployment group are isolated, meaning no external connections are permitted. However, these restrictions can be adjusted as needed.
+
+## 2. `Version` Configuration
+The Spheron configuration file requires a version specification. At present, the only accepted value is "1.0".
+
+## 3. `Services` Configuration
+The `services` section at the top level of the configuration file defines the workloads for your Spheron deployment. 
+It's structured as a map where each key represents a unique service name, and the corresponding value is another map with the following possible fields:
+
+| Field Name | Required           | Description                                                                                                                                   |
+|----------- |--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| image      | Yes                | Specifies the Docker image for the container. Caution: Using `:latest` tags is not recommended due to extensive caching by Spheron Providers. |
+| command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
+| args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
+| env        | No                 | Sets environment variables for the running container. Refer to the [Environment Variables](/user-guide/icl#environment-variablesn) section for more details.                            |
+| expose     | No                 | Determines which entities are permitted to connect to the services. For additional information, see the [Port Exposure](/user-guide/icl#port-exposure) and [Port Range](/user-guide/icl#port-range) sections.                          |
+| pull_policy| No                 | Specifies the image pull policy for the container. For more details, see the [Pull Policy](/user-guide/icl#pull-policy) section.              |
+
+### Environment Variables
+
+The `env` field allows you to specify a list of environment variables that will be made available to the running container. These variables are defined in a key-value format. For example:
+
+```yaml
+env:
+  - WALLET_ADDR=0xabcdedghijke
+  - VERSION=1.0
+```
+### Port Exposure
+
+When configuring port exposure for your services, keep these points in mind:
+
+-   **HTTPS Support:** Spheron deployments can use HTTPS, but only with self-signed certificates.
+-   **Signed Certificates:** To implement properly signed certificates, you'll need to use a third-party solution like Cloudflare as a front-end.
+-   **Flexible Port Mapping:** You're not limited to just port 80 for HTTP/HTTPS ingress. You can expose other ports and map them to port 80 using the as: 80 directive, provided your application understands HTTP/HTTPS protocols. This is particularly useful for applications like React web apps.
+-   **Simplified Port Exposure:** In the ICL, it's only required to expose port 80 for web applications. However, this setup specifies that both ports 80 and 443 are exposed. 
+
+```yaml
+- port: 3000
+  as: 80
+  to:
+    - global: true
+  accept:
+    - www.yoursite.com
+```
+
+### Port Range
+
+<Callout type="warning">
+**Note:** The port range is only applicable for fizz node deployments when the mode is set to `fizz.` For fizz node deployments, the exposed port cannot be 80 or 443, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+</Callout>
+
+When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. Here's an example:
+
+```yaml
+- port_range: 8443-8445
+  port_range_as: 8443-8445
+  to:
+    - global: true
+```
+
+You can specify either `port`, `port_range`, or both, but make sure to specify at least one of them.
+
+<Callout type="info">
+**Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
+</Callout>
+
+The `expose` parameter is a list that defines the connections allowed to the service. 
+Each entry in this list is a map that can include one or more of the following fields:
+
+| Field                  | Required           | Description                                                                                                             |
+|------------------------|--------------------|-------------------------------------------------------------------------------------------------------------------------|
+| `port`                 | Yes                | Specifies the container port that should be made accessible.                                                            |
+| `as`                   | No                 | Defines an alternative port number to expose the container port as.                                                     |
+| `accept`               | No                 | Lists the hostnames for which connections should be accepted.                                                           |
+| `proto`                | No                 | Indicates the protocol type. Can be set to either `tcp` or `udp`.                                                       |
+| `to`                   | No                 | Enumerates the entities permitted to connect to this port. Refer to the `expose.to` section for more details.           |
+| `use_public_port`      | No                 | If set to true, the public port will be used instead of the private port.                                               |
+
+Keep in mind, The `as` parameter determines the default `proto` value.
+
+<Callout type="info">
+  **NOTE:**
+  1. If `as` is not specified, it defaults to the value set by the mandatory port directive.
+  2. When `as` is set to 80 (HTTP), the Kubernetes ingress controller automatically makes the application accessible via HTTPS as well. However, this uses the default self-signed ingress certificates.
+</Callout>
+
+
+| `port`          | `proto` default  |
+|---------------- |----------------  |
+| 80              | http & https     |
+| all others      | tcp & udp        |
+
+### Configuring `expose.to`
+
+The `expose.to` field defines a list of clients allowed to connect to a service. 
+Each item in this list is a map that can contain one or both of these entries:
+
+| parameter          | Type                          | Default      | Description                         |
+|--------------------|-------------------------------|--------------|-----------------------------------------------------------------------------------|
+| `service`          | A service in this deployment  | N/A          | Permit the specified service to establish a connection.                           |
+| `global`           | `true` or `false`             | `false`      | If set to true, allows connections over internet.                                 |
+
+
+If no service is specified and `global` is set to true, any client can connect from any location (this is commonly desired for web servers).
+
+If a service name is specified and `global` is set to `false`, only services within the current node can connect. If a service name is specified and `global` is set to `true`, services can be accessed over internet and anyone can access it.
+
+When `global` is set to `false`, a service name must be provided.
+
+### Pull Policy
+
+The `pull_policy` field allows you to specify how the container runtime should handle pulling the image for your service. This can be particularly useful when working with frequently updated images or when you want to ensure you're always using the latest version.
+
+There are three possible values for `pull_policy`:
+
+- `Always`: The image is pulled whenever the pod is started or restarted.
+- `IfNotPresent`: The image is pulled only if it's not already present on the node.
+- `Never`: The image is never pulled, and the deployment will fail if the image isn't already present on the node.
+
+Example usage:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    pull_policy: Always
+```
+
+<Callout type="info">
+**Note:** If you're using the `:latest` tag for your image, it's recommended to set `pull_policy: Always` to ensure you're always running the most recent version of your image.
+</Callout>
+
+
+## 4. Profiles
+The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
+It's also define the name of the deployment, duration of the lease created & the provider tiers. Below is the table describing the parameters:
+
+| Field Name | Required           | Description                                                                                                                                                                                |
+|----------- |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name       | No                 | Specifies the name of the deployment. It's not unique but is useful for users to identify their deployments.                                                                               |
+| mode       | Yes                | Defines where you want to deploy your app on. Spheron has 2 mode: **provider** & **fizz**. Refer to the [Deployment Mode](/user-guide/icl#deployment-mode) section for more details.       |
+| duration   | Yes                | Defines the duration of the lease. Configured in 1s, 1min, 1h, 1d, 1mon, & 1y. Refer to the [Lease Duration](/user-guide/icl#lease-duration) section for more details.                     |
+| tiers      | No                 | Specifies tiers of provider the deployment order need to be matched with. Can be multiple. Refer to the [Deployment Tier](/user-guide/icl#deployment-tier) section for more details.       |
+| compute    | Yes                | Specifies the compute resources that will be allocated to service instances. Refer to the [services.env](/user-guide/icl#compute-profiles) section for more details.                       |
+| placement  | Yes                | Outlines the necessary attributes and the pricing configuration. See the [services.expose](/user-guide/icl#placement-profile) section for additional information.               |
+
+### Deployment Mode
+Spheron offers two deployment modes:
+
+1. **Provider Mode**: Deploys directly to data center-grade providers. This mode offers:
+   - Higher stability
+   - Larger compute resources
+   - Better bandwidth connections
+   - Suitable for production-grade applications
+   - To deploy in this mode, just write `provider`.
+
+2. **Fizz Mode**: Deploys to a network of smaller, consumer-grade devices. This mode offers:
+   - Lower costs
+   - Distributed deployment across many nodes
+   - Less stability compared to Provider Mode
+   - Suitable for testing or less resource-intensive applications
+   - To deploy in this mode, just write `fizz`.
+
+Choose the mode that best fits your application's requirements and budget.
+
+### Lease Duration
+During the deployment you also pass duration to run the deployment which will be in 1s, 1min, 1h, 1d, 1mon, & 1y. 
+This will specify how much time the lease need to run and accordingly lock funds to continue to run the deployment. 
+When you close the deployment prematurely, then you will unlock the amount that has not been spent. 
+
+<Callout type="info">
+**Note:** Few things to note about the duration:
+- The duration can be updated after the deployment is created by running the update command `sphnctl deployment update --lid <deployment-id> spheron.yaml` with the updated duration. 
+- This will not restart the deployment but increase the duration onchain so that your deployment can run for the new duration. 
+- The duration gets refreshed and not added to the existing duration.
+</Callout>
+
+### Deployment Tier 
+During deployment, you have the option to specify the tiers on which you want your deployment to be placed, whether on a specific or generalized provider tier. This feature is beneficial for developers who need high reliability and are willing to pay a premium for high-tier providers. Conversely, users with less critical requirements can choose lower-tier providers at a reduced cost. During the testnet phase, there is no premium margin on deployment as we are still finalizing the idea.
+
+We have two general tiers: **Secured** and **Community**.
+
+- **Secured Tier:** This tier consists of high-tier providers who have consistently demonstrated high uptime in the network. It includes Provider Tiers 1 to 3.
+- **Community Tier:** This tier consists of lower-tier providers who have recently joined the network or have less reliable hardware. It includes Provider Tiers 4 to 7.
+
+To deploy your services on any tier, use the following values:
+
+| Tier          | Details                                                  |
+|---------------|----------------------------------------------------------|
+| secured       | Can be deployed on Provider Tiers 1 to 3.                |
+| community     | Can be deployed on Provider Tiers 4 to 7.                |
+| secured-1     | Specifically deployed on Provider Tier 1.                |
+| secured-2     | Specifically deployed on Provider Tier 2.                |
+| secured-3     | Specifically deployed on Provider Tier 3.                |
+| community-1   | Specifically deployed on Provider Tier 4.                |
+| community-2   | Specifically deployed on Provider Tier 5.                |
+| community-3   | Specifically deployed on Provider Tier 6.                |
+| community-4   | Specifically deployed on Provider Tier 7.                |
+
+<Callout type="info">
+**Note:** Few things to note about the tiers:
+- Users can specify multiple tiers during deployment, and the matchmaker will select the best possible provider based on the specified requirements and other parameters.
+- If no tier is specified in your deployment configuration, your deployment will be eligible to run on any available tier (both Secured and Community tiers). This gives the matchmaker maximum flexibility in finding the best provider for your deployment.
+</Callout>
+
+### Compute Profiles
+Within `profiles.compute`, you can create a map of named compute profiles. 
+Each profile specifies the compute resources that will be allocated to service instances using that profile.
+
+**Example**
+
+This defines a profile named `api` with resource requirements of 2 vCPUs, 4 gigabytes of memory, and 20 gigabytes of storage.
+
+```yaml
+api:
+  cpu: 2
+  memory: "4Gi"
+  storage: "20Gi"
+```
+
+`cpu` units indicate a vCPU share, which can be fractional. Without a suffix, the value denotes a fraction of a whole CPU share. 
+If an `m` suffix is used, the value specifies the number of milli-CPU shares, which equals 1/1000 of a CPU share.
+
+**Example**
+
+| Value           | CPU-Share        |
+|---------------- |----------------  |
+| `1`             | 1                |
+| `0.5`           | 1/2              |
+| `"100m"`        | 1/10             |
+| `"50m"`         | 1/20             |
+
+
+`memory` and `storage` units are expressed in terms of bytes, with specific suffixes utilized to simplify their representation as follows:
+
+| Suffix          | Value         |
+|---------------- |---------------|
+| k               | 1000          |
+| Ki              | 1024          |
+| M               | 1000^2        |
+| Mi              | 1024^2        |
+| G               | 1000^3        |
+| Gi              | 1024^3        |
+| T               | 1000^4        |
+| Ti              | 1024^4        |
+| P               | 1000^5        |
+| Pi              | 1024^5        |
+| E               | 1000^6        |
+| Ei              | 1024^6        |
+
+### Placement Profiles
+
+`profiles.placement` is a map of named node profiles. Each profile outlines the necessary attributes and the pricing configuration for each compute profile that will be utilized within the node.
+
+**Example**
+
+```yaml
+useast:
+  attributes:
+    region: us-east
+  pricing:
+    web:
+      token: USDT
+      amount: 80
+```
+
+This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 80 USDT per hour for the web compute profiles.
+
+Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
+
+<Callout type="info">
+  To learn more about advanced placement attributes and fine-grained control over your deployments, check out the [Advanced Placement Attributes](/user-guide/icl#11-advanced-placement-attributes) section at the end of this guide.
+</Callout>
+
+## 5. Deployment Configuration
+
+The `deployment` section is where you define the specific deployment strategy for your services. It's structured as a map, with each service name corresponding to its deployment configuration.
+
+For each service you want to deploy, you create an entry in the `deployment` section. This entry combines provider or fizz node profiles with compute profiles to specify the final resource configuration for the service.
+
+**Example**
+
+```yaml
+api:
+  useast:
+    profile: api
+    count: 30
+```
+This specifies that 30 instances of the `api` service should be deployed to a node that matches the `useast` node profile. 
+Each instance will have access to the resources defined in the `api` compute profile.
+
+
+## 6. GPU Integration Support in Compute Profiles
+
+You can add GPUs to your workload by including them in the compute profile section. The placement of the GPU stanza is illustrated in the full compute profile example below.
+
+<Callout type="info">
+**Note:** When specifying the GPU model, such as h100 in this example, ensure that the model name matches the conventions listed in the provided reference.
+</Callout>
+
+```yaml
+profiles:
+  compute:
+    gpudep:
+      resources:
+        cpu:
+          units: 8.0
+        memory:
+          size: 12Gi
+        storage:
+          size: 10Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: a100
+```
+
+### Additional GPU Use Notes
+
+#### Complete GPU ICL Example
+For a comprehensive example of a GPU-enabled ICL, refer to this [example](https://github.com/spheronFdn/docs/tree/main/examples/protocol/icl-example.yaml) which includes the declaration of several GPU models.
+
+#### Optional Model Specification
+Specifying a GPU model in the ICL is optional. If your deployment does not require a specific GPU model, you can leave the model declaration blank, as demonstrated in the following example.
+
+```yaml
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+```
+
+#### Declaring Multiple Models
+If your deployment is optimized to run on multiple GPU models, include the relevant list of models as shown in the example below. In this setup, any Spheron provider with a listed model will bid on the deployment.
+
+```yaml
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: rtx4090
+        - model: t4
+```
+
+#### Specifying GPU RAM
+Optionally, the ICL can include a GPU RAM/VRAM requirement, as illustrated in the example below.
+
+```yaml
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: a100
+          ram: 80Gi
+```
+
+#### Specifying GPU Interface
+Optionally, the ICL can include a GPU interface requirement, as shown in the example below.
+
+<Callout type="info">
+**Note:** Only the values `pcie` or `sxm` should be used in the Spheron ICL. There are several variants of the SXM interface, but only the simple sxm value should be used in the ICL.
+</Callout>
+
+```yaml
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: h100
+          interface: sxm
+```
+
+#### Specifying GPU with RAM and Interface
+Here is an example of specifying both RAM and interface in the ICL GPU section.
+
+```yaml
+gpu:
+  units: 1
+  attributes:
+    vendor:
+      nvidia:
+        - model: h100
+          interface: pcie
+          ram: 90Gi
+```
+
+<Callout type="info">
+**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support).
+</Callout>
+
+
+
+## 7. Private Container Registry Integration
+
+Spheron Network now supports private container registries, allowing you to use images from your private repositories securely in your deployments. This feature enhances security and flexibility for users who need to work with proprietary or sensitive container images.
+
+### Configuring Private Registry Access
+
+To use images from a private registry, you'll need to provide authentication details in your `deploy.yaml` file. Here's an example of how to structure this information:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    credentials:
+      registry: myregistry.com
+      username: myusername
+      password: "mysecretpassword"
+    expose:
+      - port: 3000
+        as: 80
+        to:
+          - global: true
+```
+
+### Important Notes:
+
+1. **Registry Specification**: 
+   - For Docker Hub, use `docker.io`
+   - For GitHub Container Registry, use `ghcr.io`
+   - For Gitlab Container Registry, use `registry.gitlab.com`
+   - For AWS ECR, use `public.ecr.aws`
+   - For Azure Container Registry, use `myregistry.azurecr.io`
+
+2. **Authentication**:
+   - Docker Hub: Use your account password in the `password` field
+   - GitHub Container Registry: Use a Personal Access Token with appropriate permissions in the `password` field
+
+3. **Compatibility**: This feature has been tested with Docker Hub and GitHub Container Registry. Other registries may work but are not officially supported.
+
+By leveraging private registry support, you can maintain tighter control over your container images while benefiting from Spheron's robust deployment infrastructure.
+
+<Callout type="info">
+Remember to keep your authentication credentials secure and never commit them directly to your version control system.
+</Callout>
+
+
+## 8. Port Range
+
+<Callout type="warning">
+**Note:** Port range only applies to fizz node deployments when the mode is set to `fizz`. The exposed port cannot be 80 or 443 for fizz node deployments, as fizz nodes don't have an ingress to create subdomain-based deployment links for users.
+</Callout>
+
+When deploying to fizz nodes, you can specify a port range using the `port_range` and `port_range_as` fields. This feature allows you to expose multiple consecutive ports for your service. Here's an example:
+
+```yaml
+expose:
+  - port_range: 8443-8445
+    port_range_as: 8443-8445
+    to:
+      - global: true
+```
+
+Key points about using port range:
+
+1. You can specify either `port` or `port_range` or both, but make sure to specify at least one of them.
+2. The `port_range` field defines the range of ports to be exposed from the container.
+3. The `port_range_as` field defines how these ports should be mapped externally.
+4. The range is inclusive, so ports 8443, 8444, and 8445 would be exposed in the example above.
+
+<Callout type="info">
+**Important:** For fizz node deployments (mode set to `fizz`), ports 80 and 443 are not available. You must use other port numbers for your services.
+</Callout>
+
+## 9. Pull Policy
+
+The `pull_policy` field allows you to specify how the container runtime should handle pulling the image for your service. This can be particularly useful when working with frequently updated images or when you want to ensure you're always using the latest version.
+
+There are three possible values for `pull_policy`:
+
+- `Always`: The image is pulled every time the pod is started or restarted.
+- `IfNotPresent`: The image is pulled only if it's not already present on the node.
+- `Never`: The image is never pulled, and the deployment will fail if the image isn't already present on the node.
+
+Example usage:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myuser/myapp:latest
+    pull_policy: Always
+```
+
+<Callout type="info">
+**Note:** If you're using the `:latest` tag for your image, it's recommended to set `pull_policy: Always` to ensure you're always running the most recent version of your image.
+</Callout>
+
+Using the pull policy feature give you more control over how and when your container images are updated, which can be crucial for maintaining consistency across deployments or ensuring you're always running the latest version of your application.
+
+## 10. Shared Memory (SHM) Support
+
+Spheron's Infrastructure Composition Language (ICL) now supports the configuration of Shared Memory (SHM) for services that require inter-process communication or temporary file storage with high-speed access. This feature is particularly useful for applications that need to share data quickly between multiple processes within the same container.
+
+### Configuring SHM in Compute Profiles
+
+To enable SHM, you can add a new storage class named `ram` in your compute profile definition. Here's an example of how to include SHM in your ICL:
+
+```yaml
+profiles:
+  compute:
+    myapp:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 2Gi
+        storage:
+          - size: 10Gi
+          - name: sharedmem
+            size: 2Gi
+            attributes:
+              persistent: false
+              class: ram
+```
+
+In this example, we've defined a compute profile named `datavis` that includes:
+- Standard storage of 10Gi
+- A shared memory storage named `sharedmem` of 2Gi using the `ram` class
+
+### Important Notes:
+
+1. SHM must be non-persistent. The ICL validation will raise an error if SHM is defined as persistent.
+2. The `class: ram` attribute is used to specify that this storage should be treated as shared memory.
+3. The name of the shared memory storage (e.g., `sharedmem`) can only contain alphanumeric characters and hyphens (-). Underscores (_) are not allowed.
+
+### Using SHM in Services
+
+Once you've defined the SHM in your compute profile, you can use it in your service definition:
+
+```yaml
+services:
+  visualization:
+    image: myregistry.com/datavis:latest
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+    params:
+      storage:
+        sharedmem:
+          mount: /dev/shm
+```
+
+In this service definition:
+- We're using the `visualization` service with a specified Docker image.
+- The `params.storage.shared_mem.mount` field is used to mount the shared memory to `/dev/shm` in the container.
+
+### Benefits of Using SHM
+
+1. **High-speed Inter-process Communication**: SHM allows rapid data sharing between processes in the same container.
+2. **Temporary File Storage**: It provides a fast storage option for temporary files that don't need to persist beyond the container's lifecycle.
+3. **Resource Efficiency**: By using memory for storage, you can reduce I/O operations and improve overall application performance.
+
+<Callout type="info">
+**Note:** When using SHM, be mindful of your memory usage. Excessive use of shared memory can impact the overall performance of your application and other services running on the same node.
+</Callout>
+
+By leveraging Shared Memory in your Spheron deployments, you can optimize performance for applications that require fast, temporary storage or efficient inter-process communication.
+
+## 11. Advanced Attributes
+
+Spheron provides advanced deployment attributes that give you precise control over where and how your applications are deployed. These settings allow you to:
+
+- Target specific geographic regions for deployment
+- Deploy on all the regions excluding a specific region
+- Select specific providers or Fizz nodes
+- Configure bandwidth requirements
+
+Using these attributes, you can optimize your deployments for performance, compliance, and cost efficiency.
+
+### Available Attributes
+
+#### 1. Region Selection
+Use the `region` attribute to specify which geographic region your application should be deployed in:
+
+```yaml
+attributes:
+  region: us-east
+```
+
+This is particularly useful when you need to:
+- Minimize latency for users in specific geographic areas
+- Ensure your application runs in a specific region
+
+<Callout type="info">
+The region must match one of Spheron's [supported region codes](/user-guide/supports#supported-regions). If not specified, your application can be deployed in any available region.
+</Callout>
+
+#### 2. Exclude Region
+Use the `exclude_region` attribute to specify which geographic regions your application should not be deployed in:
+
+```yaml
+attributes:
+  exclude_region: us-east
+```
+
+This is useful when you:
+- Want to exclude a specific region from deployment
+- Need to ensure your application does not run in a specific region
+- Are testing region-specific functionality
+
+#### 3. Provider Selection
+The `desired_provider` attribute lets you specify a particular provider using their blockchain address:
+
+```yaml
+attributes:
+  desired_provider: "0x1234...5678"  # Replace with actual provider address
+```
+
+This is helpful when you:
+- Have had good experiences with a specific provider
+- Want to maintain consistency across deployments
+- Need specific hardware or capabilities that a provider offers
+
+<Callout type="info">
+This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen provider.
+</Callout>
+
+#### 3. Fizz Node Selection
+For deployments using `fizz` mode, you can target a specific fizz node:
+
+```yaml
+attributes:
+  desired_fizz: "0xabcd...ef12"  # Replace with actual fizz node address
+```
+
+This is useful when you:
+- Want to deploy to a specific node you trust
+- Need to maintain application state on a particular node
+- Are testing node-specific functionality
+
+#### 4. Bandwidth Selection
+<Callout type="info">
+  **Note:** This is only applicable for fizz mode deployments.
+</Callout>
+The `bandwidth` attribute allows you to specify the minimum bandwidth required for your deployment:
+
+```yaml
+attributes:
+  bandwidth: 100mbps  # Replace with actual bandwidth in Mbps
+```
+
+This is useful when you:
+- Need to ensure your application has a minimum bandwidth
+- Want to optimize cost by selecting fizz nodes with sufficient bandwidth
+
+### Combining Attributes
+
+You can use multiple attributes together for precise control. Here's a comprehensive example:
+
+```yaml
+profiles:
+  placement:
+    useast:
+      attributes:
+        region: us-east                              # Geographic region
+        desired_provider: "0x1234...5678"            # Specific provider
+        desired_fizz: "0xabcd...ef12"                # Specific fizz node
+      pricing:
+        web:
+          token: USDT
+          amount: 8
+```
+
+<Callout type="warning">
+**Important Considerations:**
+- When using `desired_fizz`, make sure your deployment mode is set to `fizz`
+- If combining `desired_provider` and `desired_fizz`, verify that the fizz node is connected to the specified provider
+- Invalid combinations will cause your deployment to fail
+</Callout>
+
+These placement attributes give you granular control over your deployments while maintaining the flexibility to scale across Spheron's network when needed.
+
+## 12. Mac Deployment Support
+
+Spheron now supports Mac deployments, allowing you to deploy your workloads on Mac hardware. With the increasing performance capabilities of Apple Silicon chips, this provides an excellent opportunity to leverage Mac-specific optimizations and ARM-native applications.
+
+<Callout type="warning">
+**Important:** Mac deployments are only available for fizz nodes and not for provider nodes.
+</Callout>
+
+### Configuring Mac Deployment
+
+To configure a Mac deployment, you need to specify both the ARM64 architecture and the desired Mac model in your compute profile. Here's an example configuration:
+
+```yaml
+profiles:
+  compute:
+    mac-dep:
+      resources:
+        cpu:
+          units: 8  # Request 8 CPU cores
+          attributes:
+            arch:
+              arm64:  # Specify ARM64 architecture
+                - model: m3pro  # Target M3 Pro chip
+        memory:
+          size: 12Gi  # Request 12GB of memory
+        storage:
+          size: 10Gi  # Request 10GB of storage
+```
+
+### Configuration Components
+
+1. **Architecture (`arch`)**: 
+   - Must be set to `arm64` since modern Macs use ARM-based processors
+   - Specified under `cpu.attributes.arch`
+
+2. **Model**:
+   - Specify the Mac chip model under the `arm64` section
+   - Examples include: m1, m2, m3, m1pro, m2pro, m3pro, etc. Full list of models can be found [here](/user-guide/supports#cpu-support)
+
+3. **Resources**:
+   - `cpu.units`: Number of CPU cores requested
+   - `memory.size`: Amount of RAM requested
+   - `storage.size`: Amount of storage space requested
+
+### Use Cases
+
+Mac deployments are particularly beneficial for:
+- Development and testing on Mac hardware
+- Leveraging Mac-specific optimizations for AI and machine learning workloads
+- Taking advantage of Apple Silicon's amazing performance capabilities
+
+<Callout type="info">
+**Note:** The availability of specific Mac models depends on what's currently available in the Spheron network. Please check the supported models before configuring your deployment.
+</Callout>

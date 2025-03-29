@@ -1,0 +1,88 @@
+import { Callout } from "nextra/components";
+
+# Common Issues and Resolutions
+
+This document addresses common issues that many providers face when setting up their provider on a Linux machine. Below are the known issues and their resolutions. Please refer to this document if you encounter any of these problems.
+
+### Running Ansible Playbook Outside the Server
+
+We have created the Ansible playbook to handle all the necessary tasks for preparing the server for provider installation. However, a common issue is that providers often run the Ansible playbook inside the server itself, which is incorrect.
+
+We require providers to run the Ansible playbook outside the server. It can be executed from any machine, such as your personal laptop, desktop, or even another server. The key requirement is that the machine from which you run the script must have the SSH key to access the target server. Additionally, ensure that you properly update the content in `inventory.ini` and `playbook.yml`.
+
+We have included comments and a checklist in the playbook to indicate which items need to be updated. Please follow this checklist carefully. Once you have made all the necessary updates, you can run the Ansible playbook command to execute the script.
+
+### SSH Issues When Running Ansible
+
+To use Ansible, you must have root access or a user with root privileges on your server, along with an SSH key that can access this user. Ensure that SSH root login is enabled on your Ubuntu server. If you are unable to log in via SSH directly, follow these steps.
+
+To check if the SSH have access to root login, just try SSHing to your server using this command:
+
+1. Verify SSH Access to Root:
+```
+ssh -i <path to your ssh key> root@<server-ip>
+```
+
+2. You can try adding creating a new SSH in your local system using SSH keygen - 
+```
+ssh-keygen
+```
+
+<Callout type="info">
+Ensure you provide the correct details and do not set a password for the SSH key.
+</Callout>
+
+3. Once you have your new ssh key setup, please run the next command to authorize the SSH key to your server:
+
+```
+ssh-copy-id -i <path to your ssh key> root@<server-ip>
+```
+This will authorize your SSH to login to your linux server. 
+
+4. Test SSH Login in to your server using this command:
+
+```
+ssh -i <path to your ssh key> root@<server-ip>
+```
+
+If the above steps do not work, it may be because SSH root login is disabled by default for security reasons. To enable it, you need to follow these steps:: [Allow SSH root login](https://linuxconfig.org/allow-ssh-root-login-on-ubuntu-20-04-focal-fossa-linux) Then, try logging into your server again to ensure it's working correctly.
+
+### Wallet-Related Issues
+
+The frequent issues that we've seen is when you try to run `sphnctl wallet current`, resulting in a nil pointer exception error something like below:
+![Wallet Issue](/wallet-issue-1.webp)
+
+To resolve this issue follow the below steps:
+
+1. You need to first add the wallet on spheron user by using this command: 
+```
+sphnctl wallet use --name wallet --key-secret testPassword
+```
+
+Once you run this, all the `sphnctl` commands requiring the wallet should function correctly, allowing you to continue with your setup.
+
+These steps should help you resolve the most common issues encountered during the setup process. If you encounter any other issues, please consult the appropriate documentation or support resources.
+
+### Provider Configuration not correctly filled
+
+We've noticed multiple instances where providers did not correctly fill out the `provider-config.json` file. This often results in incorrect configurations being submitted on-chain to our contracts. To ensure proper setup: 
+
+1. Update the `provider-config.json` file correctly. Then, use the following commands to update your on-chain provider details.
+
+2. In the `provider-config.json`, ensure you update the GPU section properly. To fill this data, please refer to the [GPU support](/user-guide/supports#gpu-resource-tiering) section to get the GPU name.
+
+<Callout type="info">
+**Note:** There have been instances where providers make mistakes with the GPU ID. The `id` mentioned in the `provider-config.json` is the GPU ID specific to a particular GPU model. For example, for an RTX 4090 (24 GB), the ID would be 40.
+</Callout>
+
+3. To update the provider metadata, run:
+```sh
+sphnctl provider update --config /home/spheron/.spheron/provider-config.json
+```
+
+4. To update the CPU and GPU resources of the provider, run:
+```sh
+sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.json
+```
+
+If you have accidentally messed up the provider host URI on-chain, please contact our team for assistance.

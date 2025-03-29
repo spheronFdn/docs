@@ -1,0 +1,56 @@
+import { Callout } from "nextra/components";
+
+# Provider Hardware Requirements and Recommendations
+
+## Software Recommendation
+
+Providers have been tested on Ubuntu 22.04 with the default Linux kernel. Your experience may vary if installation is attempted using a different Linux distro/kernel.
+
+## Kubernetes Control Plane (Master) Node Requirements
+
+### Minimum Specs
+- 4 CPU
+- 8 GB RAM
+- 50 GB disk
+
+### Recommended Specs
+- 8 CPU
+- 16 GB RAM
+- 100 GB disk
+
+## Kubernetes Worker Node Requirements
+
+### Minimum Specs
+- 4 CPU
+- 8 GB RAM
+- 100 GB disk
+
+### Recommendations
+
+- The more resources you have, the better, especially if your goal is to maximize the number of concurrent deployments. 
+- It is particularly important to note that the worker node needs to have as much CPU capacity as possible. For instance, if the node has 8 CPUs, 100 GB of RAM, and 2 TB of disk space, the CPU would likely become the bottleneck. 
+- Since users tend to allocate at least 1 CPU per deployment, the server could host a maximum of 8 deployments, but realistically it will likely support about 6 deployments, as approximately 2 CPUs will be reserved for Kubernetes system components.
+
+## Creating a Provider
+
+To create a provider, you can either create a single server provider or have a small server for the control plane and other larger servers for the worker nodes. It is recommended to have a small control plane server for the Spheron provider and add larger servers as workers so that all the compute or GPU resources are used for user deployments.
+
+It is important to note that the recommended minimum number of hosts is 4 for a production Provider Kubernetes cluster. This setup allows:
+
+- 3 hosts serving as redundant control plane (master)/etcd instances.
+- 1 host to serve as a Kubernetes worker node to host provider leases.
+
+### Real-Life Use Case Recommendations
+
+- In a typical production Kubernetes cluster, 3 redundant control plane nodes are recommended. However, when the control plane node is easily recoverable, a single control instance for providers can be sufficient.
+- The number of control plane nodes should always be odd to ensure the cluster can reach consensus.
+- It is recommended to run a single worker node per physical server, as CPU is generally the primary resource bottleneck. Using a single worker node enables larger workloads to be deployed on your provider.
+
+<Callout type="info">
+  **NOTE:** For initial testing, we recommend running a single server provider with a GPU to test the entire process. After successful testing, you can then move to adding multiple nodes with better hardware specifications.
+</Callout>
+
+
+## etcd Hardware Recommendations
+
+Use this [guide](https://etcd.io/docs/v3.5/op-guide/hardware/) to ensure Kubernetes control plane nodes meet the recommendations for hosting an etcd database.
