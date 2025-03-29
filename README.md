@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/spheronFdn/docs-v2/blob/main/.github/spheron-logo-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/spheronFdn/docs-v2/blob/main/.github/spheron-logo.svg">
+    <img alt="Spheron" src="https://github.com/spheronFdn/docs-v2/blob/main/.github/spheron-logo.svg" width="250">
+  </picture>
+</p>
 
-## Getting Started
+<h2 align="center">Spheron Documentation</h2>
 
-First, run the development server:
+<p align="center">
+  <a href="https://github.com/spheronFdn/docs-v2/blob/main/LICENSE" target="_blank" rel="noreferrer">
+    <img src="https://img.shields.io/static/v1?label=license&message=MIT&color=green" />
+  </a>
+  <a href="https://sphn.wiki/discord" target="_blank" rel="noreferrer">
+    <img src="https://img.shields.io/static/v1?label=community&message=discord&color=blue" />
+  </a>
+  <a href="https://sphn.wiki/x" target="_blank" rel="noreferrer">
+    <img src="https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40SpheronFdn" />
+  </a>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Local Setup
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Using NPM**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Follow these steps to setup the documentation locally:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Install Node 18.x either manually or using a tool like nvm (recommended)
+- Clone this repo: `https://github.com/spheronFdn/docs.git`
+- Run `npm i` to install dependencies
+- Start the docs
+  ```
+  npm run dev
+  ```
+  You can access the server at: http://localhost:3000
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+**Using Yarn**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Follow these steps to setup the documentation locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Install Node 18.x either manually or using a tool like nvm (recommended)
+- Clone this repo: `https://github.com/spheronFdn/docs.git`
+- Run `yarn` to install dependencies
+- Start the docs
+  ```
+  yarn dev
+  ```
+  You can access the server at: http://localhost:3000
 
-## Deploy on Vercel
+## Contribution
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+We encourage you to read the [contribution guidelines](https://github.com/spheronFdn/docs/blob/main/.github/contribution-guidelines.md) to learn about our development process and how to propose bug fixes and improvements before submitting a pull request.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The Spheron community extends beyond issues and pull requests! You can support Spheron [in many other ways](https://github.com/spheronFdn/docs/blob/main/.github/support.md) as well.
+
+## Community
+
+For help, discussions or any other queries: [Join us on Discord](https://discord.com/invite/ahxuCtm)
