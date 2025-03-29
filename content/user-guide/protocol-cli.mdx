@@ -60,7 +60,23 @@ Make sure to read the output carefully and save your mnemonic phrase and key sec
 Once created, the wallet will be saved locally at `~/.spheron`. You can access the key-secret of the current wallet in `~/.spheron/config.json`. 
 The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the "Changing Your Wallet" section.
 
+### Importing a Wallet
 
+You can import a wallet from a JSON file:
+
+```sh
+sphnctl wallet import --name [Wallet Name] --private-key [Private Key] --key-secret [Key Secret]
+```
+
+**Example:**
+
+```sh
+sphnctl wallet import --name wallet --private-key xxxxxxxxxx --key-secret xxxxxxxxxx
+```
+
+<Callout type="info">
+**Note:** The private key shouldn't be in the format of `0x`. Once the import is done, the wallet will be set as the current wallet.
+</Callout>
 
 ### Wallet Balance
 
@@ -224,10 +240,29 @@ Token: ETH, Precision: 18, TokenAddress: 0x0000000000000000000000000000000000000
 Token: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
 ```
 
+## Setting Custom RPC
+
+To set a custom RPC, you need to run this command:
+
+```sh
+sphnctl rpc set wss://[RPC URL]
+```
+
+To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the RPC URL from there.
+
+**Example:**
+
+```sh
+sphnctl rpc set wss://base-sepolia.g.alchemy.com/v2/your-api-key
+```
+
+<Callout type="info">
+**Note:** The RPC URL should be in the format of `wss://[RPC URL]`. You need to get the websocket URL from the RPC provider.
+</Callout>
+
 ## Create your Configuration
 
 Create a deployment configuration **gpu.yaml** to deploy the `jupyter/minimal-notebook` for Jupyter Notebook container using ICL.
-
 
 You may use the sample deployment file as-is or modify it for your own needs as described in our ICL **(Infrastructure Composition Language)** documentation. A typical modification would be to reference your own image instead of our image.
 
