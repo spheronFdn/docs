@@ -17,7 +17,7 @@ const META: MetaRecord = {
   ),
   "-----": {
     type: "separator",
-    title: "USER DOCS",
+    title: "DEVELOPER DOCS",
   },
   "user-guide": (
     <span className="flex items-center gap-2">
