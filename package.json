@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@inkeep/cxkit-react": "^0.5.40",
     "@orama/plugin-nextra": "^3.1.4",
     "next": "15.2.4",
     "nextra": "^4.2.17",

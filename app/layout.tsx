@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { Layout, Navbar } from 'nextra-theme-docs'
 import { Head } from 'nextra/components'
+import InkeepSearchBar from '@/components/inkeep-search'
 import { getPageMap } from 'nextra/page-map'
 import 'nextra-theme-docs/style.css'
 import CustomFooter from '@/components/footer'
@@ -91,7 +92,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           sidebar={{
             defaultMenuCollapseLevel: 1,
           }}
-        // search={<OramaSearch />}
+          search={<InkeepSearchBar />}
         // ... Your additional layout options
         >
           {children}
