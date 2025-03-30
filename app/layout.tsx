@@ -41,6 +41,7 @@ const navbar = (
   <Navbar
     logo={<span className="flex items-center"><SpheronLogo /></span>}
     projectLink="https://github.com/spheronfdn"
+    chatLink="https://sphn.wiki/discord"
   />
 )
 

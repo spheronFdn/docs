@@ -1,0 +1,276 @@
+import { Callout } from "nextra/components";
+import { Steps } from 'nextra/components'
+
+# Deploy Your App on Spheron Protocol
+
+This guide will walk you through the steps to deploy and access your app on Spheron. Follow these steps carefully to ensure a successful deployment.
+
+<Steps>
+### Install Spheron Protocol `sphnctl` CLI (Linux, MacOS)
+
+1. To install Spheron Protocol CLI using script, make sure you have [`curl`](https://curl.se/) installed on your system. To check, quickly:
+
+```sh
+curl --version
+```
+
+2. To install the Spheron Protocol CLI on the system, just run this one command in your terminal and pass the password during the prompt:
+
+```sh
+curl -sL1 https://sphnctl.sh | bash
+```
+
+2. Verify Spheron Installation
+
+```sh
+# Verify the installation by using a simple command to check the Spheron version
+sphnctl version
+```
+
+### Create a new wallet using the CLI
+
+To create a new wallet, start by configuring the name of your key. Run the command below, replacing `[wallet name]` with a name of your choice:
+
+```sh
+sphnctl wallet create --name [wallet name]
+```
+
+Here is an example of how the result will look:
+
+```sh
+Created account xxx:
+ path: /Users/mitrasish-personal/.spheron/xxxxxyx.json
+ address: 0x5C2432F3cB41927212e46e7224036d78eF3F2A93
+ secret: xxxxxxxxxx
+ mnemonic: xxxxxx xxxxx xxxx xxxxx xxxxx xxxx xxxxx xxxxx
+```
+
+Make sure to read the output carefully and save your mnemonic phrase and key secret in a secure location. 
+
+Once created, the wallet will be saved locally at `~/.spheron`. You can access the key-secret of the current wallet in `~/.spheron/config.json`. 
+The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/user-guide/protocol-cli#changing-your-wallet) section.
+You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/user-guide/protocol-cli#export-the-private-key-of-wallet).
+
+### Get Some test tokens from the Team and ETH from the Faucet
+
+1. Visit the [Spheron Faucet](https://faucet.spheron.network/). 
+
+![Spheron Faucet](/spheron-faucet.webp)
+
+2. First, get some ETH gas tokens on the Spheron chain:
+   - Select ETH from the list in the faucet.
+   - Enter the wallet address of the wallet you generated in the previous section.
+   - Click the "Send Token" button to start the transaction.
+
+3. Wait for the transaction to be confirmed.
+
+4. Reach out to the Spheron team on Discord's [#build-chat](https://sphn.wiki/discord) channel to get some USDT, USDC, or CST tokens.
+
+5. Check if you got the test ETH and USDT tokens in your wallet:
+```
+sphnctl wallet balance --token CST
+```
+This will show both USDT and ETH balances in your wallet.
+
+<Callout type="info">
+**Note:** 
+- You won't get USDT, USDC, or CST tokens from the Spheron Faucet. You will need to reach out to the Spheron team to get these tokens on the Discord's [#build-chat](https://sphn.wiki/discord) channel.
+- Make sure to mention what you are building and how you are using Spheron Protocol, which compute or GPU you want to use and the duration you want to use it for. And finally, mention the wallet address you want to get the tokens in.
+</Callout>
+
+### Deposit some token to Your Escrow Balance
+
+Depositing your tokens into the escrow is the first step to deploying your app on the Spheron Protocol. Ensure you have sufficient tokens in your escrow balance to lock the necessary funds for the deployment. Please follow the instructions below to proceed:
+
+1. Deposit USDT / any other token to the escrow wallet:
+
+```
+sphnctl payment deposit --amount 10 --token CST
+```
+Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) section.
+
+2. Now check if you have a balance in an unlocked state in your wallet:
+
+```
+sphnctl wallet balance --token CST
+```
+
+<Callout type="info">
+**Note:** You can withdraw tokens from your unlocked balance at any time. However, if the tokens are in a locked state, you will not be able to withdraw them until you close your deployment. Upon closing, the locked tokens will be returned to the unlocked state after deducting provider charges and protocol fees.
+</Callout>
+
+
+### Deploy an app
+
+Now let's deploy an app to Spheron Protocol. Please follow the instructions below to proceed:
+
+**Important: Choosing Your Deployment Mode**
+
+Spheron offers two deployment modes:
+
+- **Provider Mode**: For stable, production-grade deployments with larger compute resources.
+- **Fizz Mode**: For cost-effective, distributed deployments suitable for testing or less resource-intensive applications.
+
+You can specify the mode in your ICL configuration under the `profiles` section. For example:
+
+```yaml
+profiles:
+  name: hello-world
+  duration: 1h
+  mode: provider  # or 'fizz' for Fizz Mode
+  tier:
+    - community
+  // ... other profile configurations ...
+```
+
+For this guide, we'll use Provider Mode. You may use the sample deployment file as-is or modify it for your own needs as described in our [ICL documentation](/user-guide/icl). A typical modification would be to reference your own image instead of our image.
+
+```sh
+cat > gpu.yml <<EOF
+---
+version: "1.0"
+
+services:
+  web:
+    image: jupyter/minimal-notebook:latest
+    expose:
+      - port: 8888
+        as: 8888
+        to:
+          - global: true
+    env:
+      - TEST=test
+profiles:
+  name: hello-world
+  duration: 1h
+  mode: provider # or 'fizz' for Fizz Mode
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 0.5
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+  placement:
+    westcoast:
+      pricing:
+        web:
+          token: CST
+          amount: 1
+deployment:
+  web:
+    westcoast:
+      profile: web
+      count: 1
+EOF
+```
+
+2. Deploy the configuration on Spheron Protocol, run:
+
+```sh
+sphnctl deployment create gpu.yml
+```
+
+Here is an example of how the result will look:
+
+```sh
+Checking ballance for wallet: 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+Validating SDL configuration.
+SDL validated.
+Sending configuration for provider matching.
+Deployment order created: [Tx Hash]
+Waiting for providers to bid on the deployment order...
+Bid found.
+Order matched successfully.
+Deployment created using wallet 0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8
+ lid: 44
+ provider: 0x6634d41cccBD1E1576Ed4c6226832521A66bF874
+ agreed price: 158747943694
+Sending the manifest for deployment…
+Deployment manifest sent, waiting for acknowledgment.
+Deployment is finished.
+```
+
+The `lid` that we get from the deployment is called **Lease ID** & 44 is the Lease ID in this example. This is the identifier that you need to use to access your deployment's logs and status.
+
+### Access Your Deployment
+To access your deployment / lease details, you need to run this command to fetch it:
+
+This will contain URL to access the deployment server, all the assigned ports and the URI to access it. With this you can check your deployment status.
+
+```sh
+sphnctl deployment get --lid 44
+```
+
+Here is an example of how the result will look:
+
+```sh
+Status of the deployment ID: 44
+Deployment details:
+ Status:  Matched
+ Provider:  avaaaa
+ Price per hour:  1.21222
+ Start time:  2024-07-25T10:10:12Z
+
+Services running:
+  web
+    URL: []
+    Ports:
+      - provider.provider.devnetasphn.com:42100 -> 8888 (TCP)
+    Replicas: 1/1 available, 1 ready
+    Host URI: provider.devnetasphn.com
+    Region: us-east
+    IPs: []
+```
+
+### Fetching Deployment Logs
+
+To fetch your deployment logs, you need to use the Lease ID.
+
+```sh
+sphnctl deployment logs --lid 44
+```
+
+Here is an example of how the result will look:
+
+```sh
+Here is the logs for the Lease ID: 44
+
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Entered start.sh with args: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/start-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/start-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Running hooks in: /usr/local/bin/before-notebook.d as uid: 1000 gid: 100
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Done running hooks in: /usr/local/bin/before-notebook.d
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] Executing the command: jupyter lab
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.753 ServerApp] Package jupyterlab took 0.0000s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [I 2024-07-02 15:19:39.776 ServerApp] Package jupyter_lsp took 0.0222s to import
+[0x2c11A76298A111B8cA8Db82205dc8f0A2688e6e8/46/1/1/0x6634d41cccBD1E1576Ed4c6226832521A66bF874][web-65cc59bb99-bq78t] [W 2024-07-02 15:19:39.776 ServerApp] A _jupyter_server_extension_points function was not found in jupyter_lsp. Instead, a _jupyter_server_extension_paths function was found and will be used for now. This function name will be deprecated in future releases of Jupyter Server.
+...
+```
+
+### Connect to the deployment shell
+
+To connect to the deployment shell, you need to run this command:
+
+```sh
+sphnctl deployment shell web /bin/sh --lid 44 --stdin --tty 
+```
+
+Once you run this command, you will be connected to the shell of the deployment.
+</Steps>
+
+<Callout type="info">
+**NOTE:** If the service name or command you need to pass contains spaces, enclose the entire string in quotes. This ensures it is treated as a single argument.
+</Callout>
+
+
+You can retrieve various information from the deployment or interact with your deployment you just made, such as:
+- [Fetching the deployment logs](/user-guide/protocol-cli#fetch-deployment-logs)
+- [Fetching the deployment events](/user-guide/protocol-cli#fetch-deployment-events)
+- [Connecting to the deployment shell](/user-guide/protocol-cli#connect-to-deployment-shell)
+- [Updating your deployment](/user-guide/protocol-cli#update-the-deployment)
+- [Closing your deployment](/user-guide/protocol-cli#close-deployment)
+
+Congratulations! Your app is now deployed and accessible. If you encounter any issues, reach out to [Spheron Discord Support](https://sphn.wiki/discord).
