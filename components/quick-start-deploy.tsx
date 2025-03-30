@@ -9,8 +9,14 @@ const QUICK_START_LIST = [
     body: "Understand how to deploy your app with Spheron Console.",
   },
   {
-    path: "/user-guide/deploy-your-app/with-cli",
+    path: "/user-guide/deploy-your-app/with-playground",
     emoji: "💻",
+    title: "Deploy with Playground",
+    body: "Understand how to deploy your app with Spheron Playground.",
+  },
+  {
+    path: "/user-guide/deploy-your-app/with-cli",
+    emoji: "🖥️",
     title: "Deploy with CLI",
     body: "Understand how to deploy your app with Spheron CLI.",
   }
