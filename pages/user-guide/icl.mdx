@@ -202,6 +202,14 @@ During the deployment you also pass duration to run the deployment which will be
 This will specify how much time the lease need to run and accordingly lock funds to continue to run the deployment. 
 When you close the deployment prematurely, then you will unlock the amount that has not been spent. 
 
+#### Lease Duration Extention
+
+To extend your lease, simply update the duration field in your `spheron.yaml` file and run the following command:
+```sh
+sphnctl deployment update --lid <LID> spheron.yaml
+```
+This will extend the duration of your deployment without requiring a server restart. The price will stay the same.
+
 ### Deployment Tier 
 During deployment, you have the option to specify the tiers on which you want your deployment to be placed, whether on a specific or generalized provider tier. This feature is beneficial for developers who need high reliability and are willing to pay a premium for high-tier providers. Conversely, users with less critical requirements can choose lower-tier providers at a reduced cost. During the testnet phase, there is no premium margin on deployment as we are still finalizing the idea.
 
