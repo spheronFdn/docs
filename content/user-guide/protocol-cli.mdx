@@ -150,11 +150,11 @@ Here is the private key of the wallet [address]:
 
 ## Escrow Account Overview
 
-You need to fund your wallet with some ETH to deploy anything on Spheron. We are currently deployed on Base Sepolia chain, you can try getting some ETH from the faucet or buy it from the market to pay for the transaction fees.
+You need to fund your wallet with some ETH to deploy anything on Spheron. We are currently deployed on Base Mainnet chain, you can try getting some ETH from the base mainnet known faucets or buy it from the market to pay for the transaction fees.
 
 ### Depositing Fund
 
-You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like USDT, you need to run this command:
+You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like USDC, you need to run this command:
 
 ```sh
 sphnctl payment deposit --amount [Amount] --token [Token Name]
@@ -163,7 +163,7 @@ sphnctl payment deposit --amount [Amount] --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl payment deposit --amount 50 --token USDT
+sphnctl payment deposit --amount 50 --token USDC
 ```
 
 Here is an example of how the result will look:
@@ -188,14 +188,14 @@ sphnctl payment withdraw --amount [Amount] --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl payment withdraw --amount 50 --token USDT
+sphnctl payment withdraw --amount 50 --token USDC
 ```
 
 Here is an example of how the result will look:
 
 ```bash
 Successfully withdrawn [Amount] [Token Name]! 
-Tx hash: https://arbiscan.io/tx/0xc33a13a0e5e07ca54fea6077f7d14052ac65cf36682983cc69eed16a162ab1f1
+Tx hash: https://basescan.org/tx/0xc33a13a0e5e07ca54fea6077f7d14052ac65cf36682983cc69eed16a162ab1f1
 
 If you want to deposit some other token, Please do this:
 sphnctl payment deposit --amount [Amount] --token [Token Name]
@@ -211,7 +211,7 @@ sphnctl wallet balance --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl wallet balance --token USDT
+sphnctl wallet balance --token USDC
 ```
 
 Here is an example of how the result will look:
@@ -220,7 +220,7 @@ Here is an example of how the result will look:
 This is your current balance for this token [Token Name]:
  Total: 443064994100000000
 
-Deposited USDT balance
+Deposited USDC balance
  Unlocked: 22929459
  Locked: 4164    
 ```
@@ -236,24 +236,24 @@ Here is an example of how the result will look:
 
 ```sh
 Available tokens:
-Token: ETH, Precision: 18, TokenAddress: 0x0000000000000000000000000000000000000000
-Token: USDT, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
+Token: USDC, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
+Token: uSPON, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
 ```
 
-## Setting Custom RPC
+## Setting Custom Base Mainnet RPC WSS URL
 
-To set a custom RPC, you need to run this command:
+To set a custom Base Mainnet RPC WSS URL, you need to run this command:
 
 ```sh
 sphnctl rpc set wss://[RPC URL]
 ```
 
-To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the RPC URL from there.
+To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the **Base Mainnet RPC URL** from there.
 
 **Example:**
 
 ```sh
-sphnctl rpc set wss://base-sepolia.g.alchemy.com/v2/your-api-key
+sphnctl rpc set wss://base-mainnet.g.alchemy.com/v2/your-api-key
 ```
 
 <Callout type="info">
@@ -304,7 +304,7 @@ profiles:
         region: us-east
       pricing:
         web:
-          token: CST
+          token: USDC
           amount: 1
 deployment:
   web:
@@ -323,6 +323,20 @@ To deploy on Spheron, run:
 sphnctl deployment create gpu.yml
 ```
 
+<Callout type="info">
+**Note:** If you're using the default public RPC with the CLI, your deployment might fail due to high latency and dropped events on the public endpoint. We strongly recommend setting up a private RPC (you can create one for free on platforms like QuickNode, Infura, or Alchemy).
+
+If you proceed with the default public RPC, you'll see a warning message prompting you to switch to a private RPC for better reliability.
+
+Something like this will be shown:
+
+```sh
+WARNING: You are using the default RPC URL, which may lead to deployment issues.
+Please follow the documentation to obtain a custom base mainnet RPC URL: https://docs.spheron.com/user-guide/protocol-cli#setting-custom-base-mainnet-rpc-wss-url
+Enter your custom base mainnet RPC URL here (click enter to continue with default one):
+```
+</Callout>
+
 Here is an example of how the result will look:
 
 ```sh
@@ -331,7 +345,7 @@ ICL validated.
 Sending configuration for Fizz Node matching.
 Duration of the deployment: 1h 
 Checking token deposit balance
-Deposit balance is sufficient: 16.537042 CST 
+Deposit balance is sufficient: 16.537042 USDC 
 Deployment order created: 0x451e28ec9006601058f357617a9b3b55db2d0736143e67297708c20df467ae77
 Waiting for Provider to bid on the deployment order...
 Bid found. 

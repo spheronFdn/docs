@@ -28,27 +28,37 @@ To begin, you must register your Fizz node on the Spheron network. Follow these 
      - Proximity to the gateway, make sure you choose the gateway which is nearest to you so that the latency is not too high for users who want to use your GPU / compute.
      - Try to select the recommended gateway in the list as the dashboard already selects the gateway based on your node preferences.
 
-4. To complete the registration, you'll need some ETH on the Spheron chain for gas fees. If you don't have any, you can get some from our faucet at [faucet.spheron.network](https://faucet.spheron.network).
-
 5. Now click on the "Register Your Fizz Node" button. 
 
-6. For the Stellar phase and beyond, node registration requires:
-   - A deposit of 0.02 ETH
+6. For the Stellar phase and beyond, you have two registration options:
+
+   **Option 1: Stellar NFT Registration (Recommended)**
+   - A deposit of 0.02 ETH to receive a Stellar NFT
+   - Get a 1.5x booster on all your points earned
    - This can be deposited on any of our supported mainnet chains:
      - Base
      - Arbitrum
      - ZkSync Era
      - BNB Chain
      - Ethereum
+   - The 1.5x booster significantly increases your earning potential and helps you progress through tiers faster
 
-7. Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+   **Option 2: Nebula NFT (Free Registration)**
+   - Register your node without any deposit
+   - Run your node normally without any point multiplier
+   - Standard point earning without any boosters
 
-8. Once you confirm all the transactions including the deposit, your node will be officially registered in the Spheron network, and you can proceed to the next steps.
+   We strongly recommend Option 1 (Stellar NFT) as the 1.5x booster provides substantial benefits to your earning potential and helps you progress through tiers much faster.
+
+7. If you select the Stellar NFT, Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+
+   If you select the Nebula NFT (Free Registration), you can proceed directly to the next step without any payment.
+
+8. Once you confirm the payment transaction (for Stellar NFT), your node will be officially registered in the Spheron network, and you can proceed to the next steps. No additional transactions are needed for either option.
 
 <Callout type="warning">
-Note: Please make sure to confirm all the transactions including the deposit, otherwise your node will not be registered and you might need to re-register your node.
+Note: Please note that we have removed the transaction requirement going forward for both options. So that you don't need to pay any gas fees for the registration. All the gas fees will be covered by the Spheron team.
 </Callout>
-
 
 ## Learn About Your System Specs / Resources
 
@@ -64,17 +74,17 @@ Before we start, you need to open something called the Terminal. It's like a spe
 Now that you have the Terminal open, you can type these magic words (we call them commands) to learn about your computer:
 
 - **Check Storage Type:**
-   ```
+   ```sh
    system_profiler SPStorageDataType
    ```
 
 - **Check Hardware Specifications:**
-   ```
+   ```sh
    system_profiler SPHardwareDataType
    ```
 
 - **Check GPU Type:**
-   ```
+   ```sh
    system_profiler SPDisplaysDataType
    ```
 
@@ -88,22 +98,22 @@ To use these commands:
 4. The computer will show you some information. That's what we're looking for!
 
 - **Check Storage Information:**
-   ```
+   ```sh
    df -h
    ```
 
 - **Get Detailed Hardware Information:**
-   ```
+   ```sh
    sudo lshw
    ```
 
 - **List CPU Information:**
-   ```
+   ```sh
    sudo lshw -class processor
    ```
 
 - **List Memory Details:**
-   ```
+   ```sh
    sudo lshw -class memory
    ```
 
@@ -112,23 +122,23 @@ To use these commands:
 After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
 
 1. Open your terminal or command prompt and run the following command in your terminal to install the Fizz CLI:
-```bash
+```sh
 curl -sL https://sphnctl.sh | bash  
 ```
-2. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
+2. Go to the Setup page on the Fizz Website. Click "Generate Command" to obtain your node-specific commands.
 ![Fizz Generate Command](/fizz-generate-command.webp)
 
 3. Use the below command to start your node, replacing the `...` with your node-specific token:
-```bash
+```sh
 sphnctl fizz start --token ...  
 ```
-4. Monitor your node’s logs to ensure it is running smoothly:
-```bash
+4. Monitor your node's logs to ensure it is running smoothly:
+```sh
 sphnctl fizz logs  
 ```
 5. Verify that the CLI and node versions are up-to-date by running the following command:
 
-```bash
+```sh
 sphnctl fizz version  
 ```
 
@@ -139,7 +149,7 @@ If your dashboard doesn't reflect the updated version immediately, refresh the p
 6. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
 7. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
 8. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
-```bash
+```sh
 sphnctl fizz status  
 ```
 9. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
@@ -155,93 +165,6 @@ sphnctl fizz status
 
 1. Before proceeding, ensure your NVIDIA drivers and CUDA version are up-to-date. Open your terminal and run:
 
-```bash
+```sh
 nvidia-smi
 ```
-![Nvidia SMI Command](/nvidia-smi.webp)
-
-2. If an update is required, visit the [official NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/) page to download and install the latest version.
-
-3. If WSL is already enabled, skip this step. Open PowerShell as an administrator and execute:
-
-```bash
-wsl --install
-```
-![Enable WSL Command](/enable-wsl.webp)
-
-This will Enable WSL, Set WSL 2 as the default version and Install a default Linux distribution. **Restart your system if prompted.**
-
-4. If your Linux distribution is outdated, install Ubuntu 22.04. Open the Microsoft Store and Search for Ubuntu 22.04.
-Install it.
-
-5. If Docker Desktop is already configured for WSL, skip this step. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) from the official website.
-During installation, select Use WSL 2 instead of Hyper-V. **Restart if prompted.**
-
-6. Open Docker Desktop and Go to Settings > General. Ensure WSL 2 is selected as the backend. Enable integration with Ubuntu. Click "Apply & Restart".
-![Enable Docker Ubuntu](/enable-docker-ubuntu.webp)
-
-7. Go to Resource > WSL Integration > Enable Ubuntu. Click "Apply & Restart".
-![Enable Docker Ubuntu - 2](/enable-docker-ubuntu-2.webp)
-
-8 Launch Ubuntu as Administrator & Run the following command to install the Spheron CLI
-```bash
-curl -sL https://sphnctl.sh | bash
-```
-9. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
-![Fizz Generate Command](/generate-command-windows.webp)
-
-10. Use the below command to start your node, replacing the `...` with your node-specific token:
-```bash
-sphnctl fizz start --token ...  
-```
-11. Monitor your node's logs to ensure it is running smoothly:
-```bash
-sphnctl fizz logs  
-```
-12. Verify that the CLI and node versions are up-to-date by running the following command:
-
-```bash
-sphnctl fizz version  
-```
-
-<Callout type="info">
-If your dashboard doesn't reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
-</Callout>
-
-13. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
-14. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
-15. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
-```bash
-sphnctl fizz status  
-```
-16. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
-17. The system will now perform checks to validate if your node is active and correctly configured.
-
-<Callout type="info">
-  The validation process may take a few minutes. During this time, the system verifies your node's connectivity, resource availability, and configuration.
-</Callout>
-
-18. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
-
-## Accessing Your Dashboard
-
-After your node has been successfully validated and marked active, you'll be redirected to the main Fizz node dashboard. This dashboard is your control center for managing your node and tracking your earnings. Here's what you can expect:
-
-- **Node Status**: Real-time information about your node's activity and health.
-- **Resource Utilization**: Graphs and statistics show how your node's resources are used.
-- **Earnings Tracker**: A detailed breakdown of your points and earnings from providing resources to the network.
-- **Settings and Configuration**: Options to adjust your node's resource settings or modify available resources.
-
-- **Node Status**: Provides real-time information about your node, including its current state (Active or Inactive), uptime, geographical location, and operating system. Also, you can view your node's unique identifier, associated address, and CLI status.
-- **Upgrade Notification**: Alerts you to update your Fizz Node to the latest version to maintain optimal performance and avoid penalties like losing FN points. Includes a direct link to the setup page for easy upgrading.
-- **Resource Tiers**: Displays your progress across various tiers, highlighting achievements and current tier level. For example, an “Lunar Fizz Operator" badge signifies special recognition for Phase 2 Fizzers.
-- **Points Summary**: Shows key metrics, including the Phase 1 CPU Multiplier, points earned per era, and total points.
-- **Resource Allocation**: Detailed insights into your node's resources, including CPU, RAM, and Storage, with values for utilized, allocatable, and claimed resources.
-- **Bandwidth Usage**: A live gauge shows your node's current bandwidth performance. 
-- **Gateway Information**: Displays the active gateway your node is connected to, such as "spheron-testnet."
-
-Check your dashboard regularly to ensure your node performs optimally and stay informed about your earnings in the Spheron network.
-
-<Callout type="warning">
-Remember to keep your node running and maintain a stable internet connection to maximize your deployment opportunities and earnings.
-</Callout>

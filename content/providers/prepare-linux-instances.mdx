@@ -92,7 +92,7 @@ Following these steps will help maintain the proper functionality and security o
 ### Step 1: Clone the Repository
 Clone this repo onto your local system: GitHub - [spheronFdn/provider-deployment](https://github.com/spheronFdn/provider-deployment)
 
-```
+```sh
 git clone https://github.com/spheronFdn/provider-deployment
 ```
 Repo has the following file structure: 
@@ -131,14 +131,14 @@ Properly set up server IP, user_name, and the SSH key. Make sure the SSH key has
 ### Step 3: Edit Playbook
 Now edit the **hostname** in `playbook/playbook.yaml`
 
-```
+```sh
 hostname: provider.example.com        ## this can be your registered domain name that will be used for the provider
 ```
 
 ### Step 4: Execute the Playbook
 Now execute the playbook 
 
-```
+```sh
 cd playbook
 ansible-playbook -i inventory.ini playbook.yml
 ```

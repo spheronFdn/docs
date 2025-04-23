@@ -208,6 +208,15 @@ When you close the deployment prematurely, then you will unlock the amount that 
 - The duration gets refreshed and not added to the existing duration.
 </Callout>
 
+### Lease Duration Extension
+To extend your lease, simply update the duration field in your spheron.yaml file and run the following command:
+
+```sh
+sphnctl deployment update --lid <LID> spheron.yaml
+```
+
+This will extend the duration of your deployment without requiring a server restart. The price will stay the same but the duration will be extended.
+
 ### Deployment Tier 
 During deployment, you have the option to specify the tiers on which you want your deployment to be placed, whether on a specific or generalized provider tier. This feature is beneficial for developers who need high reliability and are willing to pay a premium for high-tier providers. Conversely, users with less critical requirements can choose lower-tier providers at a reduced cost. During the testnet phase, there is no premium margin on deployment as we are still finalizing the idea.
 
@@ -293,11 +302,11 @@ useast:
     region: us-east
   pricing:
     web:
-      token: USDT
+      token: USDC
       amount: 80
 ```
 
-This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 80 USDT per hour for the web compute profiles.
+This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 80 USDC per hour for the web compute profiles.
 
 Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
 
@@ -698,7 +707,7 @@ profiles:
         desired_fizz: "0xabcd...ef12"                # Specific fizz node
       pricing:
         web:
-          token: USDT
+          token: USDC
           amount: 8
 ```
 
