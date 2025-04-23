@@ -132,6 +132,22 @@ curl -sL https://sphnctl.sh | bash
 ```sh
 sphnctl fizz start --token ...  
 ```
+
+If you're experiencing Docker Hub rate limit errors while running your Fizz Node, you can authenticate using your Docker Hub credentials to bypass these limitations. This is particularly useful if you have a Docker Hub Pro account. To authenticate, use the following command format:
+
+```bash
+sphnctl fizz start --token <your-token> -u <dockerhub-username> -p <dockerhub-password-or-token>
+```
+
+Replace:
+- `<your-token>` with your Fizz Node token
+- `<dockerhub-username>` with your Docker Hub username
+- `<dockerhub-password-or-token>` with your Docker Hub password or access token
+
+<Callout type="info">
+**Note:** For security reasons, it's recommended to use a Docker Hub access token instead of your password. You can generate an access token from your Docker Hub account settings.
+</Callout>
+
 4. Monitor your node's logs to ensure it is running smoothly:
 ```sh
 sphnctl fizz logs  
@@ -165,6 +181,109 @@ sphnctl fizz status
 
 1. Before proceeding, ensure your NVIDIA drivers and CUDA version are up-to-date. Open your terminal and run:
 
-```sh
+```bash
 nvidia-smi
 ```
+![Nvidia SMI Command](/nvidia-smi.webp)
+
+2. If an update is required, visit the [official NVIDIA Drivers](https://www.nvidia.com/en-us/drivers/) page to download and install the latest version.
+
+3. If WSL is already enabled, skip this step. Open PowerShell as an administrator and execute:
+
+```bash
+wsl --install
+```
+![Enable WSL Command](/enable-wsl.webp)
+
+This will Enable WSL, Set WSL 2 as the default version and Install a default Linux distribution. **Restart your system if prompted.**
+
+4. If your Linux distribution is outdated, install Ubuntu 22.04. Open the Microsoft Store and Search for Ubuntu 22.04.
+Install it.
+
+5. If Docker Desktop is already configured for WSL, skip this step. [Download Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) from the official website.
+During installation, select Use WSL 2 instead of Hyper-V. **Restart if prompted.**
+
+6. Open Docker Desktop and Go to Settings > General. Ensure WSL 2 is selected as the backend. Enable integration with Ubuntu. Click "Apply & Restart".
+![Enable Docker Ubuntu](/enable-docker-ubuntu.webp)
+
+7. Go to Resource > WSL Integration > Enable Ubuntu. Click "Apply & Restart".
+![Enable Docker Ubuntu - 2](/enable-docker-ubuntu-2.webp)
+
+8 Launch Ubuntu as Administrator & Run the following command to install the Spheron CLI
+```bash
+curl -sL https://sphnctl.sh | bash
+```
+9. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
+![Fizz Generate Command](/generate-command-windows.webp)
+
+10. Use the below command to start your node, replacing the `...` with your node-specific token:
+```bash
+sphnctl fizz start --token ...  
+```
+
+If you're experiencing Docker Hub rate limit errors while running your Fizz Node, you can authenticate using your Docker Hub credentials to bypass these limitations. This is particularly useful if you have a Docker Hub Pro account. To authenticate, use the following command format:
+
+```bash
+sphnctl fizz start --token <your-token> -u <dockerhub-username> -p <dockerhub-password-or-token>
+```
+
+Replace:
+- `<your-token>` with your Fizz Node token
+- `<dockerhub-username>` with your Docker Hub username
+- `<dockerhub-password-or-token>` with your Docker Hub password or access token
+
+<Callout type="info">
+**Note:** For security reasons, it's recommended to use a Docker Hub access token instead of your password. You can generate an access token from your Docker Hub account settings.
+</Callout>
+
+11. Monitor your node's logs to ensure it is running smoothly:
+```bash
+sphnctl fizz logs  
+```
+12. Verify that the CLI and node versions are up-to-date by running the following command:
+
+```bash
+sphnctl fizz version  
+```
+
+<Callout type="info">
+If your dashboard doesn't reflect the updated version immediately, refresh the page. The version information should update within 2-3 minutes.
+</Callout>
+
+13. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
+14. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
+15. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
+```bash
+sphnctl fizz status  
+```
+16. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
+17. The system will now perform checks to validate if your node is active and correctly configured.
+
+<Callout type="info">
+  The validation process may take a few minutes. During this time, the system verifies your node's connectivity, resource availability, and configuration.
+</Callout>
+
+18. Once your node is confirmed active, you will be automatically directed to your Fizz dashboard.
+
+## Accessing Your Dashboard
+
+After your node has been successfully validated and marked active, you'll be redirected to the main Fizz node dashboard. This dashboard is your control center for managing your node and tracking your earnings. Here's what you can expect:
+
+- **Node Status**: Real-time information about your node's activity and health.
+- **Resource Utilization**: Graphs and statistics show how your node's resources are used.
+- **Earnings Tracker**: A detailed breakdown of your points and earnings from providing resources to the network.
+- **Settings and Configuration**: Options to adjust your node's resource settings or modify available resources.
+
+- **Node Status**: Provides real-time information about your node, including its current state (Active or Inactive), uptime, geographical location, and operating system. Also, you can view your node's unique identifier, associated address, and CLI status.
+- **Upgrade Notification**: Alerts you to update your Fizz Node to the latest version to maintain optimal performance and avoid penalties like losing FN points. Includes a direct link to the setup page for easy upgrading.
+- **Resource Tiers**: Displays your progress across various tiers, highlighting achievements and current tier level. For example, an “Lunar Fizz Operator" badge signifies special recognition for Phase 2 Fizzers.
+- **Points Summary**: Shows key metrics, including the Phase 1 CPU Multiplier, points earned per era, and total points.
+- **Resource Allocation**: Detailed insights into your node's resources, including CPU, RAM, and Storage, with values for utilized, allocatable, and claimed resources.
+- **Bandwidth Usage**: A live gauge shows your node's current bandwidth performance. 
+- **Gateway Information**: Displays the active gateway your node is connected to, such as "spheron-testnet."
+
+Check your dashboard regularly to ensure your node performs optimally and stay informed about your earnings in the Spheron network.
+
+<Callout type="warning">
+Remember to keep your node running and maintain a stable internet connection to maximize your deployment opportunities and earnings.
+</Callout>
