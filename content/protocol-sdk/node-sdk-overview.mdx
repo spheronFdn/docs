@@ -80,13 +80,13 @@ The Escrow Module handles operations related to the escrow system, allowing user
 Fetches the user's balance from the escrow contract for a given token and wallet address.
 
 ```javascript
-const balance = await sdk.escrow.getUserBalance('USDT', '0xYourWalletAddress');
-console.log('Your USDT balance in escrow is:', balance);
+const balance = await sdk.escrow.getUserBalance('USDC', '0xYourWalletAddress');
+console.log('Your USDC balance in escrow is:', balance);
 ```
 
 **Parameters:**
 
-- `token` (string): The token symbol. Supported tokens are `USDT`, `USDC`, `DAI`, and `WETH`.
+- `token` (string): The token symbol. Supported tokens are `USDC`, `uSPON`. Learn more about the tokens [here](/user-guide/supports#supported-payment-tokens).
 - `walletAddress` (string, optional): The wallet address to query. If not provided, the wallet associated with the provided private key will be used.
 
 **Returns:**
@@ -113,7 +113,7 @@ console.log('Deposit transaction receipt:', depositReceipt);
 
 **Parameters:**
 
-- `token` (string): The token symbol to withdraw (`USDT`, `USDC`, or any other token supported by the Spheron network).
+- `token` (string): The token symbol to deposit (`USDC`, `uSPON` or any other token supported by the Spheron network).
 - `amount` (number): The amount to deposit.
 - `onSuccessCallback` (function, optional): Callback function for successful deposit.
 - `onFailureCallback` (function, optional): Callback function for failed deposit.
@@ -132,7 +132,7 @@ Withdraws a specified amount of tokens from the escrow contract.
 
 ```javascript
 const withdrawReceipt = await sdk.escrow.withdrawBalance({
-  token: 'DAI',
+  token: 'USDC',
   amount: 50,
 });
 console.log('Withdrawal transaction receipt:', withdrawReceipt);
@@ -140,7 +140,7 @@ console.log('Withdrawal transaction receipt:', withdrawReceipt);
 
 **Parameters:**
 
-- `token` (string): The token symbol to withdraw (`USDT`, `USDC`, or any other token supported by the Spheron network).
+- `token` (string): The token symbol to withdraw (`USDC`, `uSPON` or any other token supported by the Spheron network).
 - `amount` (number): The amount to withdraw.
 - `onSuccessCallback` (function, optional): Callback function for successful withdrawal.
 - `onFailureCallback` (function, optional): Callback function for failed withdrawal.
@@ -210,7 +210,7 @@ profiles:
         region: us-central
       pricing:
         py-cuda:
-          token: USDT
+          token: USDC
           amount: 10
 
 deployment:
@@ -285,7 +285,7 @@ profiles:
         region: us-central
       pricing:
         py-cuda:
-          token: USDT
+          token: USDC
           amount: 10
 
 deployment:

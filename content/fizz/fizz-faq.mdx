@@ -661,3 +661,20 @@ This will display the logs of the Fizz Node.
 
 #### 108. Why is my Fizz Node showing Paused Status? How will it go to normal status?
 Your node will go to Paused status if it performance is showing **No** for more than 5 days consecutively. To go to normal status, your node needs to show **Yes** for couple of days consecutively, it will automatically go to normal status. No need to do anything from your side.
+
+#### 109. How can I resolve Docker Hub rate limit errors when running my Fizz Node?
+If you're experiencing Docker Hub rate limit errors while running your Fizz Node, you can authenticate using your Docker Hub credentials to bypass these limitations. This is particularly useful if you have a Docker Hub Pro account. To authenticate, use the following command format:
+
+```bash
+sphnctl fizz start --token <your-token> -u <dockerhub-username> -p <dockerhub-password-or-token>
+```
+
+Replace:
+- `<your-token>` with your Fizz Node token
+- `<dockerhub-username>` with your Docker Hub username
+- `<dockerhub-password-or-token>` with your Docker Hub password or access token
+
+<Callout type="info">
+**Note:** For security reasons, it's recommended to use a Docker Hub access token instead of your password. You can generate an access token from your Docker Hub account settings.
+</Callout>
+

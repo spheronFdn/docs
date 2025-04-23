@@ -28,27 +28,37 @@ To begin, you must register your Fizz node on the Spheron network. Follow these 
      - Proximity to the gateway, make sure you choose the gateway which is nearest to you so that the latency is not too high for users who want to use your GPU / compute.
      - Try to select the recommended gateway in the list as the dashboard already selects the gateway based on your node preferences.
 
-4. To complete the registration, you'll need some ETH on the Spheron chain for gas fees. If you don't have any, you can get some from our faucet at [faucet.spheron.network](https://faucet.spheron.network).
-
 5. Now click on the "Register Your Fizz Node" button. 
 
-6. For the Stellar phase and beyond, node registration requires:
-   - A deposit of 0.02 ETH
+6. For the Stellar phase and beyond, you have two registration options:
+
+   **Option 1: Stellar NFT Registration (Recommended)**
+   - A deposit of 0.02 ETH to receive a Stellar NFT
+   - Get a 1.5x booster on all your points earned
    - This can be deposited on any of our supported mainnet chains:
      - Base
      - Arbitrum
      - ZkSync Era
      - BNB Chain
      - Ethereum
+   - The 1.5x booster significantly increases your earning potential and helps you progress through tiers faster
 
-7. Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+   **Option 2: Nebula NFT (Free Registration)**
+   - Register your node without any deposit
+   - Run your node normally without any point multiplier
+   - Standard point earning without any boosters
 
-8. Once you confirm all the transactions including the deposit, your node will be officially registered in the Spheron network, and you can proceed to the next steps.
+   We strongly recommend Option 1 (Stellar NFT) as the 1.5x booster provides substantial benefits to your earning potential and helps you progress through tiers much faster.
+
+7. If you select the Stellar NFT, Click on **"Proceed with Payment"** button. [Why taking a fee?](/fizz/fizz-phase#why-didnt-earlier-phases-have-a-registration-fee-and-why-is-there-a-fee-in-phase-3)
+
+   If you select the Nebula NFT (Free Registration), you can proceed directly to the next step without any payment.
+
+8. Once you confirm the payment transaction (for Stellar NFT), your node will be officially registered in the Spheron network, and you can proceed to the next steps. No additional transactions are needed for either option.
 
 <Callout type="warning">
-Note: Please make sure to confirm all the transactions including the deposit, otherwise your node will not be registered and you might need to re-register your node.
+Note: Please note that we have removed the transaction requirement going forward for both options. So that you don't need to pay any gas fees for the registration. All the gas fees will be covered by the Spheron team.
 </Callout>
-
 
 ## Learn About Your System Specs / Resources
 
@@ -64,17 +74,17 @@ Before we start, you need to open something called the Terminal. It's like a spe
 Now that you have the Terminal open, you can type these magic words (we call them commands) to learn about your computer:
 
 - **Check Storage Type:**
-   ```
+   ```sh
    system_profiler SPStorageDataType
    ```
 
 - **Check Hardware Specifications:**
-   ```
+   ```sh
    system_profiler SPHardwareDataType
    ```
 
 - **Check GPU Type:**
-   ```
+   ```sh
    system_profiler SPDisplaysDataType
    ```
 
@@ -88,22 +98,22 @@ To use these commands:
 4. The computer will show you some information. That's what we're looking for!
 
 - **Check Storage Information:**
-   ```
+   ```sh
    df -h
    ```
 
 - **Get Detailed Hardware Information:**
-   ```
+   ```sh
    sudo lshw
    ```
 
 - **List CPU Information:**
-   ```
+   ```sh
    sudo lshw -class processor
    ```
 
 - **List Memory Details:**
-   ```
+   ```sh
    sudo lshw -class memory
    ```
 
@@ -112,23 +122,39 @@ To use these commands:
 After successfully registering your node, you need to set up and run the Fizz node client on your machine. This client software connects your node to the Spheron network and manages resource allocation. Follow these steps:
 
 1. Open your terminal or command prompt and run the following command in your terminal to install the Fizz CLI:
-```bash
+```sh
 curl -sL https://sphnctl.sh | bash  
 ```
-2. Go to the Setup page on the Fizz Website. Click “Generate Command” to obtain your node-specific commands.
+2. Go to the Setup page on the Fizz Website. Click "Generate Command" to obtain your node-specific commands.
 ![Fizz Generate Command](/fizz-generate-command.webp)
 
 3. Use the below command to start your node, replacing the `...` with your node-specific token:
-```bash
+```sh
 sphnctl fizz start --token ...  
 ```
-4. Monitor your node’s logs to ensure it is running smoothly:
+
+If you're experiencing Docker Hub rate limit errors while running your Fizz Node, you can authenticate using your Docker Hub credentials to bypass these limitations. This is particularly useful if you have a Docker Hub Pro account. To authenticate, use the following command format:
+
 ```bash
+sphnctl fizz start --token <your-token> -u <dockerhub-username> -p <dockerhub-password-or-token>
+```
+
+Replace:
+- `<your-token>` with your Fizz Node token
+- `<dockerhub-username>` with your Docker Hub username
+- `<dockerhub-password-or-token>` with your Docker Hub password or access token
+
+<Callout type="info">
+**Note:** For security reasons, it's recommended to use a Docker Hub access token instead of your password. You can generate an access token from your Docker Hub account settings.
+</Callout>
+
+4. Monitor your node's logs to ensure it is running smoothly:
+```sh
 sphnctl fizz logs  
 ```
 5. Verify that the CLI and node versions are up-to-date by running the following command:
 
-```bash
+```sh
 sphnctl fizz version  
 ```
 
@@ -139,7 +165,7 @@ If your dashboard doesn't reflect the updated version immediately, refresh the p
 6. Once you've verified the node is running, return to the setup page on the Spheron Fizz App.
 7. On the setup page, you'll see a "Check Status" button and a switch to "Autocheck status." 
 8. Click the "Check Status" button to manually initiate a status check for your Fizz node. Or you can run the below command on CLI.
-```bash
+```sh
 sphnctl fizz status  
 ```
 9. Alternatively, you can toggle on the "Autocheck status" switch to have the system periodically check your node's status without manual intervention.
@@ -194,6 +220,22 @@ curl -sL https://sphnctl.sh | bash
 ```bash
 sphnctl fizz start --token ...  
 ```
+
+If you're experiencing Docker Hub rate limit errors while running your Fizz Node, you can authenticate using your Docker Hub credentials to bypass these limitations. This is particularly useful if you have a Docker Hub Pro account. To authenticate, use the following command format:
+
+```bash
+sphnctl fizz start --token <your-token> -u <dockerhub-username> -p <dockerhub-password-or-token>
+```
+
+Replace:
+- `<your-token>` with your Fizz Node token
+- `<dockerhub-username>` with your Docker Hub username
+- `<dockerhub-password-or-token>` with your Docker Hub password or access token
+
+<Callout type="info">
+**Note:** For security reasons, it's recommended to use a Docker Hub access token instead of your password. You can generate an access token from your Docker Hub account settings.
+</Callout>
+
 11. Monitor your node's logs to ensure it is running smoothly:
 ```bash
 sphnctl fizz logs  

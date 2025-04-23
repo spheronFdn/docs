@@ -71,10 +71,6 @@ We've noticed multiple instances where providers did not correctly fill out the 
 
 2. In the `provider-config.json`, ensure you update the GPU section properly. To fill this data, please refer to the [GPU support](/user-guide/supports#gpu-resource-tiering) section to get the GPU name.
 
-<Callout type="info">
-**Note:** There have been instances where providers make mistakes with the GPU ID. The `id` mentioned in the `provider-config.json` is the GPU ID specific to a particular GPU model. For example, for an RTX 4090 (24 GB), the ID would be 40.
-</Callout>
-
 3. To update the provider metadata, run:
 ```sh
 sphnctl provider update --config /home/spheron/.spheron/provider-config.json

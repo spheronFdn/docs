@@ -22,7 +22,7 @@ const META: MetaRecord = {
   "user-guide": (
     <span className="flex items-center gap-2">
       <PackageIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
-      Deployment
+      Rent a GPU
     </span>
   ),
   guides: (
@@ -47,7 +47,7 @@ const META: MetaRecord = {
   // },
   "-------": {
     type: "separator",
-    title: "NODE DOCS",
+    title: "SUPPLY DOCS",
   },
   providers: (
     <span className="flex items-center gap-2">

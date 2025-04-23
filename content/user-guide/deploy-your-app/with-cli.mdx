@@ -51,30 +51,22 @@ Once created, the wallet will be saved locally at `~/.spheron`. You can access t
 The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/user-guide/protocol-cli#changing-your-wallet) section.
 You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/user-guide/protocol-cli#export-the-private-key-of-wallet).
 
-### Get Some test tokens from the Team and ETH from the Faucet
+### Get USDC tokens and ETH on Base Mainnet
 
-1. Visit the [Spheron Faucet](https://faucet.spheron.network/). 
+1. First, get some ETH gas tokens on the Base mainnet and send it to your wallet address.
 
-![Spheron Faucet](/spheron-faucet.webp)
+2. Then, get some USDC tokens on the Base mainnet and send it to your wallet address.
 
-2. First, get some ETH gas tokens on the Spheron chain:
-   - Select ETH from the list in the faucet.
-   - Enter the wallet address of the wallet you generated in the previous section.
-   - Click the "Send Token" button to start the transaction.
-
-3. Wait for the transaction to be confirmed.
-
-4. Reach out to the Spheron team on Discord's [#build-chat](https://sphn.wiki/discord) channel to get some USDT, USDC, or CST tokens.
-
-5. Check if you got the test ETH and USDT tokens in your wallet:
+3. Check if you got the ETH for gas and USDC tokens in your wallet:
 ```
-sphnctl wallet balance --token CST
+sphnctl wallet balance --token USDC
 ```
-This will show both USDT and ETH balances in your wallet.
+This will show both USDC and ETH balances in your wallet.
 
 <Callout type="info">
 **Note:** 
-- You won't get USDT, USDC, or CST tokens from the Spheron Faucet. You will need to reach out to the Spheron team to get these tokens on the Discord's [#build-chat](https://sphn.wiki/discord) channel.
+- You need to send ETH to your wallet address to pay for the gas fees.
+- You can get some credit token (uSPON) from the Spheron team if you are building something super amazing. Reach out to us on [Discord](https://sphn.wiki/discord) for that.
 - Make sure to mention what you are building and how you are using Spheron Protocol, which compute or GPU you want to use and the duration you want to use it for. And finally, mention the wallet address you want to get the tokens in.
 </Callout>
 
@@ -82,23 +74,42 @@ This will show both USDT and ETH balances in your wallet.
 
 Depositing your tokens into the escrow is the first step to deploying your app on the Spheron Protocol. Ensure you have sufficient tokens in your escrow balance to lock the necessary funds for the deployment. Please follow the instructions below to proceed:
 
-1. Deposit USDT / any other token to the escrow wallet:
+1. Deposit USDC / uSPON / any other token to the escrow wallet:
 
 ```
-sphnctl payment deposit --amount 10 --token CST
+sphnctl payment deposit --amount 10 --token USDC
 ```
 Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) section.
 
 2. Now check if you have a balance in an unlocked state in your wallet:
 
 ```
-sphnctl wallet balance --token CST
+sphnctl wallet balance --token USDC
 ```
 
 <Callout type="info">
 **Note:** You can withdraw tokens from your unlocked balance at any time. However, if the tokens are in a locked state, you will not be able to withdraw them until you close your deployment. Upon closing, the locked tokens will be returned to the unlocked state after deducting provider charges and protocol fees.
 </Callout>
 
+### Set the private Base Mainnet RPC WSS URL
+
+Before deploying, you should set the private Base Mainnet RPC WSS URL by running the following command:
+
+```sh
+sphnctl rpc set [private RPC URL]
+```
+
+To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the **Base Mainnet RPC URL** from there.
+
+**Example:**
+
+```sh
+sphnctl rpc set wss://base-mainnet.g.alchemy.com/v2/your-api-key
+```
+
+<Callout type="info">
+**Note:** The RPC URL should be in the format of `wss://[RPC URL]`. You need to get the websocket URL from the RPC provider.
+</Callout>
 
 ### Deploy an app
 
@@ -157,7 +168,7 @@ profiles:
     westcoast:
       pricing:
         web:
-          token: CST
+          token: USDC
           amount: 1
 deployment:
   web:
@@ -167,10 +178,23 @@ deployment:
 EOF
 ```
 
-2. Deploy the configuration on Spheron Protocol, run:
+3. Deploy the configuration on Spheron Protocol, run:
 
 ```sh
 sphnctl deployment create gpu.yml
+```
+
+<Callout type="info">
+**Note:** If you're using the default public RPC with the CLI, your deployment might fail due to high latency and dropped events on the public endpoint. We strongly recommend setting up a private RPC (you can create one for free on platforms like QuickNode, Infura, or Alchemy).
+</Callout>
+
+If you proceed with the default public RPC, you'll see a warning message prompting you to switch to a private RPC for better reliability.
+Something like this will be shown:
+
+```sh
+WARNING: You are using the default RPC URL, which may lead to deployment issues.
+Please follow the documentation to obtain a custom base mainnet RPC URL: https://docs.spheron.com/user-guide/protocol-cli#setting-custom-base-mainnet-rpc-wss-url
+Enter your custom base mainnet RPC URL here (click enter to continue with default one):
 ```
 
 Here is an example of how the result will look:
@@ -255,10 +279,17 @@ Here is the logs for the Lease ID: 44
 To connect to the deployment shell, you need to run this command:
 
 ```sh
-sphnctl deployment shell web /bin/sh --lid 44 --stdin --tty 
+sphnctl deployment shell web /bin/sh --lid <LID> --stdin --tty 
 ```
 
 Once you run this command, you will be connected to the shell of the deployment.
+
+You can now run any command you want to interact with your deployment. For example, you can check the GPU count by running:
+
+```sh
+nvidia-smi
+```
+
 </Steps>
 
 <Callout type="info">

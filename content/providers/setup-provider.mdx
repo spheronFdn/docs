@@ -12,7 +12,7 @@ Follow the steps below to complete the setup.
 
 Use the following command to SSH into your provider instance:
 
-```
+```sh
 ssh -i [ssh_key] root@[provider-ip]
 ```
 
@@ -42,30 +42,30 @@ ssh -i [ssh_key] root@[provider-ip]
 
 1. Use the following command to SSH into your provider instance
 
-```
+```sh
 ssh -i [ssh_key] root@[provider-ip]
 ```
 
 2. Change user to `spheron`
 
-```
+```sh
 sudo su spheron
 ```
-```
+```sh
 cd
 ```
 3. Change the wallet configuration to default wallet.
-```
+```sh
 sphnctl wallet use --name wallet --key-secret testPassword
 ```
 
 4. Run the following command to get your wallet address. 
 
-```
+```sh
 sphnctl wallet current
 ```
 You will receive output similar to: 
-```
+```sh
 Currently using account wallet:
  path: /home/spheron/.spheron/wallet.json
  address: 0xff8B0b7ff6Db1E90dd3DcDfd337ae30E2a4149D1
@@ -77,7 +77,7 @@ Currently using account wallet:
 <Callout type="info">
 To retrieve the private key of your wallet, run the following command:
 
-```
+```sh
 sphnctl wallet private-key
 ```
 
@@ -86,7 +86,7 @@ And import it in your metamask or you can directly copy the content in ` ~/.sphe
 
 6. Run the following command to check the balance of your wallet:
 
-```
+```sh
 sphnctl wallet balance
 ```
 
@@ -154,12 +154,12 @@ You can edit the values to suit your requirements, but do not change the keys. T
 Once you have updated the configuration values, create a `provider-config.json` file for your provider at `/home/spheron/.spheron/provider-config.json`. To do this:
 
 1. Switch to the spheron user:
-```
+```sh
 sudo su spheron
 ```
 
 2. Open the configuration file in a text editor:
-```
+```sh
 vi /home/spheron/.spheron/provider-config.json
 ```
 
@@ -169,19 +169,19 @@ vi /home/spheron/.spheron/provider-config.json
 
 Before you register, please ensure you set the wallet you intend to use for the provider. You can either create a new wallet or use the default one generated for you. For more details, refer to the [Wallet Configurations](/user-guide/protocol-cli#wallet-configurations) section.
 
-```
+```sh
 sphnctl wallet use --name wallet --key-secret testPassword
 ```
 
 Next, register your provider, use the following command:
 
-```
+```sh
 sphnctl provider add --config /home/spheron/.spheron/provider-config.json
 ```
 
 <Callout type="info">
 Note: You can modify and change provider details using below command:
-```
+```sh
 sphnctl provider update --config /home/spheron/.spheron/provider-config.json
 ```
 </Callout>
@@ -189,7 +189,7 @@ sphnctl provider update --config /home/spheron/.spheron/provider-config.json
 ## Set provider attributes
 You need to set provider attributes, to activate Spheron liveness points:
 
-```
+```sh
 sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.json
 ```
 
@@ -197,7 +197,7 @@ sphnctl provider set-attribute --config /home/spheron/.spheron/provider-config.j
 **Note:** This step is crucial for providers to start receiving challenges from the slark node for verification. Successfully passing these challenges enables providers to earn liveness points from the protocol. If you encounter any issues, please reach out to the team for assistance.
 
 You can check the attributes that have been set using this command:
-```
+```sh
 sphnctl provider get-attribute --category ["GPU"/"CPU"]
 ```
 </Callout>
@@ -206,7 +206,7 @@ sphnctl provider get-attribute --category ["GPU"/"CPU"]
 
 Setup the environment by running command below.
 
-```
+```sh
 cd /home/spheron
 
 export KUBECONFIG=/home/spheron/.kube/kubeconfig
@@ -232,7 +232,7 @@ kubectl apply -f crd.yaml
 
 Run the below commean to setting up Ingress.
 
-```
+```sh
 helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
     --namespace ingress-nginx --create-namespace \
     -f ingress-nginx-custom.yaml
@@ -249,7 +249,7 @@ Note: Before you start the next step, please be aware that it applies exclusivel
 
 1. Start with the below script to setup the helm chart for the GPU provider deployment.
 
-```
+```sh
 helm repo add nvidia https://helm.ngc.nvidia.com/nvidia
 helm repo add nvdp https://nvidia.github.io/k8s-device-plugin
 
@@ -277,10 +277,10 @@ The script we executed in the initial steps creates a configuration file at `/et
 
 2. For creating the configuration file use the following command. Run the command one by one:
 
-```
+```sh
 sudo su
 ```
-```
+```sh
 cat > /etc/rancher/k3/config.yaml <<'EOF'
 containerd_additional_runtimes:
   - name: nvidia
@@ -291,12 +291,12 @@ containerd_additional_runtimes:
       BinaryName: '/usr/bin/nvidia-container-runtime'
 EOF
 ```
-```
+```sh
 sudo su spheron
 ```
 3. Now create a GPU test pod to check if the GPU is configured successfully with Kubernetes. Run the command one by one:
 
-```
+```sh
 cat > gpu-test-pod.yaml << EOF
 apiVersion: v1
 kind: Pod
@@ -320,7 +320,7 @@ spec:
       value: all
 EOF
 ```
-```
+```sh
 kubectl apply -f gpu-test-pod.yaml
 echo "Waiting 60 seconds for the test pod to start..."
 sleep 60
@@ -332,7 +332,7 @@ kubectl delete pod nbody-gpu-benchmark
 
 4. Fetch the node name using the following command to check if your nodes are configured properly:
 
-```
+```sh
 kubectl get nodes
 ```
 
@@ -346,10 +346,10 @@ DOMAIN=[provider.devnetdsphn.com]
 
 Install the helm charts:
 
-```
+```sh
 sudo su spheron
 ```
-```
+```sh
 cd /home/spheron/provider-helm-charts/charts
 REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
 DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
@@ -379,7 +379,7 @@ kubectl rollout restart statefulset/spheron-provider -n spheron-services
 
 Install the hostname and inventory operators
 
-```
+```sh
 helm upgrade --install spheron-hostname-operator ./spheron-hostname-operator -n spheron-services
 helm upgrade --install inventory-operator ./spheron-inventory-operator -n spheron-services
 ```
@@ -397,7 +397,7 @@ kubectl get nodes
 ```
 </Callout>
 
-```
+```sh
 kubectl describe node [Node Name] | grep -A10 Labels
 ```
 {/* 
@@ -572,7 +572,7 @@ kubectl -n rook-ceph exec -it $(kubectl -n rook-ceph get pod -l "app=rook-ceph-t
 
 Use the following curl request to check the status of the provider. Update the hostname with your own hostname to properly test the provider status.
 
-```
+```sh
 curl --insecure https://[hostname]:8443/status
 ```
 
@@ -584,7 +584,7 @@ You can also look up your provider on our [Provider Dashboard](https://provider.
 
 To upgrade the CLI binary and incorporate the latest updates, run the following commands:
 
-```
+```sh
 wget -O install.sh https://sphnctl.sh
 chmod +x install.sh
 ./install.sh
@@ -599,6 +599,6 @@ chmod +x install.sh
 
 To apply the latest changes from the source, restart the provider services using the following command:
 
-```
+```sh
 kubectl rollout restart statefulset/spheron-provider -n spheron-services
 ```
