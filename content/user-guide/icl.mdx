@@ -302,11 +302,11 @@ useast:
     region: us-east
   pricing:
     web:
-      token: USDC
-      amount: 80
+      token: uSPON
+      amount: 1.5
 ```
 
-This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 80 USDC per hour for the web compute profiles.
+This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 1.5 uSPON per hour for the web compute profiles.
 
 Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
 
@@ -707,8 +707,8 @@ profiles:
         desired_fizz: "0xabcd...ef12"                # Specific fizz node
       pricing:
         web:
-          token: USDC
-          amount: 8
+          token: uSPON # uSPON is the only supported token for Spheron deployments
+          amount: 1.5
 ```
 
 <Callout type="warning">

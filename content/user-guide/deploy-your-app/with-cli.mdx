@@ -51,17 +51,15 @@ Once created, the wallet will be saved locally at `~/.spheron`. You can access t
 The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/user-guide/protocol-cli#changing-your-wallet) section.
 You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/user-guide/protocol-cli#export-the-private-key-of-wallet).
 
-### Get USDC tokens and ETH on Base Mainnet
+### Get uSPON tokens and ETH on Base Mainnet
 
-1. First, get some ETH gas tokens on the Base mainnet and send it to your wallet address.
+2. Then, get some uSPON tokens on the Base mainnet from the Spheron team and ask them to send it to your wallet address.
 
-2. Then, get some USDC tokens on the Base mainnet and send it to your wallet address.
-
-3. Check if you got the ETH for gas and USDC tokens in your wallet:
+3. Check if you got the uSPON tokens in your wallet:
 ```
-sphnctl wallet balance --token USDC
+sphnctl wallet balance --token uSPON
 ```
-This will show both USDC and ETH balances in your wallet.
+This will show both uSPON and ETH balances in your wallet.
 
 <Callout type="info">
 **Note:** 
@@ -74,17 +72,17 @@ This will show both USDC and ETH balances in your wallet.
 
 Depositing your tokens into the escrow is the first step to deploying your app on the Spheron Protocol. Ensure you have sufficient tokens in your escrow balance to lock the necessary funds for the deployment. Please follow the instructions below to proceed:
 
-1. Deposit USDC / uSPON / any other token to the escrow wallet:
+1. Deposit uSPON to the escrow wallet:
 
 ```
-sphnctl payment deposit --amount 10 --token USDC
+sphnctl payment deposit --amount 10 --token uSPON
 ```
 Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) section.
 
 2. Now check if you have a balance in an unlocked state in your wallet:
 
 ```
-sphnctl wallet balance --token USDC
+sphnctl wallet balance --token uSPON
 ```
 
 <Callout type="info">
@@ -168,7 +166,7 @@ profiles:
     westcoast:
       pricing:
         web:
-          token: USDC
+          token: uSPON
           amount: 1
 deployment:
   web:

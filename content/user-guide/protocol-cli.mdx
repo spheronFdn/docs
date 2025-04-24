@@ -154,7 +154,7 @@ You need to fund your wallet with some ETH to deploy anything on Spheron. We are
 
 ### Depositing Fund
 
-You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like USDC, you need to run this command:
+You need to deposit some minimum balance of any token to your account before doing any deployment. Any deployment on Spheron need user to deposit some amount of token that is used for the deployment otherwise the deployment will not start. To deposit a specific token like uSPON, you need to run this command:
 
 ```sh
 sphnctl payment deposit --amount [Amount] --token [Token Name]
@@ -163,7 +163,7 @@ sphnctl payment deposit --amount [Amount] --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl payment deposit --amount 50 --token USDC
+sphnctl payment deposit --amount 50 --token uSPON
 ```
 
 Here is an example of how the result will look:
@@ -188,7 +188,7 @@ sphnctl payment withdraw --amount [Amount] --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl payment withdraw --amount 50 --token USDC
+sphnctl payment withdraw --amount 50 --token uSPON
 ```
 
 Here is an example of how the result will look:
@@ -211,7 +211,7 @@ sphnctl wallet balance --token [Token Name]
 **Example:**
 
 ```sh
-sphnctl wallet balance --token USDC
+sphnctl wallet balance --token uSPON
 ```
 
 Here is an example of how the result will look:
@@ -220,7 +220,7 @@ Here is an example of how the result will look:
 This is your current balance for this token [Token Name]:
  Total: 443064994100000000
 
-Deposited USDC balance
+Deposited uSPON balance
  Unlocked: 22929459
  Locked: 4164    
 ```
@@ -236,7 +236,6 @@ Here is an example of how the result will look:
 
 ```sh
 Available tokens:
-Token: USDC, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
 Token: uSPON, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed732292
 ```
 
@@ -304,7 +303,7 @@ profiles:
         region: us-east
       pricing:
         web:
-          token: USDC
+          token: uSPON
           amount: 1
 deployment:
   web:
@@ -345,7 +344,7 @@ ICL validated.
 Sending configuration for Fizz Node matching.
 Duration of the deployment: 1h 
 Checking token deposit balance
-Deposit balance is sufficient: 16.537042 USDC 
+Deposit balance is sufficient: 16.537042 uSPON   
 Deployment order created: 0x451e28ec9006601058f357617a9b3b55db2d0736143e67297708c20df467ae77
 Waiting for Provider to bid on the deployment order...
 Bid found. 
