@@ -1,4 +1,4 @@
-import { Callout } from "nextra/components";
+import { Callout, FileTree } from "nextra/components";
 
 # Adding Nodes to a Spheron Provider
 
@@ -23,7 +23,24 @@ git clone https://github.com/spheronFdn/provider-deployment.git
 ```
 
 Repo has the following file structure: 
-![Provider Deployment Repo](/provider-deployment-repo.webp)
+
+<FileTree>
+  <FileTree.Folder name="provider-deployment" defaultOpen>
+    <FileTree.File name="README.md" />
+    <FileTree.Folder name="playbook" defaultOpen>
+      <FileTree.File name="Readme.md" />
+      <FileTree.File name="inventory.ini" />
+      <FileTree.File name="playbook.yml" />
+    </FileTree.Folder>
+    <FileTree.Folder name="scripts" defaultOpen>
+      <FileTree.File name="add-agent.sh" />
+      <FileTree.File name="k3s-bootstrap.sh" />
+      <FileTree.File name="run-helm-k3s-gpu.sh" />
+      <FileTree.File name="run-helm-k3s.sh" />
+      <FileTree.File name="start-spheron.sh" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
 
 #### 3. Edit the Inventory File
 
@@ -106,7 +123,23 @@ git clone https://github.com/spheronFdn/provider-deployment.git
 ```
 
 Repo has the following file structure: 
-![Provider Deployment Repo](/provider-deployment-repo.webp)
+<FileTree>
+  <FileTree.Folder name="provider-deployment" defaultOpen>
+    <FileTree.File name="README.md" />
+    <FileTree.Folder name="playbook" defaultOpen>
+      <FileTree.File name="Readme.md" />
+      <FileTree.File name="inventory.ini" />
+      <FileTree.File name="playbook.yml" />
+    </FileTree.Folder>
+    <FileTree.Folder name="scripts" defaultOpen>
+      <FileTree.File name="add-agent.sh" />
+      <FileTree.File name="k3s-bootstrap.sh" />
+      <FileTree.File name="run-helm-k3s-gpu.sh" />
+      <FileTree.File name="run-helm-k3s.sh" />
+      <FileTree.File name="start-spheron.sh" />
+    </FileTree.Folder>
+  </FileTree.Folder>
+</FileTree>
 
 #### 3. Edit the Inventory File
 
