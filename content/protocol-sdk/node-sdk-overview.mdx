@@ -34,6 +34,14 @@ Install the Spheron SDK for Node.js using npm or yarn or bun:
     ```
   </Tabs.Tab>
 </Tabs>
+
+<Callout type="info">
+  Note:
+  - With the release of **v2.0.0**, the Spheron SDK now has **Mainnet support**. Upgrade if you're on an older version to deploy on Spheron Mainnet.
+  - **Testnet usage is still available** for development, but requires running your own provider or Fizz Node.
+  - **Coming soon:** the Spheron team will host public Testnet providers and Fizz Nodes for community use.
+</Callout>
+
 ## Usage
 
 ### Initializing the SDK
@@ -84,7 +92,9 @@ const sdk = new SpheronSDK({
   - `bundlerUrl`: URL for the bundler service
   - `paymasterUrl`: URL for the paymaster service
 
-##### Using Gasless Transactions
+#### Using Gasless Transactions
+
+We have implemented gasless transactions for the Spheron network. For now, we support coinbase and biconomy gasless transactions. You can create your own paymaster and bundler from coinbase or biconomy to do gasless transactions using the Spheron SDK.
 
 If you're using gasless transactions (`gaslessOptions`), you need to:
 
@@ -98,6 +108,24 @@ console.log('Smart Wallet Balance:', smartWalletDetails.balance);
 
 2. Deposit funds into your smart wallet before making any deposits using `depositBalance`.
 
+#### RPC Configuration
+
+To ensure reliable Base Mainnet deployments, you should supply your own dedicated base mainnet RPC endpoint. Public base mainnet RPCs are rate-limited and can lead to failed or stalled deployments under load.
+
+1. **Obtain a Custom RPC URL**
+
+Choose any popular provider and create a free API key:
+- Alchemy: https://www.alchemy.com/base
+- Infura: https://docs.metamask.io/services/reference/base/
+- QuickNode: https://www.quicknode.com/docs
+
+2. **What Happens If You Don't Provide One**
+
+If no custom RPC is detected, we fall back to the public Base Mainnet RPC (https://mainnet.base.org).
+- **Risk:** Strict rate limits → HTTP 429 “Too Many Requests” or timeouts
+- **Impact:** Deployment failures or significant delays
+
+**Best Practice:** Always configure a personal RPC endpoint to guarantee low latency, high throughput, and seamless deployments.
 
 ### Modules Overview
 

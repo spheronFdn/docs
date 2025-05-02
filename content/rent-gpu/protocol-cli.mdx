@@ -241,13 +241,22 @@ Token: uSPON, Precision: 6, TokenAddress: 0x24A05B480235Ccb450bf7Ce7e9F65072Ed73
 
 ## Setting Custom Base Mainnet RPC WSS URL
 
+To ensure reliable Base Mainnet deployments, you should supply your own dedicated base mainnet RPC endpoint. Public base mainnet RPCs are rate-limited and can lead to failed or stalled deployments under load.
+
+1. **Obtain a Custom RPC URL**
+
+Choose any popular provider and create a free API key:
+- Alchemy: https://www.alchemy.com/base
+- Infura: https://docs.metamask.io/services/reference/base/
+- QuickNode: https://www.quicknode.com/docs
+
+2. **Set the Custom Base Mainnet RPC WSS URL**
+
 To set a custom Base Mainnet RPC WSS URL, you need to run this command:
 
 ```sh
 sphnctl rpc set wss://[RPC URL]
 ```
-
-To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the **Base Mainnet RPC URL** from there.
 
 **Example:**
 

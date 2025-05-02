@@ -89,15 +89,24 @@ sphnctl wallet balance --token uSPON
 **Note:** You can withdraw tokens from your unlocked balance at any time. However, if the tokens are in a locked state, you will not be able to withdraw them until you close your deployment. Upon closing, the locked tokens will be returned to the unlocked state after deducting provider charges and protocol fees.
 </Callout>
 
-### Set the private Base Mainnet RPC WSS URL
+### Set the C Base Mainnet RPC WSS URL
 
-Before deploying, you should set the private Base Mainnet RPC WSS URL by running the following command:
+To ensure reliable Base Mainnet deployments, you should supply your own dedicated base mainnet RPC endpoint. Public base mainnet RPCs are rate-limited and can lead to failed or stalled deployments under load.
+
+1. **Obtain a Custom RPC URL**
+
+Choose any popular provider and create a free API key:
+- Alchemy: https://www.alchemy.com/base
+- Infura: https://docs.metamask.io/services/reference/base/
+- QuickNode: https://www.quicknode.com/docs
+
+2. **Set the Custom Base Mainnet RPC WSS URL**
+
+Before deploying, you should set the Dedicated Base Mainnet RPC WSS URL by running the following command:
 
 ```sh
 sphnctl rpc set [private RPC URL]
 ```
-
-To get a RPC URL, you can create app on Alchemy or QuickNode or Infura or any other RPC provider and get the **Base Mainnet RPC URL** from there.
 
 **Example:**
 
