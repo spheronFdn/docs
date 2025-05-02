@@ -14,7 +14,7 @@ const QuickStartCard: FC<IQuickStartCard> = ({ path, emoji, title, body, style }
   return (
     <Link href={`${path}`} className={`${styles.card} no-underline ${style}`}>
       <div>
-        <h3 className={`${styles.heading} flex items-center text-white`}>
+        <h3 className={`${styles.heading} flex items-center`}>
           <span className={styles.emoji}>{emoji}</span>
           {title}
         </h3>

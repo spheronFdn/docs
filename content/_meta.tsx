@@ -5,13 +5,13 @@ import { HomeIcon, BookOpenIcon, PackageIcon, LaptopIcon, ServerIcon, BookIcon, 
 const META: MetaRecord = {
   index: (
     <span className="flex items-center gap-2">
-      <HomeIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <HomeIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Getting Started
     </span>
   ),
   "core-concepts": (
     <span className="flex items-center gap-2">
-      <BookOpenIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <BookOpenIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Core Concepts
     </span>
   ),
@@ -21,19 +21,19 @@ const META: MetaRecord = {
   },
   "rent-gpu": (
     <span className="flex items-center gap-2">
-      <PackageIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <PackageIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Rent a GPU
     </span>
   ),
   guides: (
     <span className="flex items-center gap-2">
-      <AppWindowMacIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <AppWindowMacIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Guides
     </span>
   ),
   "protocol-sdk": (
     <span className="flex items-center gap-2">
-      <JavaScriptIcon height="20" className="text-white flex items-center" />
+      <JavaScriptIcon height="20" className="flex items-center" />
       Protocol SDK
     </span>
   ),
@@ -51,19 +51,19 @@ const META: MetaRecord = {
   },
   providers: (
     <span className="flex items-center gap-2">
-      <ServerIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <ServerIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Provider Onboarding
     </span>
   ),
   fizz: (
     <span className="flex items-center gap-2">
-      <LaptopIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <LaptopIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Fizz Node
     </span>
   ),
   "chain-details": (
     <span className="flex items-center gap-2">
-      <BookIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
+      <BookIcon strokeWidth={1.5} height="20" className="flex items-center" />
       Chain Details
     </span>
   ),
@@ -77,6 +77,11 @@ const META: MetaRecord = {
   changelog: {
     title: "Changelog",
     href: "https://spheron.network/changelog",
+    type: "page",
+  },
+  foundation: {
+    title: "Foundation",
+    href: "https://foundation.spheron.network/",
     type: "page",
   },
   signup: {
