@@ -3,22 +3,22 @@ import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST = [
   {
-    path: "/user-guide/deploy-your-app/with-console",
+    path: "/rent-gpu/deploy-container/with-console",
     emoji: "🤖",
     title: "Deploy with Console",
-    body: "Understand how to deploy your app with Spheron Console.",
+    body: "Understand how to deploy your container with Spheron Console.",
   },
   {
-    path: "/user-guide/deploy-your-app/with-playground",
+    path: "/rent-gpu/deploy-container/with-playground",
     emoji: "💻",
     title: "Deploy with Playground",
-    body: "Understand how to deploy your app with Spheron Playground.",
+    body: "Understand how to deploy your container with Spheron Playground.",
   },
   {
-    path: "/user-guide/deploy-your-app/with-cli",
+    path: "/rent-gpu/deploy-container/with-cli",
     emoji: "🖥️",
     title: "Deploy with CLI",
-    body: "Understand how to deploy your app with Spheron CLI.",
+    body: "Understand how to deploy your container with Spheron CLI.",
   }
 ];
 

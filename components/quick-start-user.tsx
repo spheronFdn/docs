@@ -4,13 +4,13 @@ import styles from "../styles/quick.module.css";
 
 const QUICK_START_LIST_USER = [
   {
-    path: "/user-guide/deploy-your-app",
+    path: "/rent-gpu/deploy-container",
     emoji: "🚀",
-    title: "Deploy your app",
-    body: "Learn how to deploy your app on Spheron Protocol.",
+    title: "Deploy Container",
+    body: "Learn how to deploy your container on Spheron.",
   },
   {
-    path: "/user-guide/protocol-cli",
+    path: "/rent-gpu/protocol-cli",
     emoji: "🏪",
     title: "Protocol CLI",
     body: "Lease GPU with Protocol Native CLI.",
@@ -22,7 +22,7 @@ const QUICK_START_LIST_USER = [
     body: "Lease GPU with Spheron's Protocol SDK.",
   },
   {
-    path: "/user-guide/icl",
+    path: "/rent-gpu/icl",
     emoji: "⚡",
     title: "ICL Configuration",
     body: "Learn about the deployment config.",
@@ -34,7 +34,7 @@ const QUICK_START_LIST_USER = [
     body: "Learn what you can deploy on Spheron.",
   },
   {
-    path: "/user-guide/supports#gpu-support",
+    path: "/rent-gpu/supports#gpu-support",
     emoji: "🌀",
     title: "GPU Supports",
     body: "Know all the GPU support and it's tiering.",

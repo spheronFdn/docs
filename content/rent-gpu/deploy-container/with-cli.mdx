@@ -1,9 +1,9 @@
 import { Callout } from "nextra/components";
 import { Steps } from 'nextra/components'
 
-# Deploy Your App on Spheron using CLI
+# Deploy Your Container on Spheron using CLI
 
-This guide will walk you through the steps to deploy and access your app on Spheron. Follow these steps carefully to ensure a successful deployment.
+This guide will walk you through the steps to deploy and access your application on Spheron using CLI. Follow these steps carefully to ensure a successful deployment.
 
 <Steps>
 ### Install Spheron Protocol `sphnctl` CLI (Linux, MacOS)
@@ -48,8 +48,8 @@ Created account xxx:
 Make sure to read the output carefully and save your mnemonic phrase and key secret in a secure location. 
 
 Once created, the wallet will be saved locally at `~/.spheron`. You can access the key-secret of the current wallet in `~/.spheron/config.json`. 
-The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/user-guide/protocol-cli#changing-your-wallet) section.
-You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/user-guide/protocol-cli#export-the-private-key-of-wallet).
+The newly created wallet will automatically be set as the current wallet. If needed, you can change the wallet by following the instructions in the [Changing Your Wallet](/rent-gpu/protocol-cli#changing-your-wallet) section.
+You can also export the private key of your newly generated wallet. Please follow the instructions given in [Export the Private Key of Wallet](/rent-gpu/protocol-cli#export-the-private-key-of-wallet).
 
 ### Get uSPON tokens and ETH on Base Mainnet
 
@@ -77,7 +77,7 @@ Depositing your tokens into the escrow is the first step to deploying your app o
 ```
 sphnctl payment deposit --amount 10 --token uSPON
 ```
-Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/user-guide/supports#supported-payment-tokens) section.
+Here, the amount must be in the full precision of the token. To determine the precision of the token you are depositing, please refer to the [Supported Payment Tokens](/rent-gpu/supports#supported-payment-tokens) section.
 
 2. Now check if you have a balance in an unlocked state in your wallet:
 
@@ -132,7 +132,7 @@ profiles:
   // ... other profile configurations ...
 ```
 
-For this guide, we'll use Provider Mode. You may use the sample deployment file as-is or modify it for your own needs as described in our [ICL documentation](/user-guide/icl). A typical modification would be to reference your own image instead of our image.
+For this guide, we'll use Provider Mode. You may use the sample deployment file as-is or modify it for your own needs as described in our [ICL documentation](/rent-gpu/icl). A typical modification would be to reference your own image instead of our image.
 
 ```sh
 cat > gpu.yml <<EOF
@@ -191,7 +191,7 @@ Something like this will be shown:
 
 ```sh
 WARNING: You are using the default RPC URL, which may lead to deployment issues.
-Please follow the documentation to obtain a custom base mainnet RPC URL: https://docs.spheron.com/user-guide/protocol-cli#setting-custom-base-mainnet-rpc-wss-url
+Please follow the documentation to obtain a custom base mainnet RPC URL: https://docs.spheron.com/rent-gpu/protocol-cli#setting-custom-base-mainnet-rpc-wss-url
 Enter your custom base mainnet RPC URL here (click enter to continue with default one):
 ```
 
@@ -296,10 +296,10 @@ nvidia-smi
 
 
 You can retrieve various information from the deployment or interact with your deployment you just made, such as:
-- [Fetching the deployment logs](/user-guide/protocol-cli#fetch-deployment-logs)
-- [Fetching the deployment events](/user-guide/protocol-cli#fetch-deployment-events)
-- [Connecting to the deployment shell](/user-guide/protocol-cli#connect-to-deployment-shell)
-- [Updating your deployment](/user-guide/protocol-cli#update-the-deployment)
-- [Closing your deployment](/user-guide/protocol-cli#close-deployment)
+- [Fetching the deployment logs](/rent-gpu/protocol-cli#fetch-deployment-logs)
+- [Fetching the deployment events](/rent-gpu/protocol-cli#fetch-deployment-events)
+- [Connecting to the deployment shell](/rent-gpu/protocol-cli#connect-to-deployment-shell)
+- [Updating your deployment](/rent-gpu/protocol-cli#update-the-deployment)
+- [Closing your deployment](/rent-gpu/protocol-cli#close-deployment)
 
 Congratulations! Your app is now deployed and accessible. If you encounter any issues, reach out to [Spheron Discord Support](https://sphn.wiki/discord).

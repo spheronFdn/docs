@@ -43,23 +43,61 @@ To use the Spheron SDK, first import it and initialize it with the desired netwo
 ```javascript
 const { SpheronSDK } = require('@spheron/protocol-sdk');
 
-const sdk = new SpheronSDK('testnet');
-```
+// Basic initialization
+const sdk = new SpheronSDK({
+  networkType: 'mainnet' // 'mainnet' (default) or 'testnet'
+});
 
-**Note:** Chain type can be `testnet` or `mainnet`. But currently, only `testnet` is supported.
+// Initialization with private key for write operations
+const sdk = new SpheronSDK({
+  networkType: 'mainnet',
+  privateKey: 'your-private-key'
+});
 
-If you want to perform write operations, you'll need to provide a private key:
-
-```javascript
-const sdk = new SpheronSDK('testnet', 'your-private-key');
+// Initialization with custom RPC URLs and gasless options
+const sdk = new SpheronSDK({
+  networkType: 'mainnet',
+  privateKey: 'your-private-key',
+  rpcUrls: {
+    http: 'your-http-rpc-url',
+    websocket: 'your-websocket-rpc-url'
+  },
+  gaslessOptions: {
+    type: 'coinbase', // or 'biconomy'
+    bundlerUrl: 'your-bundler-url',
+    paymasterUrl: 'your-paymaster-url'
+  }
+});
 ```
 
 **Note:** Never hardcode your private key; use environment variables or secure key management systems.
 
-**Constructor Parameters:**
+#### Constructor Parameters:
 
-- `networkType`: Specifies the environment. Possible values are `'testnet'` or `'mainnet'`.
+- `networkType` (optional): Specifies the environment. Possible values are `'mainnet'` (default) or `'testnet'`.
 - `privateKey` (optional): Private key for signing transactions.
+- `rpcUrls` (optional): Custom RPC URLs for the network:
+  - `http`: HTTP RPC endpoint
+  - `websocket`: WebSocket RPC endpoint
+- `gaslessOptions` (optional): Configuration for gasless transactions:
+  - `type`: Type of gasless service ('coinbase' or 'biconomy')
+  - `bundlerUrl`: URL for the bundler service
+  - `paymasterUrl`: URL for the paymaster service
+
+##### Using Gasless Transactions
+
+If you're using gasless transactions (`gaslessOptions`), you need to:
+
+1. Get your smart wallet details first:
+
+```javascript
+const smartWalletDetails = await sdk.escrow.getSmartWalletDetails();
+console.log('Smart Wallet Address:', smartWalletDetails.address);
+console.log('Smart Wallet Balance:', smartWalletDetails.balance);
+```
+
+2. Deposit funds into your smart wallet before making any deposits using `depositBalance`.
+
 
 ### Modules Overview
 
@@ -86,7 +124,7 @@ console.log('Your uSPON balance in escrow is:', balance);
 
 **Parameters:**
 
-- `token` (string): The token symbol. Supported tokens are `uSPON` for payment on Spheron. Learn more about the tokens [here](/user-guide/supports#supported-payment-tokens).
+- `token` (string): The token symbol. Supported tokens are `uSPON` for payment on Spheron. Learn more about the tokens [here](/rent-gpu/supports#supported-payment-tokens).
 - `walletAddress` (string, optional): The wallet address to query. If not provided, the wallet associated with the provided private key will be used.
 
 **Returns:**
@@ -103,9 +141,22 @@ console.log('Your uSPON balance in escrow is:', balance);
 
 Deposits a specified amount of tokens into the escrow contract.
 
+**Note:** If you're using gasless transactions (`gaslessOptions`), you must first ensure your smart wallet has sufficient funds:
+
+1. Get your smart wallet details:
+```javascript
+const smartWalletDetails = await sdk.escrow.getSmartWalletDetails();
+console.log('Smart Wallet Address:', smartWalletDetails.address);
+console.log('Smart Wallet Balance:', smartWalletDetails.balance);
+```
+
+2. Fund your smart wallet with native tokens (e.g., ETH on Base network) before making deposits.
+
+Once your smart wallet is funded, you can make deposits:
+
 ```javascript
 const depositReceipt = await sdk.escrow.depositBalance({
-  token: 'uSPON',
+  token: 'USDC',
   amount: 100,
 });
 console.log('Deposit transaction receipt:', depositReceipt);
@@ -113,14 +164,8 @@ console.log('Deposit transaction receipt:', depositReceipt);
 
 **Parameters:**
 
-- `token` (string): The token symbol to deposit (`uSPON`).
+- `token` (string): The token symbol to deposit (`uSPON`, `USDC`).
 - `amount` (number): The amount to deposit.
-- `onSuccessCallback` (function, optional): Callback function for successful deposit.
-- `onFailureCallback` (function, optional): Callback function for failed deposit.
-
-<Callout type="info">
- Note: To know more about the tokens supported by the Spheron network, please refer to the [Tokens](/user-guide/supports#supported-payment-tokens) section.
-</Callout>
 
 **Returns:**
 
@@ -146,7 +191,7 @@ console.log('Withdrawal transaction receipt:', withdrawReceipt);
 - `onFailureCallback` (function, optional): Callback function for failed withdrawal.
 
 <Callout type="info">
- Note: To know more about the tokens supported by the Spheron network, please refer to the [Tokens](/user-guide/supports#supported-payment-tokens) section.
+ Note: To know more about the tokens supported by the Spheron network, please refer to the [Tokens](/rent-gpu/supports#supported-payment-tokens) section.
 </Callout>
 
 **Returns:**
@@ -161,13 +206,13 @@ The Deployment Module streamlines the process of creating, updating, retrieving,
   Note: 
   - To do any deployments on Spheron, a proxy server needs to be set up by the SDK consumer. 
   - You can use the default proxy server provided by Spheron `https://provider-proxy.sphn.xyz` or set up your own proxy server. To set up your own proxy server, please refer to the [Provider Proxy Server](/protocol-sdk/provider-proxy-server) section.
-  - To know more about the operator deployments, please refer to the [Operator Deployments](/user-guide/operator-deployments) section.
-  - To know more about the deployment ICL YAML configuration, please refer to the [ICL YAML Configuration](/user-guide/icl) section.
+  - To know more about the operator deployments, please refer to the [Operator Deployments](/rent-gpu/operator-deployments) section.
+  - To know more about the deployment ICL YAML configuration, please refer to the [ICL YAML Configuration](/rent-gpu/icl) section.
 </Callout>
 
 #### 1. `createDeployment`
 
-Creates a new deployment using the [ICL (Infrastructure Configuration Language) YAML](https://docs.spheron.network/user-guide/icl) configuration.
+Creates a new deployment using the [ICL (Infrastructure Configuration Language) YAML](https://docs.spheron.network/rent-gpu/icl) configuration.
 
 ```javascript
 const iclYaml = `
@@ -211,7 +256,7 @@ profiles:
       pricing:
         py-cuda:
           token: uSPON
-          amount: 10
+          amount: 1
 
 deployment:
   py-cuda:
@@ -286,7 +331,7 @@ profiles:
       pricing:
         py-cuda:
           token: uSPON
-          amount: 10
+          amount: 1
 
 deployment:
   py-cuda:

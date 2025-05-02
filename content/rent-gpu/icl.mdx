@@ -10,16 +10,18 @@ The `deploy.yaml` file, which can also use the `.yml` extension, serves as a req
 
 It's structured into several key sections:
 
-1. [Network Configuration](/user-guide/icl#1-network-configuration) 
-2. [Version](/user-guidel/icl#2-version-configuration)
-3. [Services](/user-guide/icl#3-services-configuration)
-4. [Profiles](/user-guide/icl#4-profiles)
-5. [Deployment](/user-guide/icl#5-deployment-configuration)
-6. [GPU Support](/user-guide/icl#6-gpu-integration-support-in-compute-profiles)
-7. [Private Container Registry Integration](/user-guide/icl#7-private-container-registry-integration)
-8. [Port Range](/user-guide/icl#8-port-range)
-9. [Pull Policy](/user-guide/icl#9-pull-policy)
-10. [Shared Memory (SHM) Support](/user-guide/icl#10-shared-memory-shm-support)
+1. [Network Configuration](/rent-gpu/icl#1-network-configuration) 
+2. [Version](/rent-gpu/icl#2-version-configuration)
+3. [Services](/rent-gpu/icl#3-services-configuration)
+4. [Profiles](/rent-gpu/icl#4-profiles)
+5. [Deployment](/rent-gpu/icl#5-deployment-configuration)
+6. [GPU Support](/rent-gpu/icl#6-gpu-integration-support-in-compute-profiles)
+7. [Private Container Registry Integration](/rent-gpu/icl#7-private-container-registry-integration)
+8. [Port Range](/rent-gpu/icl#8-port-range)
+9. [Pull Policy](/rent-gpu/icl#9-pull-policy)
+10. [Shared Memory (SHM) Support](/rent-gpu/icl#10-shared-memory-shm-support)
+11. [Advanced Placement Attributes](/rent-gpu/icl#11-advanced-placement-attributes)
+12. [Mac Deployment Support](/rent-gpu/icl#12-mac-deployment-support)
 
 <Callout type="info">
   **NOTE:** For examples of deployment configurations:
@@ -45,9 +47,9 @@ It's structured as a map where each key represents a unique service name, and th
 | image      | Yes                | Specifies the Docker image for the container. Caution: Using `:latest` tags is not recommended due to extensive caching by Spheron Providers. |
 | command    | No                 | Defines a custom command to be executed when launching the container.                                                                         |
 | args       | No                 | Provides arguments for the custom command specified in the 'command' field.                                                                   |
-| env        | No                 | Sets environment variables for the running container. Refer to the [Environment Variables](/user-guide/icl#environment-variablesn) section for more details.                            |
-| expose     | No                 | Determines which entities are permitted to connect to the services. For additional information, see the [Port Exposure](/user-guide/icl#port-exposure) and [Port Range](/user-guide/icl#port-range) sections.                          |
-| pull_policy| No                 | Specifies the image pull policy for the container. For more details, see the [Pull Policy](/user-guide/icl#pull-policy) section.              |
+| env        | No                 | Sets environment variables for the running container. Refer to the [Environment Variables](/rent-gpu/icl#environment-variables) section for more details.                            |
+| expose     | No                 | Determines which entities are permitted to connect to the services. For additional information, see the [Port Exposure](/rent-gpu/icl#port-exposure) and [Port Range](/rent-gpu/icl#port-range) sections.                          |
+| pull_policy| No                 | Specifies the image pull policy for the container. For more details, see the [Pull Policy](/rent-gpu/icl#pull-policy) section.              |
 
 ### Environment Variables
 
@@ -165,17 +167,17 @@ services:
 
 
 ## 4. Profiles
-The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/user-guide/icl#5-deployment-configuration).
+The profiles section is used to define named compute and placement profiles that can be referenced in the [deployment section](/rent-gpu/icl#5-deployment-configuration).
 It's also define the name of the deployment, duration of the lease created & the provider tiers. Below is the table describing the parameters:
 
 | Field Name | Required           | Description                                                                                                                                                                                |
 |----------- |--------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | name       | No                 | Specifies the name of the deployment. It's not unique but is useful for users to identify their deployments.                                                                               |
-| mode       | Yes                | Defines where you want to deploy your app on. Spheron has 2 mode: **provider** & **fizz**. Refer to the [Deployment Mode](/user-guide/icl#deployment-mode) section for more details.       |
-| duration   | Yes                | Defines the duration of the lease. Configured in 1s, 1min, 1h, 1d, 1mon, & 1y. Refer to the [Lease Duration](/user-guide/icl#lease-duration) section for more details.                     |
-| tiers      | No                 | Specifies tiers of provider the deployment order need to be matched with. Can be multiple. Refer to the [Deployment Tier](/user-guide/icl#deployment-tier) section for more details.       |
-| compute    | Yes                | Specifies the compute resources that will be allocated to service instances. Refer to the [services.env](/user-guide/icl#compute-profiles) section for more details.                       |
-| placement  | Yes                | Outlines the necessary attributes and the pricing configuration. See the [services.expose](/user-guide/icl#placement-profile) section for additional information.               |
+| mode       | Yes                | Defines where you want to deploy your app on. Spheron has 2 mode: **provider** & **fizz**. Refer to the [Deployment Mode](/rent-gpu/icl#deployment-mode) section for more details.       |
+| duration   | Yes                | Defines the duration of the lease. Configured in 1s, 1min, 1h, 1d, 1mon, & 1y. Refer to the [Lease Duration](/rent-gpu/icl#lease-duration) section for more details.                     |
+| tiers      | No                 | Specifies tiers of provider the deployment order need to be matched with. Can be multiple. Refer to the [Deployment Tier](/rent-gpu/icl#deployment-tier) section for more details.       |
+| compute    | Yes                | Specifies the compute resources that will be allocated to service instances. Refer to the [services.env](/rent-gpu/icl#compute-profiles) section for more details.                       |
+| placement  | Yes                | Outlines the necessary attributes and the pricing configuration. See the [services.expose](/rent-gpu/icl#placement-profile) section for additional information.               |
 
 ### Deployment Mode
 Spheron offers two deployment modes:
@@ -308,10 +310,10 @@ useast:
 
 This defines a profile named `useast` with the required attributes `{region="us-east"}` and a maximum price of 1.5 uSPON per hour for the web compute profiles.
 
-Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/user-guide/supports#supported-regions) section.
+Providers can only assign themselves to a predefined set of regions. If you specify an unlisted region, no provider will bid on your deployment, causing it to fail automatically. Please refer to the list mentioned in the [Supported Regions](/rent-gpu/supports#supported-regions) section.
 
 <Callout type="info">
-  To learn more about advanced placement attributes and fine-grained control over your deployments, check out the [Advanced Placement Attributes](/user-guide/icl#11-advanced-placement-attributes) section at the end of this guide.
+  To learn more about advanced placement attributes and fine-grained control over your deployments, check out the [Advanced Placement Attributes](/rent-gpu/icl#11-advanced-placement-attributes) section at the end of this guide.
 </Callout>
 
 ## 5. Deployment Configuration
@@ -433,7 +435,7 @@ gpu:
 ```
 
 <Callout type="info">
-**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/user-guide/supports#gpu-support).
+**Note:** For detailed information on GPU support and the corresponding model names, please refer to the [GPU support page](/rent-gpu/supports#gpu-support).
 </Callout>
 
 
@@ -632,7 +634,7 @@ This is particularly useful when you need to:
 - Ensure your application runs in a specific region
 
 <Callout type="info">
-The region must match one of Spheron's [supported region codes](/user-guide/supports#supported-regions). If not specified, your application can be deployed in any available region.
+The region must match one of Spheron's [supported region codes](/rent-gpu/supports#supported-regions). If not specified, your application can be deployed in any available region.
 </Callout>
 
 #### 2. Exclude Region
@@ -757,7 +759,7 @@ profiles:
 
 2. **Model**:
    - Specify the Mac chip model under the `arm64` section
-   - Examples include: m1, m2, m3, m1pro, m2pro, m3pro, etc. Full list of models can be found [here](/user-guide/supports#cpu-support)
+   - Examples include: m1, m2, m3, m1pro, m2pro, m3pro, etc. Full list of models can be found [here](/rent-gpu/supports#cpu-support)
 
 3. **Resources**:
    - `cpu.units`: Number of CPU cores requested

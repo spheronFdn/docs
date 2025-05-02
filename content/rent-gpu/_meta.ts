@@ -1,7 +1,7 @@
 import { MetaRecord } from "nextra";
 
 const META: MetaRecord = {
-  "deploy-your-app": "Deploy Container",
+  "deploy-container": "Deploy Container",
   "icl": "ICL Configuration",
   "protocol-cli": "Protocol CLI",
   "supports": "Supported Configurations",

@@ -3,31 +3,31 @@ import styles from "@/styles/quick.module.css";
 
 const GUIDE_TYPE_LIST = [
   {
-    path: "/user-guide/deploy-your-app",
+    path: "/rent-gpu/deploy-container",
     emoji: "🚀",
-    title: "Deploy your app",
-    body: "Learn how to deploy your app on Spheron Protocol.",
+    title: "Deploy Container",
+    body: "Learn how to deploy your container on Spheron.",
   },
   {
-    path: "/user-guide/icl",
+    path: "/rent-gpu/icl",
     emoji: "⚡",
     title: "ICL Configuration",
     body: "Learn about the deployment config.",
   },
   {
-    path: "/user-guide/protocol-cli",
+    path: "/rent-gpu/protocol-cli",
     emoji: "🏪",
     title: "Protocol CLI",
     body: "Lease GPU with Protocol Native CLI.",
   },
   {
-    path: "/user-guide/fizz-vs-provider",
+    path: "/rent-gpu/fizz-vs-provider",
     emoji: "🤝",
     title: "Fizz vs Provider",
     body: "Learn about the diff b/w Fizz and Provider Mode.",
   },
   {
-    path: "/user-guide/supports#gpu-support",
+    path: "/rent-gpu/supports#gpu-support",
     emoji: "📟",
     title: "GPU Supports",
     body: "Know all the GPU support and it's tiering.",

@@ -131,7 +131,7 @@ Here is the format for the provider configuration:
 You can edit the values to suit your requirements, but do not change the keys. These values will be recorded on-chain in our contracts. Let's walk through what each of these configuration parameters means:
 
 - **Name:** Specify the name of the provider.
-- **Region:** Specify the region where your provider is located. Refer to the [Region Support](/user-guide/supports#supported-regions) page for supported regions.
+- **Region:** Specify the region where your provider is located. Refer to the [Region Support](/rent-gpu/supports#supported-regions) page for supported regions.
 - **Hostname:** Provide the hostname matching the domain configured at the start of the setup. This will be exposed to users.
 - **GPU:** List all the GPU models supported by your provider. Use the GPU shorthand (name) values from the [GPU support](/providers/reward-details#gpu-resource-tiering) page, and specify the number of units you are providing. These units will be used for points and to verify the correctness of your GPU units through our Slark node's Proof of Compute challenges. Ensure you include the pricing for each GPU model in the Pricing section.
 - **CPU:** List all the CPU types you support. Use the CPU shorthand (name) values from the [CPU support](/providers/reward-details#cpu-resource-tiering) page, and specify the number of units you are providing. These units will be used for points and to verify the correctness of your CPU units through our slark node's Proof of Compute challenges.
@@ -161,7 +161,7 @@ vi /home/spheron/.spheron/provider-config.json
 
 ## Registering a Provider
 
-Before you register, please ensure you set the wallet you intend to use for the provider. You can either create a new wallet or use the default one generated for you. For more details, refer to the [Wallet Configurations](/user-guide/protocol-cli#wallet-configurations) section.
+Before you register, please ensure you set the wallet you intend to use for the provider. You can either create a new wallet or use the default one generated for you. For more details, refer to the [Wallet Configurations](/rent-gpu/protocol-cli#wallet-configurations) section.
 
 ```sh
 sphnctl wallet use --name wallet --key-secret testPassword

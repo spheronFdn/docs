@@ -19,7 +19,7 @@ const META: MetaRecord = {
     type: "separator",
     title: "DEVELOPER DOCS",
   },
-  "user-guide": (
+  "rent-gpu": (
     <span className="flex items-center gap-2">
       <PackageIcon strokeWidth={1.5} height="20" className="text-white flex items-center" />
       Rent a GPU
