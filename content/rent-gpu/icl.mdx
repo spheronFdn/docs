@@ -874,7 +874,7 @@ profiles:
             vendor:
               nvidia:
                 - model: rtx3090
-            req_vram: ">=8"
+            req_vram: ">=80"
 ```
 
 ### Using Comparison Operators
@@ -901,5 +901,5 @@ Specifying VRAM requirements provides several advantages:
 3. **Cost Efficiency**: Helps you match your workload to appropriate resources without overprovisioning.
 
 <Callout type="info">
-**Note:** When using the `req_vram` attribute, make sure the value you specify is reasonable for the GPU model you've selected. For example, don't request more VRAM than the maximum capacity of the GPU model.
+**Note:** When using the `req_vram` attribute, make sure the value you specify is between 0% and 100% of the GPU's total VRAM. For example, don't request more than 100% of the VRAM or less than 0%.
 </Callout>
