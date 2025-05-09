@@ -22,6 +22,7 @@ It's structured into several key sections:
 10. [Shared Memory (SHM) Support](/rent-gpu/icl#10-shared-memory-shm-support)
 11. [Advanced Placement Attributes](/rent-gpu/icl#11-advanced-placement-attributes)
 12. [Mac Deployment Support](/rent-gpu/icl#12-mac-deployment-support)
+13. [GPU VRAM Minimum Requirements](/rent-gpu/icl#13-gpu-vram-minimum-requirements)
 
 <Callout type="info">
   **NOTE:** For examples of deployment configurations:
@@ -74,8 +75,6 @@ When configuring port exposure for your services, keep these points in mind:
   as: 80
   to:
     - global: true
-  accept:
-    - www.yoursite.com
 ```
 
 ### Port Range
@@ -439,6 +438,42 @@ gpu:
 </Callout>
 
 
+#### Configuring VRAM Requirements
+
+You can specify the minimum VRAM requirement using the `req_vram` attribute in your GPU configuration. Here's an example:
+
+```yaml
+profiles:
+  compute:
+    gpu-intensive:
+      resources:
+        cpu:
+          units: 4.0
+        memory:
+          size: 8Gi
+        storage:
+          size: 20Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx3090
+            req_vram: ">=80"
+```
+
+The `req_vram` attribute accepts a string value with a comparison operator followed by the required VRAM amount in percentage. The supported comparison operators are:
+
+- `>=` - Greater than or equal to
+- `>` - Greater than
+- `<=` - Less than or equal to
+- `<` - Less than
+
+Examples:
+- `req_vram: ">=80"` - Requires at least 80% of VRAM
+- `req_vram: ">50"` - Requires more than 50% of VRAM
+- `req_vram: "<=20"` - Requires 20% of VRAM or less
+- `req_vram: "<50"` - Requires less than 50% of VRAM
 
 ## 7. Private Container Registry Integration
 
@@ -629,9 +664,17 @@ attributes:
   region: us-east
 ```
 
+You can also specify multiple regions using a semicolon-separated list:
+
+```yaml
+attributes:
+  region: us-east;ap-south;eu-west
+```
+
 This is particularly useful when you need to:
 - Minimize latency for users in specific geographic areas
 - Ensure your application runs in a specific region
+- Deploy your workload across multiple regions for redundancy
 
 <Callout type="info">
 The region must match one of Spheron's [supported region codes](/rent-gpu/supports#supported-regions). If not specified, your application can be deployed in any available region.
@@ -645,10 +688,18 @@ attributes:
   exclude_region: us-east
 ```
 
+You can also exclude multiple regions using a semicolon-separated list:
+
+```yaml
+attributes:
+  exclude_region: us-east;ap-south;eu-west
+```
+
 This is useful when you:
 - Want to exclude a specific region from deployment
 - Need to ensure your application does not run in a specific region
 - Are testing region-specific functionality
+- Have compliance requirements that prohibit deployment in certain regions
 
 #### 3. Provider Selection
 The `desired_provider` attribute lets you specify a particular provider using their blockchain address:
@@ -658,13 +709,21 @@ attributes:
   desired_provider: "0x1234...5678"  # Replace with actual provider address
 ```
 
+You can also specify multiple providers as a semicolon-separated list:
+
+```yaml
+attributes:
+  desired_provider: "0x1234...5678;0xabcd...1234;0xefgh...5678"  # Multiple provider addresses
+```
+
 This is helpful when you:
 - Have had good experiences with a specific provider
 - Want to maintain consistency across deployments
 - Need specific hardware or capabilities that a provider offers
+- Want to distribute your workload across multiple preferred providers
 
 <Callout type="info">
-This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen provider.
+This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen provider(s).
 </Callout>
 
 #### 3. Fizz Node Selection
@@ -675,10 +734,18 @@ attributes:
   desired_fizz: "0xabcd...ef12"  # Replace with actual fizz node address
 ```
 
+Similar to provider selection, you can specify multiple fizz nodes as a semicolon-separated list:
+
+```yaml
+attributes:
+  desired_fizz: "0xabcd...ef12;0x5678...90ab;0xcdef...3456"  # Multiple fizz node addresses
+```
+
 This is useful when you:
-- Want to deploy to a specific node you trust
-- Need to maintain application state on a particular node
+- Want to deploy to specific nodes you trust
+- Need to maintain application state on particular nodes
 - Are testing node-specific functionality
+- Want to distribute your workload across multiple preferred fizz nodes
 
 #### 4. Bandwidth Selection
 <Callout type="info">
@@ -707,6 +774,7 @@ profiles:
         region: us-east                              # Geographic region
         desired_provider: "0x1234...5678"            # Specific provider
         desired_fizz: "0xabcd...ef12"                # Specific fizz node
+        bandwidth: 100mbps                            # Minimum bandwidth
       pricing:
         web:
           token: uSPON # uSPON is the only supported token for Spheron deployments
@@ -775,4 +843,63 @@ Mac deployments are particularly beneficial for:
 
 <Callout type="info">
 **Note:** The availability of specific Mac models depends on what's currently available in the Spheron network. Please check the supported models before configuring your deployment.
+</Callout>
+
+## 13. GPU VRAM Minimum Requirements
+
+<Callout type="warning">
+**Important:** This feature is only applicable for fizz mode deployments and not for provider deployments.
+</Callout>
+
+When deploying GPU workloads to fizz nodes, you can specify minimum VRAM (Video RAM) requirements to ensure you get nodes with sufficient available memory for your application. This helps maximize your workload efficiency and prevents deployment to nodes with insufficient VRAM.
+
+### Configuring VRAM Requirements
+
+You can specify the minimum VRAM requirement using the `req_vram` attribute in your GPU configuration. Here's an example:
+
+```yaml
+profiles:
+  compute:
+    gpu-intensive:
+      resources:
+        cpu:
+          units: 4.0
+        memory:
+          size: 8Gi
+        storage:
+          size: 20Gi
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx3090
+            req_vram: ">=80"
+```
+
+### Using Comparison Operators
+
+The `req_vram` attribute accepts a string value with a comparison operator followed by the required VRAM amount in percentage. The supported comparison operators are:
+
+- `>=` - Greater than or equal to
+- `>` - Greater than
+- `<=` - Less than or equal to
+- `<` - Less than
+
+Examples:
+- `req_vram: ">=80"` - Requires at least 80% of VRAM
+- `req_vram: ">50"` - Requires more than 50% of VRAM
+- `req_vram: "<=20"` - Requires 20% of VRAM or less
+- `req_vram: "<50"` - Requires less than 50% of VRAM
+
+### Benefits
+
+Specifying VRAM requirements provides several advantages:
+
+1. **Resource Optimization**: Ensures your application gets the GPU memory it needs to run efficiently.
+2. **Deployment Reliability**: Prevents your workload from running on underpowered nodes that might crash or perform poorly.
+3. **Cost Efficiency**: Helps you match your workload to appropriate resources without overprovisioning.
+
+<Callout type="info">
+**Note:** When using the `req_vram` attribute, make sure the value you specify is between 0% and 100% of the GPU's total VRAM. For example, don't request more than 100% of the VRAM or less than 0%.
 </Callout>

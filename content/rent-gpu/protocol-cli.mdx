@@ -438,6 +438,12 @@ Here is the logs for the Lease ID: 101
 
 ### Startup Logs from Fizz Node
 
+<Callout type="warning">
+**Note:** The startup logs feature is only available in `fizz` mode. When using `provider` mode, startup logs cannot be accessed.
+</Callout>
+
+
+
 To view startup logs specifically from the fizz node, which can be crucial for troubleshooting deployment issues, use the following command:
 
 ```sh
@@ -553,6 +559,11 @@ There are some other options that you can use to stream events or change output 
 
 
 ### Connect to Deployment Shell
+
+<Callout type="info">
+**Note:** The shell access feature is only available in `provider` mode. When using `fizz` mode, shell access cannot be accessed.
+</Callout>
+
 To connect to your deployment's shell access, you need to run this command to fetch it:
 
 ```sh
@@ -584,6 +595,150 @@ This will create a shell access to the service running on the instance. The serv
 | `--tty`                                  | No                 | Connect an interactive terminal to the deployment. If not passed, it will only log the result of the command sent.                        |
 | `--replica-index`&nbsp;&nbsp;&nbsp;&nbsp;| No                 | Replica index of the service in the instance to connect to if there are multiple of them otherwise not needed.                            |
 
+### SSH Access to Deployment
+
+You can access your deployment via SSH for more convenient management and advanced operations. This requires a few setup steps.
+
+#### Generate SSH Key Pair
+
+First, generate an SSH key pair on your local machine if you don't already have one:
+
+```sh
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+Follow the prompts to save the key. By default, the keys will be saved in `~/.ssh/id_rsa` (private key) and `~/.ssh/id_rsa.pub` (public key).
+
+#### Create a Deployment with SSH Support
+
+Ensure your deployment uses an image that supports SSH access. You can reference SSH-compatible images like those in the Spheron Docker repository:
+
+```yaml
+version: "1.0"
+
+services:
+  pytorch-server:
+    image: spheronfdn/pytorch:latest
+    pull_policy: Always
+    expose:
+      - port: 22
+        as: 22
+        to:
+          - global: true
+    params:
+      storage:
+        default:
+          mount: /home/jovyan
+          readOnly: false
+profiles:
+  name: pytorch-server
+  duration: 1h
+  mode: provider
+  compute:
+    pytorch-server:
+      resources:
+        cpu:
+          units: 8
+        memory:
+          size: 16Gi
+        storage:
+          name: "default"
+          size: 200Gi
+          attributes:
+            persistent: true
+            class: beta3
+        gpu:
+          units: 1
+          attributes:
+            vendor:
+              nvidia:
+                - model: rtx4090
+  placement:
+    westcoast:
+      pricing:
+        pytorch-server:
+          token: uSPON
+          amount: 1
+
+deployment:
+  pytorch-server:
+    westcoast:
+      profile: pytorch-server
+      count: 1
+
+```
+
+<Callout type="info">
+**NOTE:** Make sure to expose port 22 in your deployment configuration as shown above. This is essential for SSH access to work properly.
+</Callout>
+
+#### Set SSH Public Key for Deployment
+
+Add your public SSH key to the deployment:
+
+```sh
+sphnctl deployment ssh set-key [path-to-public-key]
+```
+
+**Example:**
+
+```sh
+sphnctl deployment ssh set-key ~/.ssh/id_rsa.pub
+```
+
+Here is an example of how the result will look:
+
+```sh
+Public key set successfully
+```
+
+#### Enable SSH for Your Deployment
+
+Make sure to wait for the deployment to be ready before setting the SSH key. Enable SSH access for a specific deployment:
+
+```sh
+sphnctl deployment ssh enable --lid [Lease ID]
+```
+
+**Example:**
+
+```sh
+sphnctl deployment ssh enable --lid 90
+```
+
+Here is an example of how the result will look:
+
+```sh
+Enabling SSH access to the deployment...
+User: root
+Deployment ID: 90
+Public Key: /Users/test.pub
+Waiting for deployment to be ready...
+Deployment is ready...
+SSH port: 32496
+SSH host: provider.thor.gpufarm.xyz
+Please use the following command to connect to the deployment:
+	ssh -i <private-key> -p 32496 root@provider.example.xyz
+```
+
+Once SSH is enabled, you can connect to your deployment using standard SSH commands:
+
+```sh
+ssh -i [PRIVATE_KEY] -p [PORT] [USER]@[HOST]
+```
+
+<Callout type="info">
+**NOTE:** SSH access requires that your deployment use an SSH-compatible image and that the provider supports SSH connections. Not all deployment configurations may support SSH access.
+
+Here are some of the images that we added support for SSH access and their templates:
+
+- [spheronfdn/pytorch:latest](https://github.com/spheronFdn/awesome-spheron/blob/main/pytorch/spheron.yaml)
+- [spheronfdn/tensorflow:latest](https://github.com/spheronFdn/awesome-spheron/blob/main/tensorflow/spheron.yaml)
+- [spheronfdn/cuda:12.3.1-devel-ubuntu22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/nvidia-cuda-devel/spheron.yaml)
+- [spheronfdn/cuda:12.4.1-cudnn-devel-ubuntu22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/nvidia-cudnn-devel/spheron.yaml)
+- [spheronfdn/ubuntu:22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/ubuntu22/spheron.yaml)
+- [spheronfdn/ubuntu:24.04](https://github.com/spheronFdn/awesome-spheron/blob/main/ubuntu24/spheron.yaml)
+</Callout>
 
 ### Update the Deployment
 Update the `deploy.yml` manifest file with the desired change.
