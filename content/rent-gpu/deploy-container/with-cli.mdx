@@ -281,6 +281,94 @@ Here is the logs for the Lease ID: 44
 ...
 ```
 
+### SSH Access to Deployment
+
+To access your deployment via SSH for more convenient management and advanced operations, follow these steps:
+
+1. **Generate SSH Key Pair (if you don't already have one)**
+
+   Generate an SSH key pair on your local machine:
+
+   ```sh
+   ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+   ```
+
+   Follow the prompts to save the key. By default, the keys will be saved in `~/.ssh/id_rsa` (private key) and `~/.ssh/id_rsa.pub` (public key).
+
+2. **Create a Deployment with SSH Support**
+
+   Ensure your deployment uses an SSH-compatible image and exposes port 22. Here's an example configuration:
+
+   ```yaml
+   services:
+     pytorch-server:
+       image: spheronfdn/pytorch:latest
+       expose:
+         - port: 22
+           as: 22
+           to:
+             - global: true
+   ```
+
+3. **Set Your SSH Public Key**
+
+   Make sure to wait for the deployment to be ready before setting the SSH key. Add your public SSH key to be used with deployments:
+
+   ```sh
+   sphnctl deployment ssh set-key ~/.ssh/id_rsa.pub
+   ```
+
+   The result will show:
+   ```
+   Public key set successfully
+   ```
+
+4. **Enable SSH for Your Deployment**
+
+   Enable SSH access for your specific deployment:
+
+   ```sh
+   sphnctl deployment ssh enable --lid <LID>
+   ```
+
+   For example:
+   ```sh
+   sphnctl deployment ssh enable --lid 44
+   ```
+
+   The output will provide connection details:
+   ```
+   Enabling SSH access to the deployment...
+   User: root
+   Deployment ID: 44
+   Public Key: /Users/username/.ssh/id_rsa.pub
+   Waiting for deployment to be ready...
+   Deployment is ready...
+   SSH port: 32496
+   SSH host: provider.thor.gpufarm.xyz
+   Please use the following command to connect to the deployment:
+   	ssh -i <private-key> -p 32496 root@provider.thor.gpufarm.xyz
+   ```
+
+5. **Connect via SSH**
+
+   Use the provided command to connect to your deployment:
+
+   ```sh
+   ssh -i ~/.ssh/id_rsa -p 32496 root@provider.thor.gpufarm.xyz
+   ```
+
+<Callout type="info">
+**NOTE:** SSH access requires that your deployment use an SSH-compatible image and that the provider supports SSH connections. Some Spheron-supported images with SSH access include:
+
+- [spheronfdn/pytorch:latest](https://github.com/spheronFdn/awesome-spheron/blob/main/pytorch/spheron.yaml)
+- [spheronfdn/tensorflow:latest](https://github.com/spheronFdn/awesome-spheron/blob/main/tensorflow/spheron.yaml)
+- [spheronfdn/cuda:12.3.1-devel-ubuntu22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/nvidia-cuda-devel/spheron.yaml)
+- [spheronfdn/cuda:12.4.1-cudnn-devel-ubuntu22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/nvidia-cudnn-devel/spheron.yaml)
+- [spheronfdn/ubuntu:22.04](https://github.com/spheronFdn/awesome-spheron/blob/main/ubuntu22/spheron.yaml)
+- [spheronfdn/ubuntu:24.04](https://github.com/spheronFdn/awesome-spheron/blob/main/ubuntu24/spheron.yaml)
+</Callout>
+
 ### Connect to the deployment shell
 
 To connect to the deployment shell, you need to run this command:
