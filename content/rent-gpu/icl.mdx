@@ -680,7 +680,7 @@ This is particularly useful when you need to:
 The region must match one of Spheron's [supported region codes](/rent-gpu/supports#supported-regions). If not specified, your application can be deployed in any available region.
 </Callout>
 
-#### 2. Exclude Region
+#### 2. Region Exclusion
 Use the `exclude_region` attribute to specify which geographic regions your application should not be deployed in:
 
 ```yaml
@@ -723,10 +723,36 @@ This is helpful when you:
 - Want to distribute your workload across multiple preferred providers
 
 <Callout type="info">
-This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen provider(s).
+This works in both `provider` and `fizz` modes. In `fizz` mode, it will select fizz nodes that are connected to your chosen gateway(s).
 </Callout>
 
-#### 3. Fizz Node Selection
+#### 4. Provider Exclusion
+
+You can exclude a provider from your deployment using the `exclude_provider` attribute:
+
+```yaml
+attributes:
+  provider_exclude: "0x1234...5678"  # Replace with actual provider address
+```
+
+You can also exclude multiple providers as a semicolon-separated list:
+
+```yaml
+attributes:
+  provider_exclude: "0x1234...5678;0xabcd...1234;0xefgh...5678"  # Multiple provider addresses
+```
+
+This is useful when you:
+- Want to exclude a specific provider from deployment
+- Need to ensure your application does not run on a specific provider
+- Are testing provider-specific functionality
+- Have compliance requirements that prohibit deployment on certain providers
+
+<Callout type="info">
+This works in both `provider` and `fizz` modes. In `fizz` mode, it will exclude fizz nodes that are connected to the specified gateway(s).
+</Callout>
+
+#### 5. Fizz Node Selection
 For deployments using `fizz` mode, you can target a specific fizz node:
 
 ```yaml
@@ -747,7 +773,29 @@ This is useful when you:
 - Are testing node-specific functionality
 - Want to distribute your workload across multiple preferred fizz nodes
 
-#### 4. Bandwidth Selection
+#### 6. Fizz Node Exclusion
+
+You can exclude a fizz node from your deployment using the `exclude_fizz` attribute:
+
+```yaml
+attributes:
+  fizz_exclude: "0x1234...5678"  # Replace with actual fizz node address
+```
+
+You can also exclude multiple fizz nodes as a semicolon-separated list:
+
+```yaml
+attributes:
+  fizz_exclude: "0x1234...5678;0xabcd...1234;0xefgh...5678"  # Multiple fizz node addresses
+```
+
+This is useful when you:
+- Want to exclude a specific fizz node from deployment
+- Need to ensure your application does not run on a specific fizz node
+- Are testing fizz node-specific functionality
+- Have compliance requirements that prohibit deployment on certain fizz nodes
+
+#### 7. Bandwidth Selection
 <Callout type="info">
   **Note:** This is only applicable for fizz mode deployments.
 </Callout>
@@ -773,7 +821,9 @@ profiles:
       attributes:
         region: us-east                              # Geographic region
         desired_provider: "0x1234...5678"            # Specific provider
+        provider_exclude: "0x1234...5678"            # Exclude specific provider
         desired_fizz: "0xabcd...ef12"                # Specific fizz node
+        fizz_exclude: "0xabcd...ef12"                # Exclude specific fizz node
         bandwidth: 100mbps                            # Minimum bandwidth
       pricing:
         web:

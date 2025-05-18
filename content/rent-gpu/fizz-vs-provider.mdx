@@ -113,12 +113,11 @@ profiles:
           size: 1Gi
 ```
 
-- Limited resource availability - max 32 units of CPU, 128Gi of memory and 2000Gi of storage, and only 1 GPU in a Fizz node
+- Limited resource availability - max 32 units of CPU, 128Gi of memory and 2000Gi of storage
 - Variable performance - Can have downtime if fizz node is stopped by the user
-- Limited scaling options - Updating resource in runtime is not supported
+- Updating resource in runtime is supported
 - Shared Memory (SHM) is not supported
-- You can't change count to multiple containers in a single deployment
-- Can't deploy multiple GPUs for a single deployment
+- You can change count to multiple containers in a single deployment
 
 ### 3. Logging and Monitoring
 
@@ -145,23 +144,23 @@ sphnctl deployment logs --lid 123 --startup
 sphnctl deployment logs --lid 123
 ```
 
-- Basic logging capabilities
-- Startup logs available - to check what's happening during the startup of your application
-- Limited filtering options
+- Real-time log streaming - you can follow the logs as they are generated
+- Service-specific logging
 - Detailed event tracking - you can see all the events happening in your deployment
 
 ### 4. Deployment Updates
 
 #### Provider Mode
-- Dynamic resource scaling
-- Live environment updates
-- Container image updates
-- Zero-downtime updates
-- Secure and more reliable
+- Dynamic resource scaling - you can update the resource in runtime
+- Live environment updates - you can update the environment variables in runtime
+- Container image updates - you can update the container image in runtime
+- Zero-downtime updates - you can update the container image in runtime without downtime
+- Secure and more reliable - you can update the container image in runtime without downtime
 
 #### Fizz Mode
-- Can't update resource in runtime
-- May require redeployment to update deployment resource specification
+- Dynamic resource scaling - you can update the resource in runtime
+- Live environment updates - you can update the environment variables in runtime
+- Container image updates - you can update the container image in runtime
 
 ## Best Practices
 
