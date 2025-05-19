@@ -1,0 +1,61 @@
+import { Callout } from "nextra/components";
+import { Steps } from 'nextra/components'
+
+# Generate SSH Keys
+
+# Overview
+SSH (Secure Shell) keys provide secure authentication for accessing your rented GPU instances on Spheron. This guide explains how to generate and set up SSH keys.
+
+## What are SSH Keys?
+SSH keys use public-key cryptography to authenticate connections:
+
+- **Public Key**: Uploaded to Spheron and installed on the GPU server
+- **Private Key**: Kept securely on your local machine
+- **Key Pair**: The public and private keys work together to establish secure connections
+
+## Prerequisites
+- Local machine with terminal access 
+- Spheron account with some credits
+
+This guide will walk you through generating a new SSH key pair and configuring it for use with your Spheron GPU deployments.
+
+<Steps>
+### Open a Terminal
+On your computer, open a terminal window.
+
+### Run the SSH Key Generation Command
+Type the following command and press Enter:
+
+```sh
+ssh-keygen
+```
+
+### Choose the Save Location
+Press Enter to accept the default location (usually `~/.ssh/id_rsa`).
+
+### Set a Passphrase (Optional)
+You will be prompted to enter a passphrase to secure your key:
+  1. To skip, just press Enter twice (once to skip, once to confirm an empty passphrase).
+  2. To add extra security, enter a passphrase. (You will need to enter this passphrase whenever you use your SSH key.)
+
+### Key Generation Complete
+1. Once the key is generated, you will see output showing where your private and public keys have been saved.
+2. Your public key file is usually named `id_rsa.pub` and is located in the `~/.ssh/` directory.
+
+### Upload Your Public Key to Spheron Console
+1. Go to **User Settings > SSH Settings** in your Spheron console.
+2. Upload the contents of your `id_rsa.pub` file.
+
+### Or Use CLI to setup SSH Key
+Use the following command to setup your SSH key:
+
+```sh
+sphnctl deployment ssh set-key ~/.ssh/id_rsa.pub
+```
+
+This will allow you secure, remote access to your rented GPU.
+</Steps>
+
+<Callout type="info">
+  If you already have a public key, you may use it and do not need to generate a new one.
+</Callout>
