@@ -116,16 +116,16 @@ We support almost all CPU types and continuously add support for new CPUs. This 
 
 Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there are specific liveness and resource requirements that determine reward accrual:
 
-#### ⚖️ How Reward Accrual Works
+#### How Reward Accrual Works
 
 We determine reward accrual based on two main factors: uptime and resource delivery.
 
-#### 🕒 Uptime Rules:
+#### Uptime Rules:
 
 - **Below 50% uptime**: If a node has less than 50% uptime during an ERA, it will not accrue any rewards for that period. We treat it as completely unreliable.
 - **Above 50% uptime**: If uptime is above 50%, we then evaluate how well the node delivered on its promised resources to determine the final reward amount.
 
-#### 📉 Resource-Based Reward Reduction:
+#### Resource-Based Reward Reduction:
 
 When a node meets the minimum 50% uptime requirement, we evaluate its resource delivery performance. If the node didn't meet its promised resource allocations, we reduce its rewards proportionally based on how much it underdelivered.
 
@@ -179,7 +179,7 @@ Liveness for Fizz nodes is calculated using an hourly challenge system:
 - If the node fails to respond or fails the resource validation, the liveness check for that hour fails.
 - The network tracks both uptime percentage and resource delivery performance throughout the ERA.
 
-#### 🧠 Summary:
+#### Summary:
 
 - **Poor uptime (< 50%)** = no rewards accrued for that ERA
 - **Good uptime (≥ 50%)** = rewards calculated with potential reductions based on resource delivery performance
@@ -222,12 +222,12 @@ Where:
 4. **Final ERA Reward** = `Base Resource Points × 1 × Resource Delivery Factor`
 
 **Example Calculation:**
-- Base Resource Points: 500 (for RTX 4090)
-- Uptime: 80% (≥ 50%, so Uptime Factor = 1)
-- Resource shortfalls: 10% CPU, 5% Memory, 0% Storage, 20% GPU
-- Resource shortfall reductions: (10% × 20%) + (5% × 10%) + (0% × 10%) + (20% × 60%) = 2% + 0.5% + 0% + 12% = 14.5%
-- Resource Delivery Factor: 1 - 0.145 = 0.855
-- **Final ERA Reward: 500 × 1 × 0.855 = 427.5 points**
+- Base Resource Points: `500 (for RTX 4090)`
+- Uptime: `80% (≥ 50%, so Uptime Factor = 1)`
+- Resource shortfalls: `10% CPU, 5% Memory, 0% Storage, 20% GPU`
+- Resource shortfall reductions: <br />`(10% × 20%) + (5% × 10%) + (0% × 10%) + (20% × 60%) = 2% + 0.5% + 0% + 12% = 14.5%`
+- Resource Delivery Factor: `1 - 0.145 = 0.855`
+- **Final ERA Reward:** `500 × 1 × 0.855 = 427.5 points`
 
 ## Direct Earnings from Users
 
