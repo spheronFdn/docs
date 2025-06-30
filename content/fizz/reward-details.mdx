@@ -112,46 +112,122 @@ We support almost all CPU types and continuously add support for new CPUs. This 
 - **Storage / GB/mo:** This is the price for storage in USD per GB per month. The price is fixed at $0.01 per GB per month for all CPU types.
 
 
-### Liveness Requirement
+### Liveness Requirement and Reward Calculation
 
-Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there is still a minimum liveness requirement to receive points:
+Unlike provider nodes, Fizz nodes do not have a trust tiering system. The network assumes Fizz nodes are less reliable and suitable for specific use cases that don't require highly stable systems. However, there are specific liveness and resource requirements that determine reward accrual:
 
-- Fizz nodes must maintain at least 50% liveness within an ERA to receive points. i.e you need to be online for at least 12 hours in a 24 hour period to receive points.
-- If a Fizz node's liveness falls below 50% in an ERA, you will not accrue any points for that ERA.
+#### ⚖️ How Reward Accrual Works
+
+We determine reward accrual based on two main factors: uptime and resource delivery.
+
+#### 🕒 Uptime Rules:
+
+- **Below 50% uptime**: If a node has less than 50% uptime during an ERA, it will not accrue any rewards for that period. We treat it as completely unreliable.
+- **Above 50% uptime**: If uptime is above 50%, we then evaluate how well the node delivered on its promised resources to determine the final reward amount.
+
+#### 📉 Resource-Based Reward Reduction:
+
+When a node meets the minimum 50% uptime requirement, we evaluate its resource delivery performance. If the node didn't meet its promised resource allocations, we reduce its rewards proportionally based on how much it underdelivered.
+
+**Resource Evaluation Categories:**
+- **CPU**
+- **Memory (RAM)**
+- **Storage**
+- **GPU** (if applicable)
+
+**Resource Weights:**
+
+The importance of each resource depends on whether the node claimed to have a GPU:
+
+**If GPU is present:**
+- CPU = 20%
+- Memory = 10% 
+- Storage = 10%
+- GPU = 60%
+
+**If no GPU:**
+- CPU = 50%
+- Memory = 25%
+- Storage = 25%
+
+**Reward Reduction Calculation:**
+
+For each resource category, if the node underdelivered on its promises, we reduce the rewards by a percentage equal to:
+
+```
+Reward Reduction = (Resource Shortfall Percentage) × (Resource Weight)
+```
+
+**Example:** If a node with GPU promised certain resources but only delivered:
+- 50% of promised CPU → 50% shortfall × 20% weight = 10% reward reduction
+- 80% of promised Memory → 20% shortfall × 10% weight = 2% reward reduction  
+- 90% of promised Storage → 10% shortfall × 10% weight = 1% reward reduction
+- 70% of promised GPU → 30% shortfall × 60% weight = 18% reward reduction
+
+**Total reward reduction = 10% + 2% + 1% + 18% = 31%**
+
+So the node would receive 69% of its potential rewards for that ERA.
 
 ### How Liveness is Calculated
 
-Liveness for Fizz nodes is calculated using a simple hourly challenge system:
+Liveness for Fizz nodes is calculated using an hourly challenge system:
 
 - Every hour, at multiple random times, the network checks if the Fizz node is live and operational.
 - The network will also check if your node is maintaining the latest version of fizz node both Fizz Node version and the CLI version. The latest version will change as team releases new versions. Please make sure to be active on the Spheron Discord server to get notified for the latest versions.
 - During this hourly check, the network also validates that the available resources (GPU VRAM, CPU, RAM, and Storage) match what was claimed during node registration, excluding resources currently being utilized.
 - If the node responds successfully to the challenge and passes the resource validation, it passes the liveness check for that hour.
 - If the node fails to respond or fails the resource validation, the liveness check for that hour fails.
-- If a Fizz node fails the minimun 50% of the challenges in an ERA (24 hrs), you will not accrue any points for that ERA.
+- The network tracks both uptime percentage and resource delivery performance throughout the ERA.
+
+#### 🧠 Summary:
+
+- **Poor uptime (< 50%)** = no rewards accrued for that ERA
+- **Good uptime (≥ 50%)** = rewards calculated with potential reductions based on resource delivery performance
+- **Resource weights** depend on whether GPU was promised
+- **Multiple resource shortfalls** can compound to significantly reduce rewards
 
 <Callout type="warning">
-**Important:** Ensure you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks, leading to point loss for the ERA if liveness falls below 50%.
+**Important:** Ensure you verify your available resources in the dashboard after connecting your Fizz node. If the actual resources differ from what was claimed, update your setup and restart the node. Failing resource validation will result in failed liveness checks and reduced rewards based on the resource shortfall calculations above.
 </Callout>
 
 This system ensures that Fizz nodes are incentivized to maintain both reasonable availability and accurate resource reporting without the stricter requirements placed on provider nodes.
 
 ## Reward Calculation
 
-The reward for Fizz nodes is calculated based on two main factors:
+The reward for Fizz nodes is calculated based on multiple factors that ensure both resource contribution and reliable performance:
 
-1. **Resource Contribution**: The amount and quality of resources (e.g., GPU, CPU, storage) contributed to the network.
-2. **Liveness**: Whether the node maintained at least 50% liveness during the ERA.
+1. **Base Resource Contribution**: The amount and quality of resources (e.g., GPU, CPU, storage) contributed to the network.
+2. **Uptime Performance**: Whether the node maintained at least 50% uptime during the ERA.
+3. **Resource Delivery Performance**: How well the node delivered on its promised resource allocations.
 
 The final reward for an ERA is calculated as follows:
 
 ```
-ERA Reward = Resource Reward Points * Liveness Factor
+ERA Reward = Base Resource Points * Uptime Factor * Resource Delivery Factor
 
 Where:
-- Resource Reward is calculated based on the contributed resources
-- Liveness Factor is 1 if liveness ≥ 50%, or 0 if liveness < 50%
+- Base Resource Points = calculated based on contributed resources
+- Uptime Factor = 1 if uptime ≥ 50%, or 0 if uptime < 50%
+- Resource Delivery Factor = 1 - (Total Resource Shortfall Reduction Percentage)
 ```
+
+**Detailed Calculation Steps:**
+
+1. **Calculate Base Resource Points** using the tier multipliers from the resource tables above
+2. **Apply Uptime Factor**: If uptime < 50%, final reward = 0 (no further calculation needed)
+3. **Calculate Resource Delivery Factor** (if uptime ≥ 50%):
+   - For each resource category (CPU, Memory, Storage, GPU), calculate: `(Shortfall %) × (Resource Weight)`
+   - Sum all resource shortfall reductions
+   - Resource Delivery Factor = `1 - (Total Shortfall Reduction)`
+4. **Final ERA Reward** = `Base Resource Points × 1 × Resource Delivery Factor`
+
+**Example Calculation:**
+- Base Resource Points: 500 (for RTX 4090)
+- Uptime: 80% (≥ 50%, so Uptime Factor = 1)
+- Resource shortfalls: 10% CPU, 5% Memory, 0% Storage, 20% GPU
+- Resource shortfall reductions: (10% × 20%) + (5% × 10%) + (0% × 10%) + (20% × 60%) = 2% + 0.5% + 0% + 12% = 14.5%
+- Resource Delivery Factor: 1 - 0.145 = 0.855
+- **Final ERA Reward: 500 × 1 × 0.855 = 427.5 points**
 
 ## Direct Earnings from Users
 
@@ -182,3 +258,63 @@ This means that as a Fizz node operator, you receive 90% of the total amount pai
 </Callout>
 
 By Offering competitive pricing and maintaining good resource availability can maximize your direct earnings from user leases and the liveness points.
+
+## Security Compliance and Network Integrity
+
+To maintain the security and integrity of the Spheron network, all Fizz nodes are equipped with comprehensive security monitoring systems. These systems are designed to protect user workloads and ensure the trustworthiness of the network.
+
+### What We Monitor
+
+The Fizz node security module continuously monitors for potential violations, including but not limited to:
+
+- **Unauthorized access attempts** to user workloads
+- **Improper termination** of user workloads
+- **Data integrity violations** or unauthorized data access
+- **Network security breaches** or suspicious activities
+
+### Compliance Requirements
+
+- Maintain the integrity of user workloads deployed on their nodes
+- Refrain from accessing, modifying, or interfering with user data or applications
+- Ensure their systems are secure and free from malicious software
+- Follow all network protocols and security guidelines
+
+### Enforcement Process
+
+**Progressive Enforcement:**
+- **Warning Phase**: Initial security violations trigger warning notifications visible on your dashboard
+- **Monitoring Phase**: Continued violations result in enhanced monitoring and additional scrutiny
+- **Network Suspension**: Persistent violations may result in temporary or permanent removal from the network
+
+### Consequences of Violations
+
+**For Severe or Repeated Violations:**
+- **Network Ban**: Complete removal from the Fizz network
+- **Point Forfeiture**: Loss of all accumulated FN (Fizz Node) Points
+- **Access Restriction**: Inability to operate future Fizz nodes
+
+<Callout type="error">
+**Important Notice**: Network bans result in the complete forfeiture of all accumulated points and permanent restriction from network participation. This measure ensures the security and trustworthiness of the Spheron ecosystem.
+</Callout>
+
+### Appeal Process
+
+If you believe you have received security violation warnings in error:
+
+1. **Immediate Action**: Stop any activities that might trigger additional violations
+2. **Documentation**: Gather all relevant evidence supporting your case
+3. **Contact Support**: Submit your appeal with evidence to the Spheron team via Discord
+4. **Review Process**: Our security audit team will conduct a thorough investigation
+5. **Resolution Timeline**: Appeals are typically resolved within 7-10 business days, depending on case complexity and influx of appeals
+
+**Required Evidence for Appeals:**
+- Detailed explanation of your node setup and operations along with the fizz node address
+- System logs and configuration files
+- Screenshots of dashboard warnings or errors
+- Any other relevant technical documentation
+
+<Callout type="info">
+**Appeal Guidelines**: The security audit team reviews each case individually. Providing comprehensive evidence and maintaining transparent communication will help expedite the review process.
+</Callout>
+
+This security framework ensures that the Spheron network remains a safe and reliable platform for all users while providing fair processes for node operators to address any compliance concerns.
