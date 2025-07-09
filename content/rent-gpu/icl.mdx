@@ -956,3 +956,111 @@ Specifying VRAM requirements provides several advantages:
 <Callout type="info">
 **Note:** When using the `req_vram` attribute, make sure the value you specify is between 0% and 100% of the GPU's total VRAM. For example, don't request more than 100% of the VRAM or less than 0%.
 </Callout>
+
+## 14. Persistent Storage
+
+Spheron's Infrastructure Composition Language (ICL) supports persistent storage, allowing you to maintain data across container restarts and server failures during your lease duration. This feature is essential for applications that need to preserve data, such as databases, file systems, or any application that generates important data that should survive container restarts.
+
+### How Persistent Storage Works
+
+Persistent storage in Spheron provides the following behavior:
+
+1. **During Lease Duration**: Files stored in the persistent mount point will survive container restarts, server failures, or application crashes. If your application exits due to Out of Memory (OOM) errors or other issues, the persistent data remains intact.
+
+2. **Lease Closure**: When your lease expires or is manually closed, all persistent storage data is permanently destroyed and cannot be recovered.
+
+3. **Mount Point Persistence**: Any files written to the specified mount point will be persisted to the underlying storage system.
+
+### Configuring Persistent Storage in Services
+
+To enable persistent storage in your service, add the `params.storage` section to your service definition:
+
+```yaml
+services:
+  myapp:
+    image: myregistry.com/myapp:latest
+    params:
+      storage:
+        default:
+          mount: /home/jovyan/work
+          readOnly: false
+    expose:
+      - port: 8080
+        as: 80
+        to:
+          - global: true
+```
+
+#### Service Storage Parameters
+
+| Parameter  | Required | Description |
+|------------|----------|-------------|
+| `mount`    | Yes      | The mount point where persistent storage will be available inside the container |
+| `readOnly` | No       | Whether the storage should be mounted as read-only. Defaults to `false` |
+
+### Configuring Persistent Storage in Compute Profiles
+
+In your compute profile, you need to define the persistent storage configuration:
+
+```yaml
+profiles:
+  compute:
+    myapp:
+      resources:
+        cpu:
+          units: 2
+        memory:
+          size: 4Gi
+        storage:
+          name: "default"
+          size: 200Gi
+          attributes:
+            persistent: true
+            class: beta3
+```
+
+#### Storage Configuration Parameters
+
+| Parameter    | Required | Description |
+|--------------|----------|-------------|
+| `name`       | Yes      | Must be set to "default" to match the service storage reference |
+| `size`       | Yes      | The amount of persistent storage to allocate (e.g., 200Gi) |
+| `persistent` | Yes      | Must be set to `true` to enable persistent storage |
+| `class`      | Yes      | Must be set to "beta3" (currently the only supported storage class) |
+
+### Complete Persistent Storage Example
+
+Here's a complete example of a deployment with persistent storage - [persistent storage example](https://github.com/spheronFdn/awesome-spheron/blob/main/examples/spheron.persistent.yaml)
+
+### Important Notes
+
+<Callout type="warning">
+**Storage Lifecycle**: Persistent storage is tied to your lease duration. When the lease ends, all persistent data is permanently deleted and cannot be recovered.
+</Callout>
+
+<Callout type="info">
+**Current Limitations**: 
+- The storage class must be set to "beta3" as it's the only currently supported class
+- The storage name must be "default" to properly reference it in the service configuration
+- Persistent storage is only available for provider (or secure) deployments
+</Callout>
+
+### Use Cases
+
+Persistent storage is ideal for:
+
+1. **Development Environments**: Jupyter notebooks, VS Code workspaces, or development tools that need to preserve project files
+2. **Data Processing**: Applications that process large datasets and need to store intermediate results
+3. **Databases**: Running databases that need to persist data between container restarts
+4. **File Servers**: Applications that serve files and need to maintain file integrity
+5. **AI/ML Training**: Machine learning workflows that need to save model checkpoints and training data
+
+### Best Practices
+
+1. **Backup Important Data**: Since persistent storage is destroyed when the lease ends, regularly backup critical data to external storage
+2. **Monitor Storage Usage**: Keep track of your storage usage to avoid running out of space
+3. **Use Appropriate Mount Points**: Choose mount points that align with your application's data directory structure
+4. **Consider Storage Size**: Allocate sufficient storage space for your application's needs, keeping in mind the cost implications
+
+For a complete working example, refer to the [persistent storage example](https://github.com/spheronFdn/awesome-spheron/blob/main/examples/spheron.persistent.yaml) in the Spheron examples repository.
+
