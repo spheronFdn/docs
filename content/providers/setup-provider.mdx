@@ -218,7 +218,7 @@ kubectl create ns spheron-services
 kubectl label ns spheron-services spheron.network/name=spheron-services spheron.network=true
 kubectl create ns lease
 kubectl label ns lease spheron.network=true
-wget https://spheron-release.s3.amazonaws.com/crd/crd.yaml
+wget https://spheron-release.s3.us-east-1.amazonaws.com/v2/crd.yaml
 kubectl apply -f crd.yaml
 ```
 
@@ -355,17 +355,7 @@ helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
         --set resources.limits.memory="2Gi" \
         --set resources.requests.cpu="1" \
         --set resources.requests.memory="1Gi"
-
-kubectl rollout restart statefulset/spheron-provider -n spheron-services        
-```
-
-## Install Operators
-
-Install the hostname and inventory operators
-
-```sh
-helm upgrade --install spheron-hostname-operator ./spheron-hostname-operator -n spheron-services
-helm upgrade --install inventory-operator ./spheron-inventory-operator -n spheron-services
+       
 ```
 
 ## Verify the node has GPU labels
