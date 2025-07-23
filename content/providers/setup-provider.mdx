@@ -96,7 +96,7 @@ Here is the format for the provider configuration:
 
 ```json
 {
-  "name": "spheron-provider-1",
+  "name": "spheron-provider",
   "region": "us-east",
   "hostname": "provider.example.com",
   "gpu": [
@@ -205,8 +205,8 @@ cd /home/spheron
 
 export KUBECONFIG=/home/spheron/.kube/kubeconfig
 
-git clone https://github.com/spheronFdn/provider-helm-charts.git
-cd provider-helm-charts/charts
+git clone https://github.com/spheronFdn/spheron-stack.git
+cd spheron-stack/charts
 
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
 helm repo add rook-release https://charts.rook.io/release
@@ -348,23 +348,13 @@ cd /home/spheron/provider-helm-charts/charts
 REGION=$(jq -r '.region' /home/spheron/.spheron/provider-config.json)
 DOMAIN=$(jq -r '.hostname' /home/spheron/.spheron/provider-config.json)
 helm upgrade --install spheron-provider ./spheron-provider -n spheron-services \
-        --set provider.from=/spheron-key/wallet.json \
-        --set provider.keySecret=testPassword \
+        --set provider.walletPath=/spheron-key/wallet.json \
+        --set provider.walletSecret=testPassword \
         --set provider.domain=$DOMAIN \
-        --set bidPrice.strategy=shellScript \
-        --set bidpricescript="$(cat /home/spheron/bidscript.sh | openssl base64 -A)" \
-        --set ipoperator=false \
-        --set node=spheron \
-        --set log_restart_patterns="rpc node is not catching up|bid failed" \
         --set resources.limits.cpu="2" \
         --set resources.limits.memory="2Gi" \
         --set resources.requests.cpu="1" \
         --set resources.requests.memory="1Gi"
-        
-kubectl patch configmap spheron-provider-scripts \
-      --namespace spheron-services \
-      --type json \
-      --patch='[{"op": "add", "path": "/data/liveness_checks.sh", "value":"#!/bin/bash\necho \"Liveness check bypassed\""}]'
 
 kubectl rollout restart statefulset/spheron-provider -n spheron-services        
 ```
