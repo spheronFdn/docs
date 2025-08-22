@@ -58,4 +58,4 @@ The Spheron community extends beyond issues and pull requests! You can support S
 
 ## Community
 
-For help, discussions or any other queries: [Join us on Discord](https://discord.com/invite/ahxuCtm)
+For help, discussions or any other queries: [Join us on Discord](https://sphn.wiki/discord)
